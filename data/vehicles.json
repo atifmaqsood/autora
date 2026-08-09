@@ -1,0 +1,1120 @@
+[
+  {
+    "id": "v-001",
+    "slug": "toyota-land-cruiser-300-vxr-2025",
+    "make": "Toyota",
+    "model": "Land Cruiser 300",
+    "variant": "VXR 3.5L Twin-Turbo",
+    "year": 2025,
+    "category": "SUV",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 118000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "4WD",
+    "engine": "3.5L Twin-Turbo V6",
+    "engineSize": "3.5L",
+    "horsepower": 409,
+    "torque": "650 Nm",
+    "topSpeed": "210 km/h",
+    "acceleration": "6.7s (0-100 km/h)",
+    "seatingCapacity": 7,
+    "doors": 5,
+    "exteriorColor": "Pearl White",
+    "interiorColor": "Beige Leather",
+    "description": "The 2025 Toyota Land Cruiser 300 VXR represents the pinnacle of luxury, off-road durability, and refined engineering. Powered by a 3.5-liter twin-turbo V6 producing 409 HP and paired with a 10-speed automatic transmission, it effortlessly handles rough terrain and smooth highways alike.",
+    "images": [
+      "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Adaptive Variable Suspension (AVS)",
+      "Multi-Terrain Select (MTS)",
+      "Crawl Control with Turn Assist",
+      "12.3-inch Touchscreen Navigation",
+      "JBL 14-Speaker Premium Audio",
+      "360-Degree Panoramic View Monitor",
+      "Head-Up Display (HUD)",
+      "Wireless Apple CarPlay & Android Auto",
+      "Rear Seat Entertainment Dual Screens",
+      "Toyota Safety Sense 3.0"
+    ],
+    "specifications": [
+      {
+        "groupName": "Performance & Engine",
+        "items": {
+          "Engine Type": "3.5L V6 Twin-Turbo DOHC 24V",
+          "Displacement": "3,445 cc",
+          "Max Power": "409 HP @ 5,200 RPM",
+          "Max Torque": "650 Nm @ 2,000 - 3,600 RPM",
+          "0-100 km/h Acceleration": "6.7 seconds",
+          "Top Speed": "210 km/h"
+        }
+      },
+      {
+        "groupName": "Transmission & Drivetrain",
+        "items": {
+          "Transmission": "10-Speed Direct Shift Automatic",
+          "Drive Type": "Full-Time 4WD with Torsen LSD",
+          "Differential Locks": "Center & Rear Differential Locks"
+        }
+      },
+      {
+        "groupName": "Dimensions & Weight",
+        "items": {
+          "Overall Length": "5,115 mm",
+          "Overall Width": "1,980 mm",
+          "Overall Height": "1,945 mm",
+          "Wheelbase": "2,850 mm",
+          "Ground Clearance": "235 mm",
+          "Curb Weight": "2,630 kg"
+        }
+      },
+      {
+        "groupName": "Capacity & Fuel",
+        "items": {
+          "Seating Capacity": "7 Seats",
+          "Fuel Tank Capacity": "110 Liters (11L Sub-tank included)",
+          "Cargo Capacity": "1,131 Liters (3rd row folded)",
+          "Fuel Type": "Petrol"
+        }
+      }
+    ],
+    "location": "Main Showroom - Dubai Hub",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-002",
+    "slug": "lexus-lx-600-ultra-luxury-2025",
+    "make": "Lexus",
+    "model": "LX 600",
+    "variant": "Ultra Luxury VIP Package",
+    "year": 2025,
+    "category": "Luxury",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 145000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "3.5L Twin-Turbo V6",
+    "engineSize": "3.5L",
+    "horsepower": 409,
+    "torque": "650 Nm",
+    "topSpeed": "210 km/h",
+    "acceleration": "6.9s (0-100 km/h)",
+    "seatingCapacity": 4,
+    "doors": 5,
+    "exteriorColor": "Manganese Luster",
+    "interiorColor": "Sunflare Orange Leather",
+    "description": "The Lexus LX 600 Ultra Luxury redefines executive transport with individual rear captain seats featuring massage programs, power recline, and footrests. Experience supreme acoustic isolation and seamless adaptive suspension.",
+    "images": [
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Individual Rear Executive Captain Chairs with Massage",
+      "Mark Levinson 25-Speaker Reference 3D Surround Sound",
+      "Active Height Control (AHC) Air Suspension",
+      "Dual 11.6-inch Rear Entertainment Touchscreens",
+      "Ottoman Passenger Footrest",
+      "Cool Box Center Storage",
+      "Digital Rearview Mirror",
+      "Soft-Close Automatic Doors"
+    ],
+    "specifications": [
+      {
+        "groupName": "Performance & Engine",
+        "items": {
+          "Engine Type": "3.5L V6 Twin-Turbocharged",
+          "Max Power": "409 HP @ 5,200 RPM",
+          "Max Torque": "650 Nm @ 2,000 - 3,600 RPM",
+          "Top Speed": "210 km/h"
+        }
+      },
+      {
+        "groupName": "Luxury & Comfort",
+        "items": {
+          "Rear Seat Recline": "Up to 48 Degrees",
+          "Sound System": "25-Speaker Mark Levinson 2,400W",
+          "Upholstery": "Semi-Aniline Quilted Leather"
+        }
+      }
+    ],
+    "location": "Tokyo Premium Gallery",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-003",
+    "slug": "porsche-911-gt3-rs-2024",
+    "make": "Porsche",
+    "model": "911 GT3 RS",
+    "variant": "Weissach Package 4.0L",
+    "year": 2024,
+    "category": "Sports",
+    "bodyType": "Coupe",
+    "condition": "New",
+    "price": 325000,
+    "currency": "$",
+    "mileage": 120,
+    "fuelType": "Petrol",
+    "transmission": "Dual-Clutch",
+    "driveType": "RWD",
+    "engine": "4.0L Naturally Aspirated Boxer-6",
+    "engineSize": "4.0L",
+    "horsepower": 518,
+    "torque": "465 Nm",
+    "topSpeed": "296 km/h",
+    "acceleration": "3.2s (0-100 km/h)",
+    "seatingCapacity": 2,
+    "doors": 2,
+    "exteriorColor": "Ice Grey Metallic",
+    "interiorColor": "Black Race-Tex / Pyro Red Stitching",
+    "description": "Engineered for track supremacy, the Porsche 911 GT3 RS with Weissach Package delivers 518 HP from a high-revving 9,000 RPM naturally aspirated flat-six. Features active aerodynamic rear wing with DRS function.",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Weissach Package Carbon Fiber Hood & Roof",
+      "DRS Active Drag Reduction Wing System",
+      "Porsche Ceramic Composite Brakes (PCCB)",
+      "Forged Magnesium Light-Alloy Wheels",
+      "Carbon Fiber Bucket Seats",
+      "4-Mode Steering Wheel Rotary Controls (PASM, PTV+, TC, ESC)"
+    ],
+    "specifications": [
+      {
+        "groupName": "Performance Specs",
+        "items": {
+          "Engine": "4.0L Naturally Aspirated Flat-6",
+          "Max Power": "518 HP @ 8,500 RPM",
+          "Max RPM": "9,000 RPM",
+          "Transmission": "7-Speed PDK Dual-Clutch",
+          "Downforce": "860 kg @ 285 km/h"
+        }
+      }
+    ],
+    "location": "Munich Performance Center",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-004",
+    "slug": "mercedes-amg-g-63-grand-edition-2025",
+    "make": "Mercedes-Benz",
+    "model": "AMG G 63",
+    "variant": "Grand Edition V8 BiTurbo",
+    "year": 2025,
+    "category": "Off-road",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 260000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "4.0L V8 Biturbo",
+    "engineSize": "4.0L",
+    "horsepower": 577,
+    "torque": "850 Nm",
+    "topSpeed": "240 km/h",
+    "acceleration": "4.5s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 5,
+    "exteriorColor": "Manufaktur Night Black Mango",
+    "interiorColor": "Black Nappa Leather with Tech Gold Stitching",
+    "description": "Exclusive AMG G 63 Grand Edition boasting Kalahari Gold accents, forged 22-inch AMG tech gold wheels, and 577 HP hand-built AMG biturbo V8 power.",
+    "images": [
+      "https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Kalahari Gold AMG Performance Stripes",
+      "AMG Ride Control Adaptive Suspension",
+      "Burmester 3D Surround Audio System",
+      "Multibeam LED Headlamps",
+      "3 Differential Locks (100% Locking)"
+    ],
+    "specifications": [
+      {
+        "groupName": "Engine & Powertrain",
+        "items": {
+          "Engine": "4.0L AMG V8 Biturbo",
+          "Horsepower": "577 HP @ 6,000 RPM",
+          "Torque": "850 Nm @ 2,500 - 3,500 RPM"
+        }
+      }
+    ],
+    "location": "Main Showroom - Dubai Hub",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-005",
+    "slug": "range-rover-sv-autobiography-p615-2025",
+    "make": "Range Rover",
+    "model": "Range Rover SV",
+    "variant": "P615 V8 Long Wheelbase",
+    "year": 2025,
+    "category": "Luxury",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 285000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Mild Hybrid",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "4.4L Twin-Turbo V8 MHEV",
+    "engineSize": "4.4L",
+    "horsepower": 615,
+    "torque": "750 Nm",
+    "topSpeed": "261 km/h",
+    "acceleration": "4.6s (0-100 km/h)",
+    "seatingCapacity": 4,
+    "doors": 5,
+    "exteriorColor": "Sunset Gold Satin",
+    "interiorColor": "Perlino Near-Aniline Leather",
+    "description": "The ultimate Range Rover statement. Crafted by Special Vehicle Operations (SVO), featuring ceramic controls, power-deployable club table, and 615 HP twin-turbo V8.",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "SV Signature Suite Rear Seating with Club Table",
+      "Meridian Signature Sound System (1600W)",
+      "Active Noise Cancellation Headrest Speakers",
+      "All-Wheel Steering & Electronic Air Suspension",
+      "23-inch Dark Grey Forged Alloy Wheels"
+    ],
+    "specifications": [
+      {
+        "groupName": "Performance",
+        "items": {
+          "Engine": "4.4L V8 Twin-Turbochargers",
+          "Power Output": "615 HP",
+          "Torque": "750 Nm"
+        }
+      }
+    ],
+    "location": "London Flagship Store",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-006",
+    "slug": "tesla-model-s-plaid-2025",
+    "make": "Tesla",
+    "model": "Model S",
+    "variant": "Plaid Tri-Motor EV",
+    "year": 2025,
+    "category": "Electric",
+    "bodyType": "Sedan",
+    "condition": "New",
+    "price": 109000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Electric",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "Tri-Motor All-Wheel Drive",
+    "engineSize": "Electric",
+    "horsepower": 1020,
+    "torque": "1420 Nm",
+    "topSpeed": "322 km/h",
+    "acceleration": "2.1s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 5,
+    "exteriorColor": "Ultra Red",
+    "interiorColor": "All Black Premium Interior with Carbon Fiber",
+    "description": "Blistering speed and futuristic tech. Tri-Motor All-Wheel Drive with carbon-sleeved rotors delivers 1,020 HP and 0-100 km/h acceleration in 2.1 seconds.",
+    "images": [
+      "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1536700503339-1e4b06520771?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "1,020 HP Tri-Motor Architecture",
+      "17-inch Tilt Cinematic Touchscreen",
+      "Yoke Steering with Capacitive Touch",
+      "22-Speaker 960-Watt Audio System",
+      "Track Mode & Carbon Ceramic Brake Kit Optional"
+    ],
+    "specifications": [
+      {
+        "groupName": "EV Powertrain & Battery",
+        "items": {
+          "Motors": "3 Independent Carbon-Sleeved Electric Motors",
+          "Horsepower": "1,020 HP",
+          "Estimated Range": "600 km (EPA)",
+          "Charging": "250kW Supercharging (322 km in 15 mins)"
+        }
+      }
+    ],
+    "location": "Miami Showroom",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-007",
+    "slug": "ford-f-150-raptor-r-52l-v8-2025",
+    "make": "Ford",
+    "model": "F-150 Raptor R",
+    "variant": "5.2L Supercharged V8",
+    "year": 2025,
+    "category": "Pickup",
+    "bodyType": "Pickup",
+    "condition": "New",
+    "price": 115000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "4WD",
+    "engine": "5.2L Supercharged V8",
+    "engineSize": "5.2L",
+    "horsepower": 720,
+    "torque": "868 Nm",
+    "topSpeed": "180 km/h",
+    "acceleration": "3.7s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 4,
+    "exteriorColor": "Code Orange Metallic",
+    "interiorColor": "Black Recaro Leather with Orange Accents",
+    "description": "The apex predator of desert trucks. Powered by a 5.2-liter supercharged Predator V8 generating 720 HP, FOX Dual Live Valve shocks, and 37-inch all-terrain tires.",
+    "images": [
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "FOX 3.1 Live Valve Internal Bypass Shocks",
+      "37-inch BFGoodrich All-Terrain KO2 Tires",
+      "Recaro Leather & Alcantara Bucket Seats",
+      "Bang & Olufsen Unleashed 18-Speaker Audio",
+      "Pro Power Onboard 2.0kW Generator"
+    ],
+    "specifications": [
+      {
+        "groupName": "Engine & Off-Road Tech",
+        "items": {
+          "Engine": "5.2L Supercharged V8",
+          "Horsepower": "720 HP @ 6,650 RPM",
+          "Torque": "868 Nm @ 4,250 RPM",
+          "Ground Clearance": "333 mm (13.1 inches)"
+        }
+      }
+    ],
+    "location": "Main Showroom - Dubai Hub",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-008",
+    "slug": "lamborghini-urus-performante-2025",
+    "make": "Lamborghini",
+    "model": "Urus",
+    "variant": "Performante V8",
+    "year": 2025,
+    "category": "Sports",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 270000,
+    "currency": "$",
+    "mileage": 50,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "4.0L Twin-Turbo V8",
+    "engineSize": "4.0L",
+    "horsepower": 666,
+    "torque": "850 Nm",
+    "topSpeed": "306 km/h",
+    "acceleration": "3.3s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 5,
+    "exteriorColor": "Verde Viper",
+    "interiorColor": "Nero Cosmus Alcantara",
+    "description": "Super sports car soul inside an ultra SUV. The Urus Performante features lightweight carbon fiber hood, Akrapovič titanium exhaust, lower coil spring suspension, and 666 HP power.",
+    "images": [
+      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Carbon Fiber Hood & Aerodynamic Rear Spoiler",
+      "Akrapovič Titanium Lightweight Exhaust System",
+      "RALLY Mode for Loose Surface Drift Ability",
+      "Pirelli P Zero Trofeo R Tires",
+      "Bang & Olufsen 3D Advanced Sound System"
+    ],
+    "specifications": [
+      {
+        "groupName": "Engine Specs",
+        "items": {
+          "Engine": "4.0L V8 Bi-Turbo",
+          "Horsepower": "666 HP",
+          "Top Speed": "306 km/h",
+          "Acceleration 0-100 km/h": "3.3 seconds"
+        }
+      }
+    ],
+    "location": "Tokyo Premium Gallery",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-009",
+    "slug": "bmw-m5-competition-g90-2025",
+    "make": "BMW",
+    "model": "M5",
+    "variant": "V8 Hybrid Competition",
+    "year": 2025,
+    "category": "Sedan",
+    "bodyType": "Sedan",
+    "condition": "New",
+    "price": 140000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Plug-in Hybrid",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "4.4L Twin-Turbo V8 + Electric Motor",
+    "engineSize": "4.4L",
+    "horsepower": 717,
+    "torque": "1000 Nm",
+    "topSpeed": "305 km/h",
+    "acceleration": "3.5s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 4,
+    "exteriorColor": "Isle of Man Green",
+    "interiorColor": "Kyalami Orange Full Merino Leather",
+    "description": "The ninth-generation BMW M5 introduces M HYBRID technology combining a high-revving 4.4L V8 twin-turbo with an electric drive motor to generate 717 HP and 1,000 Nm torque.",
+    "images": [
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "M HYBRID Powertrain with Pure Electric EV Mode",
+      "M Carbon Ceramic Braking System",
+      "Curved Display with M-Specific Graphics",
+      "Bowers & Wilkins Diamond Surround Sound",
+      "Adaptive M Suspension Professional with Active Roll Stabilization"
+    ],
+    "specifications": [
+      {
+        "groupName": "Hybrid Powertrain",
+        "items": {
+          "Combined Output": "717 HP / 1,000 Nm Torque",
+          "EV Electric Range": "approx 67 km",
+          "Transmission": "8-Speed M Steptronic"
+        }
+      }
+    ],
+    "location": "Munich Performance Center",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-010",
+    "slug": "audi-rs-q8-performance-2025",
+    "make": "Audi",
+    "model": "RS Q8",
+    "variant": "Performance V8 640HP",
+    "year": 2025,
+    "category": "SUV",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 142000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Mild Hybrid",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "4.0L TFSI V8 Twin-Turbo MHEV",
+    "engineSize": "4.0L",
+    "horsepower": 640,
+    "torque": "850 Nm",
+    "topSpeed": "305 km/h",
+    "acceleration": "3.6s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 5,
+    "exteriorColor": "Ascari Blue Metallic",
+    "interiorColor": "Black Valcona Leather with Blue Stitching",
+    "description": "The most powerful series-production Audi Sport SUV. Features 640 HP 4.0L TFSI engine, quattro permanent all-wheel drive with sport differential, and adaptive air suspension sport.",
+    "images": [
+      "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1541348263662-e08266f92984?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "RS Ceramic Brakes with Blue Calipers",
+      "Electromechanical Active Roll Stabilization (eARS)",
+      "Bang & Olufsen 3D Advanced Sound System",
+      "HD Matrix LED Headlights with Audi Laser Light",
+      "RS Sport Exhaust System in Black"
+    ],
+    "specifications": [
+      {
+        "groupName": "Engine Specs",
+        "items": {
+          "Engine": "4.0 TFSI V8 Biturbo",
+          "Power": "640 HP",
+          "Torque": "850 Nm"
+        }
+      }
+    ],
+    "location": "Munich Performance Center",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-011",
+    "slug": "porsche-taycan-turbo-s-2025",
+    "make": "Porsche",
+    "model": "Taycan",
+    "variant": "Turbo S Electric",
+    "year": 2025,
+    "category": "Electric",
+    "bodyType": "Sedan",
+    "condition": "New",
+    "price": 210000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Electric",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "Dual Permanent Magnet Synchronous Motors",
+    "engineSize": "Electric",
+    "horsepower": 938,
+    "torque": "1110 Nm",
+    "topSpeed": "260 km/h",
+    "acceleration": "2.4s (0-100 km/h)",
+    "seatingCapacity": 4,
+    "doors": 4,
+    "exteriorColor": "Oak Green Metallic Neo",
+    "interiorColor": "Olea Club Leather in Truffle Brown",
+    "description": "Next-gen electrification with Porsche DNA. The 2025 Taycan Turbo S generates up to 938 HP with Launch Control, charging up to 320 kW at 800V fast stations.",
+    "images": [
+      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Push-to-Pass 70 kW Power Boost Function",
+      "Porsche Active Ride Electro-Hydraulic Suspension",
+      "800V Architecture with 320 kW Peak DC Fast Charge",
+      "Burmester 3D High-End Surround Sound",
+      "Passenger Touchscreen Display"
+    ],
+    "specifications": [
+      {
+        "groupName": "EV System",
+        "items": {
+          "Max Overboost Power": "938 HP",
+          "Battery Capacity": "105 kWh Performance Battery Plus",
+          "0-100 km/h": "2.4 seconds"
+        }
+      }
+    ],
+    "location": "London Flagship Store",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-012",
+    "slug": "rolls-royce-cullinan-series-ii-2025",
+    "make": "Rolls-Royce",
+    "model": "Cullinan",
+    "variant": "Series II Black Badge 6.75L V12",
+    "year": 2025,
+    "category": "Luxury",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 460000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "6.75L Twin-Turbo V12",
+    "engineSize": "6.75L",
+    "horsepower": 592,
+    "torque": "900 Nm",
+    "topSpeed": "250 km/h",
+    "acceleration": "4.9s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 5,
+    "exteriorColor": "Emperador Dark Brown",
+    "interiorColor": "Grace White & Chartreuse Leather",
+    "description": "The sanctuary of grand luxury. Cullinan Series II introduces illuminated fascia, Placed Perforation leather seating, and iconic Magic Carpet Ride whisper-quiet V12 engine.",
+    "images": [
+      "https://images.unsplash.com/photo-1631295868223-63265b40d9e4?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Starlight Headliner with Shooting Star Feature",
+      "Rear Theatre Configuration with Wireless Headphones",
+      "Whisper-Quiet 6.75L Twin-Turbo V12",
+      "Illuminated Cullinan Fascia Panel",
+      "Self-Righting Wheel Centers"
+    ],
+    "specifications": [
+      {
+        "groupName": "Engine & Chassis",
+        "items": {
+          "Engine": "6.75L V12 Twin-Turbo",
+          "Power": "592 HP @ 5,000 RPM",
+          "Torque": "900 Nm @ 1,700 RPM"
+        }
+      }
+    ],
+    "location": "London Flagship Store",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-013",
+    "slug": "toyota-hilux-gr-sport-2025",
+    "make": "Toyota",
+    "model": "Hilux",
+    "variant": "GR Sport 2.8L Turbo Diesel",
+    "year": 2025,
+    "category": "Pickup",
+    "bodyType": "Pickup",
+    "condition": "New",
+    "price": 54000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Diesel",
+    "transmission": "Automatic",
+    "driveType": "4WD",
+    "engine": "2.8L 4-Cylinder Turbo Diesel",
+    "engineSize": "2.8L",
+    "horsepower": 221,
+    "torque": "550 Nm",
+    "topSpeed": "175 km/h",
+    "acceleration": "9.4s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 4,
+    "exteriorColor": "Emotional Red",
+    "interiorColor": "Black GR Suede & Leather",
+    "description": "Inspired by Dakar Rally, the Hilux GR Sport features wider track suspension, KYB monotube shock absorbers, red brake calipers, and reinforced underbody protection.",
+    "images": [
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "GR Track Width Extension (+140mm Front / +155mm Rear)",
+      "KYB Monotube Shocks for Heavy-Duty Stability",
+      "17-inch GR Alloy Wheels with All-Terrain Tires",
+      "JBL Premium 9-Speaker Audio System",
+      "Paddle Shifters & GR Sport Steering Wheel"
+    ],
+    "specifications": [
+      {
+        "groupName": "Engine Specs",
+        "items": {
+          "Engine": "2.8L 1GD-FTV Turbo Diesel",
+          "Power": "221 HP",
+          "Torque": "550 Nm"
+        }
+      }
+    ],
+    "location": "Main Showroom - Dubai Hub",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-014",
+    "slug": "mercedes-maybach-s-680-2025",
+    "make": "Mercedes-Benz",
+    "model": "Maybach S-Class",
+    "variant": "S 680 4MATIC V12",
+    "year": 2025,
+    "category": "Luxury",
+    "bodyType": "Sedan",
+    "condition": "New",
+    "price": 240000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "6.0L V12 Biturbo",
+    "engineSize": "6.0L",
+    "horsepower": 621,
+    "torque": "900 Nm",
+    "topSpeed": "250 km/h",
+    "acceleration": "4.5s (0-100 km/h)",
+    "seatingCapacity": 4,
+    "doors": 4,
+    "exteriorColor": "Two-Tone High-Tech Silver / Nautical Blue",
+    "interiorColor": "Exclusive Nappa Leather Silver Grey",
+    "description": "The flagship of automotive craftsmanship. Powered by a hand-built 6.0L V12 biturbo engine with rear seat comfort package, champagne flutes holder, and active road noise compensation.",
+    "images": [
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Hand-Applied Two-Tone Metallic Paintwork",
+      "Burmester High-End 4D Surround Sound System",
+      "Rear Comfort Doors with Electric Power Opening",
+      "Calf Rest Massage & Neck/Shoulder Heating",
+      "Refrigerated Compartment with Champagne Flutes"
+    ],
+    "specifications": [
+      {
+        "groupName": "Engine Specs",
+        "items": {
+          "Engine": "6.0L Biturbo V12",
+          "Power": "621 HP @ 5,250 RPM",
+          "Torque": "900 Nm @ 2,000 RPM"
+        }
+      }
+    ],
+    "location": "Main Showroom - Dubai Hub",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-015",
+    "slug": "land-rover-defender-110-v8-2025",
+    "make": "Land Rover",
+    "model": "Defender 110",
+    "variant": "5.0L Supercharged V8 Carpathia",
+    "year": 2025,
+    "category": "Off-road",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 118000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "4WD",
+    "engine": "5.0L Supercharged V8",
+    "engineSize": "5.0L",
+    "horsepower": 518,
+    "torque": "625 Nm",
+    "topSpeed": "240 km/h",
+    "acceleration": "5.4s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 5,
+    "exteriorColor": "Carpathian Grey Metallic",
+    "interiorColor": "Ebony Windsor Leather & Dinamica Suedecloth",
+    "description": "Unstoppable durability with 518 HP supercharged V8 power. QUAD outboard exhaust pipes, Electronic Active Rear Differential, and terrain response 2 with Dynamic mode.",
+    "images": [
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "5.0L Supercharged V8 with Quad Exhausts",
+      "22-inch Satin Dark Grey Alloy Wheels",
+      "Wading Depth Up to 900mm",
+      "Matrix LED Headlights with Signature DRL",
+      "ClearSight Ground View Transparent Bonnet Camera"
+    ],
+    "specifications": [
+      {
+        "groupName": "Off-Road Capabilities",
+        "items": {
+          "Wading Depth": "900 mm",
+          "Ground Clearance": "291 mm",
+          "Engine": "5.0L Supercharged V8"
+        }
+      }
+    ],
+    "location": "London Flagship Store",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-016",
+    "slug": "nissan-gt-r-nismo-2024",
+    "make": "Nissan",
+    "model": "GT-R",
+    "variant": "Nismo Special Edition 3.8L",
+    "year": 2024,
+    "category": "Sports",
+    "bodyType": "Coupe",
+    "condition": "New",
+    "price": 220000,
+    "currency": "$",
+    "mileage": 30,
+    "fuelType": "Petrol",
+    "transmission": "Dual-Clutch",
+    "driveType": "AWD",
+    "engine": "3.8L Twin-Turbo V6 (VR38DETT)",
+    "engineSize": "3.8L",
+    "horsepower": 600,
+    "torque": "652 Nm",
+    "topSpeed": "315 km/h",
+    "acceleration": "2.8s (0-100 km/h)",
+    "seatingCapacity": 4,
+    "doors": 2,
+    "exteriorColor": "Nismo Stealth Grey",
+    "interiorColor": "Black & Red Recaro Carbon Bucket Seats",
+    "description": "Godzilla elevated. Hand-built by master Takumi technicians featuring GT3-spec turbochargers, clear-coated carbon fiber hood, and carbon-ceramic brake system.",
+    "images": [
+      "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Takumi Hand-Assembled Engine with Certified Badge",
+      "Carbon Fiber Clear-Coated Hood & Roof",
+      "Brembo Carbon Ceramic Brake System",
+      "RAYS Forged 20-inch Nismo Wheels",
+      "Fujitsubo Titanium Exhaust System"
+    ],
+    "specifications": [
+      {
+        "groupName": "Handmade Engine Specs",
+        "items": {
+          "Engine": "3.8L VR38DETT Twin-Turbo V6",
+          "Power": "600 HP @ 6,800 RPM",
+          "Torque": "652 Nm @ 3,600 RPM"
+        }
+      }
+    ],
+    "location": "Tokyo Premium Gallery",
+    "isFeatured": false,
+    "isNew": false,
+    "status": "Available"
+  },
+  {
+    "id": "v-017",
+    "slug": "cadillac-escalade-v-series-2025",
+    "make": "Cadillac",
+    "model": "Escalade-V",
+    "variant": "6.2L Supercharged V8 AWD",
+    "year": 2025,
+    "category": "Luxury",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 160000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "6.2L Supercharged V8",
+    "engineSize": "6.2L",
+    "horsepower": 682,
+    "torque": "885 Nm",
+    "topSpeed": "200 km/h",
+    "acceleration": "4.4s (0-100 km/h)",
+    "seatingCapacity": 7,
+    "doors": 5,
+    "exteriorColor": "Black Raven",
+    "interiorColor": "Dark Auburn Full Semi-Aniline Leather",
+    "description": "The most powerful full-size SUV in the industry. 682 HP supercharged V8 engine combined with curved 38-inch OLED display screen and AKG Studio Reference 36-speaker sound.",
+    "images": [
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "6.2L Hand-Built Supercharged V8 (682 HP)",
+      "38-inch Total Diagonal Curved OLED Display",
+      "AKG Studio Reference 36-Speaker Audio System",
+      "Super Cruise Hands-Free Driving Technology",
+      "Air Ride Adaptive Suspension with Magnetic Ride Control"
+    ],
+    "specifications": [
+      {
+        "groupName": "Power & Audio",
+        "items": {
+          "Engine": "6.2L Supercharged V8",
+          "Power": "682 HP",
+          "Display": "38-inch OLED 8K Resolution"
+        }
+      }
+    ],
+    "location": "Miami Showroom",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-018",
+    "slug": "bentley-continental-gt-speed-2025",
+    "make": "Bentley",
+    "model": "Continental GT",
+    "variant": "Speed Ultra Performance Hybrid",
+    "year": 2025,
+    "category": "Luxury",
+    "bodyType": "Coupe",
+    "condition": "New",
+    "price": 310000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Plug-in Hybrid",
+    "transmission": "Dual-Clutch",
+    "driveType": "AWD",
+    "engine": "4.0L V8 Hybrid Powertrain",
+    "engineSize": "4.0L",
+    "horsepower": 771,
+    "torque": "1000 Nm",
+    "topSpeed": "335 km/h",
+    "acceleration": "3.2s (0-100 km/h)",
+    "seatingCapacity": 4,
+    "doors": 2,
+    "exteriorColor": "Tourmaline Green",
+    "interiorColor": "Cumbrian Green & Beluga Hide",
+    "description": "The single most powerful road-going Bentley ever produced. Generating 771 HP and 1,000 Nm of torque with Bentley Performance Active Chassis and 48V Active Anti-Roll System.",
+    "images": [
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "Ultra Performance 771 HP V8 Hybrid System",
+      "Bentley Rotating Dashboard Display",
+      "Naim for Bentley 2,200W 18-Speaker Audio",
+      "Diamond-in-Diamond Quilting & Dark Tint Grille",
+      "Electronic All-Wheel Steering"
+    ],
+    "specifications": [
+      {
+        "groupName": "Hybrid V8 Performance",
+        "items": {
+          "Engine": "4.0L Twin-Turbo V8 + Electric Motor",
+          "Power": "771 HP",
+          "Torque": "1,000 Nm",
+          "Top Speed": "335 km/h"
+        }
+      }
+    ],
+    "location": "London Flagship Store",
+    "isFeatured": true,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-019",
+    "slug": "aston-martin-db12-coupe-2025",
+    "make": "Aston Martin",
+    "model": "DB12",
+    "variant": "4.0L Twin-Turbo V8 Super Tourer",
+    "year": 2025,
+    "category": "Sports",
+    "bodyType": "Coupe",
+    "condition": "New",
+    "price": 250000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "driveType": "RWD",
+    "engine": "4.0L Twin-Turbo V8",
+    "engineSize": "4.0L",
+    "horsepower": 671,
+    "torque": "800 Nm",
+    "topSpeed": "325 km/h",
+    "acceleration": "3.6s (0-100 km/h)",
+    "seatingCapacity": 4,
+    "doors": 2,
+    "exteriorColor": "Iridescent Emerald",
+    "interiorColor": "Onyx Black & Metallic Blue Hand-Stitched Leather",
+    "description": "The world's first Super Tourer. Aston Martin DB12 delivers 671 HP with an Electronic Rear Differential (E-Diff), Michelin Pilot Sport 5 S tires, and custom touchscreen infotainment.",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "671 HP Twin-Turbo 4.0L V8 Engine",
+      "Electronic Rear Differential (E-Diff)",
+      "Bowers & Wilkins 1,170W 15-Speaker System",
+      "In-House Custom Aston Martin Touchscreen OS",
+      "Carbon Ceramic Brakes (CCB) Option"
+    ],
+    "specifications": [
+      {
+        "groupName": "Super Tourer Specs",
+        "items": {
+          "Engine": "4.0L V8 Twin-Turbo",
+          "Power": "671 HP @ 6,000 RPM",
+          "Top Speed": "325 km/h"
+        }
+      }
+    ],
+    "location": "London Flagship Store",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  },
+  {
+    "id": "v-020",
+    "slug": "hyundai-ioniq-5-n-2025",
+    "make": "Hyundai",
+    "model": "Ioniq 5 N",
+    "variant": "N AWD High Performance EV",
+    "year": 2025,
+    "category": "Electric",
+    "bodyType": "SUV",
+    "condition": "New",
+    "price": 66000,
+    "currency": "$",
+    "mileage": 0,
+    "fuelType": "Electric",
+    "transmission": "Automatic",
+    "driveType": "AWD",
+    "engine": "Dual-Motor Electric AWD",
+    "engineSize": "Electric",
+    "horsepower": 641,
+    "torque": "770 Nm",
+    "topSpeed": "260 km/h",
+    "acceleration": "3.4s (0-100 km/h)",
+    "seatingCapacity": 5,
+    "doors": 5,
+    "exteriorColor": "Performance Blue Matte",
+    "interiorColor": "Black N Light Bucket Seats with Luminous Accents",
+    "description": "High-performance EV perfection. 641 HP N Grin Boost mode, simulated N e-Shift 8-speed paddle gearshifts, and N Active Sound+ motor sound synthesis.",
+    "images": [
+      "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1536700503339-1e4b06520771?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "features": [
+      "N Grin Boost Button (641 HP Peak Output)",
+      "N e-Shift Simulated Dual-Clutch Gear Shift Feel",
+      "N Pedal & N Drift Optimizer Electronic Control",
+      "Electronically Controlled Suspension (ECS)",
+      "84 kWh Next-Gen Battery with 350kW Ultra-Fast Charge"
+    ],
+    "specifications": [
+      {
+        "groupName": "N Performance Specs",
+        "items": {
+          "Horsepower": "641 HP (in NGB Mode)",
+          "Torque": "770 Nm",
+          "Charging Time": "10% to 80% in 18 minutes (350kW)"
+        }
+      }
+    ],
+    "location": "Tokyo Premium Gallery",
+    "isFeatured": false,
+    "isNew": true,
+    "status": "Available"
+  }
+]
