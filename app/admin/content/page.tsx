@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sliders, Layout, Globe, ChevronRight, Sparkles } from "lucide-react";
+import { Sliders, Layout, Globe, ChevronRight, Sparkles, PackageCheck } from "lucide-react";
 
 const cards = [
   {
@@ -16,7 +16,15 @@ const cards = [
     color: "bg-blue-500/10 text-blue-600 border-blue-200",
     title: "Homepage Section Content",
     description:
-      "Edit the headings, eyebrow labels, sub-headings, and call-to-action text for every homepage section: Featured Vehicles, Categories, Spotlight, Why Autora, and the CTA Banner."
+      "Edit the headings, eyebrow labels, sub-headings, and call-to-action text for every homepage section: Featured Vehicles, Categories, Spotlight, Why AGTP GROUP, and the CTA Banner."
+  },
+  {
+    href: "/admin/content/spare-parts",
+    icon: PackageCheck,
+    color: "bg-indigo-500/10 text-indigo-600 border-indigo-200",
+    title: "Spare Parts Page",
+    description:
+      "Manage the spare parts landing page hero, category cards, sourcing process messaging, and quote call-to-action used on the public storefront."
   },
   {
     href: "/admin/content/site-settings",
@@ -30,19 +38,19 @@ const cards = [
 
 export default function AdminContentIndexPage() {
   return (
-    <div className="space-y-8 pb-12 max-w-4xl mx-auto">
+    <div className="space-y-8 pb-12 max-w-5xl mx-auto">
       <div className="border-b border-slate-200 pb-5">
         <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-amber-500" />
           Storefront Content Management
         </h1>
         <p className="text-sm text-slate-500 mt-1.5">
-          Manage everything visible on the public Autora showcase website — carousel slides, section headings, branding, and SEO metadata.
+          Manage everything visible on the public AGTP GROUP showcase website — carousel slides, section headings, branding, and SEO metadata.
           All changes are saved to localStorage and reflected instantly on the live site.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {cards.map(({ href, icon: Icon, color, title, description }) => (
           <Link
             key={href}
@@ -68,7 +76,7 @@ export default function AdminContentIndexPage() {
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 text-sm text-amber-900 space-y-1">
         <p className="font-bold">ℹ️ How content persistence works</p>
         <p className="text-xs leading-relaxed">
-          All content edits are stored in your browser&apos;s <code className="bg-amber-100 px-1 rounded font-mono text-xs">localStorage</code> under the key <code className="bg-amber-100 px-1 rounded font-mono text-xs">autora_showcase_content</code>.
+          All content edits are stored in your browser&apos;s <code className="bg-amber-100 px-1 rounded font-mono text-xs">localStorage</code> under the key <code className="bg-amber-100 px-1 rounded font-mono text-xs">agtp_showcase_content</code>.
           The public showcase reads this data on every page load, so all changes are visible immediately in the same browser.
           To share changes across devices, export the JSON and import it elsewhere.
         </p>
@@ -76,3 +84,5 @@ export default function AdminContentIndexPage() {
     </div>
   );
 }
+
+

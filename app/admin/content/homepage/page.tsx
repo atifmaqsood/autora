@@ -168,7 +168,7 @@ export default function AdminHomepageContentPage() {
       </SectionCard>
 
       {/* ── Why Section / Pillars ───────────────────────────────── */}
-      <SectionCard title='"Why Autora" Trust Pillars Section'>
+      <SectionCard title='"Why AGTP GROUP" Trust Pillars Section'>
         <Row>
           <Field label="Eyebrow / Label">
             <Input value={local.whySection.eyebrow} onChange={(e) => patchSection("whySection", { eyebrow: e.target.value })} className="text-sm" />
@@ -270,3 +270,5 @@ function Field({ label, children, full }: { label: string; children: React.React
     </div>
   );
 }
+
+

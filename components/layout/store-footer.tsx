@@ -1,138 +1,110 @@
 import Link from "next/link";
-import { Car, MapPin, Phone, Mail, ShieldCheck, FileText, ArrowUpRight } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { Logo } from "./logo";
-import { CATEGORIES_LIST } from "@/lib/vehicles/data";
 
 export function StoreFooter() {
   return (
-    <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800 font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
-          {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
-            <Logo isDark className="mb-2" />
-            <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              AUTORA is a global automotive showcase platform presenting luxury, performance, and commercial vehicle specifications, technical engine data, and multi-point verified documentation.
+    <footer className="relative overflow-hidden border-t border-[#1c2436] bg-[#0b1020] pt-16 text-slate-400">
+      <div className="mx-auto max-w-[1720px] px-6 pb-6 pt-14 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
+        <div className="grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr_1fr_1.15fr] xl:gap-x-20">
+          <div className="space-y-8">
+            <Logo />
+            <p className="max-w-sm text-[17px] font-medium leading-[1.45] text-slate-400">
+              Your trusted global partner for seamless import/export, offering reliable sourcing,
+              competitive pricing, and efficient logistics.
             </p>
-            <div className="pt-2 flex flex-col space-y-2 text-xs text-slate-400">
-              <span className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-amber-500" />
-                Verified OEM Technical Specs & Factory Certifications
-              </span>
-              <span className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-amber-500" />
-                Digital Specification Download & Virtual Showroom Catalog
-              </span>
+            <div className="flex items-center gap-4">
+              {[
+                { label: "LinkedIn", icon: Linkedin },
+                { label: "Instagram", icon: Instagram },
+                { label: "WhatsApp", icon: MessageCircle },
+                { label: "Facebook", icon: Facebook }
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href="#"
+                className="flex h-11 w-11 items-center justify-center rounded-[12px] border border-[#25304b] text-white transition-colors hover:border-[#536dfe] hover:bg-[#536dfe]"
+                  aria-label={item.label}
+                >
+                  <item.icon className="h-5 w-5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-amber-500">
-              Showcase Navigation
-            </h4>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link href="/vehicles" className="hover:text-white transition-colors">
-                  All Vehicles Catalog
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-white transition-colors">
-                  About AUTORA Motors
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="hover:text-white transition-colors">
-                  Logistics & Inspection
-                </Link>
-              </li>
-              <li>
-                <Link href="/locations" className="hover:text-white transition-colors">
-                  Global Showrooms
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact Inquiries
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin" className="text-amber-400 hover:text-amber-300 font-medium transition-colors flex items-center gap-1">
-                  Admin Showcase Portal
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <FooterColumn
+            title="COMPANY"
+            links={[
+              ["Home", "/"],
+              ["Brands", "/brands"],
+              ["FAQs", "/faqs"],
+              ["Contact Us", "/contact-us"],
+              ["About Us", "/about-us"]
+            ]}
+          />
 
-          {/* Categories */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-amber-500">
-              Vehicle Categories
-            </h4>
-            <ul className="space-y-2 text-sm">
-              {CATEGORIES_LIST.slice(0, 6).map((cat) => (
-                <li key={cat.id}>
-                  <Link
-                    href={`/categories/${cat.slug}`}
-                    className="hover:text-white transition-colors text-slate-400"
-                  >
-                    {cat.name} Showcase
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FooterColumn
+            title="BUSINESS SOLUTIONS"
+            links={[
+              ["Automotive", "/automotive"],
+              ["Construction Materials", "/construction-materials"],
+              ["Furniture And Home Items", "/furniture-and-home-items"],
+              ["General Merchandise", "/general-merchandise"],
+              ["Industrial Equipment", "/industrial-equipment"],
+              ["Packaging Materials", "/packaging-materials"],
+              ["Apparel And Textiles", "/apparel-and-textiles"],
+              ["Electronics", "/electronics"]
+            ]}
+          />
 
-          {/* Contact & Global Hubs */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-amber-500">
-              Showroom Hubs
-            </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400">
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <span>
-                  <strong className="text-slate-200 block">Dubai Central Showroom</strong>
-                  Al Quoz Industrial Area 3, Dubai, UAE
-                </span>
+          <div className="space-y-6">
+            <h4 className="text-[14px] font-black tracking-[0.24em] text-slate-500">GET IN TOUCH</h4>
+            <ul className="space-y-6 text-[17px] font-medium leading-[1.45]">
+              <li className="flex items-start gap-5">
+                <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#8ea2ff]" />
+                <span>Sharjah Media City, Sharjah, United Arab Emirates</span>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <span>
-                  <strong className="text-slate-200 block">Tokyo Gallery</strong>
-                  Minato-ku, Roppongi Hills, Tokyo, Japan
-                </span>
+              <li className="flex items-center gap-5">
+                <Phone className="h-5 w-5 shrink-0 text-[#8ea2ff]" />
+                <span>+971 58 585729</span>
               </li>
-              <li className="flex items-center gap-2 pt-2 text-sm text-slate-200 font-semibold">
-                <Phone className="w-4 h-4 text-amber-500" />
-                +971 4 000 1234
+              <li className="flex items-center gap-5">
+                <MessageCircle className="h-5 w-5 shrink-0 text-[#8ea2ff]" />
+                <span>agtpgroup@gmail.com</span>
               </li>
-              <li className="flex items-center gap-2 text-sm text-slate-400">
-                <Mail className="w-4 h-4 text-amber-500" />
-                inquire@autora-motors.com
+              <li className="flex items-center gap-5">
+                <Mail className="h-5 w-5 shrink-0 text-[#8ea2ff]" />
+                <span>inquiries@agtpgroup.com</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {new Date().getFullYear()} AUTORA Vehicle Showcase. All rights reserved. Non-ecommerce vehicle presentation platform.</p>
-          <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-slate-300 transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-slate-300 transition-colors">
-              Terms of Vehicle Presentation
-            </Link>
-            <Link href="/sitemap" className="hover:text-slate-300 transition-colors">
-              Showcase Map
-            </Link>
-          </div>
+        <div className="pointer-events-none mt-20 select-none overflow-hidden text-center">
+          <span className="inline-block text-[12.5vw] font-black uppercase leading-none tracking-normal text-transparent opacity-35 footer-watermark">
+            AGTP GROUP
+          </span>
         </div>
       </div>
     </footer>
   );
 }
+
+function FooterColumn({ title, links }: { title: string; links: [string, string][] }) {
+  return (
+    <div className="space-y-6">
+      <h4 className="text-[14px] font-black tracking-[0.24em] text-slate-500">{title}</h4>
+      <ul className="space-y-5 text-[17px] font-medium">
+        {links.map(([label, href]) => (
+          <li key={label}>
+            <Link href={href} className="transition-colors hover:text-white">
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ContentProvider } from "@/lib/content/context";
+import { PageLoader } from "@/components/ui/page-loader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -9,11 +10,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Autora — Certified Vehicle Specifications & Global Automotive Showcase",
+  title: "AGTP GROUP | Quality Cars, Parts, and Global Trading",
   description:
-    "Explore exhaustive technical specs, engine horsepower, dimensions, and certified options across luxury, sports, SUV, and commercial vehicles.",
-  applicationName: "Autora",
-  keywords: ["autora", "automotive showcase", "vehicle specifications", "car catalog", "luxury vehicles"]
+    "From Dubai to your driveway: quality cars, spare parts, construction materials, and trading solutions delivered worldwide.",
+  applicationName: "AGTP GROUP",
+  keywords: ["AGTP GROUP", "Dubai trading", "automotive spare parts", "vehicle export", "global sourcing"]
 };
 
 export default function RootLayout({
@@ -23,11 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} font-sans antialiased min-h-screen bg-slate-50 text-slate-900`}
-      >
-        <ContentProvider>{children}</ContentProvider>
+      <body className={`${inter.variable} min-h-screen bg-[#070b14] font-sans text-white antialiased`}>
+        <ContentProvider>
+          {children}
+          <PageLoader />
+        </ContentProvider>
       </body>
     </html>
   );
 }
+
+

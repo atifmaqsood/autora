@@ -41,7 +41,7 @@ export function VehicleInquiryModal({
 
     // Save to local storage for prototype persistence
     try {
-      const existing = JSON.parse(localStorage.getItem("autora_inquiries") || "[]");
+      const existing = JSON.parse(localStorage.getItem("agtp_inquiries") || "[]");
       const newRecord = {
         id: newInquiryId,
         vehicleId: vehicleId || "general",
@@ -54,7 +54,7 @@ export function VehicleInquiryModal({
         createdAt: new Date().toISOString(),
         status: "Pending"
       };
-      localStorage.setItem("autora_inquiries", JSON.stringify([newRecord, ...existing]));
+      localStorage.setItem("agtp_inquiries", JSON.stringify([newRecord, ...existing]));
     } catch (err) {
       console.error(err);
     }
@@ -94,7 +94,7 @@ export function VehicleInquiryModal({
             </h3>
             <p className="text-sm text-slate-600 max-w-sm mx-auto">
               Thank you! Your specification request reference is{" "}
-              <strong className="text-amber-600 font-mono">{confirmationId}</strong>. An AUTORA vehicle specialist will contact you shortly.
+              <strong className="text-amber-600 font-mono">{confirmationId}</strong>. An AGTP GROUP specialist will contact you shortly.
             </p>
             <div className="bg-slate-50 p-4 rounded-xl text-xs text-slate-500 border border-slate-200 text-left space-y-1">
               <div><strong>Vehicle:</strong> {vehicleTitle || "General Inquiry"}</div>
@@ -208,3 +208,5 @@ export function VehicleInquiryModal({
     </div>
   );
 }
+
+

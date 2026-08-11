@@ -1,31 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Search,
-  Menu,
-  X,
-  ChevronDown,
-  Car,
-  PhoneCall,
-  SlidersHorizontal,
-  LayoutDashboard,
-  MapPin,
-  ShieldCheck,
-  Info
-} from "lucide-react";
+import { ArrowRight, ChevronDown, Mail, Menu, MessageCircle, Phone, Send, X } from "lucide-react";
 import { Logo } from "./logo";
-import { Button } from "@/components/ui/button";
-import { CATEGORIES_LIST } from "@/lib/vehicles/data";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 
 export function StoreHeader() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const businessLinks = [
+    { name: "Automotive", href: "/automotive" },
+    { name: "Construction Materials", href: "/construction-materials" },
+    { name: "Furniture And Home Items", href: "/furniture-and-home-items" },
+    { name: "General Merchandise", href: "/general-merchandise" },
+    { name: "Industrial Equipment", href: "/industrial-equipment" },
+    { name: "Packaging Materials", href: "/packaging-materials" },
+    { name: "Apparel And Textiles", href: "/apparel-and-textiles" },
+    { name: "Electronics", href: "/electronics" }
+  ];
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Brands", href: "/brands" },
+    { name: "FAQs", href: "/faqs" },
+    { name: "Contact Us", href: "/contact-us" },
+    { name: "About Us", href: "/about-us" },
+    { name: "Business Solutions", href: "/business-solutions", children: businessLinks }
+  ];
 
   const isActive = (path: string) => {
     if (path === "/") return pathname === "/";
@@ -34,283 +47,163 @@ export function StoreHeader() {
 
   return (
     <>
-      {/* Top Banner Bar */}
-      <div className="bg-slate-950 text-slate-300 text-xs py-2 px-4 border-b border-slate-800 hidden md:block">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5 font-medium">
-              <MapPin className="w-3.5 h-3.5 text-amber-500" />
-              Global Showrooms: Dubai • Tokyo • London • Munich • Miami
-            </span>
-            <span className="flex items-center gap-1.5 font-medium text-slate-400">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-              Certified Manufacturer Specifications & Verified Data
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="tel:+97140001234"
-              className="hover:text-amber-400 transition-colors flex items-center gap-1 font-semibold"
-            >
-              <PhoneCall className="w-3.5 h-3.5 text-amber-500" />
-              +971 4 000 1234
+      <div className="fixed inset-x-0 top-0 z-50">
+        <div className="hidden h-[46px] border-b border-white/5 bg-[#222831]/95 px-4 text-[14px] font-extrabold text-white lg:block">
+          <div className="mx-auto flex h-full max-w-[1300px] items-center justify-end gap-7">
+            <a href="mailto:inquiries@agtpgroup.com" className="flex items-center gap-3 transition-colors hover:text-white">
+              <Mail className="h-4 w-4" />
+              <span>inquiries@agtpgroup.com</span>
             </a>
-            <span className="text-slate-700">|</span>
-            <Link
-              href="/admin"
-              className="hover:text-white transition-colors flex items-center gap-1 font-semibold text-amber-400"
-            >
-              <LayoutDashboard className="w-3.5 h-3.5" />
-              Admin Portal
-            </Link>
+            <a href="tel:+97158585729" className="flex items-center gap-3 transition-colors hover:text-white">
+              <Phone className="h-4 w-4" />
+              <span>Contact Us: +971 58 585729</span>
+            </a>
+            <a href="tel:+97158585729" className="flex items-center gap-3 transition-colors hover:text-white">
+              <Phone className="h-4 w-4" />
+              <span>Head Office: Sharjah Media City</span>
+            </a>
+            <a href="mailto:agtpgroup@gmail.com" className="flex items-center gap-3 transition-colors hover:text-white">
+              <Phone className="h-4 w-4" />
+              <span>agtpgroup@gmail.com</span>
+            </a>
           </div>
         </div>
-      </div>
 
-      {/* Main Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Logo />
+        <header
+          className={`transition-all duration-500 ${
+            scrolled
+              ? "border-b border-[#1c2436] bg-[#0a0f1c]/95 shadow-2xl backdrop-blur-md"
+              : "border-b border-transparent bg-transparent"
+          }`}
+        >
+          <div className="mx-auto max-w-[1735px] px-6 lg:px-[96px]">
+            <div className="flex h-[82px] items-center justify-between lg:h-[98px]">
+              <Logo />
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-8">
-              <Link
-                href="/"
-                className={`text-sm font-semibold transition-colors hover:text-amber-600 ${
-                  isActive("/") ? "text-amber-600" : "text-slate-800"
-                }`}
-              >
-                Home
-              </Link>
+              <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex">
+                {navLinks.map((link) => {
+                  const active = isActive(link.href) || Boolean(link.children?.some((child) => isActive(child.href)));
+                  return (
+                    <div key={link.name} className="group relative">
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      className={`relative flex items-center gap-1.5 pb-2 text-[16px] font-extrabold transition-colors duration-200 ${
+                        active ? "text-white" : "text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      {link.name}
+                      {link.children && <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />}
+                      {active && <span className="absolute bottom-0 left-1 h-1.5 w-1.5 rounded-full bg-[#536dfe]" />}
+                    </Link>
+                    {link.children && (
+                      <div className="invisible absolute left-1/2 top-full z-50 w-[280px] -translate-x-1/2 rounded-2xl border border-[#25304b] bg-[#070a10]/98 p-3 opacity-0 shadow-2xl backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-1 group-hover:opacity-100">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="block rounded-xl px-4 py-3 text-[13px] font-bold text-slate-400 transition-colors hover:bg-[#111832] hover:text-white"
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                    </div>
+                  );
+                })}
+              </nav>
 
-              <Link
-                href="/vehicles"
-                className={`text-sm font-semibold transition-colors hover:text-amber-600 flex items-center gap-1.5 ${
-                  isActive("/vehicles") ? "text-amber-600" : "text-slate-800"
-                }`}
-              >
-                <Car className="w-4 h-4 text-amber-600" />
-                Vehicle Showcase
-              </Link>
-
-              {/* Categories Mega Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setCategoryDropdownOpen(true)}
-                onMouseLeave={() => setCategoryDropdownOpen(false)}
-              >
+              <div className="hidden lg:flex">
                 <button
-                  className={`text-sm font-semibold transition-colors hover:text-amber-600 flex items-center gap-1 ${
-                    isActive("/categories") ? "text-amber-600" : "text-slate-800"
-                  }`}
+                  onClick={() => setInquiryModalOpen(true)}
+                  className="flex h-[50px] items-center gap-2.5 rounded-full bg-[#536dfe] px-7 text-[16px] font-extrabold text-white shadow-lg shadow-[#536dfe]/30 transition-all duration-200 hover:bg-[#4560f2]"
                 >
-                  Categories
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-200 ${
-                      categoryDropdownOpen ? "rotate-180 text-amber-600" : ""
-                    }`}
-                  />
+                  <span>Get a Quote</span>
+                  <ArrowRight className="h-4 w-4" />
                 </button>
-
-                {categoryDropdownOpen && (
-                  <div className="absolute top-full left-0 w-80 bg-white border border-slate-200 rounded-xl shadow-2xl p-3 grid grid-cols-2 gap-1 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
-                    {CATEGORIES_LIST.map((cat) => (
-                      <Link
-                        key={cat.id}
-                        href={`/categories/${cat.slug}`}
-                        className="px-3 py-2.5 rounded-lg hover:bg-amber-50 hover:text-amber-700 text-xs font-semibold text-slate-700 transition-all flex items-center justify-between"
-                        onClick={() => setCategoryDropdownOpen(false)}
-                      >
-                        <span>{cat.name}</span>
-                        <span className="text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
-                          {cat.slug.toUpperCase()}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                )}
               </div>
 
-              <Link
-                href="/about"
-                className={`text-sm font-semibold transition-colors hover:text-amber-600 ${
-                  isActive("/about") ? "text-amber-600" : "text-slate-800"
-                }`}
-              >
-                About
-              </Link>
-
-              <Link
-                href="/services"
-                className={`text-sm font-semibold transition-colors hover:text-amber-600 ${
-                  isActive("/services") ? "text-amber-600" : "text-slate-800"
-                }`}
-              >
-                Services
-              </Link>
-
-              <Link
-                href="/locations"
-                className={`text-sm font-semibold transition-colors hover:text-amber-600 ${
-                  isActive("/locations") ? "text-amber-600" : "text-slate-800"
-                }`}
-              >
-                Showrooms
-              </Link>
-
-              <Link
-                href="/contact"
-                className={`text-sm font-semibold transition-colors hover:text-amber-600 ${
-                  isActive("/contact") ? "text-amber-600" : "text-slate-800"
-                }`}
-              >
-                Contact
-              </Link>
-            </nav>
-
-            {/* Header Right Actions */}
-            <div className="hidden lg:flex items-center gap-3">
-              <Link href="/vehicles">
-                <Button variant="outline" size="sm" className="gap-2 font-medium">
-                  <Search className="w-4 h-4 text-slate-500" />
-                  Search Catalog
-                </Button>
-              </Link>
-
-              <Button
-                variant="primary"
-                size="sm"
-                className="gap-2 font-semibold shadow-md"
-                onClick={() => setInquiryModalOpen(true)}
-              >
-                <PhoneCall className="w-4 h-4" />
-                Request Specification Sheet
-              </Button>
-            </div>
-
-            {/* Mobile Menu Toggle */}
-            <div className="flex lg:hidden items-center gap-2">
-              <Link href="/vehicles">
-                <Button variant="ghost" size="icon" aria-label="Search">
-                  <Search className="w-5 h-5 text-slate-700" />
-                </Button>
-              </Link>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="Toggle Navigation Menu"
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-6 h-6 text-slate-900" />
-                ) : (
-                  <Menu className="w-6 h-6 text-slate-900" />
-                )}
-              </Button>
+              <div className="flex items-center gap-3 lg:hidden">
+                <button
+                  onClick={() => setInquiryModalOpen(true)}
+                  className="rounded-full bg-[#536dfe] px-4 py-2 text-xs font-bold text-white"
+                >
+                  Quote
+                </button>
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="p-1 text-slate-200 hover:text-white"
+                  aria-label="Toggle menu"
+                >
+                  {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-4 shadow-xl animate-in slide-in-from-top duration-200">
-            <div className="flex flex-col space-y-2">
-              <Link
-                href="/"
-                className="px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-100"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/vehicles"
-                className="px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-100 flex items-center justify-between"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span>Vehicle Showcase</span>
-                <span className="text-xs bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full">
-                  All Catalog
-                </span>
-              </Link>
-
-              <div className="px-3 pt-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                  Vehicle Categories
-                </span>
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  {CATEGORIES_LIST.map((cat) => (
+          {mobileMenuOpen && (
+            <div className="space-y-4 border-t border-slate-800 bg-[#070a10] px-5 py-6 shadow-2xl lg:hidden">
+              <div className="flex flex-col space-y-2">
+                {navLinks.map((link) => (
+                  <div key={link.name}>
                     <Link
-                      key={cat.id}
-                      href={`/categories/${cat.slug}`}
-                      className="px-2.5 py-1.5 rounded text-xs font-medium text-slate-700 bg-slate-50 hover:bg-amber-100 hover:text-amber-900"
+                      href={link.href}
+                      className={`block rounded-xl px-4 py-2.5 text-base font-semibold transition-colors ${
+                        isActive(link.href)
+                          ? "bg-slate-800 text-[#8ea2ff]"
+                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                      }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      {cat.name}
+                      {link.name}
                     </Link>
-                  ))}
-                </div>
+                    {link.children && (
+                      <div className="ml-4 mt-1 space-y-1 border-l border-slate-800 pl-3">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 hover:bg-slate-900 hover:text-white"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-
-              <Link
-                href="/about"
-                className="px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-100"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                About AUTORA
-              </Link>
-              <Link
-                href="/services"
-                className="px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-100"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Services & Logistics
-              </Link>
-              <Link
-                href="/locations"
-                className="px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-100"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Showroom Locations
-              </Link>
-              <Link
-                href="/contact"
-                className="px-3 py-2 rounded-md font-semibold text-slate-800 hover:bg-slate-100"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                href="/admin"
-                className="px-3 py-2 rounded-md font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 flex items-center gap-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <LayoutDashboard className="w-4 h-4" />
-                Admin Content Management
-              </Link>
             </div>
+          )}
+        </header>
+      </div>
 
-            <Button
-              variant="primary"
-              className="w-full font-semibold gap-2"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setInquiryModalOpen(true);
-              }}
-            >
-              <PhoneCall className="w-4 h-4" />
-              Request Vehicle Specification
-            </Button>
-          </div>
-        )}
-      </header>
+      <div className="fixed bottom-[70px] right-8 z-50 flex flex-col gap-4">
+        <a
+          href="https://wa.me/97158585729"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#26d22f] bg-transparent text-[#26d22f] shadow-2xl transition-all duration-300 hover:scale-110"
+          aria-label="WhatsApp contact"
+        >
+          <MessageCircle className="h-6 w-6" />
+        </a>
+        <a
+          href="https://t.me/agtpgroup"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#1688ff] bg-transparent text-[#1688ff] shadow-2xl transition-all duration-300 hover:scale-110"
+          aria-label="Telegram contact"
+        >
+          <Send className="h-5 w-5 fill-current" />
+        </a>
+      </div>
 
-      {/* Global Vehicle Inquiry Modal */}
-      <VehicleInquiryModal
-        isOpen={inquiryModalOpen}
-        onClose={() => setInquiryModalOpen(false)}
-      />
+      <VehicleInquiryModal isOpen={inquiryModalOpen} onClose={() => setInquiryModalOpen(false)} />
     </>
   );
 }
+
+

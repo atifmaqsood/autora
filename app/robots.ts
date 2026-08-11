@@ -7,6 +7,8 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/admin/"
     },
-    sitemap: "https://autora-motors.com/sitemap.xml"
+    sitemap: "https://agtpgroup.com/sitemap.xml"
   };
 }
+
+

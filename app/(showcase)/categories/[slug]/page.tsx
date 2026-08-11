@@ -21,12 +21,12 @@ export async function generateMetadata({
 
   if (!category) {
     return {
-      title: "Category Not Found | AUTORA Showcase"
+      title: "Category Not Found | AGTP GROUP Showcase"
     };
   }
 
   return {
-    title: `${category.name} Vehicle Showcase & Specifications | AUTORA`,
+    title: `${category.name} Vehicle Showcase & Specifications | AGTP GROUP`,
     description: category.description
   };
 }
@@ -70,3 +70,4 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
     </div>
   );
 }
+

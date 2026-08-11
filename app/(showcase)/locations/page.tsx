@@ -1,5 +1,8 @@
+"use client";
+
 import { PageHero } from "@/components/layout/page-hero";
-import { MapPin, Phone, Mail, Clock, ShieldCheck } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { RevealStagger } from "@/components/ui/scroll-reveal";
 
 export default function LocationsPage() {
   const showrooms = [
@@ -8,7 +11,7 @@ export default function LocationsPage() {
       city: "Dubai, UAE",
       address: "Al Quoz Industrial Area 3, Dubai, United Arab Emirates",
       phone: "+971 4 000 1234",
-      email: "dubai@autora-motors.com",
+      email: "inquiries@agtpgroup.com",
       hours: "Mon - Sat: 9:00 AM - 8:00 PM GST",
       specialty: "Luxury SUVs, Off-Road Expedition Rigs & Armored Vehicles"
     },
@@ -17,7 +20,7 @@ export default function LocationsPage() {
       city: "Tokyo, Japan",
       address: "Roppongi Hills Mori Tower, Minato-ku, Tokyo, Japan",
       phone: "+81 3 5000 9988",
-      email: "tokyo@autora-motors.com",
+      email: "inquiries@agtpgroup.com",
       hours: "Mon - Sat: 10:00 AM - 7:00 PM JST",
       specialty: "JDM Sports Coupes, GT-R Nismo & EV Powertrains"
     },
@@ -26,7 +29,7 @@ export default function LocationsPage() {
       city: "London, United Kingdom",
       address: "Mayfair, Berkeley Square, London, W1J 6BR, UK",
       phone: "+44 20 7946 0123",
-      email: "london@autora-motors.com",
+      email: "inquiries@agtpgroup.com",
       hours: "Mon - Sat: 9:00 AM - 6:00 PM GMT",
       specialty: "Super Tourers, Rolls-Royce & Bentley Customization"
     },
@@ -35,7 +38,7 @@ export default function LocationsPage() {
       city: "Munich, Germany",
       address: "Leopoldstraße 120, 80802 München, Germany",
       phone: "+49 89 2018 4400",
-      email: "munich@autora-motors.com",
+      email: "inquiries@agtpgroup.com",
       hours: "Mon - Fri: 8:30 AM - 6:30 PM CET",
       specialty: "Porsche Motorsport, BMW M Division & Audi RS Specs"
     },
@@ -44,7 +47,7 @@ export default function LocationsPage() {
       city: "Miami, FL, USA",
       address: "Brickell Avenue Suite 1800, Miami, FL 33131, USA",
       phone: "+1 305 555 0199",
-      email: "miami@autora-motors.com",
+      email: "inquiries@agtpgroup.com",
       hours: "Mon - Sat: 9:00 AM - 7:00 PM EST",
       specialty: "American Supercharged Muscle, Pickup Trucks & EV Sedans"
     }
@@ -59,7 +62,7 @@ export default function LocationsPage() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <RevealStagger staggerDelay={80} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {showrooms.map((hub, idx) => (
             <div
               key={idx}
@@ -103,8 +106,10 @@ export default function LocationsPage() {
               </div>
             </div>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </div>
   );
 }
+
+

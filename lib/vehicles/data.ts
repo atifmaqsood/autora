@@ -6,6 +6,7 @@ import {
   VehicleFilterState,
   VehicleInquiry
 } from "./types";
+import { agtpAssets } from "@/src/assets";
 
 export const CATEGORIES_LIST: CategoryInfo[] = [
   {
@@ -66,8 +67,23 @@ export const CATEGORIES_LIST: CategoryInfo[] = [
   }
 ];
 
+const referenceVehicleImages = [
+  agtpAssets.bmw760ArmoredCard.src,
+  agtpAssets.bmw760Card.src,
+  agtpAssets.bmwX2Card.src,
+  agtpAssets.mercedesCclassCard.src,
+  agtpAssets.bydDestroyerCard.src,
+  agtpAssets.cadillacEscaladeCard.src
+];
+
 export function getAllVehicles(): Vehicle[] {
-  return vehiclesData as Vehicle[];
+  return (vehiclesData as Vehicle[]).map((vehicle, index) => {
+    const referenceImage = referenceVehicleImages[index % referenceVehicleImages.length];
+    return {
+      ...vehicle,
+      images: [referenceImage, ...(vehicle.images || []).slice(1)]
+    };
+  });
 }
 
 export function getFeaturedVehicles(): Vehicle[] {
@@ -231,3 +247,5 @@ export const DUMMY_INQUIRIES: VehicleInquiry[] = [
     status: "Closed"
   }
 ];
+
+

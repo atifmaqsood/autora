@@ -1,5 +1,8 @@
-import { Vehicle, SpecificationGroup } from "@/lib/vehicles/types";
-import { Zap, Fuel, Gauge, Sliders, Timer, Ruler, Users, Shield, Layers } from "lucide-react";
+"use client";
+
+import { Vehicle } from "@/lib/vehicles/types";
+import { Zap, Layers } from "lucide-react";
+import { Reveal, RevealHeading, RevealStagger } from "@/components/ui/scroll-reveal";
 
 interface VehicleSpecsProps {
   vehicle: Vehicle;
@@ -9,7 +12,7 @@ export function VehicleSpecs({ vehicle }: VehicleSpecsProps) {
   return (
     <div className="space-y-8">
       {/* Prominent Key Specification Summary Grid */}
-      <div className="bg-slate-900 text-white rounded-2xl p-6 md:p-8 shadow-xl border border-slate-800 relative overflow-hidden">
+      <Reveal className="bg-slate-900 text-white rounded-2xl p-6 md:p-8 shadow-xl border border-slate-800 relative overflow-hidden">
         <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <h3 className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-6 flex items-center gap-2">
@@ -17,7 +20,7 @@ export function VehicleSpecs({ vehicle }: VehicleSpecsProps) {
           Technical Highlights & Performance Key Metrics
         </h3>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <RevealStagger staggerDelay={60} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {/* Engine */}
           <div className="bg-slate-800/80 p-4 rounded-xl border border-slate-700/60 backdrop-blur-sm">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
@@ -95,17 +98,19 @@ export function VehicleSpecs({ vehicle }: VehicleSpecsProps) {
               {vehicle.bodyType}
             </span>
           </div>
-        </div>
-      </div>
+        </RevealStagger>
+      </Reveal>
 
       {/* Detailed Technical Specification Groups */}
       <div className="space-y-6">
-        <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2 border-b border-slate-200 pb-3">
-          <Layers className="w-5 h-5 text-amber-600" />
-          Complete Technical Specification Sheet
-        </h3>
+        <RevealHeading>
+          <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2 border-b border-slate-200 pb-3">
+            <Layers className="w-5 h-5 text-amber-600" />
+            Complete Technical Specification Sheet
+          </h3>
+        </RevealHeading>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <RevealStagger staggerDelay={80} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {vehicle.specifications.map((group, gIdx) => (
             <div
               key={gIdx}
@@ -132,8 +137,10 @@ export function VehicleSpecs({ vehicle }: VehicleSpecsProps) {
               </div>
             </div>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </div>
   );
 }
+
+

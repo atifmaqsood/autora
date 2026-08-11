@@ -74,7 +74,7 @@ export default function AdminSiteSettingsPage() {
             <Input
               value={settings.brandName}
               onChange={(e) => patch({ brandName: e.target.value })}
-              placeholder="Autora"
+              placeholder="AGTP GROUP"
               className="mt-1 text-sm font-bold"
             />
             <p className="text-[10px] text-slate-400 mt-1">
@@ -132,7 +132,7 @@ export default function AdminSiteSettingsPage() {
               type="email"
               value={settings.supportEmail}
               onChange={(e) => patch({ supportEmail: e.target.value })}
-              placeholder="inquire@autora-motors.com"
+              placeholder="inquiries@agtpgroup.com"
               className="mt-1 text-sm"
             />
           </div>
@@ -161,7 +161,7 @@ export default function AdminSiteSettingsPage() {
               value={settings.metaTitle}
               onChange={(e) => patch({ metaTitle: e.target.value })}
               className="mt-1 text-sm"
-              placeholder="Autora — Certified Vehicle Specifications..."
+              placeholder="AGTP GROUP — Certified Vehicle Specifications..."
             />
             <p className="text-[10px] text-slate-400 mt-1">
               Character count: {settings.metaTitle.length} / 60 recommended
@@ -194,7 +194,7 @@ export default function AdminSiteSettingsPage() {
           </div>
           <div>
             <p className="text-xl font-black tracking-wider uppercase text-white leading-none">
-              {settings.brandName || "Autora"}
+              {settings.brandName || "AGTP GROUP"}
             </p>
             <p className="text-[10px] font-semibold tracking-widest text-amber-500 uppercase">
               {settings.tagline || "MOTORS · SHOWCASE"}
@@ -205,3 +205,5 @@ export default function AdminSiteSettingsPage() {
     </div>
   );
 }
+
+

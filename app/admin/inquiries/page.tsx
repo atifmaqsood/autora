@@ -15,7 +15,7 @@ export default function AdminInquiriesPage() {
 
   useEffect(() => {
     try {
-      const local = JSON.parse(localStorage.getItem("autora_inquiries") || "[]");
+      const local = JSON.parse(localStorage.getItem("agtp_inquiries") || "[]");
       if (local && local.length > 0) {
         // Merge with dummy inquiries
         const combined = [...local, ...DUMMY_INQUIRIES];
@@ -189,3 +189,5 @@ export default function AdminInquiriesPage() {
     </div>
   );
 }
+
+

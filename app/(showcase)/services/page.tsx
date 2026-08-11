@@ -1,5 +1,8 @@
+"use client";
+
 import { PageHero } from "@/components/layout/page-hero";
-import { ShieldCheck, Truck, FileCheck, Search, Wrench, Globe } from "lucide-react";
+import { Truck, FileCheck, Search } from "lucide-react";
+import { RevealStagger } from "@/components/ui/scroll-reveal";
 
 export default function ServicesPage() {
   return (
@@ -11,7 +14,7 @@ export default function ServicesPage() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <RevealStagger staggerDelay={100} className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
             <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold">
               <FileCheck className="w-6 h-6" />
@@ -47,8 +50,10 @@ export default function ServicesPage() {
               Export shipping advice, enclosed vehicle transport arrangements, custom clearance documentation, and VIP delivery coordination across Europe, Asia, and the Middle East.
             </p>
           </div>
-        </div>
+        </RevealStagger>
       </div>
     </div>
   );
 }
+
+

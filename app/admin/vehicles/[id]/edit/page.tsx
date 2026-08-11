@@ -18,3 +18,4 @@ export default async function EditVehiclePage({ params }: EditPageProps) {
 
   return <VehicleForm initialData={vehicle} isEdit={true} />;
 }
+

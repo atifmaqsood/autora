@@ -88,3 +88,5 @@ export interface VehicleInquiry {
   createdAt: string;
   status: "Pending" | "Contacted" | "Closed";
 }
+
+

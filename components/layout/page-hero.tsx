@@ -21,15 +21,15 @@ export function PageHero({ title, subtitle, badge, className }: PageHeroProps) {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
         {badge && (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-wider uppercase">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-wider uppercase animate-in fade-in slide-in-from-bottom-2 duration-500">
             {badge}
           </div>
         )}
-        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white font-sans">
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white font-sans animate-in fade-in slide-in-from-bottom-3 duration-500 delay-75">
           {title}
         </h1>
         {subtitle && (
-          <p className="max-w-2xl mx-auto text-base md:text-lg text-slate-400 font-normal leading-relaxed">
+          <p className="max-w-2xl mx-auto text-base md:text-lg text-slate-400 font-normal leading-relaxed animate-in fade-in slide-in-from-bottom-3 duration-500 delay-150">
             {subtitle}
           </p>
         )}
@@ -37,3 +37,5 @@ export function PageHero({ title, subtitle, badge, className }: PageHeroProps) {
     </div>
   );
 }
+
+

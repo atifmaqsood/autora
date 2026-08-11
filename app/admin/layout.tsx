@@ -14,6 +14,7 @@ import {
   Layout,
   Sliders,
   Globe,
+  PackageCheck,
   ChevronDown,
   ChevronRight,
   Sparkles
@@ -31,6 +32,7 @@ const vehicleNav = [
 const contentNav = [
   { name: "Hero Carousel Slides", href: "/admin/content/hero-slides",   icon: Sliders   },
   { name: "Homepage Sections",    href: "/admin/content/homepage",       icon: Layout    },
+  { name: "Spare Parts Page",     href: "/admin/content/spare-parts",    icon: PackageCheck },
   { name: "Site Settings",        href: "/admin/content/site-settings",  icon: Globe     },
 ];
 
@@ -130,7 +132,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </Button>
         </Link>
         <div className="bg-slate-900 p-3 rounded-lg border border-slate-800 text-[11px] text-slate-400 space-y-0.5">
-          <span className="text-amber-400 font-bold block">Autora Admin Panel</span>
+          <span className="text-amber-400 font-bold block">AGTP GROUP Admin Panel</span>
           <span>localStorage content model</span>
         </div>
       </div>
@@ -213,3 +215,5 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     </div>
   );
 }
+
+

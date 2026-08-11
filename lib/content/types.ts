@@ -52,6 +52,31 @@ export interface CtaBannerSection {
   ctaLabel: string;
 }
 
+export interface SparePartsCategory {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export interface SparePartsPageContent {
+  heroEyebrow: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  primaryCtaLabel: string;
+  secondaryCtaLabel: string;
+  categoriesEyebrow: string;
+  categoriesTitle: string;
+  categoriesSubtitle: string;
+  categories: SparePartsCategory[];
+  processEyebrow: string;
+  processTitle: string;
+  processSubtitle: string;
+  ctaEyebrow: string;
+  ctaTitle: string;
+  ctaSubtitle: string;
+  ctaLabel: string;
+}
+
 // ─── Site Settings ───────────────────────────────────────────────────────────
 export interface SiteSettings {
   brandName: string;
@@ -74,4 +99,7 @@ export interface ShowcaseContent {
   spotlightSection: SpotlightSection;
   whySection: WhySection;
   ctaBanner: CtaBannerSection;
+  sparePartsPage: SparePartsPageContent;
 }
+
+

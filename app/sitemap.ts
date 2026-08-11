@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { getAllVehicles, CATEGORIES_LIST } from "@/lib/vehicles/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://autora-motors.com";
+  const baseUrl = "https://agtpgroup.com";
   const vehicles = getAllVehicles();
 
   const vehicleUrls = vehicles.map((v) => ({
@@ -19,6 +19,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7
   }));
 
+  const agtpUrls = [
+    "/brands",
+    "/faqs",
+    "/contact-us",
+    "/about-us",
+    "/business-solutions",
+    "/automotive",
+    "/construction-materials",
+    "/furniture-and-home-items",
+    "/general-merchandise",
+    "/industrial-equipment",
+    "/packaging-materials",
+    "/apparel-and-textiles",
+    "/electronics"
+  ].map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7
+  }));
+
   return [
     {
       url: baseUrl,
@@ -31,6 +52,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.9
+    },
+    {
+      url: `${baseUrl}/spare-parts`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8
     },
     {
       url: `${baseUrl}/about`,
@@ -56,7 +83,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6
     },
+    ...agtpUrls,
     ...categoryUrls,
     ...vehicleUrls
   ];
 }
+
+

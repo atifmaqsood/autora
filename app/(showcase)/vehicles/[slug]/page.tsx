@@ -42,12 +42,12 @@ export async function generateMetadata({
 
   if (!vehicle) {
     return {
-      title: "Vehicle Not Found | AUTORA Showcase"
+      title: "Vehicle Not Found | AGTP GROUP Showcase"
     };
   }
 
   return {
-    title: `${vehicle.make} ${vehicle.model} ${vehicle.variant} (${vehicle.year}) Specifications | AUTORA Showcase`,
+    title: `${vehicle.make} ${vehicle.model} ${vehicle.variant} (${vehicle.year}) Specifications | AGTP GROUP Showcase`,
     description: `Complete technical specifications, engine horsepower (${vehicle.horsepower} HP), ${vehicle.transmission} transmission, and equipment details for the ${vehicle.year} ${vehicle.make} ${vehicle.model}.`
   };
 }
@@ -255,3 +255,4 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
     </div>
   );
 }
+
