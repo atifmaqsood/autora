@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, ChevronDown, Mail, Menu, MessageCircle, Phone, Send, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
 import { Logo } from "./logo";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 
@@ -97,12 +97,13 @@ export function StoreHeader() {
                       {active && <span className="absolute bottom-0 left-1 h-1.5 w-1.5 rounded-full bg-[#536dfe]" />}
                     </Link>
                     {link.children && (
-                      <div className="invisible absolute left-1/2 top-full z-50 w-[280px] -translate-x-1/2 rounded-2xl border border-[#25304b] bg-[#070a10]/98 p-3 opacity-0 shadow-2xl backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-1 group-hover:opacity-100">
+                      <div className="invisible absolute left-1/2 top-[calc(100%+18px)] z-[70] w-[315px] -translate-x-1/2 translate-y-3 rounded-[18px] border border-[#33405f] bg-[#080d18] p-3 opacity-0 shadow-[0_24px_70px_rgba(0,0,0,0.55)] ring-1 ring-white/5 backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                        <div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-[#33405f] bg-[#080d18]" />
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="block rounded-xl px-4 py-3 text-[13px] font-bold text-slate-400 transition-colors hover:bg-[#111832] hover:text-white"
+                            className="relative z-10 block rounded-[12px] px-4 py-3 text-[13px] font-extrabold text-slate-300 transition-colors hover:bg-[#18213a] hover:text-white"
                           >
                             {child.name}
                           </Link>
@@ -178,27 +179,6 @@ export function StoreHeader() {
             </div>
           )}
         </header>
-      </div>
-
-      <div className="fixed bottom-[70px] right-8 z-50 flex flex-col gap-4">
-        <a
-          href="https://wa.me/97158585729"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#26d22f] bg-transparent text-[#26d22f] shadow-2xl transition-all duration-300 hover:scale-110"
-          aria-label="WhatsApp contact"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </a>
-        <a
-          href="https://t.me/agtpgroup"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#1688ff] bg-transparent text-[#1688ff] shadow-2xl transition-all duration-300 hover:scale-110"
-          aria-label="Telegram contact"
-        >
-          <Send className="h-5 w-5 fill-current" />
-        </a>
       </div>
 
       <VehicleInquiryModal isOpen={inquiryModalOpen} onClose={() => setInquiryModalOpen(false)} />

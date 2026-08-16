@@ -3,12 +3,35 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Search } from "lucide-react";
+import {
+  ArrowRight,
+  Car,
+  CheckCircle2,
+  Cog,
+  Factory,
+  FileCheck,
+  Globe2,
+  Package,
+  Plane,
+  Search,
+  Ship,
+  Truck,
+  Users,
+  Wrench
+} from "lucide-react";
 import { HeroCarousel } from "@/components/home/hero-carousel";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { VehicleCard } from "@/components/vehicles/vehicle-card";
 import { getAllVehicles, getFeaturedVehicles } from "@/lib/vehicles/data";
-import { Reveal, RevealButton, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from "@/components/ui/scroll-reveal";
+import {
+  Reveal,
+  RevealButton,
+  RevealCounter,
+  RevealEyebrow,
+  RevealHeading,
+  RevealStagger,
+  RevealText
+} from "@/components/ui/scroll-reveal";
 import { agtpAssets } from "@/src/assets";
 
 const serviceCards = [
@@ -95,6 +118,153 @@ const locations = [
   ["Furniture & Home Items", "Home Decor & Furniture", "Quality Trading Solutions", "United Arab Emirates"]
 ];
 
+const heroStats = [
+  { icon: Globe2, value: 10, suffix: "+", label: "Countries Served" },
+  { icon: Users, value: 100, suffix: "+", label: "Suppliers" },
+  { icon: Package, value: 27, suffix: "K+", label: "Products Sourced" },
+  { icon: Factory, value: 7, suffix: "+", label: "Industries" }
+];
+
+const sourcingPanels = [
+  {
+    title: "Trusted Global Sourcing Solutions",
+    body:
+      "AGTP Group helps individuals and businesses source quality products from trusted suppliers worldwide. From supplier selection to procurement support, we make sourcing simple and efficient.",
+    listTitle: "We Proudly Serve:",
+    items: ["Individuals & Businesses", "Importers & Distributors", "Corporate Buyers", "Government & Project Clients"],
+    cta: "Start Sourcing",
+    href: "/contact-us",
+    image: agtpAssets.exportPort
+  },
+  {
+    title: "International Shipping Made Simple",
+    body:
+      "AGTP Group provides reliable shipping solutions for individuals and businesses worldwide. From sourcing to delivery, we ensure smooth and efficient cargo movement.",
+    listTitle: "We Proudly Support:",
+    items: ["Ocean Freight", "Air Freight", "Customs Clearance", "Worldwide Delivery"],
+    cta: "Start Shipping",
+    href: "/contact-us",
+    image: agtpAssets.vans
+  }
+];
+
+const industryCards = [
+  { title: "Automotive", subtitle: "Vehicles, Parts & Accessories", image: agtpAssets.sedans, icon: Car },
+  { title: "Engines", subtitle: "Diesel, Petrol & Hybrid", image: agtpAssets.pickups, icon: Cog },
+  { title: "Tyres", subtitle: "Passenger, Truck & OTR", image: agtpAssets.suvs, icon: Truck },
+  { title: "Spare Parts", subtitle: "Genuine, OEM & Aftermarket", image: agtpAssets.sparePartsHero, icon: Wrench },
+  { title: "Gear Box", subtitle: "Manual, Automatic & CVT", image: agtpAssets.vans, icon: Package }
+];
+
+const processSteps = [
+  {
+    title: "Your Requirements",
+    body: "Share the products you're looking for. Tell us your specifications and quantity.",
+    icon: FileCheck
+  },
+  {
+    title: "Source & Verify",
+    body: "Share the products you're looking for. Tell us your specifications and quantity.",
+    icon: Search
+  },
+  {
+    title: "Receive Quotation",
+    body: "We source trusted suppliers worldwide. Every supplier is carefully verified.",
+    icon: Package
+  },
+  {
+    title: "Confirm Your Order",
+    body: "Approve the quotation to proceed. We begin procurement immediately.",
+    icon: CheckCircle2
+  },
+  {
+    title: "Export Logistics",
+    body: "We manage export and shipping. Documents are prepared with care.",
+    icon: Ship
+  },
+  {
+    title: "Delivery & Support",
+    body: "Your order is delivered worldwide. Ongoing support is always available.",
+    icon: Plane
+  }
+];
+
+const topMarkets = ["Angola", "Ghana", "Congo", "USA", "United Kingdom", "Europe"];
+
+const supplierCards = [
+  { title: "Automotive Body Kits Market Location 6", experience: "18+ year Experience", countries: "Serving 25+ Countries", image: agtpAssets.cadillacEscaladeCard },
+  { title: "Automotive Body Kits Market Location 5", experience: "10+ year Experience", countries: "Serving 14+ Countries", image: agtpAssets.bmw760Card },
+  { title: "Automotive Body Kits Market Location 2", experience: "10+ year Experience", countries: "Serving 25+ Countries", image: agtpAssets.mercedesCclassCard },
+  { title: "Automotive Body Kits Market Location 3", experience: "13+ year Experience", countries: "Serving 20+ Countries", image: agtpAssets.bydDestroyerCard },
+  { title: "Automotive Body Kits Market Location 4", experience: "12+ year Experience", countries: "Serving 15+ Countries", image: agtpAssets.bmwX2Card },
+  { title: "Automotive Parts Market Location 10", experience: "10+ year Experience", countries: "Serving 25+ Countries", image: agtpAssets.sparePartsHero }
+];
+
+const customerStories = [
+  {
+    name: "Mr. Ringo",
+    label: "Repeat Vehicle Buyer",
+    story:
+      "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group."
+  },
+  {
+    name: "Mr. Jorge Goncalves",
+    label: "Oil & Gas Professional",
+    story:
+      "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola."
+  },
+  {
+    name: "Mr. Muhammad Sumani",
+    label: "Engineer",
+    story:
+      "Completed his vehicle purchase entirely online, with AGTP Group safely exporting and delivering the unit to Ghana."
+  },
+  {
+    name: "Mr. Eduardo Conde Salamau",
+    label: "Oil & Gas Professional",
+    story:
+      "Used our secure online payment process while AGTP Group managed the full export and delivery coordination."
+  }
+];
+
+const insightCards = [
+  {
+    title: "The Future of Cross-Border Trade: Opportunities for SMEs",
+    image: agtpAssets.exportPort
+  },
+  {
+    title: "Why Supplier Verification Is Critical in Global Sourcing",
+    image: agtpAssets.sparePartsHero
+  },
+  {
+    title: "5 Common Challenges in International Procurement and How to Overcome Them",
+    image: agtpAssets.vans
+  }
+];
+
+const expertiseVehicleCards = [
+  {
+    title: "Changan X5 Plus 1.5L 2026 | Full Option - Export Only",
+    meta: ["0 Miles", "Petrol", "Automatic"],
+    image: agtpAssets.bydDestroyerCard
+  },
+  {
+    title: "Toyota Sequoia TRD Pro 2025 - Export Only",
+    meta: ["0 Miles", "Hybrid", "Automatic"],
+    image: agtpAssets.cadillacEscaladeCard
+  },
+  {
+    title: "Toyota RAV4 HEV XLE - G 2025 - Export Only",
+    meta: ["0 Miles", "Hybrid", "Automatic"],
+    image: agtpAssets.bmwX2Card
+  },
+  {
+    title: "Toyota Sequoia 1794 Edition Hybrid 2025 - Export Only",
+    meta: ["0 Miles", "Hybrid", "Automatic"],
+    image: agtpAssets.suvs
+  }
+];
+
 export default function HomePage() {
   const featuredVehicles = getFeaturedVehicles();
   const allVehicles = getAllVehicles();
@@ -112,6 +282,10 @@ export default function HomePage() {
       <HeroCarousel />
 
       <Marquee items={["AUTOMOTIVE TRADING", "SPARE PARTS", "CONSTRUCTION MATERIALS", "ELECTRONICS", "FURNITURE", "GENERAL TRADING"]} />
+
+      <HeroCopySection />
+
+      <SourcingPanelsSection />
 
       <section className="mx-auto max-w-[1570px] px-6 pt-[90px]">
         <div className="mb-10 flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
@@ -149,6 +323,16 @@ export default function HomePage() {
         </RevealStagger>
       </section>
 
+      <ExpertiseVehiclesSection />
+
+      <IndustriesProcessSection />
+
+      <GlobalNetworkSection />
+
+      <DubaiMarketsSection />
+
+      <TrustStatementSection />
+
       <PromiseRevealSection />
 
       <ServicesHorizontalSection />
@@ -163,19 +347,17 @@ export default function HomePage() {
               <h2 className="max-w-[760px] text-[52px] font-black uppercase leading-[0.95] tracking-normal text-slate-100 md:text-[82px]">
                 Luxury Cars, Trusted Worldwide
               </h2>
-              <Link
-                href="/vehicles"
-                className="absolute left-[61%] top-[92px] flex h-[92px] w-[92px] items-center justify-center rounded-full bg-[#536dfe] text-[12px] font-black uppercase tracking-[0.15em] text-white"
-              >
-                View
-              </Link>
               <div className="absolute right-[8.5%] top-[260px] hidden w-[520px] space-y-4 xl:block">
                 {[
                   ["Service", "Automotive Trading"],
                   ["Supply", "Spare Parts"],
                   ["Reach", "Worldwide"]
-                ].map(([label, value]) => (
-                  <div key={label} className="flex h-[68px] items-center justify-between rounded-[14px] border border-[#33405f] bg-[#172033]/90 px-7">
+                ].map(([label, value], index) => (
+                  <div
+                    key={label}
+                    className="animate-grow-in flex h-[68px] items-center justify-between rounded-[14px] border border-[#33405f] bg-[#172033]/90 px-7 opacity-0"
+                    style={{ animationDelay: `${index * 120}ms` }}
+                  >
                     <span className="text-[15px] font-medium text-slate-400">{label}</span>
                     <span className="text-[21px] font-black text-white">{value}</span>
                   </div>
@@ -185,6 +367,8 @@ export default function HomePage() {
           </div>
         </Reveal>
       </section>
+
+      <CustomerStoriesSection />
 
       <section className="mx-auto max-w-[1570px] px-6 pt-[95px] text-center">
         <SectionEyebrow center>WHY CHOOSE AGTP GROUP?</SectionEyebrow>
@@ -233,6 +417,10 @@ export default function HomePage() {
       </section>
 
       <Marquee muted items={["GLOBAL TRADING EXCELLENCE", "DELIVERING QUALITY", "BUILDING TRUST"]} />
+
+      <InsightsSection />
+
+      <HeroStatsSection />
 
       <section className="mx-auto max-w-[1570px] px-6 pt-[80px]">
         <Reveal>
@@ -287,6 +475,429 @@ function SectionEyebrow({ children, center = false }: { children: React.ReactNod
   );
 }
 
+function HeroCopySection() {
+  return (
+    <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
+      <Reveal>
+        <div className="grid gap-8 rounded-[18px] border border-[#25304f] bg-[#111832] p-7 shadow-lg lg:grid-cols-[1fr_auto] lg:items-center lg:p-9">
+          <div>
+            <SectionEyebrow>GLOBAL SOURCING</SectionEyebrow>
+            <h2 className="mt-6 max-w-[860px] text-[34px] font-black leading-[1.08] tracking-normal text-white md:text-[52px]">
+              Global Sourcing. International Trade. Export Logistics.
+            </h2>
+            <p className="mt-5 max-w-[720px] text-[15px] font-semibold leading-[1.6] text-slate-400 md:text-[17px]">
+              Helping importers, distributors and manufacturers source verified products from trusted suppliers across the UAE, China and global markets.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/contact-us" className="inline-flex h-[52px] items-center gap-2.5 rounded-full bg-[#536dfe] px-7 text-[14px] font-black text-white transition-colors hover:bg-[#4560f2]">
+              Start Sourcing <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/brands" className="inline-flex h-[52px] items-center rounded-full border border-[#33405f] px-7 text-[14px] font-black text-white transition-colors hover:border-[#536dfe] hover:bg-[#18213a]">
+              Explore Suppliers
+            </Link>
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+function HeroStatsSection() {
+  return (
+    <section className="mx-auto max-w-[1570px] px-6 pt-[72px]">
+      <RevealStagger staggerDelay={70} className="grid overflow-hidden rounded-[14px] border border-[#25304f] bg-[#0d1428] shadow-lg md:grid-cols-2 xl:grid-cols-4">
+        {heroStats.map((stat) => {
+          const Icon = stat.icon;
+          return (
+            <div key={stat.label} className="flex min-h-[112px] items-center justify-center gap-4 border-b border-[#25304f] px-5 py-6 md:border-r xl:border-b-0">
+              <Icon className="h-7 w-7 shrink-0 text-[#9cadff]" />
+              <div>
+                <div className="text-[34px] font-black leading-none text-white md:text-[44px]">
+                  <RevealCounter end={stat.value} suffix={stat.suffix} />
+                </div>
+                <div className="mt-2 text-[13px] font-semibold text-slate-400">{stat.label}</div>
+              </div>
+            </div>
+          );
+        })}
+      </RevealStagger>
+    </section>
+  );
+}
+
+function ExpertiseVehiclesSection() {
+  return (
+    <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
+      <div className="text-center">
+        <SectionEyebrow center>AREAS OF EXPERTISE</SectionEyebrow>
+        <RevealHeading>
+          <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+            Automotive Vehicles
+          </h2>
+        </RevealHeading>
+        <RevealButton>
+          <Link href="/vehicles" className="mt-7 inline-flex h-[48px] items-center rounded-full border border-[#536dfe] px-7 text-[14px] font-black text-white transition-colors hover:bg-[#536dfe]">
+            View More
+          </Link>
+        </RevealButton>
+      </div>
+
+      <RevealStagger staggerDelay={80} className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        {expertiseVehicleCards.map((vehicle) => (
+          <Link key={vehicle.title} href="/vehicles" className="group overflow-hidden rounded-[16px] border border-[#25304f] bg-[#111832] shadow-lg">
+            <div className="relative aspect-[1024/575] overflow-hidden bg-white">
+              <Image src={vehicle.image} alt={vehicle.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 25vw" />
+            </div>
+            <div className="p-6">
+              <h3 className="line-clamp-2 min-h-[48px] text-[18px] font-black leading-tight text-white transition-colors group-hover:text-[#9cadff]">
+                {vehicle.title}
+              </h3>
+              <div className="mt-5 h-px bg-[#263052]" />
+              <div className="mt-5 grid grid-cols-3 gap-3 text-center text-[12px] font-semibold text-slate-400">
+                {vehicle.meta.map((item) => (
+                  <span key={item} className="rounded-[10px] border border-[#25304f] bg-[#070a10] px-2 py-2">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <span className="mt-5 inline-flex text-[13px] font-black text-white transition-colors group-hover:text-[#9cadff]">
+                View Details
+              </span>
+            </div>
+          </Link>
+        ))}
+      </RevealStagger>
+    </section>
+  );
+}
+
+function SourcingPanelsSection() {
+  return (
+    <section className="mx-auto grid max-w-[1570px] grid-cols-1 gap-6 px-6 pt-[82px] lg:grid-cols-2">
+      {sourcingPanels.map((panel) => (
+        <Reveal key={panel.title} className="h-full">
+          <div className="group relative flex h-full min-h-[420px] overflow-hidden rounded-[18px] border border-[#25304f] bg-[#111832] p-7 shadow-xl">
+            <Image src={panel.image} alt={panel.title} fill className="object-cover opacity-35 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 50vw" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#070a10]/95 via-[#070a10]/72 to-[#070a10]/42" />
+            <div className="relative z-10 flex min-h-full w-full max-w-[680px] flex-col justify-between">
+              <div>
+                <h2 className="text-[28px] font-black leading-[1.12] text-white md:text-[38px]">{panel.title}</h2>
+                <p className="mt-5 max-w-[600px] text-[15px] font-medium leading-[1.55] text-slate-300">{panel.body}</p>
+                <h3 className="mt-7 text-[15px] font-black text-white">{panel.listTitle}</h3>
+                <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                  {panel.items.map((item) => (
+                    <div key={item} className="flex items-center gap-2.5 text-[14px] font-semibold text-slate-200">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-[#9cadff]" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <Link href={panel.href} className="mt-8 inline-flex w-max items-center gap-2.5 rounded-full bg-[#536dfe] px-6 py-3.5 text-[13px] font-black text-white transition-colors hover:bg-[#4560f2]">
+                <span>{panel.cta}</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+      ))}
+    </section>
+  );
+}
+
+function IndustriesProcessSection() {
+  return (
+    <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
+      <div className="text-center">
+        <SectionEyebrow center>INDUSTRIES WE SERVE</SectionEyebrow>
+        <RevealHeading>
+          <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+            Solutions For Every Industry
+          </h2>
+        </RevealHeading>
+      </div>
+
+      <RevealStagger staggerDelay={80} className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-5">
+        {industryCards.map((card) => {
+          const Icon = card.icon;
+          return (
+            <Link key={card.title} href="/business-solutions" className="group relative flex min-h-[292px] flex-col justify-end overflow-hidden rounded-[16px] border border-[#25304f] bg-[#111832] p-5">
+              <Image src={card.image} alt={card.title} fill className="object-cover opacity-55 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 20vw" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#070a10]/20 to-[#070a10]/95" />
+              <div className="relative z-10">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#536dfe]/35 bg-[#536dfe]/15 text-[#9cadff]">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="text-[23px] font-black leading-none text-white">{card.title}</h3>
+                <p className="mt-2.5 text-[13px] font-bold text-slate-300">{card.subtitle}</p>
+              </div>
+            </Link>
+          );
+        })}
+      </RevealStagger>
+
+      <div id="how-it-works" className="scroll-mt-32 pt-[82px] text-center">
+        <SectionEyebrow center>OUR PROCESS</SectionEyebrow>
+        <RevealHeading>
+          <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+            How AGTP Group Works
+          </h2>
+        </RevealHeading>
+      </div>
+
+      <RevealStagger staggerDelay={70} className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {processSteps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <div key={step.title} className="rounded-[16px] border border-[#25304f] bg-[#111832] p-6 shadow-lg">
+              <div className="mb-6 flex items-center justify-between">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#070a10]">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#536dfe]/40 text-[15px] font-black text-[#9cadff]">
+                  {index + 1}
+                </span>
+              </div>
+              <h3 className="text-[21px] font-black text-white">{step.title}</h3>
+              <p className="mt-3 text-[14px] font-medium leading-[1.5] text-slate-400">{step.body}</p>
+            </div>
+          );
+        })}
+      </RevealStagger>
+    </section>
+  );
+}
+
+function GlobalNetworkSection() {
+  return (
+    <section className="mt-[82px] border-y border-[#1c2436] bg-[#050811] py-[82px]">
+      <div className="mx-auto max-w-[1570px] px-6">
+        <div className="text-center">
+          <SectionEyebrow center>OUR GLOBAL NETWORK</SectionEyebrow>
+          <RevealHeading>
+            <h2 className="mx-auto mt-6 max-w-[840px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+              Connecting Global Markets Worldwide
+            </h2>
+          </RevealHeading>
+        </div>
+
+        <div className="mt-[48px] grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-stretch">
+          <Reveal className="lg:col-span-8">
+            <div className="relative min-h-[440px] overflow-hidden rounded-[18px] border border-[#25304f] bg-[#111832]">
+              <Image src={agtpAssets.exportPort} alt="Global logistics network" fill className="object-cover opacity-35" sizes="(max-width: 1024px) 100vw, 66vw" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(83,109,254,0.28),transparent_46%)]" />
+              <div className="absolute inset-0 bg-[#050811]/45" />
+              <div className="relative z-10 flex min-h-[440px] flex-col justify-end p-7">
+                <Globe2 className="h-12 w-12 text-[#9cadff]" />
+                <p className="mt-5 max-w-[580px] text-[18px] font-black leading-[1.35] text-white">
+                  Reliable sourcing, supplier verification, procurement support, and export logistics connecting buyers with trusted global markets.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal className="lg:col-span-4" delay={120}>
+            <div className="h-full rounded-[18px] border border-[#25304f] bg-[#111832] p-7">
+              <div className="flex items-center gap-3 text-[22px] font-black text-white">
+                <Globe2 className="h-6 w-6 text-[#9cadff]" />
+                Top Markets
+              </div>
+              <div className="mt-6 space-y-3">
+                {topMarkets.map((market) => (
+                  <div key={market} className="flex items-center justify-between rounded-[12px] border border-[#25304f] bg-[#070a10] px-4 py-3.5">
+                    <span className="text-[15px] font-black text-white">{market}</span>
+                    <ArrowRight className="h-4 w-4 text-[#9cadff]" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DubaiMarketsSection() {
+  return (
+    <section id="dubai-markets" className="mx-auto max-w-[1570px] scroll-mt-32 px-6 pt-[82px]">
+      <div className="text-center">
+        <SectionEyebrow center>DUBAI MARKETS</SectionEyebrow>
+        <RevealHeading>
+          <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+            Automotive Suppliers
+          </h2>
+        </RevealHeading>
+        <RevealButton>
+          <Link href="/brands" className="mt-7 inline-flex h-[48px] items-center rounded-full border border-[#536dfe] px-7 text-[14px] font-black text-white transition-colors hover:bg-[#536dfe]">
+            View More
+          </Link>
+        </RevealButton>
+      </div>
+
+      <RevealStagger staggerDelay={80} className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {supplierCards.map((supplier) => (
+          <div key={supplier.title} className="overflow-hidden rounded-[16px] border border-[#25304f] bg-[#111832] shadow-lg">
+            <div className="relative h-[220px] bg-[#070a10]">
+              <Image src={supplier.image} alt={supplier.title} fill className="object-cover opacity-80" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute right-4 top-4 rounded-full bg-[#070a10]/80 px-3.5 py-2 text-[11px] font-black text-white">
+                Automotive Parts, Body Kits, Tyres
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="text-[19px] font-black leading-tight text-white">{supplier.title}</h3>
+              <div className="mt-5 flex flex-wrap gap-4 text-[13px] font-semibold text-slate-300">
+                <span>{supplier.experience}</span>
+                <span>{supplier.countries}</span>
+              </div>
+              <Link href="/brands" className="mt-6 flex h-[46px] items-center justify-center rounded-full border border-[#536dfe]/45 text-[13px] font-black text-white transition-colors hover:bg-[#536dfe]">
+                View Supplier Profile
+              </Link>
+            </div>
+          </div>
+        ))}
+      </RevealStagger>
+    </section>
+  );
+}
+
+function TrustStatementSection() {
+  return (
+    <section className="mt-[82px] border-y border-[#1c2436] bg-[#050811] py-[82px]">
+      <div className="mx-auto max-w-[1570px] px-6 text-center">
+        <SectionEyebrow center>WHO WE ARE</SectionEyebrow>
+        <RevealHeading>
+          <h2 className="mx-auto mt-6 max-w-[900px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+            Building Trust Beyond Every Transaction
+          </h2>
+        </RevealHeading>
+        <Reveal>
+          <div className="mx-auto mt-[48px] grid max-w-[1180px] overflow-hidden rounded-[20px] border border-[#25304f] bg-[#111832] text-left shadow-xl lg:grid-cols-[0.8fr_1.2fr]">
+            <div className="relative min-h-[260px] border-b border-[#25304f] bg-[#0d1428] p-8 lg:border-b-0 lg:border-r">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(83,109,254,0.28),transparent_45%)]" />
+              <div className="relative z-10 flex h-full flex-col justify-between">
+                <div>
+                  <span className="inline-flex rounded-full border border-[#536dfe]/35 bg-[#536dfe]/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-[#9cadff]">
+                    AGTP Team
+                  </span>
+                  <h3 className="mt-6 max-w-[360px] text-[26px] font-black leading-[1.12] text-white">
+                    Your Global Sourcing Partner
+                  </h3>
+                </div>
+                <div className="mt-8 grid grid-cols-2 gap-3">
+                  {["Transparency", "Accountability"].map((item) => (
+                    <div key={item} className="rounded-[12px] border border-[#25304f] bg-[#070a10]/70 px-4 py-3 text-[12px] font-bold text-slate-300">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 md:p-10 lg:p-12">
+              <div className="mb-6 h-px w-20 bg-[#536dfe]" />
+              <p className="text-[17px] font-semibold leading-[1.7] text-slate-200 md:text-[19px]">
+                When we founded AGTP Group, our goal wasn't simply to move products across borders. It was to build a company that businesses could trust for years to come.
+              </p>
+              <p className="mt-5 text-[15px] font-medium leading-[1.7] text-slate-400 md:text-[16px]">
+                Every partnership we create is built on transparency, accountability, and a commitment to delivering value beyond a single transaction.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                {["Trusted Sourcing", "Verified Partners", "Long-Term Value"].map((item) => (
+                  <span key={item} className="rounded-full border border-[#536dfe]/30 bg-[#536dfe]/10 px-4 py-2 text-[12px] font-black uppercase tracking-[0.12em] text-[#9cadff]">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function CustomerStoriesSection() {
+  return (
+    <section id="customer-reviews" className="mx-auto max-w-[1570px] scroll-mt-32 px-6 pt-[82px] text-center">
+      <SectionEyebrow center>CUSTOMER REVIEWS</SectionEyebrow>
+      <RevealHeading>
+        <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+          What Our Customers Say
+        </h2>
+      </RevealHeading>
+      <RevealButton>
+        <Link href="/contact-us" className="mt-7 inline-flex h-[48px] items-center rounded-full border border-[#536dfe] px-7 text-[14px] font-black text-white transition-colors hover:bg-[#536dfe]">
+          Explore More
+        </Link>
+      </RevealButton>
+      <RevealStagger staggerDelay={80} className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        {customerStories.map((story, index) => (
+          <div key={story.name} className="group flex h-full min-h-[540px] flex-col overflow-hidden rounded-[16px] border border-[#25304f] bg-[#111832] shadow-lg">
+            <div className="relative h-[230px] shrink-0 overflow-hidden bg-[#070a10]">
+              <Image
+                src={[agtpAssets.cadillacEscaladeCard, agtpAssets.bmw760Card, agtpAssets.exportPort, agtpAssets.suvs][index]}
+                alt={`${story.name} customer story`}
+                fill
+                className="object-cover opacity-75 transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 25vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#070a10]/90 via-[#070a10]/20 to-transparent" />
+              <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#070a10]/70 px-3.5 py-2 text-[11px] font-black uppercase tracking-[0.14em] text-white backdrop-blur">
+                Customer Story
+              </span>
+            </div>
+            <div className="flex flex-1 flex-col p-6 text-left">
+              <div className="flex items-start gap-3">
+                <span className="mt-1 h-8 w-1.5 shrink-0 rounded-full bg-[#536dfe]" />
+                <div>
+                  <h3 className="text-[18px] font-black leading-tight text-white">{story.name}</h3>
+                  <p className="mt-1 text-[12px] font-bold uppercase tracking-[0.14em] text-[#9cadff]">{story.label}</p>
+                </div>
+              </div>
+              <p className="mt-5 text-[14px] font-medium leading-[1.6] text-slate-300">{story.story}</p>
+            </div>
+          </div>
+        ))}
+      </RevealStagger>
+    </section>
+  );
+}
+
+function InsightsSection() {
+  return (
+    <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
+      <div className="text-center">
+        <SectionEyebrow center>OUR INSIGHTS</SectionEyebrow>
+        <RevealHeading>
+          <h2 className="mx-auto mt-6 max-w-[720px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+            Our Insights
+          </h2>
+        </RevealHeading>
+      </div>
+      <RevealStagger staggerDelay={90} className="mt-[48px] grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {insightCards.map((insight) => (
+          <Link key={insight.title} href="/blogs" className="group overflow-hidden rounded-[16px] border border-[#25304f] bg-[#111832] shadow-lg">
+            <div className="relative h-[230px]">
+              <Image src={insight.image} alt={insight.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 33vw" />
+              <span className="absolute left-5 top-5 rounded-full bg-white px-4 py-2 text-[12px] font-black text-[#070a10]">
+                AGTP Insights
+              </span>
+            </div>
+            <div className="p-6">
+              <p className="text-[13px] font-semibold text-slate-400">June 16, 2026</p>
+              <h3 className="mt-3 text-[20px] font-black leading-tight text-white transition-colors group-hover:text-[#9cadff]">
+                {insight.title}
+              </h3>
+            </div>
+          </Link>
+        ))}
+      </RevealStagger>
+    </section>
+  );
+}
+
 function PromiseRevealSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeCount, setActiveCount] = useState(0);
@@ -294,6 +905,7 @@ function PromiseRevealSection() {
     "AGTP Group Spare Parts, rooted in Dubai, UAE, has grown into a trusted global seller delivering quality automotive parts with unmatched customer service.".split(
       " "
     );
+  const blueStartIndex = Math.floor(words.length / 2);
 
   useEffect(() => {
     let frame = 0;
@@ -335,7 +947,7 @@ function PromiseRevealSection() {
               <span
                 key={`${word}-${index}`}
                 className={`mr-[0.23em] inline-block transition-colors duration-300 ${
-                  index < activeCount ? "text-slate-100" : "text-[#111a42]"
+                  index < activeCount ? (index >= blueStartIndex ? "text-[#536dfe]" : "text-slate-100") : "text-[#111a42]"
                 }`}
               >
                 {word}

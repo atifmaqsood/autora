@@ -6,9 +6,10 @@ export function StoreFooter() {
   return (
     <footer className="relative overflow-hidden border-t border-[#1c2436] bg-[#0b1020] pt-16 text-slate-400">
       <div className="mx-auto max-w-[1720px] px-6 pb-6 pt-14 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr_1fr_1.15fr] xl:gap-x-20">
+        <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-[1.1fr_0.75fr_0.9fr_0.9fr_1.1fr] xl:gap-x-14">
           <div className="space-y-8">
             <Logo />
+            <p className="text-[15px] font-semibold text-[#9cadff]">Dubai to Worldwide</p>
             <p className="max-w-sm text-[17px] font-medium leading-[1.45] text-slate-400">
               Your trusted global partner for seamless import/export, offering reliable sourcing,
               competitive pricing, and efficient logistics.
@@ -35,25 +36,31 @@ export function StoreFooter() {
           <FooterColumn
             title="COMPANY"
             links={[
-              ["Home", "/"],
-              ["Brands", "/brands"],
-              ["FAQs", "/faqs"],
+              ["How It Works", "/#how-it-works"],
+              ["About Us", "/about-us"],
               ["Contact Us", "/contact-us"],
-              ["About Us", "/about-us"]
+              ["Refund Policy", "/refund-policy"],
+              ["FAQs", "/faqs"]
             ]}
           />
 
           <FooterColumn
-            title="BUSINESS SOLUTIONS"
+            title="QUICK LINKS"
             links={[
-              ["Automotive", "/automotive"],
-              ["Construction Materials", "/construction-materials"],
-              ["Furniture And Home Items", "/furniture-and-home-items"],
-              ["General Merchandise", "/general-merchandise"],
-              ["Industrial Equipment", "/industrial-equipment"],
-              ["Packaging Materials", "/packaging-materials"],
-              ["Apparel And Textiles", "/apparel-and-textiles"],
-              ["Electronics", "/electronics"]
+              ["Dubai Markets", "/#dubai-markets"],
+              ["Customer Reviews", "/#customer-reviews"],
+              ["Payment", "/payment"],
+              ["Get A Quote", "/contact-us"],
+              ["Blogs & Articles", "/blogs"]
+            ]}
+          />
+
+          <FooterColumn
+            title="AREAS OF EXPERTISE"
+            links={[
+              ["Automotive Vehicles", "/vehicles"],
+              ["Automotive Parts", "/spare-parts"],
+              ["Freight & Logistics", "/business-solutions"]
             ]}
           />
 
@@ -84,6 +91,19 @@ export function StoreFooter() {
           <span className="inline-block text-[12.5vw] font-black uppercase leading-none tracking-normal text-transparent opacity-35 footer-watermark">
             AGTP GROUP
           </span>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-4 border-t border-[#1c2436] pt-8 text-[15px] font-semibold text-slate-300 md:flex-row md:items-center md:justify-between">
+          <span>AGTP Group LLC | All rights reserved</span>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/privacy-policy" className="transition-colors hover:text-white">
+              Privacy Policy
+            </Link>
+            <span className="text-slate-600">•</span>
+            <Link href="/terms-and-conditions" className="transition-colors hover:text-white">
+              Terms and Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
