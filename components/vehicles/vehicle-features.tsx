@@ -11,15 +11,15 @@ export function VehicleFeatures({ features }: VehicleFeaturesProps) {
   if (!features || features.length === 0) return null;
 
   return (
-    <Reveal className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-6">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+    <Reveal className="bg-[#111832] rounded-2xl border border-[#25304f] p-6 md:p-8 shadow-xl space-y-6">
+      <div className="flex items-center justify-between border-b border-[#25304f] pb-4">
         <RevealHeading>
-          <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-500" />
+          <h3 className="text-xl font-bold text-white flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-[#9cadff]" />
             Key Equipment & Installed Vehicle Features
           </h3>
         </RevealHeading>
-        <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+        <span className="text-xs font-semibold text-slate-300 bg-[#0b1020] border border-[#25304f] px-3 py-1 rounded-full">
           {features.length} Features Certified
         </span>
       </div>
@@ -28,10 +28,10 @@ export function VehicleFeatures({ features }: VehicleFeaturesProps) {
         {features.map((feature, idx) => (
           <div
             key={idx}
-            className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200/60 hover:bg-amber-50/50 hover:border-amber-200 transition-colors"
+            className="flex items-center gap-3 p-3 rounded-xl bg-[#0b1020] border border-[#25304f] hover:border-[#536dfe]/60 transition-colors"
           >
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span className="text-xs md:text-sm font-semibold text-slate-800">
+            <CheckCircle2 className="w-4 h-4 text-[#9cadff] shrink-0" />
+            <span className="text-xs md:text-sm font-semibold text-slate-200">
               {feature}
             </span>
           </div>

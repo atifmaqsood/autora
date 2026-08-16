@@ -2,17 +2,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
-  Car,
   ChevronRight,
   MapPin,
-  ShieldCheck,
-  Zap,
-  PhoneCall,
-  FileText,
-  Share2,
-  Calendar,
-  Layers,
-  Sparkles
+  ShieldCheck
 } from "lucide-react";
 import {
   getVehicleBySlug,
@@ -21,7 +13,6 @@ import {
 } from "@/lib/vehicles/data";
 import { formatPrice } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { VehicleGallery } from "@/components/vehicles/vehicle-gallery";
 import { VehicleSpecs } from "@/components/vehicles/vehicle-specs";
 import { VehicleFeatures } from "@/components/vehicles/vehicle-features";
@@ -70,9 +61,9 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
   const relatedVehicles = getRelatedVehicles(vehicle, 3);
 
   return (
-    <div className="space-y-12 pb-20">
+    <div className="min-h-screen space-y-12 bg-[#070b14] pb-20 pt-[144px] text-white lg:pt-[158px]">
       {/* Breadcrumb Navigation Bar */}
-      <div className="bg-slate-900 text-slate-300 py-3 border-b border-slate-800 text-xs">
+      <div className="border-y border-[#1c2436] bg-[#0b1020] py-3 text-xs text-slate-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center gap-2 overflow-x-auto">
             <Link href="/" className="hover:text-white transition-colors">
@@ -90,14 +81,14 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
               {vehicle.category}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600 shrink-0" />
-            <span className="text-amber-400 font-semibold truncate">
+            <span className="truncate font-semibold text-[#9cadff]">
               {vehicle.make} {vehicle.model}
             </span>
           </div>
 
           <div className="hidden sm:flex items-center gap-3 text-slate-400">
             <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-amber-500" />
+              <MapPin className="w-3.5 h-3.5 text-[#9cadff]" />
               {vehicle.location}
             </span>
           </div>
@@ -106,7 +97,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
 
       {/* Vehicle Hero Header Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-6">
+        <div className="space-y-8 rounded-[22px] border border-[#25304f] bg-[#111832] p-6 shadow-2xl shadow-black/25 md:p-8">
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
             {/* Title & Badges */}
             <div className="space-y-3">
@@ -114,33 +105,33 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
                 <Badge variant="gold" className="text-xs">
                   {vehicle.make.toUpperCase()}
                 </Badge>
-                <Badge variant="secondary" className="text-xs bg-slate-100 font-semibold">
+                <Badge variant="secondary" className="border-[#25304f] bg-[#0b1020] text-xs font-semibold text-slate-200">
                   {vehicle.category}
                 </Badge>
                 {vehicle.isNew && <Badge variant="new" className="text-xs">NEW {vehicle.year}</Badge>}
                 {vehicle.isFeatured && <Badge variant="featured" className="text-xs">FLAGSHIP FEATURED</Badge>}
-                <span className="text-xs font-semibold text-slate-500 bg-slate-50 px-2.5 py-0.5 rounded border border-slate-200">
+                <span className="rounded border border-[#25304f] bg-[#0b1020] px-2.5 py-0.5 text-xs font-semibold text-slate-300">
                   {vehicle.condition}
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight font-sans">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight font-sans">
                 {vehicle.make} {vehicle.model}
               </h1>
-              <p className="text-base sm:text-lg font-bold text-amber-600">
+              <p className="text-base sm:text-lg font-bold text-[#9cadff]">
                 {vehicle.variant}
               </p>
             </div>
 
             {/* Price / MSRP & Inquiry Header Action */}
-            <div className="bg-slate-950 text-white p-6 rounded-2xl border border-slate-800 space-y-3 min-w-[280px] shadow-lg">
+            <div className="min-w-[280px] space-y-3 rounded-2xl border border-[#25304f] bg-[#070a10] p-6 text-white shadow-lg">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block">
                 Starting Showroom MSRP
               </span>
               <div className="text-3xl font-black text-white font-sans">
                 {formatPrice(vehicle.price, vehicle.currency)}
               </div>
-              <div className="text-[11px] text-amber-400 flex items-center gap-1 font-medium">
+              <div className="flex items-center gap-1 text-[11px] font-medium text-[#9cadff]">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 Verified Factory Pricing & Spec Sheet
               </div>
@@ -160,44 +151,44 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
             {/* Right Column: Vehicle Description & Instant Action Card */}
             <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-2">
+                <h3 className="border-b border-[#25304f] pb-3 text-lg font-bold text-white">
                   Vehicle Overview & Design Philosophy
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm leading-relaxed text-slate-400">
                   {vehicle.description}
                 </p>
 
                 {/* Quick Summary Grid */}
                 <div className="grid grid-cols-2 gap-3 pt-2">
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <div className="rounded-xl border border-[#25304f] bg-[#0b1020] p-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                       Body Type
                     </span>
-                    <span className="text-xs font-bold text-slate-900">
+                    <span className="text-xs font-bold text-white">
                       {vehicle.bodyType}
                     </span>
                   </div>
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <div className="rounded-xl border border-[#25304f] bg-[#0b1020] p-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                       Seating Capacity
                     </span>
-                    <span className="text-xs font-bold text-slate-900">
+                    <span className="text-xs font-bold text-white">
                       {vehicle.seatingCapacity} Passengers ({vehicle.doors} Doors)
                     </span>
                   </div>
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <div className="rounded-xl border border-[#25304f] bg-[#0b1020] p-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                       Exterior Color
                     </span>
-                    <span className="text-xs font-bold text-slate-900">
+                    <span className="text-xs font-bold text-white">
                       {vehicle.exteriorColor}
                     </span>
                   </div>
-                  <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <div className="rounded-xl border border-[#25304f] bg-[#0b1020] p-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                       Interior Color
                     </span>
-                    <span className="text-xs font-bold text-slate-900">
+                    <span className="text-xs font-bold text-white">
                       {vehicle.interiorColor}
                     </span>
                   </div>
@@ -227,18 +218,18 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
       {/* Related Vehicles Section ("You May Also Like") */}
       {relatedVehicles.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <div className="flex items-center justify-between mb-6 border-b border-slate-200 pb-3">
+          <div className="flex items-center justify-between mb-6 border-b border-[#25304f] pb-3">
             <div>
-              <h3 className="text-2xl font-black text-slate-900">
+              <h3 className="text-2xl font-black text-white">
                 You May Also Like
               </h3>
-              <p className="text-xs text-slate-500 font-medium">
+              <p className="text-xs text-slate-400 font-medium">
                 Similar vehicles in {vehicle.category} category or from {vehicle.make}
               </p>
             </div>
             <Link
               href={`/categories/${vehicle.category.toLowerCase()}`}
-              className="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-[#9cadff] hover:underline flex items-center gap-1"
             >
               Explore All {vehicle.category} Vehicles
               <ChevronRight className="w-3.5 h-3.5" />
