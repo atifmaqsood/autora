@@ -49,8 +49,8 @@ export default function SparePartsPage() {
   const page = content.sparePartsPage;
 
   return (
-    <div className="bg-[#070b14] pb-20 text-white">
-      <section className="relative flex min-h-[88vh] flex-col justify-center overflow-hidden border-b border-slate-800/80 bg-[#050811] px-4 pb-16 pt-32 sm:px-6 lg:px-8 lg:pt-40">
+    <div className="bg-[#0B1F33] pb-20 text-white">
+      <section className="relative flex min-h-[88vh] flex-col justify-center overflow-hidden border-b border-slate-800/80 bg-[#081A2B] px-4 pb-16 pt-32 sm:px-6 lg:px-8 lg:pt-40">
         <Image
           src={agtpAssets.sparePartsHero}
           alt="AGTP GROUP spare parts sourcing"
@@ -59,20 +59,20 @@ export default function SparePartsPage() {
           className="object-cover opacity-45"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050811] via-[#050811]/75 to-[#050811]/20" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#070b14] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B] via-[#081A2B]/75 to-[#081A2B]/20" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B1F33] to-transparent" />
 
         <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-end gap-10 lg:grid-cols-12">
           <div className="space-y-6 lg:col-span-8">
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
               <Link href="/" className="transition-colors hover:text-white">HOME</Link>
               <span>/</span>
-              <span className="text-indigo-400">SPARE PARTS</span>
+              <span className="text-[#F97316]">SPARE PARTS</span>
             </div>
 
             <RevealEyebrow>
-              <div className="flex items-center gap-4 text-xs font-black uppercase tracking-[0.32em] text-[#9fb0ff]">
-                <span className="h-px w-10 bg-[#536dfe]" />
+              <div className="flex items-center gap-4 text-xs font-black uppercase tracking-[0.32em] text-[#FDBA74]">
+                <span className="h-px w-10 bg-[#F97316]" />
                 {page.heroEyebrow}
               </div>
             </RevealEyebrow>
@@ -93,14 +93,14 @@ export default function SparePartsPage() {
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <button
                   onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex items-center gap-3 rounded-full bg-[#536dfe] px-8 py-4 text-sm font-black text-white shadow-2xl shadow-[#536dfe]/25 transition-all hover:bg-[#4560f2]"
+                  className="inline-flex items-center gap-3 rounded-full bg-[#F97316] px-8 py-4 text-sm font-black text-white shadow-2xl shadow-[#F97316]/25 transition-all hover:bg-[#EA580C]"
                 >
                   <span>{page.primaryCtaLabel}</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
                 <a
                   href="#parts-categories"
-                  className="inline-flex items-center rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#536dfe] hover:bg-slate-900"
+                  className="inline-flex items-center rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-slate-900"
                 >
                   {page.secondaryCtaLabel}
                 </a>
@@ -117,7 +117,7 @@ export default function SparePartsPage() {
                   ["VIN", "fitment checks"],
                   ["90+", "export markets"]
                 ].map(([value, label]) => (
-                  <div key={label} className="rounded-2xl border border-white/10 bg-[#070b14]/70 p-5">
+                  <div key={label} className="rounded-2xl border border-white/10 bg-[#0B1F33]/70 p-5">
                     <div className="text-3xl font-black text-white">{value}</div>
                     <div className="mt-1 text-[11px] font-bold uppercase leading-snug tracking-wider text-slate-400">
                       {label}
@@ -134,8 +134,8 @@ export default function SparePartsPage() {
         <div className="mb-14 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
           <div className="space-y-4 lg:col-span-7">
             <RevealEyebrow>
-              <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#9fb0ff]">
-                <span className="h-px w-8 bg-[#536dfe]" />
+              <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
+                <span className="h-px w-8 bg-[#F97316]" />
                 {page.categoriesEyebrow}
               </div>
             </RevealEyebrow>
@@ -156,12 +156,12 @@ export default function SparePartsPage() {
           {page.categories.map((category, index) => {
             const Icon = categoryIcons[index % categoryIcons.length];
             return (
-              <div key={category.id} className="group rounded-3xl border border-slate-800 bg-[#0b0f19] p-7 shadow-xl transition-all duration-300 hover:border-[#536dfe]">
+              <div key={category.id} className="group rounded-3xl border border-slate-800 bg-[#102941] p-7 shadow-xl transition-all duration-300 hover:border-[#F97316]">
                 <div className="mb-8 flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#536dfe]/25 bg-[#536dfe]/10 text-[#9fb0ff]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#F97316]/25 bg-[#F97316]/10 text-[#FDBA74]">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <span className="text-sm font-black tracking-[0.24em] text-slate-700 group-hover:text-[#536dfe]">
+                  <span className="text-sm font-black tracking-[0.24em] text-slate-700 group-hover:text-[#F97316]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -178,8 +178,8 @@ export default function SparePartsPage() {
       <section className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 pt-28 sm:px-6 lg:grid-cols-12 lg:px-8">
         <div className="space-y-5 lg:col-span-5">
           <RevealEyebrow>
-            <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#9fb0ff]">
-              <span className="h-px w-8 bg-[#536dfe]" />
+            <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
+              <span className="h-px w-8 bg-[#F97316]" />
               {page.processEyebrow}
             </div>
           </RevealEyebrow>
@@ -197,13 +197,13 @@ export default function SparePartsPage() {
 
         <RevealStagger staggerDelay={85} className="space-y-4 lg:col-span-7">
           {processSteps.map((step, index) => (
-            <div key={step.title} className="grid grid-cols-[auto_1fr] gap-5 rounded-3xl border border-slate-800 bg-[#0b0f19] p-5 shadow-xl">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#070b14]">
+            <div key={step.title} className="grid grid-cols-[auto_1fr] gap-5 rounded-3xl border border-slate-800 bg-[#102941] p-5 shadow-xl">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#0B1F33]">
                 <step.icon className="h-6 w-6" />
               </div>
               <div>
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] font-black uppercase tracking-[0.24em] text-[#536dfe]">
+                  <span className="text-[11px] font-black uppercase tracking-[0.24em] text-[#F97316]">
                     Step {index + 1}
                   </span>
                   <CheckCircle2 className="h-4 w-4 text-emerald-400" />
@@ -218,11 +218,11 @@ export default function SparePartsPage() {
 
       <section className="mx-auto max-w-7xl px-4 pt-28 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#0b0f19] p-8 shadow-2xl sm:p-12 lg:p-16">
+          <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#102941] p-8 shadow-2xl sm:p-12 lg:p-16">
             <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(83,109,254,0.28),transparent_48%)]" />
             <div className="relative z-10 max-w-3xl space-y-5">
-              <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#9fb0ff]">
-                <span className="h-px w-8 bg-[#536dfe]" />
+              <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
+                <span className="h-px w-8 bg-[#F97316]" />
                 {page.ctaEyebrow}
               </div>
               <h2 className="text-4xl font-black leading-tight text-white sm:text-6xl">
@@ -234,7 +234,7 @@ export default function SparePartsPage() {
               <div className="flex flex-wrap items-center gap-4 pt-3">
                 <button
                   onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex items-center gap-3 rounded-full bg-[#536dfe] px-8 py-4 text-sm font-black text-white shadow-xl shadow-[#536dfe]/25 transition-all hover:bg-[#4560f2]"
+                  className="inline-flex items-center gap-3 rounded-full bg-[#F97316] px-8 py-4 text-sm font-black text-white shadow-xl shadow-[#F97316]/25 transition-all hover:bg-[#EA580C]"
                 >
                   <span>{page.ctaLabel}</span>
                   <ArrowRight className="h-4 w-4" />

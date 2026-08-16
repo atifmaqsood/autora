@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} min-h-screen bg-[#070b14] font-sans text-white antialiased`}>
+      <body className={`${inter.variable} min-h-screen bg-[#0B1F33] font-sans text-white antialiased`}>
         <ContentProvider>
           {children}
           <PageLoader />

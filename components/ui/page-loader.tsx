@@ -82,7 +82,7 @@ export function PageLoader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[2147483646] flex items-center justify-center bg-[#070a10] text-slate-100 transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[2147483646] flex items-center justify-center bg-[#0B1F33] text-slate-100 transition-opacity duration-500 ${
         exiting ? "opacity-0" : "opacity-100"
       }`}
       aria-live="polite"
@@ -92,13 +92,13 @@ export function PageLoader() {
         <div className="text-[64px] font-black uppercase leading-none tracking-[0.04em] md:text-[118px]">
           AGTP GROUP
         </div>
-        <div className="mt-10 h-px w-full bg-[#1d263d]">
+        <div className="mt-10 h-px w-full bg-[#24445F]">
           <div
-            className="h-px bg-[#536dfe] transition-[width] duration-150 ease-out"
+            className="h-px bg-[#F97316] transition-[width] duration-150 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="mt-5 font-mono text-[16px] tracking-[0.35em] text-[#b8c7ff]">
+        <div className="mt-5 font-mono text-[16px] tracking-[0.35em] text-[#FDBA74]">
           {progress}%
         </div>
       </div>

@@ -16,7 +16,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
   } MY${vehicle.year} - ${(vehicle.exteriorColor || "BLACK").toUpperCase()}`;
 
   return (
-    <article className="group overflow-hidden rounded-[22px] border border-[#1d2747] bg-[#111832] shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#2f3d68]">
+    <article className="group overflow-hidden rounded-[22px] border border-[#24445F] bg-[#14314B] shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3D6480]">
       <Link href={`/vehicles/${vehicle.slug}`} className="block">
         <div className="relative aspect-[1024/575] overflow-hidden bg-white">
           <Image
@@ -34,28 +34,28 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
 
       <div className="space-y-5 p-6">
         <Link href={`/vehicles/${vehicle.slug}`}>
-          <h3 className="line-clamp-2 min-h-[52px] text-[19px] font-black uppercase leading-[1.08] tracking-normal text-white transition-colors group-hover:text-[#9cadff]">
+          <h3 className="line-clamp-2 min-h-[52px] text-[19px] font-black uppercase leading-[1.08] tracking-normal text-white transition-colors group-hover:text-[#FDBA74]">
             {fullTitle}
           </h3>
         </Link>
 
-        <div className="h-px bg-[#263052]" />
+        <div className="h-px bg-[#315671]" />
 
         <div className="flex items-center justify-between gap-5">
           <div className="flex min-w-0 items-center gap-5 text-[15px] font-medium text-slate-400">
             <span className="flex items-center gap-2">
-              <Zap className="h-4 w-4 text-[#8ea2ff]" />
+              <Zap className="h-4 w-4 text-[#FDBA74]" />
               {vehicle.engineSize || "4.4P"}
             </span>
             <span className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-[#8ea2ff]" />
+              <Clock className="h-4 w-4 text-[#FDBA74]" />
               {vehicle.transmission || "Automatic"}
             </span>
           </div>
 
           <Link
             href={`/vehicles/${vehicle.slug}`}
-            className="rounded-full border border-[#33405f] px-6 py-2.5 text-[16px] font-extrabold text-white transition-colors hover:border-[#536dfe] hover:bg-[#536dfe]"
+            className="rounded-full border border-[#3D6480] px-6 py-2.5 text-[16px] font-extrabold text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
           >
             View
           </Link>

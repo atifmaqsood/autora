@@ -61,9 +61,9 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
   const relatedVehicles = getRelatedVehicles(vehicle, 3);
 
   return (
-    <div className="min-h-screen space-y-12 bg-[#070b14] pb-20 pt-[144px] text-white lg:pt-[158px]">
+    <div className="min-h-screen space-y-12 bg-[#0B1F33] pb-20 pt-[144px] text-white lg:pt-[158px]">
       {/* Breadcrumb Navigation Bar */}
-      <div className="border-y border-[#1c2436] bg-[#0b1020] py-3 text-xs text-slate-400">
+      <div className="border-y border-[#24445F] bg-[#102941] py-3 text-xs text-slate-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center gap-2 overflow-x-auto">
             <Link href="/" className="hover:text-white transition-colors">
@@ -81,14 +81,14 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
               {vehicle.category}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-600 shrink-0" />
-            <span className="truncate font-semibold text-[#9cadff]">
+            <span className="truncate font-semibold text-[#FDBA74]">
               {vehicle.make} {vehicle.model}
             </span>
           </div>
 
           <div className="hidden sm:flex items-center gap-3 text-slate-400">
             <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#9cadff]" />
+              <MapPin className="w-3.5 h-3.5 text-[#FDBA74]" />
               {vehicle.location}
             </span>
           </div>
@@ -97,7 +97,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
 
       {/* Vehicle Hero Header Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="space-y-8 rounded-[22px] border border-[#25304f] bg-[#111832] p-6 shadow-2xl shadow-black/25 md:p-8">
+        <div className="space-y-8 rounded-[22px] border border-[#315671] bg-[#14314B] p-6 shadow-2xl shadow-black/25 md:p-8">
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
             {/* Title & Badges */}
             <div className="space-y-3">
@@ -105,12 +105,12 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
                 <Badge variant="gold" className="text-xs">
                   {vehicle.make.toUpperCase()}
                 </Badge>
-                <Badge variant="secondary" className="border-[#25304f] bg-[#0b1020] text-xs font-semibold text-slate-200">
+                <Badge variant="secondary" className="border-[#315671] bg-[#102941] text-xs font-semibold text-slate-200">
                   {vehicle.category}
                 </Badge>
                 {vehicle.isNew && <Badge variant="new" className="text-xs">NEW {vehicle.year}</Badge>}
                 {vehicle.isFeatured && <Badge variant="featured" className="text-xs">FLAGSHIP FEATURED</Badge>}
-                <span className="rounded border border-[#25304f] bg-[#0b1020] px-2.5 py-0.5 text-xs font-semibold text-slate-300">
+                <span className="rounded border border-[#315671] bg-[#102941] px-2.5 py-0.5 text-xs font-semibold text-slate-300">
                   {vehicle.condition}
                 </span>
               </div>
@@ -118,20 +118,20 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight font-sans">
                 {vehicle.make} {vehicle.model}
               </h1>
-              <p className="text-base sm:text-lg font-bold text-[#9cadff]">
+              <p className="text-base sm:text-lg font-bold text-[#FDBA74]">
                 {vehicle.variant}
               </p>
             </div>
 
             {/* Price / MSRP & Inquiry Header Action */}
-            <div className="min-w-[280px] space-y-3 rounded-2xl border border-[#25304f] bg-[#070a10] p-6 text-white shadow-lg">
+            <div className="min-w-[280px] space-y-3 rounded-2xl border border-[#315671] bg-[#0B1F33] p-6 text-white shadow-lg">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block">
                 Starting Showroom MSRP
               </span>
               <div className="text-3xl font-black text-white font-sans">
                 {formatPrice(vehicle.price, vehicle.currency)}
               </div>
-              <div className="flex items-center gap-1 text-[11px] font-medium text-[#9cadff]">
+              <div className="flex items-center gap-1 text-[11px] font-medium text-[#FDBA74]">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 Verified Factory Pricing & Spec Sheet
               </div>
@@ -151,7 +151,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
             {/* Right Column: Vehicle Description & Instant Action Card */}
             <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
-                <h3 className="border-b border-[#25304f] pb-3 text-lg font-bold text-white">
+                <h3 className="border-b border-[#315671] pb-3 text-lg font-bold text-white">
                   Vehicle Overview & Design Philosophy
                 </h3>
                 <p className="text-sm leading-relaxed text-slate-400">
@@ -160,7 +160,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
 
                 {/* Quick Summary Grid */}
                 <div className="grid grid-cols-2 gap-3 pt-2">
-                  <div className="rounded-xl border border-[#25304f] bg-[#0b1020] p-3">
+                  <div className="rounded-xl border border-[#315671] bg-[#102941] p-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                       Body Type
                     </span>
@@ -168,7 +168,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
                       {vehicle.bodyType}
                     </span>
                   </div>
-                  <div className="rounded-xl border border-[#25304f] bg-[#0b1020] p-3">
+                  <div className="rounded-xl border border-[#315671] bg-[#102941] p-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                       Seating Capacity
                     </span>
@@ -176,7 +176,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
                       {vehicle.seatingCapacity} Passengers ({vehicle.doors} Doors)
                     </span>
                   </div>
-                  <div className="rounded-xl border border-[#25304f] bg-[#0b1020] p-3">
+                  <div className="rounded-xl border border-[#315671] bg-[#102941] p-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                       Exterior Color
                     </span>
@@ -184,7 +184,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
                       {vehicle.exteriorColor}
                     </span>
                   </div>
-                  <div className="rounded-xl border border-[#25304f] bg-[#0b1020] p-3">
+                  <div className="rounded-xl border border-[#315671] bg-[#102941] p-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                       Interior Color
                     </span>
@@ -218,7 +218,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
       {/* Related Vehicles Section ("You May Also Like") */}
       {relatedVehicles.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <div className="flex items-center justify-between mb-6 border-b border-[#25304f] pb-3">
+          <div className="flex items-center justify-between mb-6 border-b border-[#315671] pb-3">
             <div>
               <h3 className="text-2xl font-black text-white">
                 You May Also Like
@@ -229,7 +229,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
             </div>
             <Link
               href={`/categories/${vehicle.category.toLowerCase()}`}
-              className="text-xs font-bold text-[#9cadff] hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-[#FDBA74] hover:underline flex items-center gap-1"
             >
               Explore All {vehicle.category} Vehicles
               <ChevronRight className="w-3.5 h-3.5" />

@@ -72,7 +72,7 @@ export function StoreHeader() {
         <header
           className={`transition-all duration-500 ${
             scrolled
-              ? "border-b border-[#1c2436] bg-[#0a0f1c]/95 shadow-2xl backdrop-blur-md"
+              ? "border-b border-[#24445F] bg-[#0a0f1c]/95 shadow-2xl backdrop-blur-md"
               : "border-b border-transparent bg-transparent"
           }`}
         >
@@ -94,11 +94,11 @@ export function StoreHeader() {
                     >
                       {link.name}
                       {link.children && <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />}
-                      {active && <span className="absolute bottom-0 left-1 h-1.5 w-1.5 rounded-full bg-[#536dfe]" />}
+                      {active && <span className="absolute bottom-0 left-1 h-1.5 w-1.5 rounded-full bg-[#F97316]" />}
                     </Link>
                     {link.children && (
-                      <div className="invisible absolute left-1/2 top-[calc(100%+18px)] z-[70] w-[315px] -translate-x-1/2 translate-y-3 rounded-[18px] border border-[#33405f] bg-[#080d18] p-3 opacity-0 shadow-[0_24px_70px_rgba(0,0,0,0.55)] ring-1 ring-white/5 backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                        <div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-[#33405f] bg-[#080d18]" />
+                      <div className="invisible absolute left-1/2 top-[calc(100%+18px)] z-[70] w-[315px] -translate-x-1/2 translate-y-3 rounded-[18px] border border-[#3D6480] bg-[#080d18] p-3 opacity-0 shadow-[0_24px_70px_rgba(0,0,0,0.55)] ring-1 ring-white/5 backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                        <div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-[#3D6480] bg-[#080d18]" />
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
@@ -118,7 +118,7 @@ export function StoreHeader() {
               <div className="hidden lg:flex">
                 <button
                   onClick={() => setInquiryModalOpen(true)}
-                  className="flex h-[50px] items-center gap-2.5 rounded-full bg-[#536dfe] px-7 text-[16px] font-extrabold text-white shadow-lg shadow-[#536dfe]/30 transition-all duration-200 hover:bg-[#4560f2]"
+                  className="flex h-[50px] items-center gap-2.5 rounded-full bg-[#F97316] px-7 text-[16px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C]"
                 >
                   <span>Get a Quote</span>
                   <ArrowRight className="h-4 w-4" />
@@ -128,7 +128,7 @@ export function StoreHeader() {
               <div className="flex items-center gap-3 lg:hidden">
                 <button
                   onClick={() => setInquiryModalOpen(true)}
-                  className="rounded-full bg-[#536dfe] px-4 py-2 text-xs font-bold text-white"
+                  className="rounded-full bg-[#F97316] px-4 py-2 text-xs font-bold text-white"
                 >
                   Quote
                 </button>
@@ -144,7 +144,7 @@ export function StoreHeader() {
           </div>
 
           {mobileMenuOpen && (
-            <div className="space-y-4 border-t border-slate-800 bg-[#070a10] px-5 py-6 shadow-2xl lg:hidden">
+            <div className="space-y-4 border-t border-slate-800 bg-[#0B1F33] px-5 py-6 shadow-2xl lg:hidden">
               <div className="flex flex-col space-y-2">
                 {navLinks.map((link) => (
                   <div key={link.name}>
@@ -152,7 +152,7 @@ export function StoreHeader() {
                       href={link.href}
                       className={`block rounded-xl px-4 py-2.5 text-base font-semibold transition-colors ${
                         isActive(link.href)
-                          ? "bg-slate-800 text-[#8ea2ff]"
+                          ? "bg-slate-800 text-[#FDBA74]"
                           : "text-slate-300 hover:bg-slate-900 hover:text-white"
                       }`}
                       onClick={() => setMobileMenuOpen(false)}

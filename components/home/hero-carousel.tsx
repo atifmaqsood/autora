@@ -38,7 +38,7 @@ export function HeroCarousel() {
   const activeSlide = activeSlides[current];
 
   return (
-    <section className="relative h-screen min-h-[680px] w-full overflow-hidden bg-[#070a10]">
+    <section className="relative h-screen min-h-[680px] w-full overflow-hidden bg-[#0B1F33]">
       {activeSlides.map((slide, index) => (
         <div
           key={slide.id}
@@ -72,7 +72,7 @@ export function HeroCarousel() {
       <div className="absolute bottom-[58px] right-[9vw] z-20 flex flex-wrap items-center justify-end gap-4">
         <Link
           href={activeSlide.primaryCta.href}
-          className="flex h-[62px] items-center gap-3 rounded-full bg-[#536dfe] px-8 text-[18px] font-extrabold text-white shadow-2xl shadow-[#536dfe]/35 transition-all hover:bg-[#4560f2]"
+          className="flex h-[62px] items-center gap-3 rounded-full bg-[#F97316] px-8 text-[18px] font-extrabold text-white shadow-2xl shadow-[#F97316]/35 transition-all hover:bg-[#EA580C]"
         >
           <span>{activeSlide.primaryCta.label}</span>
           <ArrowRight className="h-5 w-5" />

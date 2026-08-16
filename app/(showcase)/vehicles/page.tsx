@@ -37,9 +37,9 @@ function CatalogContent() {
   }, [allVehicles, filters]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#070b14] text-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#0B1F33] text-white">
       {/* Dark Filter Bar */}
-      <div className="bg-[#0b0f19] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4">
+      <div className="bg-[#102941] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4">
         {/* Search Input */}
         <div className="relative flex-1 w-full">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
@@ -48,7 +48,7 @@ function CatalogContent() {
             placeholder="Search make, model, VIN, stock number..."
             value={filters.search}
             onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
-            className="w-full bg-[#070b14] border border-slate-800 text-xs text-white placeholder-slate-500 pl-11 pr-4 py-3 rounded-xl focus:outline-none focus:border-indigo-500 font-medium"
+            className="w-full bg-[#0B1F33] border border-slate-800 text-xs text-white placeholder-slate-500 pl-11 pr-4 py-3 rounded-xl focus:outline-none focus:border-[#F97316] font-medium"
           />
         </div>
 
@@ -58,7 +58,7 @@ function CatalogContent() {
           <select
             value={filters.year}
             onChange={(e) => setFilters((prev) => ({ ...prev, year: e.target.value }))}
-            className="w-full bg-[#070b14] border border-slate-800 text-xs text-white pl-11 pr-8 py-3 rounded-xl focus:outline-none focus:border-indigo-500 font-medium appearance-none cursor-pointer"
+            className="w-full bg-[#0B1F33] border border-slate-800 text-xs text-white pl-11 pr-8 py-3 rounded-xl focus:outline-none focus:border-[#F97316] font-medium appearance-none cursor-pointer"
           >
             <option value="all">Any year</option>
             <option value="2026">2026</option>
@@ -71,7 +71,7 @@ function CatalogContent() {
         {/* Search Button */}
         <button
           onClick={() => setActivePage(1)}
-          className="w-full md:w-auto bg-[#5271ff] hover:bg-[#4361ee] text-white font-bold text-xs px-8 py-3 rounded-full flex items-center justify-center gap-2 shadow-lg transition-all shrink-0"
+          className="w-full md:w-auto bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-8 py-3 rounded-full flex items-center justify-center gap-2 shadow-lg transition-all shrink-0"
         >
           <span>Search</span>
           <Search className="w-3.5 h-3.5" />
@@ -93,11 +93,11 @@ function CatalogContent() {
           ))}
         </RevealStagger>
       ) : (
-        <div className="text-center py-20 bg-[#0b0f19] border border-slate-800 rounded-2xl space-y-4">
+        <div className="text-center py-20 bg-[#102941] border border-slate-800 rounded-2xl space-y-4">
           <p className="text-base text-slate-300 font-bold">No vehicles found matching your criteria</p>
           <button
             onClick={() => setFilters({ search: "", category: "all", make: "all", year: "all", fuelType: "all", transmission: "all", bodyType: "all", driveType: "all", sortBy: "newest" })}
-            className="text-xs font-bold text-indigo-400 hover:text-indigo-300 underline"
+            className="text-xs font-bold text-[#F97316] hover:text-[#FDBA74] underline"
           >
             Reset all filters
           </button>
@@ -112,14 +112,14 @@ function CatalogContent() {
             onClick={() => typeof p === "number" && setActivePage(p)}
             className={`w-9 h-9 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
               activePage === p
-                ? "bg-[#5271ff] text-white shadow-lg"
-                : "bg-[#0b0f19] border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"
+                ? "bg-[#F97316] text-white shadow-lg"
+                : "bg-[#102941] border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"
             }`}
           >
             {p}
           </button>
         ))}
-        <button className="px-4 h-9 rounded-full bg-[#0b0f19] border border-slate-800 text-slate-400 text-xs font-bold hover:text-white hover:border-slate-700 transition-all flex items-center gap-1">
+        <button className="px-4 h-9 rounded-full bg-[#102941] border border-slate-800 text-slate-400 text-xs font-bold hover:text-white hover:border-slate-700 transition-all flex items-center gap-1">
           <span>Next</span>
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
@@ -127,7 +127,7 @@ function CatalogContent() {
 
       {/* CAN'T FIND THE EXACT SPEC? CTA Banner */}
       <Reveal duration={700}>
-        <div className="relative bg-[#0b0f19] border border-slate-800 rounded-3xl p-10 sm:p-14 text-center overflow-hidden shadow-2xl mt-16">
+        <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-14 text-center overflow-hidden shadow-2xl mt-16">
           <div className="relative z-10 max-w-2xl mx-auto space-y-4">
             <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight font-sans">
               CAN&apos;T FIND THE EXACT SPEC?
@@ -138,7 +138,7 @@ function CatalogContent() {
             <div className="pt-2">
               <button
                 onClick={() => setInquiryModalOpen(true)}
-                className="bg-[#5271ff] hover:bg-[#4361ee] text-white font-bold text-xs px-8 py-3.5 rounded-full shadow-lg transition-all inline-flex items-center gap-2"
+                className="bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-8 py-3.5 rounded-full shadow-lg transition-all inline-flex items-center gap-2"
               >
                 <span>Request a Vehicle</span>
                 <ArrowRight className="w-4 h-4" />
@@ -159,9 +159,9 @@ function CatalogContent() {
 
 export default function VehiclesCatalogPage() {
   return (
-    <div className="space-y-0 pb-20 bg-[#070b14] min-h-screen">
+    <div className="space-y-0 pb-20 bg-[#0B1F33] min-h-screen">
       {/* Dark Hero Header with Parallax */}
-      <section className="relative min-h-[80vh] bg-[#050811] border-b border-slate-800/80 text-white overflow-hidden flex flex-col justify-center pt-28 pb-12">
+      <section className="relative min-h-[80vh] bg-[#081A2B] border-b border-slate-800/80 text-white overflow-hidden flex flex-col justify-center pt-28 pb-12">
         <ParallaxImage
           src={agtpAssets.inventoryHero}
           alt="Inventory Header"
@@ -169,13 +169,13 @@ export default function VehiclesCatalogPage() {
           speed={0.25}
           className="absolute inset-0 w-full h-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050811]/90 via-[#050811]/60 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/90 via-[#081A2B]/60 to-transparent z-10" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
             <Link href="/" className="hover:text-white transition-colors">HOME</Link>
             <span>/</span>
-            <span className="text-indigo-400">INVENTORY</span>
+            <span className="text-[#F97316]">INVENTORY</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans drop-shadow-lg">

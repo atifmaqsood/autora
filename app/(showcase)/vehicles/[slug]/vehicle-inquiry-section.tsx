@@ -24,9 +24,9 @@ export function VehicleInquirySection({
 
   return (
     <>
-      <div className="space-y-3 rounded-xl border border-[#25304f] bg-[#070a10] p-5 text-white">
+      <div className="space-y-3 rounded-xl border border-[#315671] bg-[#0B1F33] p-5 text-white">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#9cadff]">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#FDBA74]">
             SHOWCASE INQUIRY & ACTION
           </span>
           <span className="text-[10px] text-slate-400">FRONTEND DEMO</span>
@@ -35,7 +35,7 @@ export function VehicleInquirySection({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Button
             variant="primary"
-            className="w-full gap-2 bg-[#536dfe] py-3 text-xs font-bold hover:bg-[#4560f2]"
+            className="w-full gap-2 bg-[#F97316] py-3 text-xs font-bold hover:bg-[#EA580C]"
             onClick={() => setModalOpen(true)}
           >
             <PhoneCall className="w-4 h-4" />
@@ -54,7 +54,7 @@ export function VehicleInquirySection({
               </>
             ) : (
               <>
-                <Download className="w-4 h-4 text-[#9cadff]" />
+                <Download className="w-4 h-4 text-[#FDBA74]" />
                 Download Spec PDF
               </>
             )}

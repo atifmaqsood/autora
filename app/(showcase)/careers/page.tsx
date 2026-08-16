@@ -15,9 +15,9 @@ import {
 
 export default function CareersPage() {
   return (
-    <div className="space-y-0 pb-20 bg-[#070b14] text-white">
+    <div className="space-y-0 pb-20 bg-[#0B1F33] text-white">
       {/* ── 1. Hero Header with Parallax ───────────────────────────── */}
-      <section className="relative min-h-[85vh] bg-[#050811] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-28 pb-12">
+      <section className="relative min-h-[85vh] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-28 pb-12">
         <ParallaxImage
           src={agtpAssets.careersHero}
           alt="Careers Header"
@@ -25,13 +25,13 @@ export default function CareersPage() {
           speed={0.25}
           className="absolute inset-0 w-full h-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050811]/90 via-[#050811]/60 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/90 via-[#081A2B]/60 to-transparent z-10" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
             <Link href="/" className="hover:text-white transition-colors">HOME</Link>
             <span>/</span>
-            <span className="text-indigo-400">CAREERS</span>
+            <span className="text-[#F97316]">CAREERS</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-3xl leading-none drop-shadow-lg">
@@ -49,7 +49,7 @@ export default function CareersPage() {
         <div className="text-center max-w-xl mx-auto space-y-3 mb-14">
           <RevealEyebrow>
             <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
-              <span className="w-6 h-[1.5px] bg-indigo-500" />
+              <span className="w-6 h-[1.5px] bg-[#F97316]" />
               WHY AGTP GROUP
             </div>
           </RevealEyebrow>
@@ -85,8 +85,8 @@ export default function CareersPage() {
               desc: "A diverse, supportive crew that celebrates wins together and has your back."
             }
           ].map((item) => (
-            <div key={item.title} className="bg-[#0b0f19] border border-slate-800 rounded-3xl p-8 space-y-4 hover:border-indigo-500 transition-all duration-300 shadow-xl">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
+            <div key={item.title} className="bg-[#102941] border border-slate-800 rounded-3xl p-8 space-y-4 hover:border-[#F97316] transition-all duration-300 shadow-xl">
+              <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center">
                 <item.icon className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white">{item.title}</h3>
@@ -101,7 +101,7 @@ export default function CareersPage() {
         <div className="space-y-3 mb-10">
           <RevealEyebrow>
             <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
-              <span className="w-6 h-[1.5px] bg-indigo-500" />
+              <span className="w-6 h-[1.5px] bg-[#F97316]" />
               OPEN ROLES
             </div>
           </RevealEyebrow>
@@ -121,9 +121,9 @@ export default function CareersPage() {
 
         {/* Roles List */}
         <RevealStagger staggerDelay={80} className="space-y-4">
-          <div className="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 flex items-center justify-between shadow-xl hover:border-indigo-500 transition-all duration-200">
+          <div className="bg-[#102941] border border-slate-800 rounded-2xl p-6 flex items-center justify-between shadow-xl hover:border-[#F97316] transition-all duration-200">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 text-indigo-400 flex items-center justify-center border border-slate-800">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 text-[#F97316] flex items-center justify-center border border-slate-800">
                 <UserCheck className="w-5 h-5" />
               </div>
               <div>
@@ -134,7 +134,7 @@ export default function CareersPage() {
 
             <a
               href="mailto:careers@agtpgroup.com?subject=Application%20for%20Senior%20Accountant"
-              className="border border-slate-700 hover:bg-indigo-600 hover:border-indigo-600 text-white font-bold text-xs px-6 py-2.5 rounded-full transition-all flex items-center gap-1.5"
+              className="border border-slate-700 hover:bg-[#EA580C] hover:border-[#EA580C] text-white font-bold text-xs px-6 py-2.5 rounded-full transition-all flex items-center gap-1.5"
             >
               <span>View role</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -145,7 +145,7 @@ export default function CareersPage() {
 
       {/* ── 4. DIDN'T FIND THE RIGHT FIT? Banner ─────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
-        <div className="relative bg-[#0b0f19] border border-slate-800 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl">
+        <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl">
           <ParallaxImage
             src={agtpAssets.careersHero}
             alt="Office Environment"
@@ -153,7 +153,7 @@ export default function CareersPage() {
             speed={0.2}
             className="absolute inset-0 w-full h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19]/80 via-[#0b0f19]/60 to-[#0b0f19] z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#102941]/80 via-[#102941]/60 to-[#102941] z-10" />
 
           <div className="relative z-20 max-w-2xl mx-auto space-y-6">
             <RevealHeading>
@@ -172,7 +172,7 @@ export default function CareersPage() {
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
                 <a
                   href="mailto:careers@agtpgroup.com"
-                  className="bg-[#5271ff] hover:bg-[#4361ee] text-white font-bold text-xs px-8 py-3.5 rounded-full shadow-lg transition-all flex items-center gap-2"
+                  className="bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-8 py-3.5 rounded-full shadow-lg transition-all flex items-center gap-2"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Email: careers@agtpgroup.com</span>

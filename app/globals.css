@@ -31,12 +31,12 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #070b14;
+  background-color: #0B1F33;
 }
 
 body {
   min-height: 100vh;
-  background-color: #070b14;
+  background-color: #0B1F33;
   color: #f8fafc;
   overflow-x: hidden;
   font-family: var(--font-sans);
@@ -95,7 +95,7 @@ body {
 }
 
 .custom-cursor-active::after {
-  background: #8ea2ff;
+  background: #FDBA74;
   transform: translate(-50%, -50%) scale(0.75);
 }
 

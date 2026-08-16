@@ -94,9 +94,9 @@ export default function BlogsPage() {
   ];
 
   return (
-    <div className="space-y-0 pb-20 bg-[#070b14] text-white">
+    <div className="space-y-0 pb-20 bg-[#0B1F33] text-white">
       {/* ── 1. Hero Header with Parallax ───────────────────────────── */}
-      <section className="relative min-h-[85vh] bg-[#050811] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-28 pb-12">
+      <section className="relative min-h-[85vh] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-28 pb-12">
         <ParallaxImage
           src={agtpAssets.blogsHero}
           alt="Blogs Header"
@@ -104,13 +104,13 @@ export default function BlogsPage() {
           speed={0.25}
           className="absolute inset-0 w-full h-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050811]/90 via-[#050811]/60 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/90 via-[#081A2B]/60 to-transparent z-10" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
             <Link href="/" className="hover:text-white transition-colors">HOME</Link>
             <span>/</span>
-            <span className="text-indigo-400">BLOGS</span>
+            <span className="text-[#F97316]">BLOGS</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-3xl leading-none drop-shadow-lg">
@@ -129,7 +129,7 @@ export default function BlogsPage() {
           {blogPosts.map((post) => (
             <div
               key={post.id}
-              className="group bg-[#0b0f19] border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between shadow-xl hover:border-indigo-500 transition-all duration-300"
+              className="group bg-[#102941] border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between shadow-xl hover:border-[#F97316] transition-all duration-300"
             >
               <div className="space-y-4">
                 {/* Image Header */}
@@ -151,7 +151,7 @@ export default function BlogsPage() {
                     <span>{post.date}</span>
                   </div>
 
-                  <h3 className="text-base font-black text-white leading-snug group-hover:text-indigo-300 transition-colors line-clamp-2">
+                  <h3 className="text-base font-black text-white leading-snug group-hover:text-[#FDBA74] transition-colors line-clamp-2">
                     {post.title}
                   </h3>
 
@@ -165,7 +165,7 @@ export default function BlogsPage() {
               <div className="px-6 pb-6 pt-2">
                 <Link
                   href="#"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-indigo-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#F97316] transition-colors"
                 >
                   <span>Read article</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -178,7 +178,7 @@ export default function BlogsPage() {
 
       {/* ── 3. STAY IN THE LOOP Newsletter Banner ─────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
-        <div className="relative bg-[#0b0f19] border border-slate-800 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl">
+        <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl">
           <ParallaxImage
             src={agtpAssets.exportPort}
             alt="Port Background"
@@ -186,12 +186,12 @@ export default function BlogsPage() {
             speed={0.2}
             className="absolute inset-0 w-full h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f19]/80 via-[#0b0f19]/60 to-[#0b0f19] z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#102941]/80 via-[#102941]/60 to-[#102941] z-10" />
 
           <div className="relative z-20 max-w-2xl mx-auto space-y-6">
             <RevealEyebrow>
-              <div className="flex items-center justify-center gap-2 text-xs font-bold text-indigo-400 uppercase tracking-widest">
-                <span className="w-6 h-[1.5px] bg-indigo-500" />
+              <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#F97316] uppercase tracking-widest">
+                <span className="w-6 h-[1.5px] bg-[#F97316]" />
                 STAY IN THE LOOP
               </div>
             </RevealEyebrow>
@@ -227,11 +227,11 @@ export default function BlogsPage() {
                     placeholder="you@company.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-[#070b14] border border-slate-800 text-xs text-white placeholder-slate-600 px-5 py-3 rounded-full focus:outline-none focus:border-indigo-500 font-medium"
+                    className="w-full bg-[#0B1F33] border border-slate-800 text-xs text-white placeholder-slate-600 px-5 py-3 rounded-full focus:outline-none focus:border-[#F97316] font-medium"
                   />
                   <button
                     type="submit"
-                    className="w-full sm:w-auto bg-[#5271ff] hover:bg-[#4361ee] text-white font-bold text-xs px-8 py-3 rounded-full shadow-lg transition-all shrink-0 flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-8 py-3 rounded-full shadow-lg transition-all shrink-0 flex items-center justify-center gap-2"
                   >
                     <span>Subscribe</span>
                     <Send className="w-3.5 h-3.5" />

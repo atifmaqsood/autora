@@ -31,7 +31,7 @@ export function VehicleGallery({ images, vehicleTitle }: VehicleGalleryProps) {
   return (
     <div className="space-y-3">
       {/* Main Image Display */}
-      <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-950 border border-[#25304f] group shadow-md">
+      <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-950 border border-[#315671] group shadow-md">
         <Image
           src={currentImage}
           alt={`${vehicleTitle} image ${selectedIndex + 1}`}
@@ -67,7 +67,7 @@ export function VehicleGallery({ images, vehicleTitle }: VehicleGalleryProps) {
         {/* Fullscreen Button */}
         <button
           onClick={() => setLightboxOpen(true)}
-          className="absolute top-4 right-4 bg-slate-950/75 hover:bg-[#536dfe] text-white text-xs font-semibold px-3 py-1.5 rounded-lg backdrop-blur-md flex items-center gap-1.5 transition-all shadow-md"
+          className="absolute top-4 right-4 bg-slate-950/75 hover:bg-[#F97316] text-white text-xs font-semibold px-3 py-1.5 rounded-lg backdrop-blur-md flex items-center gap-1.5 transition-all shadow-md"
         >
           <Maximize2 className="w-4 h-4" />
           <span>Expand Gallery</span>
@@ -75,7 +75,7 @@ export function VehicleGallery({ images, vehicleTitle }: VehicleGalleryProps) {
 
         {/* Counter Badge */}
         <div className="absolute bottom-4 left-4 bg-slate-950/80 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-1.5">
-          <Camera className="w-3.5 h-3.5 text-[#9cadff]" />
+          <Camera className="w-3.5 h-3.5 text-[#FDBA74]" />
           <span>
             {selectedIndex + 1} / {safeImages.length} Photos
           </span>
@@ -91,8 +91,8 @@ export function VehicleGallery({ images, vehicleTitle }: VehicleGalleryProps) {
               onClick={() => setSelectedIndex(idx)}
               className={`relative w-24 h-16 rounded-lg overflow-hidden border-2 shrink-0 transition-all ${
                 selectedIndex === idx
-                  ? "border-[#536dfe] ring-2 ring-[#536dfe]/40 opacity-100 scale-105"
-                  : "border-[#25304f] opacity-60 hover:opacity-100"
+                  ? "border-[#F97316] ring-2 ring-[#F97316]/40 opacity-100 scale-105"
+                  : "border-[#315671] opacity-60 hover:opacity-100"
               }`}
             >
               <Image
@@ -112,7 +112,7 @@ export function VehicleGallery({ images, vehicleTitle }: VehicleGalleryProps) {
         <div className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex flex-col items-center justify-center p-4">
           <button
             onClick={() => setLightboxOpen(false)}
-            className="absolute top-6 right-6 text-white hover:text-[#9cadff] p-2 rounded-full bg-slate-900 border border-slate-700"
+            className="absolute top-6 right-6 text-white hover:text-[#FDBA74] p-2 rounded-full bg-slate-900 border border-slate-700"
           >
             <X className="w-7 h-7" />
           </button>
