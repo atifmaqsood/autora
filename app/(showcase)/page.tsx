@@ -798,7 +798,7 @@ function TrustStatementSection() {
             <div className="p-8 md:p-10 lg:p-12">
               <div className="mb-6 h-px w-20 bg-[#536dfe]" />
               <p className="text-[17px] font-semibold leading-[1.7] text-slate-200 md:text-[19px]">
-                When we founded AGTP Group, our goal wasn't simply to move products across borders. It was to build a company that businesses could trust for years to come.
+                When we founded AGTP Group, our goal was not simply to move products across borders. It was to build a company that businesses could trust for years to come.
               </p>
               <p className="mt-5 text-[15px] font-medium leading-[1.7] text-slate-400 md:text-[16px]">
                 Every partnership we create is built on transparency, accountability, and a commitment to delivering value beyond a single transaction.
