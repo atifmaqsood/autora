@@ -1,27 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/lib/content/context";
-import { cn } from "@/lib/utils";
 
 export function HeroCarousel() {
   const { content } = useContent();
   const activeSlides = content.heroSlides.filter((slide) => slide.active);
-  const [current, setCurrent] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
-
-  const next = useCallback(() => {
-    setCurrent((previous) => (previous + 1) % activeSlides.length);
-  }, [activeSlides.length]);
-
-  useEffect(() => {
-    if (activeSlides.length <= 1) return;
-    const id = setInterval(next, 6000);
-    return () => clearInterval(id);
-  }, [activeSlides.length, next]);
+  const [videoUnavailable, setVideoUnavailable] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,29 +24,39 @@ export function HeroCarousel() {
   }, []);
 
   if (activeSlides.length === 0) return null;
-  const activeSlide = activeSlides[current];
+  const activeSlide = activeSlides[0];
 
   return (
     <section className="relative h-screen min-h-[680px] w-full overflow-hidden bg-[#0B1F33]">
-      {activeSlides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={cn(
-            "absolute inset-0 h-[130%] -top-[15%] transition-opacity duration-1000",
-            index === current ? "opacity-100" : "opacity-0"
-          )}
-          style={{ transform: `translate3d(0, ${offsetY}px, 0)` }}
-        >
+      <div
+        className="absolute inset-0 h-[130%] -top-[15%]"
+        style={{ transform: `translate3d(0, ${offsetY}px, 0)` }}
+      >
+        {!videoUnavailable ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={activeSlide.image}
+            onError={() => setVideoUnavailable(true)}
+            className="h-full w-full object-cover object-center"
+            aria-hidden="true"
+          >
+            <source src="https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          </video>
+        ) : (
           <Image
-            src={slide.image}
-            alt={slide.heading}
+            src={activeSlide.image}
+            alt="AGTP Group vehicle sourcing and export"
             fill
-            priority={index === 0}
+            priority
             className="object-cover object-center"
             sizes="100vw"
           />
-        </div>
-      ))}
+        )}
+      </div>
       <div className="absolute inset-0 bg-black/35" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/85" />
 

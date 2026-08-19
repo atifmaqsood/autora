@@ -32,34 +32,32 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
         </div>
       </Link>
 
-      <div className="space-y-5 p-6">
+      <div className="flex min-h-[242px] flex-col p-5">
         <Link href={`/vehicles/${vehicle.slug}`}>
-          <h3 className="line-clamp-2 min-h-[52px] text-[19px] font-black uppercase leading-[1.08] tracking-normal text-white transition-colors group-hover:text-[#FDBA74]">
+          <h3 className="h-[57px] overflow-hidden text-[17px] font-black uppercase leading-[1.12] tracking-normal text-white transition-colors group-hover:text-[#FDBA74]">
             {fullTitle}
           </h3>
         </Link>
 
-        <div className="h-px bg-[#315671]" />
+        <div className="mt-5 h-px bg-[#315671]" />
 
-        <div className="flex items-center justify-between gap-5">
-          <div className="flex min-w-0 items-center gap-5 text-[15px] font-medium text-slate-400">
-            <span className="flex items-center gap-2">
+        <div className="mt-4 grid grid-cols-2 gap-3 text-[14px] font-medium text-slate-300">
+            <span className="flex min-w-0 items-center gap-2 truncate">
               <Zap className="h-4 w-4 text-[#FDBA74]" />
               {vehicle.engineSize || "4.4P"}
             </span>
-            <span className="flex items-center gap-2">
+            <span className="flex min-w-0 items-center gap-2 truncate">
               <Clock className="h-4 w-4 text-[#FDBA74]" />
               {vehicle.transmission || "Automatic"}
             </span>
-          </div>
-
-          <Link
-            href={`/vehicles/${vehicle.slug}`}
-            className="rounded-full border border-[#3D6480] px-6 py-2.5 text-[16px] font-extrabold text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
-          >
-            View
-          </Link>
         </div>
+
+        <Link
+          href={`/vehicles/${vehicle.slug}`}
+          className="mt-auto flex h-10 items-center justify-center rounded-full border border-[#3D6480] text-[14px] font-extrabold text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
+        >
+          View Details
+        </Link>
       </div>
     </article>
   );

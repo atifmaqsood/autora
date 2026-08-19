@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Save, RotateCcw, CheckCircle2, Globe, Building, Phone } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Save, RotateCcw, CheckCircle2, Globe, Building, Phone, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +14,10 @@ export default function AdminSiteSettingsPage() {
   const { content, updateContent } = useContent();
   const [settings, setSettings] = useState<SiteSettings>({ ...content.site });
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    setSettings({ ...content.site });
+  }, [content.site]);
 
   const patch = (fields: Partial<SiteSettings>) => {
     setSettings((prev) => ({ ...prev, ...fields }));
@@ -91,7 +95,7 @@ export default function AdminSiteSettingsPage() {
             />
           </div>
           <div>
-            <Label className="text-xs">Primary Accent Color (Hex)</Label>
+            <Label className="text-xs">Primary / Base Color</Label>
             <div className="flex items-center gap-2 mt-1">
               <input
                 type="color"
@@ -102,7 +106,24 @@ export default function AdminSiteSettingsPage() {
               <Input
                 value={settings.primaryColor}
                 onChange={(e) => patch({ primaryColor: e.target.value })}
-                placeholder="#d97706"
+                placeholder="#0B1F33"
+                className="text-sm font-mono flex-1"
+              />
+            </div>
+          </div>
+          <div>
+            <Label className="text-xs">Secondary / Accent Color</Label>
+            <div className="flex items-center gap-2 mt-1">
+              <input
+                type="color"
+                value={settings.secondaryColor}
+                onChange={(e) => patch({ secondaryColor: e.target.value })}
+                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
+              />
+              <Input
+                value={settings.secondaryColor}
+                onChange={(e) => patch({ secondaryColor: e.target.value })}
+                placeholder="#F97316"
                 className="text-sm font-mono flex-1"
               />
             </div>
@@ -185,18 +206,18 @@ export default function AdminSiteSettingsPage() {
 
       {/* Live Preview Panel */}
       <div className="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-4 shadow-xl">
-        <h3 className="text-xs font-bold text-amber-400 uppercase tracking-widest">
-          Live Logo Preview
+        <h3 className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-2">
+          <Palette className="w-4 h-4" /> Theme Preview
         </h3>
-        <div className="inline-flex items-center gap-3 bg-slate-800 px-5 py-3 rounded-xl border border-slate-700">
-          <div className="w-10 h-10 rounded-lg bg-slate-700 text-amber-500 flex items-center justify-center font-bold text-xl">
+        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/15" style={{ backgroundColor: settings.primaryColor }}>
+          <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl text-white" style={{ backgroundColor: settings.secondaryColor }}>
             A
           </div>
           <div>
             <p className="text-xl font-black tracking-wider uppercase text-white leading-none">
               {settings.brandName || "AGTP GROUP"}
             </p>
-            <p className="text-[10px] font-semibold tracking-widest text-amber-500 uppercase">
+            <p className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: settings.secondaryColor }}>
               {settings.tagline || "MOTORS · SHOWCASE"}
             </p>
           </div>

@@ -23,6 +23,13 @@
   --input: 214.3 31.8% 91.4%;
   --ring: 221 83% 16%;
   --radius: 0.625rem;
+  --agtp-primary: #0B1F33;
+  --agtp-secondary: #F97316;
+  --agtp-primary-deep: color-mix(in srgb, var(--agtp-primary) 68%, #030b14);
+  --agtp-primary-surface: color-mix(in srgb, var(--agtp-primary) 74%, #071321);
+  --agtp-primary-raised: color-mix(in srgb, var(--agtp-primary) 80%, #102238);
+  --agtp-secondary-hover: color-mix(in srgb, var(--agtp-secondary) 85%, black);
+  --agtp-secondary-soft: color-mix(in srgb, var(--agtp-secondary) 55%, white);
 }
 
 * {
@@ -31,16 +38,36 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #0B1F33;
+  background-color: var(--agtp-primary-deep);
 }
 
 body {
   min-height: 100vh;
-  background-color: #0B1F33;
+  background-color: var(--agtp-primary-deep);
   color: #f8fafc;
   overflow-x: hidden;
   font-family: var(--font-sans);
 }
+
+/* The public UI uses these palette values extensively through Tailwind arbitrary-color utilities. */
+[class*="bg-[#0B1F33]"] { background-color: var(--agtp-primary-deep) !important; }
+[class*="bg-[#081A2B]"] { background-color: var(--agtp-primary-deep) !important; }
+[class*="bg-[#102941]"] { background-color: var(--agtp-primary-surface) !important; }
+[class*="bg-[#14314B]"] { background-color: var(--agtp-primary-raised) !important; }
+[class*="bg-[#0a0f1c]"],
+[class*="bg-[#222831]"] { background-color: color-mix(in srgb, var(--agtp-primary-deep) 95%, transparent) !important; }
+[class*="text-[#0B1F33]"] { color: var(--agtp-primary) !important; }
+[class*="border-[#315671]"] { border-color: color-mix(in srgb, var(--agtp-primary) 65%, white) !important; }
+[class*="border-[#3D6480]"] { border-color: color-mix(in srgb, var(--agtp-primary) 55%, white) !important; }
+
+[class*="bg-[#F97316]"] { background-color: var(--agtp-secondary) !important; }
+[class*="text-[#F97316]"] { color: var(--agtp-secondary) !important; }
+[class*="border-[#F97316]"] { border-color: var(--agtp-secondary) !important; }
+[class*="bg-[#EA580C]"] { background-color: var(--agtp-secondary-hover) !important; }
+[class*="text-[#FDBA74]"] { color: var(--agtp-secondary-soft) !important; }
+[class*="hover:bg-[#EA580C]"]:hover { background-color: var(--agtp-secondary-hover) !important; }
+[class*="hover:bg-[#F97316]"]:hover { background-color: var(--agtp-secondary) !important; }
+[class*="hover:border-[#F97316]"]:hover { border-color: var(--agtp-secondary) !important; }
 
 @media (pointer: fine) {
   body.has-custom-cursor,
@@ -145,6 +172,25 @@ body {
 }
 
 .animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 25s linear infinite;
+}
+
+.animate-marquee-reverse:hover {
   animation-play-state: paused;
 }
 

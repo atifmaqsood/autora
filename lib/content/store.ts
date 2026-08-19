@@ -15,7 +15,8 @@ export const defaultContent: ShowcaseContent = {
     metaDescription:
       "From Dubai to your driveway: quality cars, spare parts, construction materials, and global trading solutions delivered with reliable sourcing and logistics.",
     faviconUrl: "",
-    primaryColor: "#d97706"
+    primaryColor: "#0B1F33",
+    secondaryColor: "#F97316"
   },
 
   heroSlides: [
@@ -236,7 +237,17 @@ export function getShowcaseContent(): ShowcaseContent {
     const raw = localStorage.getItem(CONTENT_STORAGE_KEY);
     if (!raw) return defaultContent;
     const parsed = JSON.parse(raw);
-    return normalizeBrandText(deepMerge(defaultContent, parsed));
+    const content = normalizeBrandText(deepMerge(defaultContent, parsed));
+    const savedSite = isObject(parsed) && isObject(parsed.site) ? parsed.site : null;
+
+    // Before palette support, primaryColor was an accent-only field. Preserve it as the new secondary color.
+    if (savedSite && savedSite.secondaryColor === undefined) {
+      const legacyAccent = typeof savedSite.primaryColor === "string" ? savedSite.primaryColor : defaultContent.site.secondaryColor;
+      content.site.primaryColor = defaultContent.site.primaryColor;
+      content.site.secondaryColor = legacyAccent === "#d97706" ? defaultContent.site.secondaryColor : legacyAccent;
+    }
+
+    return content;
   } catch {
     return defaultContent;
   }

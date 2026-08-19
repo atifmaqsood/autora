@@ -48,7 +48,7 @@ export function StoreHeader() {
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-50">
-        <div className="hidden h-[46px] border-b border-white/5 bg-[#222831]/95 px-4 text-[14px] font-extrabold text-white lg:block">
+        <div className="hidden h-[46px] border-b border-white/5 bg-[#222831]/95 px-4 text-[14px] font-extrabold text-white xl:block">
           <div className="mx-auto flex h-full max-w-[1300px] items-center justify-end gap-7">
             <a href="mailto:inquiries@agtpgroup.com" className="flex items-center gap-3 transition-colors hover:text-white">
               <Mail className="h-4 w-4" />
@@ -76,11 +76,11 @@ export function StoreHeader() {
               : "border-b border-transparent bg-transparent"
           }`}
         >
-          <div className="mx-auto max-w-[1735px] px-6 lg:px-[96px]">
-            <div className="flex h-[82px] items-center justify-between lg:h-[98px]">
+          <div className="mx-auto max-w-[1735px] px-6 xl:px-[96px]">
+            <div className="flex h-[82px] items-center justify-between xl:h-[98px]">
               <Logo />
 
-              <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex">
+              <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 xl:flex">
                 {navLinks.map((link) => {
                   const active = isActive(link.href) || Boolean(link.children?.some((child) => isActive(child.href)));
                   return (
@@ -115,7 +115,7 @@ export function StoreHeader() {
                 })}
               </nav>
 
-              <div className="hidden lg:flex">
+              <div className="hidden xl:flex">
                 <button
                   onClick={() => setInquiryModalOpen(true)}
                   className="flex h-[50px] items-center gap-2.5 rounded-full bg-[#F97316] px-7 text-[16px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C]"
@@ -125,7 +125,7 @@ export function StoreHeader() {
                 </button>
               </div>
 
-              <div className="flex items-center gap-3 lg:hidden">
+              <div className="flex items-center gap-3 xl:hidden">
                 <button
                   onClick={() => setInquiryModalOpen(true)}
                   className="rounded-full bg-[#F97316] px-4 py-2 text-xs font-bold text-white"
@@ -144,7 +144,7 @@ export function StoreHeader() {
           </div>
 
           {mobileMenuOpen && (
-            <div className="space-y-4 border-t border-slate-800 bg-[#0B1F33] px-5 py-6 shadow-2xl lg:hidden">
+            <div className="space-y-4 border-t border-slate-800 bg-[#0B1F33] px-5 py-6 shadow-2xl xl:hidden">
               <div className="flex flex-col space-y-2">
                 {navLinks.map((link) => (
                   <div key={link.name}>
