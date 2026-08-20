@@ -36,7 +36,7 @@ export function StoreFooter() {
           <FooterColumn
             title="COMPANY"
             links={[
-              ["How It Works", "/#how-it-works"],
+              ["How It Works", "/how-it-works"],
               ["About Us", "/about-us"],
               ["Contact Us", "/contact-us"],
               ["Refund Policy", "/refund-policy"],
@@ -47,10 +47,10 @@ export function StoreFooter() {
           <FooterColumn
             title="QUICK LINKS"
             links={[
-              ["Dubai Markets", "/#dubai-markets"],
-              ["Customer Reviews", "/#customer-reviews"],
+              ["Dubai Markets", "/dubai-markets"],
+              ["Customer Reviews", "/customer-reviews"],
               ["Payment", "/payment"],
-              ["Get A Quote", "/contact-us"],
+              ["Get A Quote", "/get-a-quote"],
               ["Blogs & Articles", "/blogs"]
             ]}
           />
@@ -60,7 +60,7 @@ export function StoreFooter() {
             links={[
               ["Automotive Vehicles", "/vehicles"],
               ["Automotive Parts", "/spare-parts"],
-              ["Freight & Logistics", "/business-solutions"]
+              ["Freight & Logistics", "/freight-and-logistics"]
             ]}
           />
 

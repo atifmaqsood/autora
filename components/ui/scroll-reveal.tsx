@@ -116,7 +116,7 @@ export function RevealEyebrow({
   children,
   className,
   delay = 0,
-    duration = 760,
+  duration = 760,
   ...props
 }: RevealProps) {
   return (
@@ -137,7 +137,7 @@ export function RevealHeading({
   children,
   className,
   delay = 80,
-    duration = 840,
+  duration = 840,
   ...props
 }: RevealProps) {
   return (
@@ -158,7 +158,7 @@ export function RevealText({
   children,
   className,
   delay = 140,
-    duration = 820,
+  duration = 820,
   ...props
 }: RevealProps) {
   return (
@@ -179,7 +179,7 @@ export function RevealButton({
   children,
   className,
   delay = 220,
-    duration = 760,
+  duration = 760,
   ...props
 }: RevealProps) {
   return (
@@ -274,6 +274,82 @@ export function RevealStagger({
   );
 }
 
+interface RevealLinesProps extends React.HTMLAttributes<HTMLDivElement> {
+  lines?: string[];
+  children?: React.ReactNode;
+  lineStaggerMs?: number;
+  baseDelay?: number;
+  className?: string;
+  lineClassName?: string;
+}
+
+/**
+ * RevealLines - Animates text line-by-line / paragraph-by-paragraph with staggered delays as scrolled into view.
+ */
+export function RevealLines({
+  lines,
+  children,
+  lineStaggerMs = 110,
+  baseDelay = 0,
+  className,
+  lineClassName,
+  ...props
+}: RevealLinesProps) {
+  const { ref, isInView } = useInView({ triggerOnce: true });
+
+  let textLines: string[] = [];
+  if (lines && lines.length > 0) {
+    textLines = lines;
+  } else if (typeof children === "string") {
+    textLines = children.split("\n").filter((l) => l.trim().length > 0);
+  }
+
+  if (textLines.length > 0) {
+    return (
+      <div ref={ref} className={cn("space-y-2.5", className)} {...props}>
+        {textLines.map((line, idx) => (
+          <div key={idx} className="overflow-hidden">
+            <div
+              className={cn("transition-all duration-700 ease-out", lineClassName)}
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? "translateY(0%)" : "translateY(100%)",
+                transitionDelay: `${baseDelay + idx * lineStaggerMs}ms`,
+                willChange: "opacity, transform"
+              }}
+            >
+              {line}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div ref={ref} className={className} {...props}>
+      {React.Children.map(children, (child, idx) => {
+        if (!React.isValidElement(child)) return child;
+        return (
+          <div className="overflow-hidden">
+            <div
+              className={cn("transition-all duration-700 ease-out", lineClassName)}
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? "translateY(0%)" : "translateY(100%)",
+                transitionDelay: `${baseDelay + idx * lineStaggerMs}ms`,
+                willChange: "opacity, transform"
+              }}
+            >
+              {child}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 interface RevealCounterProps {
   end: number;
   duration?: number;
@@ -329,5 +405,3 @@ export function RevealCounter({
     </span>
   );
 }
-
-

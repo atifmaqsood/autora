@@ -14,7 +14,6 @@ import { agtpAssets } from "@/src/assets";
 
 function CatalogContent() {
   const searchParams = useSearchParams();
-
   const allVehicles = useMemo(() => getAllVehicles(), []);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
 
@@ -40,7 +39,6 @@ function CatalogContent() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#0B1F33] text-white">
       {/* Dark Filter Bar */}
       <div className="bg-[#102941] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4">
-        {/* Search Input */}
         <div className="relative flex-1 w-full">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <input
@@ -52,7 +50,6 @@ function CatalogContent() {
           />
         </div>
 
-        {/* Year Dropdown */}
         <div className="relative w-full md:w-48">
           <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <select
@@ -68,7 +65,6 @@ function CatalogContent() {
           </select>
         </div>
 
-        {/* Search Button */}
         <button
           onClick={() => setActivePage(1)}
           className="w-full md:w-auto bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-8 py-3 rounded-full flex items-center justify-center gap-2 shadow-lg transition-all shrink-0"
@@ -78,14 +74,12 @@ function CatalogContent() {
         </button>
       </div>
 
-      {/* Vehicles Available Count */}
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-slate-400">
           500 vehicles available
         </span>
       </div>
 
-      {/* Vehicles Grid */}
       {filteredVehicles.length > 0 ? (
         <RevealStagger staggerDelay={80} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredVehicles.map((vehicle) => (
@@ -104,7 +98,6 @@ function CatalogContent() {
         </div>
       )}
 
-      {/* Pagination Bar */}
       <div className="flex items-center justify-center gap-2 pt-8">
         {[1, 2, 3, "...", 9].map((p, idx) => (
           <button
@@ -125,7 +118,6 @@ function CatalogContent() {
         </button>
       </div>
 
-      {/* CAN'T FIND THE EXACT SPEC? CTA Banner */}
       <Reveal duration={700}>
         <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-14 text-center overflow-hidden shadow-2xl mt-16">
           <div className="relative z-10 max-w-2xl mx-auto space-y-4">
@@ -148,7 +140,6 @@ function CatalogContent() {
         </div>
       </Reveal>
 
-      {/* Inquiry Modal */}
       <VehicleInquiryModal
         isOpen={inquiryModalOpen}
         onClose={() => setInquiryModalOpen(false)}
@@ -160,8 +151,7 @@ function CatalogContent() {
 export default function VehiclesCatalogPage() {
   return (
     <div className="space-y-0 pb-20 bg-[#0B1F33] min-h-screen">
-      {/* Dark Hero Header with Parallax */}
-      <section className="relative min-h-[80vh] bg-[#081A2B] border-b border-slate-800/80 text-white overflow-hidden flex flex-col justify-center pt-28 pb-12">
+      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 text-white overflow-hidden flex flex-col justify-center pt-40 pb-16">
         <ParallaxImage
           src={agtpAssets.inventoryHero}
           alt="Inventory Header"
@@ -198,5 +188,3 @@ export default function VehiclesCatalogPage() {
     </div>
   );
 }
-
-

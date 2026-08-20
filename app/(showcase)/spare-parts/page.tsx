@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Truck
 } from "lucide-react";
+import { ParallaxImage } from "@/components/ui/parallax-image";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { Reveal, RevealButton, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from "@/components/ui/scroll-reveal";
 import { useContent } from "@/lib/content/context";
@@ -50,21 +51,19 @@ export default function SparePartsPage() {
 
   return (
     <div className="bg-[#0B1F33] pb-20 text-white">
-      <section className="relative flex min-h-[88vh] flex-col justify-center overflow-hidden border-b border-slate-800/80 bg-[#081A2B] px-4 pb-16 pt-32 sm:px-6 lg:px-8 lg:pt-40">
-        <Image
+      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
+        <ParallaxImage
           src={agtpAssets.sparePartsHero}
           alt="AGTP GROUP spare parts sourcing"
-          fill
-          priority
-          className="object-cover opacity-45"
-          sizes="100vw"
+          overlayOpacity="opacity-55"
+          speed={0.25}
+          className="absolute inset-0 w-full h-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B] via-[#081A2B]/75 to-[#081A2B]/20" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0B1F33] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
 
         <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-end gap-10 lg:grid-cols-12">
           <div className="space-y-6 lg:col-span-8">
-            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-slate-400">
               <Link href="/" className="transition-colors hover:text-white">HOME</Link>
               <span>/</span>
               <span className="text-[#F97316]">SPARE PARTS</span>

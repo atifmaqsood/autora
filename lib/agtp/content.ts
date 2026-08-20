@@ -147,23 +147,47 @@ export const businessSolutions = [
 
 export const faqs = [
   {
-    question: "What does AGTP GROUP supply?",
-    answer: "AGTP GROUP supplies quality cars, genuine and aftermarket automotive spare parts, construction materials, furniture and home items, general merchandise, industrial equipment, packaging materials, apparel, textiles, electronics, and appliances."
+    question: "What does AGTP Group do?",
+    answer: "AGTP Group is a UAE-based global sourcing, trading, export, and logistics company. We help businesses source quality products, manage procurement, and coordinate international shipments worldwide."
   },
   {
-    question: "Where is AGTP GROUP based?",
-    answer: "AGTP GROUP is based in the United Arab Emirates, with head office details listed as Sharjah Media City, Sharjah, UAE, and reach-us details in Meydan Road, Nad Al Sheba, Dubai."
+    question: "Which products can AGTP Group source and supply?",
+    answer: "We source and supply a wide range of products, including vehicles, spare parts, industrial equipment, construction materials, consumer goods, agricultural products, and other trading commodities."
   },
   {
-    question: "Does AGTP GROUP handle export and logistics?",
-    answer: "Yes. AGTP GROUP positions itself as a trusted global partner for seamless import/export, reliable sourcing, competitive pricing, and efficient logistics."
+    question: "Do you export vehicles internationally?",
+    answer: "Yes. We specialize in sourcing and exporting new and used vehicles, including passenger cars, SUVs, commercial vehicles, and specialty vehicles to international markets."
   },
   {
-    question: "Which automotive brands are covered?",
-    answer: "The brands page lists Japanese, European, American, Korean, truck, heavy machinery, and aftermarket brands, including Toyota, Nissan, Mitsubishi, Mercedes-Benz, BMW, Ford, Hyundai, Scania, Caterpillar, Bosch, Denso, Aisin, and more."
+    question: "Which countries does AGTP Group serve?",
+    answer: "We serve clients across Africa, the Middle East, Asia, and other global markets through our extensive supplier and logistics network."
   },
   {
-    question: "How can I contact AGTP GROUP?",
-    answer: "You can email inquiries@agtpgroup.com or agtpgroup@gmail.com, or call +971 58 585729."
+    question: "Can AGTP Group help with product sourcing?",
+    answer: "Absolutely. Our sourcing team identifies reliable suppliers, verifies product quality, negotiates competitive pricing, and manages procurement on behalf of our clients."
+  },
+  {
+    question: "Do you provide logistics and shipping services?",
+    answer: "Yes. We offer end-to-end logistics solutions, including sea freight, air freight, export documentation, customs coordination, and international delivery support."
+  },
+  {
+    question: "How do you ensure product quality?",
+    answer: "We work with trusted suppliers and can arrange product inspections, quality verification, and supplier assessments to help ensure products meet client requirements."
+  },
+  {
+    question: "Can AGTP Group handle bulk orders?",
+    answer: "Yes. We support both small and large-volume orders for businesses, distributors, contractors, and commercial buyers worldwide."
+  },
+  {
+    question: "What makes AGTP Group different?",
+    answer: "Our combination of global sourcing expertise, trusted supplier networks, competitive pricing, and comprehensive logistics support allows us to provide reliable end-to-end trade solutions."
+  },
+  {
+    question: "How can I request a quotation?",
+    answer: "You can contact our team through the website contact form, email, or phone. Share your product requirements, quantities, and destination, and we will provide a customized quotation."
+  },
+  {
+    question: "How do I get started with AGTP Group?",
+    answer: "You can contact us via WhatsApp, email, or our website to share your requirements. Our team will guide you through product options, pricing, payment, and the export process."
   }
 ];
