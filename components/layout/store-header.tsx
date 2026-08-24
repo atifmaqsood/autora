@@ -48,24 +48,41 @@ export function StoreHeader() {
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-50">
-        <div className="hidden h-[46px] border-b border-white/5 bg-[#222831]/95 px-4 text-[14px] font-extrabold text-white xl:block">
-          <div className="mx-auto flex h-full max-w-[1300px] items-center justify-end gap-7">
-            <a href="mailto:inquiries@agtpgroup.com" className="flex items-center gap-3 transition-colors hover:text-white">
-              <Mail className="h-4 w-4" />
-              <span>inquiries@agtpgroup.com</span>
-            </a>
-            <a href="tel:+97158585729" className="flex items-center gap-3 transition-colors hover:text-white">
-              <Phone className="h-4 w-4" />
-              <span>Contact Us: +971 58 585729</span>
-            </a>
-            <a href="tel:+97158585729" className="flex items-center gap-3 transition-colors hover:text-white">
-              <Phone className="h-4 w-4" />
-              <span>Head Office: Sharjah Media City</span>
-            </a>
-            <a href="mailto:agtpgroup@gmail.com" className="flex items-center gap-3 transition-colors hover:text-white">
-              <Phone className="h-4 w-4" />
-              <span>agtpgroup@gmail.com</span>
-            </a>
+        <div className="hidden h-[46px] border-b border-white/5 bg-[#222831]/95 px-4 text-[13px] font-extrabold text-white xl:block">
+          <div className="mx-auto flex h-full max-w-[1300px] items-center justify-between">
+            <div className="flex items-center gap-6">
+              <a href="mailto:inquiries@agtpgroup.com" className="flex items-center gap-2 transition-colors hover:text-[#FDBA74]">
+                <Mail className="h-4 w-4 text-[#F97316]" />
+                <span>inquiries@agtpgroup.com</span>
+              </a>
+              <a href="tel:+971585855729" className="flex items-center gap-2 transition-colors hover:text-[#FDBA74]">
+                <Phone className="h-4 w-4 text-[#F97316]" />
+                <span>Phone: +971 58 58 55729</span>
+              </a>
+              <div className="flex items-center gap-2 text-slate-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#F97316]" />
+                <span>Head Office: Meydan Road, Dubai.</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <a
+                href="https://wa.me/+971585855729"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/40 px-3 py-1 text-[11px] font-black text-emerald-400 hover:bg-emerald-600 hover:text-white transition-all"
+              >
+                <span>WhatsApp</span>
+              </a>
+              <a
+                href="https://www.linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full bg-sky-950/60 border border-sky-500/40 px-3 py-1 text-[11px] font-black text-sky-400 hover:bg-sky-600 hover:text-white transition-all"
+              >
+                <span>LinkedIn</span>
+              </a>
+            </div>
           </div>
         </div>
 
