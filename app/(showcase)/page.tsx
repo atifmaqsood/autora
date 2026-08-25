@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 import { siBmw, siHyundai, siKia, siMitsubishi, siNissan, siSuzuki, siToyota } from "simple-icons";
 import { HeroCarousel } from "@/components/home/hero-carousel";
-import { SubBannerCategoryBar } from "@/components/home/sub-banner-category-bar";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { VehicleCard } from "@/components/vehicles/vehicle-card";
 import { getAllVehicles } from "@/lib/vehicles/data";
@@ -131,43 +130,59 @@ const heroStats = [
 const industryCards = [
   {
     title: "Sedans & SUVs",
-    subtitle: "Passenger cars, luxury sedans, and SUVs for global export",
+    subtitle: "Passenger vehicles for global export",
     image: agtpAssets.suvs,
     icon: Car,
-    href: "/vehicles?category=sedan-suv",
-    layout: "min-h-[340px] xl:col-span-6 xl:row-span-2 xl:min-h-[480px]"
+    href: "/vehicles",
+    layout: "min-h-[360px] xl:col-span-5 xl:row-span-2 xl:min-h-[540px]"
   },
   {
-    title: "Pickups & Ambulance",
-    subtitle: "Commercial utility trucks and special emergency vehicles",
+    title: "Pickups & Trucks",
+    subtitle: "Utility and commercial-ready vehicles",
     image: agtpAssets.pickups,
     icon: Truck,
-    href: "/vehicles?category=pickup-ambulance",
-    layout: "min-h-[220px] xl:col-span-6 xl:min-h-[230px]"
+    href: "/vehicles?category=Pickup",
+    layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]"
   },
   {
-    title: "Vans & buses",
-    subtitle: "Practical passenger vans, minibuses, and cargo transport",
+    title: "Vans & Buses",
+    subtitle: "Practical passenger and cargo transport",
     image: agtpAssets.vans,
     icon: Truck,
-    href: "/vehicles?category=van-bus",
-    layout: "min-h-[220px] xl:col-span-6 xl:min-h-[230px]"
+    href: "/vehicles?search=van",
+    layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]"
   },
   {
-    title: "Parts & accessories",
-    subtitle: "OEM, genuine, and premium aftermarket spare parts",
+    title: "Fire Apparatus & Ambulance",
+    subtitle: "Special-purpose emergency vehicles",
+    image: agtpAssets.mercedesCclassCard,
+    icon: Package,
+    href: "/vehicles?search=ambulance",
+    layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]"
+  },
+  {
+    title: "Parts & Accessories",
+    subtitle: "OEM, genuine, and aftermarket supply",
     image: agtpAssets.sparePartsHero,
     icon: Wrench,
     href: "/spare-parts",
-    layout: "min-h-[240px] xl:col-span-6 xl:min-h-[250px]"
+    layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]"
   },
   {
-    title: "Engines & Modifications",
-    subtitle: "Powertrains, heavy engines, and custom vehicle upgrades",
+    title: "Engines & Gears",
+    subtitle: "Powertrain solutions for every requirement",
     image: agtpAssets.cadillacEscaladeCard,
     icon: Cog,
-    href: "/spare-parts?category=engine-modifications",
-    layout: "min-h-[240px] xl:col-span-6 xl:min-h-[250px]"
+    href: "/spare-parts",
+    layout: "min-h-[280px] xl:col-span-6 xl:min-h-[300px]"
+  },
+  {
+    title: "Modifications",
+    subtitle: "Custom upgrades and specialist configurations",
+    image: agtpAssets.bmwX2Card,
+    icon: Wrench,
+    href: "/contact-us",
+    layout: "min-h-[280px] xl:col-span-6 xl:min-h-[300px]"
   }
 ];
 
@@ -310,7 +325,6 @@ export default function HomePage() {
   return (
     <div className="bg-[#0B1F33] pb-20 text-white">
       <HeroCarousel />
-      <SubBannerCategoryBar />
 
       <VehicleShowcaseSection
         vehicles={filteredVehicles}
@@ -450,9 +464,6 @@ function SectionEyebrow({ children, center = false }: { children: React.ReactNod
   );
 }
 
-
-
-
 function HeroCopySection() {
   return (
     <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
@@ -520,9 +531,9 @@ function VehicleShowcaseSection({
         </RevealButton>
       </div>
 
-      <RevealStagger staggerDelay={70} className="grid grid-cols-2 gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+      <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {vehicles.slice(0, 6).map((vehicle, index) => (
-          <div key={vehicle.id} className={index >= 4 ? "hidden sm:block" : undefined}>
+          <div key={vehicle.id} className={index > 3 ? "hidden md:block" : undefined}>
             <VehicleCard vehicle={vehicle} />
           </div>
         ))}
@@ -608,10 +619,10 @@ function IndustriesSection() {
   return (
     <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
       <div className="text-center">
-        <SectionEyebrow center>YOUR NEEDS. OUR GLOBAL SUPPLY.</SectionEyebrow>
+        <SectionEyebrow center>INDUSTRIES WE SERVE</SectionEyebrow>
         <RevealHeading>
           <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
-            Industries we serve
+            Built For Every Road Ahead
           </h2>
         </RevealHeading>
       </div>
@@ -698,16 +709,16 @@ function GlobalNetworkSection() {
       <div className="mx-auto max-w-[1570px] px-6">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
-            <SectionEyebrow>DUBAI SUPPLY. GLOBAL MARKETS. ONE CONNECTION.</SectionEyebrow>
+            <SectionEyebrow>OUR GLOBAL NETWORK</SectionEyebrow>
             <RevealHeading>
               <h2 className="mt-6 max-w-[780px] text-[34px] font-black leading-[1.08] tracking-normal md:text-[50px]">
-                Dubai Supply. Global Markets. One Connection.
+                Connected from Dubai to the markets that matter.
               </h2>
             </RevealHeading>
           </div>
           <RevealText>
             <p className="max-w-[650px] text-[16px] font-medium leading-[1.65] text-slate-300">
-              From Dubai, we deliver reliable products to buyers across key African markets.
+              Our sourcing, verification, and export support connects trusted suppliers in Dubai with buyers across key African markets.
             </p>
           </RevealText>
         </div>
