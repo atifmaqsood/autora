@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useContent } from "@/lib/content/context";
 
 export function HeroCarousel() {
@@ -27,7 +27,8 @@ export function HeroCarousel() {
   const activeSlide = activeSlides[0];
 
   return (
-    <section className="relative h-screen min-h-[680px] w-full overflow-hidden bg-[#0B1F33]">
+    <section className="relative h-screen min-h-[720px] w-full overflow-hidden bg-[#0B1F33]">
+      {/* Parallax Video / Image Background */}
       <div
         className="absolute inset-0 h-[130%] -top-[15%]"
         style={{ transform: `translate3d(0, ${offsetY}px, 0)` }}
@@ -57,32 +58,63 @@ export function HeroCarousel() {
           />
         )}
       </div>
-      <div className="absolute inset-0 bg-black/35" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/85" />
 
-      <div className="absolute bottom-[56px] left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex">
-        <span className="text-[12px] font-medium uppercase tracking-[0.42em] text-white/80">SCROLL</span>
-        <div className="relative h-[44px] w-[44px] rounded-full border border-white/45">
-          <span className="absolute left-1/2 top-0 h-[44px] w-px -translate-x-1/2 bg-white/30" />
-          <span className="absolute left-1/2 top-[23px] h-2 w-2 -translate-x-1/2 rounded-full bg-white" />
+      {/* Dark Gradient Overlay */}
+      <div className="absolute inset-0 bg-[#06101C]/45" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-black/75 via-black/45 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-transparent to-black/40" />
+
+      {/* Left-Aligned Hero Content Box */}
+      <div className="relative z-20 mx-auto flex h-full max-w-[1720px] flex-col justify-center px-6 pt-24 sm:px-10 lg:px-16 xl:px-20">
+        <div className="max-w-[760px] space-y-6">
+          {/* Eyebrow Glassmorphism Pill */}
+          <div>
+            <span className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-5 py-2 text-[13px] font-semibold text-white shadow-lg backdrop-blur-md">
+              Dubai to Worldwide
+            </span>
+          </div>
+
+          {/* Large Hero Title */}
+          <h1 className="text-[38px] font-black leading-[1.06] tracking-tight text-white sm:text-[52px] md:text-[62px] lg:text-[68px]">
+            Driven by Quality,
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-amber-200">
+              Delivered Worldwide
+            </span>
+          </h1>
+
+          {/* Subtitle Description */}
+          <p className="max-w-[580px] text-[15px] font-medium leading-[1.65] text-slate-200 sm:text-[16px] lg:text-[18px]">
+            Your trusted partner for seamless vehicle exports, genuine spare parts supply, and dependable international logistics from Dubai.
+          </p>
+
+          {/* Dual Pill CTA Buttons */}
+          <div className="pt-1 flex flex-wrap items-center gap-3.5">
+            <Link
+              href="/vehicles"
+              className="group flex h-[50px] items-center gap-2 rounded-full bg-white px-7 text-[15px] font-extrabold text-[#0B1F33] shadow-xl transition-all duration-300 hover:bg-[#F97316] hover:text-white hover:shadow-2xl"
+            >
+              <span>Explore Inventory</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+
+            <Link
+              href="/contact-us"
+              className="group flex h-[50px] items-center gap-2 rounded-full border border-white/40 bg-white/10 px-7 text-[15px] font-extrabold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white/20"
+            >
+              <span>Get A Quote</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
         </div>
       </div>
 
-      <div className="absolute bottom-[58px] right-[9vw] z-20 flex flex-wrap items-center justify-end gap-4">
-        <Link
-          href={activeSlide.primaryCta.href}
-          className="flex h-[62px] items-center gap-3 rounded-full bg-[#F97316] px-8 text-[18px] font-extrabold text-white shadow-2xl shadow-[#F97316]/35 transition-all hover:bg-[#EA580C]"
-        >
-          <span>{activeSlide.primaryCta.label}</span>
-          <ArrowRight className="h-5 w-5" />
-        </Link>
-
-        <Link
-          href={activeSlide.secondaryCta.href}
-          className="flex h-[62px] items-center rounded-full border border-white/55 px-8 text-[18px] font-extrabold text-white transition-all hover:bg-white/10"
-        >
-          {activeSlide.secondaryCta.label}
-        </Link>
+      {/* Bottom Left Vertical Indicator */}
+      <div className="absolute bottom-10 left-10 z-20 hidden items-center gap-4 lg:flex">
+        <span className="h-12 w-px bg-gradient-to-b from-white/60 to-transparent" />
+        <span className="text-[11px] font-black uppercase tracking-[0.35em] text-white/70">
+          Scroll to explore
+        </span>
       </div>
     </section>
   );

@@ -304,7 +304,7 @@ export default function HomePage() {
 
       <LeadingBrandsSection />
 
-      <section className="mx-auto max-w-[1570px] px-6 pt-[80px]">
+      <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[80px]">
         <Reveal>
           <div className="relative min-h-[560px] overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B]">
             <Image src={agtpAssets.exportPort} alt="Shipping containers at an export port" fill className="object-cover" sizes="1570px" />
@@ -312,14 +312,14 @@ export default function HomePage() {
             <div className="relative z-10 flex min-h-[560px] max-w-[840px] flex-col justify-center px-8 py-12 text-left md:px-14 lg:px-20">
               <SectionEyebrow>GET A QUOTE</SectionEyebrow>
               <RevealHeading>
-                <h2 className="mt-6 max-w-[760px] text-[42px] font-black leading-[1.05] tracking-normal md:text-[62px]">
+                <h2 className="mt-6 max-w-[760px] text-[32px] font-black leading-[1.08] tracking-normal md:text-[48px]">
                   Tell Us What You Need.
                   <br />
                   We’ll Take It From There.
                 </h2>
               </RevealHeading>
               <RevealText>
-                <p className="mt-7 max-w-[670px] text-[17px] font-medium leading-[1.65] text-slate-200 md:text-[19px]">
+                <p className="mt-5 max-w-[670px] text-[15px] font-medium leading-[1.6] text-slate-200 md:text-[17px]">
                   Share your requirements and receive a clear quotation with reliable supply, export coordination, and delivery support.
                 </p>
               </RevealText>
@@ -350,7 +350,7 @@ export default function HomePage() {
 function SectionEyebrow({ children, center = false }: { children: React.ReactNode; center?: boolean }) {
   return (
     <RevealEyebrow>
-      <div className={`flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74] ${center ? "justify-center" : ""}`}>
+      <div className={`flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.28em] text-[#FDBA74] ${center ? "justify-center" : ""}`}>
         <span className="h-px w-8 bg-[#F97316]" />
         {children}
       </div>
@@ -369,12 +369,12 @@ function VehicleShowcaseSection({
   onSearchQueryChange: (value: string) => void;
 }) {
   return (
-    <section className="mx-auto max-w-[1570px] px-6 pt-[92px]">
+    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[92px]">
       <div className="mb-10 flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <SectionEyebrow>FEATURED INVENTORY</SectionEyebrow>
           <RevealHeading>
-            <h2 className="mt-2 text-[30px] font-black leading-none tracking-normal md:text-[40px]">Automotive Vehicles</h2>
+            <h2 className="mt-2 text-[26px] font-black leading-none tracking-normal md:text-[34px]">Automotive Vehicles</h2>
           </RevealHeading>
         </div>
 
@@ -415,7 +415,7 @@ function VehicleShowcaseSection({
 
 function HeroStatsSection() {
   return (
-    <section className="mx-auto max-w-[1570px] px-6 pt-[72px]">
+    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[72px]">
       <RevealStagger staggerDelay={70} className="grid overflow-hidden rounded-[14px] border border-[#315671] bg-[#102941] shadow-lg md:grid-cols-2 xl:grid-cols-4">
         {heroStats.map((stat) => {
           const Icon = stat.icon;
@@ -423,10 +423,10 @@ function HeroStatsSection() {
             <div key={stat.label} className="flex min-h-[112px] items-center justify-center gap-4 border-b border-[#315671] px-5 py-6 md:border-r xl:border-b-0">
               <Icon className="h-7 w-7 shrink-0 text-[#FDBA74]" />
               <div>
-                <div className="text-[34px] font-black leading-none text-white md:text-[44px]">
+                <div className="text-[28px] font-black leading-none text-white md:text-[36px]">
                   <RevealCounter end={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="mt-2 text-[13px] font-semibold text-slate-400">{stat.label}</div>
+                <div className="mt-1.5 text-[12px] font-semibold text-slate-400">{stat.label}</div>
               </div>
             </div>
           );
@@ -438,11 +438,11 @@ function HeroStatsSection() {
 
 function ExpertiseVehiclesSection() {
   return (
-    <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
+    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px]">
       <div className="text-center">
         <SectionEyebrow center>AREAS OF EXPERTISE</SectionEyebrow>
         <RevealHeading>
-          <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+          <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
             Automotive Vehicles
           </h2>
         </RevealHeading>
@@ -484,11 +484,11 @@ function ExpertiseVehiclesSection() {
 
 function IndustriesSection() {
   return (
-    <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
+    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px]">
       <div className="text-center">
         <SectionEyebrow center>INDUSTRIES WE SERVE</SectionEyebrow>
         <RevealHeading>
-          <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+          <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
             Your Needs. Our Global Supply
           </h2>
         </RevealHeading>
@@ -514,8 +514,8 @@ function IndustriesSection() {
                   <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/35 bg-[#F97316]/15 text-[#FDBA74]">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-[25px] font-black leading-[1.02] text-white md:text-[28px]">{card.title}</h3>
-                  <p className="mt-3 text-[13px] font-bold leading-[1.45] text-slate-200">{card.subtitle}</p>
+                  <h3 className="text-[21px] font-black leading-[1.05] text-white md:text-[24px]">{card.title}</h3>
+                  <p className="mt-2.5 text-[12px] font-bold leading-[1.45] text-slate-200">{card.subtitle}</p>
                 </div>
               </Link>
             </Reveal>
@@ -528,10 +528,10 @@ function IndustriesSection() {
 
 function ProcessSection() {
   return (
-    <section id="how-it-works" className="mx-auto max-w-[1570px] scroll-mt-32 px-6 pt-[96px] text-center">
+    <section id="how-it-works" className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[96px] text-center">
         <SectionEyebrow center>OUR PROCESS</SectionEyebrow>
         <RevealHeading>
-          <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+          <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
             How AGTP Group Works
           </h2>
         </RevealHeading>
@@ -557,8 +557,8 @@ function ProcessSection() {
                   </div>
                   <div className="relative z-10 mt-auto pt-10">
                     <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#FDBA74]">Step {step.number}</p>
-                    <h3 className="mt-3 text-[23px] font-black leading-[1.08] text-white">{step.title}</h3>
-                    <p className="mt-4 text-[14px] font-medium leading-[1.55] text-slate-300">{step.body}</p>
+                    <h3 className="mt-2.5 text-[19px] font-black leading-[1.1] text-white">{step.title}</h3>
+                    <p className="mt-3 text-[13px] font-medium leading-[1.5] text-slate-300">{step.body}</p>
                   </div>
                 </div>
               </div>
@@ -573,18 +573,18 @@ function ProcessSection() {
 function GlobalNetworkSection() {
   return (
     <section className="mt-[82px] border-y border-[#24445F] bg-[#081A2B] py-[82px]">
-      <div className="mx-auto max-w-[1570px] px-6">
+      <div className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
             <SectionEyebrow>OUR GLOBAL NETWORK</SectionEyebrow>
             <RevealHeading>
-              <h2 className="mt-6 max-w-[780px] text-[34px] font-black leading-[1.08] tracking-normal md:text-[50px]">
+              <h2 className="mt-5 max-w-[780px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
                 Dubai Supply. Global Markets. One Connection.
               </h2>
             </RevealHeading>
           </div>
           <RevealText>
-            <p className="max-w-[650px] text-[16px] font-medium leading-[1.65] text-slate-300">
+            <p className="max-w-[650px] text-[14px] font-medium leading-[1.6] text-slate-300">
               From Dubai, we deliver reliable products to buyers across key African markets.
             </p>
           </RevealText>
@@ -637,8 +637,8 @@ function GlobalNetworkSection() {
                 </div>
                 <div className="relative z-10 mt-10">
                   <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#FDBA74]">Active Market</p>
-                  <h3 className="mt-2 text-[25px] font-black leading-none text-white">{market.name}</h3>
-                  <p className="mt-3 text-[14px] font-semibold text-slate-200">{market.region}</p>
+                  <h3 className="mt-2 text-[21px] font-black leading-none text-white">{market.name}</h3>
+                  <p className="mt-2.5 text-[13px] font-semibold text-slate-200">{market.region}</p>
                 </div>
               </div>
             ))}
@@ -651,11 +651,11 @@ function GlobalNetworkSection() {
 
 function DubaiMarketsSection() {
   return (
-    <section id="dubai-markets" className="mx-auto max-w-[1570px] scroll-mt-32 px-6 pt-[82px]">
+    <section id="dubai-markets" className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px]">
       <div className="text-center">
         <SectionEyebrow center>DUBAI MARKETS</SectionEyebrow>
         <RevealHeading>
-          <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+          <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
             Automotive Suppliers
           </h2>
         </RevealHeading>
@@ -676,7 +676,7 @@ function DubaiMarketsSection() {
               </div>
             </div>
             <div className="p-6">
-              <h3 className="text-[19px] font-black leading-tight text-white">{supplier.title}</h3>
+              <h3 className="text-[17px] font-black leading-tight text-white">{supplier.title}</h3>
               <div className="mt-5 flex flex-wrap gap-4 text-[13px] font-semibold text-slate-300">
                 <span>{supplier.experience}</span>
                 <span>{supplier.countries}</span>
@@ -769,10 +769,10 @@ function AutomotivePartsSpotlight() {
             style={{ opacity: headingOpacity, transform: `translateY(${headingShift}px)` }}
           >
             <p className="text-[11px] font-black uppercase tracking-[0.26em] text-[#FDBA74]">Automotive Parts</p>
-            <h2 className="mt-4 max-w-[480px] text-[42px] font-black leading-[0.94] text-white sm:text-[56px] xl:max-w-[700px] xl:text-[clamp(54px,6vw,100px)]">
+            <h2 className="mt-4 max-w-[480px] text-[32px] font-black leading-[0.96] text-white sm:text-[44px] xl:max-w-[700px] xl:text-[clamp(42px,4.5vw,78px)]">
               Parts That Keep The World Moving
             </h2>
-            <p className="mt-6 max-w-[510px] text-[15px] font-semibold leading-[1.65] text-slate-200 md:text-[17px]">
+            <p className="mt-5 max-w-[510px] text-[14px] font-semibold leading-[1.6] text-slate-200 md:text-[15px]">
               Source genuine components, performance upgrades, and essential vehicle parts through one dependable partner.
             </p>
           </div>
@@ -815,10 +815,10 @@ function AutomotivePartsSpotlight() {
 function LeadingBrandsSection() {
   return (
     <section className="overflow-hidden border-y border-[#24445F] bg-[#081A2B] py-[82px]">
-      <div className="mx-auto max-w-[1570px] px-6 text-center">
+      <div className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 text-center">
         <SectionEyebrow center>LEADING CAR BRANDS</SectionEyebrow>
         <RevealHeading>
-          <h2 className="mx-auto mt-6 max-w-[740px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+          <h2 className="mx-auto mt-5 max-w-[740px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
             Trusted Global Brands
           </h2>
         </RevealHeading>
@@ -833,10 +833,10 @@ function LeadingBrandsSection() {
 
 function WhyAgtpGroupSection() {
   return (
-    <section className="mx-auto max-w-[1570px] px-6 py-[95px] text-center">
+    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 py-[95px] text-center">
       <SectionEyebrow center>WHY AGTP GROUP</SectionEyebrow>
       <RevealHeading>
-        <h2 className="mx-auto mt-7 max-w-[900px] text-[42px] font-black leading-[1.1] tracking-normal text-white md:text-[64px]">
+        <h2 className="mx-auto mt-6 max-w-[900px] text-[32px] font-black leading-[1.1] tracking-normal text-white md:text-[50px]">
           11 Years of Exports.
           <br />
           One Partner. Zero
@@ -845,7 +845,7 @@ function WhyAgtpGroupSection() {
         </h2>
       </RevealHeading>
       <RevealText>
-        <p className="mx-auto mt-8 max-w-[680px] text-[17px] font-medium leading-[1.6] text-slate-300 md:text-[19px]">
+        <p className="mx-auto mt-6 max-w-[680px] text-[15px] font-medium leading-[1.6] text-slate-300 md:text-[17px]">
           We simplify international trade with reliable supply, transparent communication &amp; dependable delivery from Dubai to the world.
         </p>
       </RevealText>
@@ -905,10 +905,10 @@ function CustomerStoriesSection() {
   };
 
   return (
-    <section id="customer-reviews" className="mx-auto max-w-[1570px] scroll-mt-32 px-6 pt-[82px] text-center">
+    <section id="customer-reviews" className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] text-center">
       <SectionEyebrow center>CUSTOMER REVIEWS</SectionEyebrow>
       <RevealHeading>
-        <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
+        <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
           What Our Customers Say
         </h2>
       </RevealHeading>
@@ -1017,11 +1017,11 @@ function TestimonialCard({
           <div className="flex items-start gap-3 pr-10">
             <span className="mt-1 h-8 w-1.5 shrink-0 rounded-full bg-[#F97316]" />
             <div>
-              <h3 className="text-[22px] font-black leading-tight text-white">{story.name}</h3>
+              <h3 className="text-[19px] font-black leading-tight text-white">{story.name}</h3>
               <p className="mt-0.5 text-[11px] font-black uppercase tracking-[0.15em] text-[#FDBA74]">{story.label}</p>
             </div>
           </div>
-          <p className="mt-4 text-[14px] font-medium leading-[1.6] text-slate-200 md:text-[15px]">
+          <p className="mt-3.5 text-[13px] font-medium leading-[1.55] text-slate-200 md:text-[14px]">
             &ldquo;{story.story}&rdquo;
           </p>
         </div>
@@ -1082,9 +1082,9 @@ function PromiseRevealSection() {
 
   return (
     <section ref={sectionRef} className="relative border-y border-[#111827] py-[82px]">
-      <div className="mx-auto w-full max-w-[1570px] px-6">
+      <div className="mx-auto w-full max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20">
         <SectionEyebrow>OUR PROMISE</SectionEyebrow>
-        <h2 className="mt-8 max-w-[700px] font-[family-name:var(--font-sora)] text-[32px] font-extrabold leading-[1.24] tracking-normal text-[#EEF1FA] md:text-[44px] lg:text-[57.6px]">
+        <h2 className="mt-7 max-w-[700px] font-[family-name:var(--font-sora)] text-[26px] font-extrabold leading-[1.24] tracking-normal text-[#EEF1FA] md:text-[36px] lg:text-[46px]">
           {words.map((word, index) => (
             <span
               key={`${word}-${index}`}
@@ -1109,7 +1109,7 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
   const content = [...items, ...items, ...items, ...items];
   return (
     <div className={`${muted ? "mt-[75px] border-y border-[#24445F] bg-[#102941] py-12" : "border-y border-[#24445F] bg-[#102941] py-9"} overflow-hidden group`}>
-      <div className={`${muted ? "text-[48px] text-transparent opacity-50 marquee-outline" : "text-[52px] text-white"} animate-marquee group-hover:[animation-play-state:paused] flex items-center gap-14 whitespace-nowrap font-black uppercase leading-none tracking-normal`}>
+      <div className={`${muted ? "text-[36px] text-transparent opacity-50 marquee-outline" : "text-[40px] text-white"} animate-marquee group-hover:[animation-play-state:paused] flex items-center gap-12 whitespace-nowrap font-black uppercase leading-none tracking-normal`}>
         {content.map((item, index) => {
           const label = typeof item === "string" ? item : item.label;
           const href = typeof item === "string" ? undefined : item.href;
