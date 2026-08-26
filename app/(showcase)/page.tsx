@@ -17,7 +17,7 @@ import {
   Truck,
   Wrench
 } from "lucide-react";
-import { siBmw, siHyundai, siKia, siMitsubishi, siNissan, siSuzuki, siToyota } from "simple-icons";
+
 import { HeroCarousel } from "@/components/home/hero-carousel";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { VehicleCard } from "@/components/vehicles/vehicle-card";
@@ -197,33 +197,18 @@ const customerStories = [
   }
 ];
 
-const siMercedesbenz = {
-  hex: "FFFFFF",
-  path: "M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 1.6c5.744 0 10.4 4.656 10.4 10.4S17.744 22.4 12 22.4 1.6 17.744 1.6 12 6.256 1.6 12 1.6zm0 1.8L9.5 11.2l-7.7 3.5 8.4-1.5 1.8 7.8 1.8-7.8 8.4 1.5-7.7-3.5z"
-};
-
-const siBydBadge = {
-  hex: "FFFFFF",
-  path: "M12 4c-5.52 0-10 3.58-10 8s4.48 8 10 8 10-3.58 10-8-4.48-8-10-8zm-5.5 5h3.2c1.2 0 2.1.8 2.1 2s-.9 2-2.1 2H6.5V9zm1.8 1.4v1.2h1.3c.4 0 .7-.2.7-.6s-.3-.6-.7-.6H8.3zm5.2-1.4h1.8l1.7 3.2 1.7-3.2h1.8l-2.6 4.8V15h-1.8v-1.2L13.5 9zm-8.8 7V9h1.8v6H4.7z"
-};
-
-const siJetourBadge = {
-  hex: "FFFFFF",
-  path: "M2 7h20v2.5H2V7zm2 4h16v2H4v-2zm3 3.5h10v2.5H7v-2.5z"
-};
-
 const leadingBrands = ["BYD", "Toyota", "Suzuki", "Mitsubishi", "Hyundai", "Kia", "Nissan", "Jetour", "Mercedes", "BMW"];
-const brandMarks = {
-  BYD: siBydBadge,
-  Toyota: siToyota,
-  Suzuki: siSuzuki,
-  Mitsubishi: siMitsubishi,
-  Hyundai: siHyundai,
-  Kia: siKia,
-  Nissan: siNissan,
-  Jetour: siJetourBadge,
-  Mercedes: siMercedesbenz,
-  BMW: siBmw
+const brandLogoSrc: Record<string, string> = {
+  BYD: "/brands/byd.svg",
+  Toyota: "/brands/toyota.svg",
+  Suzuki: "/brands/suzuki.svg",
+  Mitsubishi: "/brands/mitsubishi.svg",
+  Hyundai: "/brands/hyundai.svg",
+  Kia: "/brands/kia.svg",
+  Nissan: "/brands/nissan.svg",
+  Jetour: "/brands/jetour.svg",
+  Mercedes: "/brands/mercedes.svg",
+  BMW: "/brands/bmw.svg"
 };
 
 
@@ -862,19 +847,22 @@ function BrandMarquee({ brands }: { brands: string[] }) {
     <div className="flex overflow-hidden py-4 motion-reduce:overflow-x-auto">
       <div className="animate-marquee flex w-max shrink-0 gap-6 px-4 motion-reduce:animate-none">
         {repeatedBrands.map((brand, index) => {
-          const mark = brandMarks[brand as keyof typeof brandMarks];
+          const logoSrc = brandLogoSrc[brand];
 
           return (
             <div
               key={`${brand}-${index}`}
-              className="group relative flex h-[120px] w-[180px] shrink-0 items-center justify-center rounded-[22px] border border-[#315671] bg-[#14314B] p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-[#F97316] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]"
+              className="group relative flex h-[140px] w-[210px] shrink-0 items-center justify-center rounded-[22px] border border-[#315671] bg-[#14314B] p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-[#F97316] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]"
             >
               <div className="absolute inset-0 rounded-[22px] bg-gradient-to-b from-white/[0.08] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="relative z-10 flex h-16 w-16 items-center justify-center text-white transition-transform duration-300 group-hover:scale-110">
-                {mark ? (
-                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-14 w-14" fill={mark.hex === "FFFFFF" ? "#FFFFFF" : `#${mark.hex}`}>
-                    <path d={mark.path} />
-                  </svg>
+              <span className="relative z-10 flex h-20 w-36 items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                {logoSrc ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={logoSrc}
+                    alt={`${brand} logo`}
+                    className="h-[72px] w-auto max-w-[170px] max-h-[72px] object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+                  />
                 ) : (
                   <Car className="h-12 w-12 text-[#FDBA74]" aria-hidden="true" />
                 )}
