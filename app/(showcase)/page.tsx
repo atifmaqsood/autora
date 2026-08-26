@@ -1106,7 +1106,7 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
           return (
             <span key={`${label}-${index}`} className="flex items-center gap-14">
               {href ? (
-                <Link href={href} className="transition-colors hover:text-[#F97316] hover:underline underline-offset-8 decoration-2">
+                <Link href={href} className="text-white transition-colors duration-200 hover:text-[#F97316] no-underline">
                   {label}
                 </Link>
               ) : (

@@ -33,10 +33,12 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement;
     const primary = /^#[0-9a-f]{6}$/i.test(content.site.primaryColor) ? content.site.primaryColor : defaultContent.site.primaryColor;
     const secondary = /^#[0-9a-f]{6}$/i.test(content.site.secondaryColor) ? content.site.secondaryColor : defaultContent.site.secondaryColor;
+    const bg = /^#[0-9a-f]{6}$/i.test(content.site.backgroundColor) ? content.site.backgroundColor : defaultContent.site.backgroundColor;
 
     root.style.setProperty("--agtp-primary", primary);
     root.style.setProperty("--agtp-secondary", secondary);
-  }, [content.site.primaryColor, content.site.secondaryColor]);
+    root.style.setProperty("--agtp-bg", bg);
+  }, [content.site.primaryColor, content.site.secondaryColor, content.site.backgroundColor]);
 
   const updateContent = useCallback((patch: Partial<ShowcaseContent>) => {
     setContent((prev) => {

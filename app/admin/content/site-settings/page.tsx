@@ -95,7 +95,24 @@ export default function AdminSiteSettingsPage() {
             />
           </div>
           <div>
-            <Label className="text-xs">Primary / Base Color</Label>
+            <Label className="text-xs">Base / Canvas Background Color</Label>
+            <div className="flex items-center gap-2 mt-1">
+              <input
+                type="color"
+                value={settings.backgroundColor || "#060709"}
+                onChange={(e) => patch({ backgroundColor: e.target.value })}
+                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
+              />
+              <Input
+                value={settings.backgroundColor || "#060709"}
+                onChange={(e) => patch({ backgroundColor: e.target.value })}
+                placeholder="#060709"
+                className="text-sm font-mono flex-1"
+              />
+            </div>
+          </div>
+          <div>
+            <Label className="text-xs">Primary Brand / Navy Color</Label>
             <div className="flex items-center gap-2 mt-1">
               <input
                 type="color"
@@ -205,19 +222,19 @@ export default function AdminSiteSettingsPage() {
       </div>
 
       {/* Live Preview Panel */}
-      <div className="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-4 shadow-xl">
-        <h3 className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-2">
-          <Palette className="w-4 h-4" /> Theme Preview
+      <div className="rounded-2xl border border-slate-800 p-6 space-y-4 shadow-xl transition-colors" style={{ backgroundColor: settings.backgroundColor || "#060709" }}>
+        <h3 className="text-xs font-bold uppercase tracking-widest flex items-center gap-2" style={{ color: settings.secondaryColor }}>
+          <Palette className="w-4 h-4" /> Live Homepage Color Theme Preview
         </h3>
-        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/15" style={{ backgroundColor: settings.primaryColor }}>
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl text-white" style={{ backgroundColor: settings.secondaryColor }}>
+        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/15 shadow-lg" style={{ backgroundColor: settings.primaryColor }}>
+          <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl text-white shadow-md" style={{ backgroundColor: settings.secondaryColor }}>
             A
           </div>
           <div>
             <p className="text-xl font-black tracking-wider uppercase text-white leading-none">
               {settings.brandName || "AGTP GROUP"}
             </p>
-            <p className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: settings.secondaryColor }}>
+            <p className="text-[10px] font-semibold tracking-widest uppercase mt-1" style={{ color: settings.secondaryColor }}>
               {settings.tagline || "MOTORS · SHOWCASE"}
             </p>
           </div>

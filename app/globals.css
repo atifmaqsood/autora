@@ -38,37 +38,43 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #060709;
+  background-color: var(--agtp-bg, #060709) !important;
 }
 
 body {
   min-height: 100vh;
-  background-color: #060709;
+  background-color: var(--agtp-bg, #060709) !important;
   color: #f8fafc;
   overflow-x: hidden;
   font-family: var(--font-sans);
 }
 
-/* Normal page canvas is blackish (#060709), while primary navy blue (#0B1F33, #081A2B, #102941, #14314B) is preserved for cards, section blocks, modals & headers */
-[class*="bg-[#0B1F33]"] { background-color: #0B1F33 !important; }
-[class*="bg-[#081A2B]"] { background-color: #081A2B !important; }
-[class*="bg-[#102941]"] { background-color: #102941 !important; }
-[class*="bg-[#14314B]"] { background-color: #14314B !important; }
-[class*="bg-[#0a0f1c]"],
-[class*="bg-[#222831]"] { background-color: rgba(11, 31, 51, 0.95) !important; }
-[class*="text-[#0B1F33]"] { color: #0B1F33 !important; }
-[class*="border-[#24445F]"] { border-color: #24445F !important; }
-[class*="border-[#315671]"] { border-color: #315671 !important; }
-[class*="border-[#3D6480]"] { border-color: #3D6480 !important; }
+/* Dynamic dashboard-controlled color bindings for homepage and site components */
+[class*="bg-[#060709]"] { background-color: var(--agtp-bg, #060709) !important; }
 
-[class*="bg-[#F97316]"] { background-color: var(--agtp-secondary) !important; }
-[class*="text-[#F97316]"] { color: var(--agtp-secondary) !important; }
-[class*="border-[#F97316]"] { border-color: var(--agtp-secondary) !important; }
-[class*="bg-[#EA580C]"] { background-color: var(--agtp-secondary-hover) !important; }
-[class*="text-[#FDBA74]"] { color: var(--agtp-secondary-soft) !important; }
-[class*="hover:bg-[#EA580C]"]:hover { background-color: var(--agtp-secondary-hover) !important; }
-[class*="hover:bg-[#F97316]"]:hover { background-color: var(--agtp-secondary) !important; }
-[class*="hover:border-[#F97316]"]:hover { border-color: var(--agtp-secondary) !important; }
+[class*="bg-[#0B1F33]"] { background-color: var(--agtp-primary, #0B1F33) !important; }
+[class*="bg-[#081A2B]"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 88%, black) !important; }
+[class*="bg-[#102941]"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, white 8%) !important; }
+[class*="bg-[#14314B]"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 70%, white 14%) !important; }
+[class*="bg-[#0a0f1c]"],
+[class*="bg-[#222831]"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 92%, transparent) !important; }
+
+[class*="text-[#0B1F33]"] { color: var(--agtp-primary, #0B1F33) !important; }
+
+[class*="border-[#24445F]"] { border-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 60%, white 20%) !important; }
+[class*="border-[#315671]"] { border-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 50%, white 25%) !important; }
+[class*="border-[#3D6480]"] { border-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 40%, white 30%) !important; }
+
+[class*="bg-[#F97316]"]:not([class*="hover:bg-[#F97316]"]) { background-color: var(--agtp-secondary, #F97316) !important; }
+[class*="text-[#F97316]"]:not([class*="hover:text-[#F97316]"]) { color: var(--agtp-secondary, #F97316) !important; }
+[class*="border-[#F97316]"]:not([class*="hover:border-[#F97316]"]) { border-color: var(--agtp-secondary, #F97316) !important; }
+[class*="bg-[#EA580C]"]:not([class*="hover:bg-[#EA580C]"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 85%, black) !important; }
+[class*="text-[#FDBA74]"]:not([class*="hover:text-[#FDBA74]"]) { color: color-mix(in srgb, var(--agtp-secondary, #F97316) 60%, white 35%) !important; }
+
+[class*="hover:bg-[#EA580C]"]:hover { background-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 85%, black) !important; }
+[class*="hover:bg-[#F97316]"]:hover { background-color: var(--agtp-secondary, #F97316) !important; }
+[class*="hover:text-[#F97316]"]:hover { color: var(--agtp-secondary, #F97316) !important; }
+[class*="hover:border-[#F97316]"]:hover { border-color: var(--agtp-secondary, #F97316) !important; }
 
 @media (pointer: fine) {
   body.has-custom-cursor,

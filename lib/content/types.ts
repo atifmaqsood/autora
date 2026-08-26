@@ -89,6 +89,7 @@ export interface SiteSettings {
   faviconUrl: string;
   primaryColor: string;
   secondaryColor: string;
+  backgroundColor: string;
 }
 
 // ─── Root Content Model ──────────────────────────────────────────────────────
