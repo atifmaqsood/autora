@@ -5,31 +5,31 @@
 :root {
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-serif: "Inter", system-ui, sans-serif;
-  --background: 210 40% 98%;
-  --foreground: 222 47% 11%;
-  --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
-  --primary: 221 83% 16%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 38 92% 50%;
-  --accent-foreground: 222 47% 11%;
+  --background: 221 53% 13%;
+  --foreground: 0 0% 98%;
+  --card: 221 50% 12%;
+  --card-foreground: 0 0% 98%;
+  --primary: 221 53% 13%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 24 95% 53%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 221 40% 16%;
+  --muted-foreground: 215.4 16.3% 65%;
+  --accent: 24 95% 53%;
+  --accent-foreground: 0 0% 98%;
   --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221 83% 16%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 221 30% 20%;
+  --input: 221 30% 20%;
+  --ring: 24 95% 53%;
   --radius: 0.625rem;
   --agtp-primary: #0B1F33;
   --agtp-secondary: #F97316;
-  --agtp-primary-deep: color-mix(in srgb, var(--agtp-primary) 68%, #030b14);
-  --agtp-primary-surface: color-mix(in srgb, var(--agtp-primary) 74%, #071321);
-  --agtp-primary-raised: color-mix(in srgb, var(--agtp-primary) 80%, #102238);
-  --agtp-secondary-hover: color-mix(in srgb, var(--agtp-secondary) 85%, black);
-  --agtp-secondary-soft: color-mix(in srgb, var(--agtp-secondary) 55%, white);
+  --agtp-primary-deep: #0B1F33;
+  --agtp-primary-surface: #102941;
+  --agtp-primary-raised: #14314B;
+  --agtp-secondary-hover: #EA580C;
+  --agtp-secondary-soft: #FDBA74;
 }
 
 * {
@@ -38,27 +38,28 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--agtp-primary-deep);
+  background-color: #060709;
 }
 
 body {
   min-height: 100vh;
-  background-color: var(--agtp-primary-deep);
+  background-color: #060709;
   color: #f8fafc;
   overflow-x: hidden;
   font-family: var(--font-sans);
 }
 
-/* The public UI uses these palette values extensively through Tailwind arbitrary-color utilities. */
-[class*="bg-[#0B1F33]"] { background-color: var(--agtp-primary-deep) !important; }
-[class*="bg-[#081A2B]"] { background-color: var(--agtp-primary-deep) !important; }
-[class*="bg-[#102941]"] { background-color: var(--agtp-primary-surface) !important; }
-[class*="bg-[#14314B]"] { background-color: var(--agtp-primary-raised) !important; }
+/* Normal page canvas is blackish (#060709), while primary navy blue (#0B1F33, #081A2B, #102941, #14314B) is preserved for cards, section blocks, modals & headers */
+[class*="bg-[#0B1F33]"] { background-color: #0B1F33 !important; }
+[class*="bg-[#081A2B]"] { background-color: #081A2B !important; }
+[class*="bg-[#102941]"] { background-color: #102941 !important; }
+[class*="bg-[#14314B]"] { background-color: #14314B !important; }
 [class*="bg-[#0a0f1c]"],
-[class*="bg-[#222831]"] { background-color: color-mix(in srgb, var(--agtp-primary-deep) 95%, transparent) !important; }
-[class*="text-[#0B1F33]"] { color: var(--agtp-primary) !important; }
-[class*="border-[#315671]"] { border-color: color-mix(in srgb, var(--agtp-primary) 65%, white) !important; }
-[class*="border-[#3D6480]"] { border-color: color-mix(in srgb, var(--agtp-primary) 55%, white) !important; }
+[class*="bg-[#222831]"] { background-color: rgba(11, 31, 51, 0.95) !important; }
+[class*="text-[#0B1F33]"] { color: #0B1F33 !important; }
+[class*="border-[#24445F]"] { border-color: #24445F !important; }
+[class*="border-[#315671]"] { border-color: #315671 !important; }
+[class*="border-[#3D6480]"] { border-color: #3D6480 !important; }
 
 [class*="bg-[#F97316]"] { background-color: var(--agtp-secondary) !important; }
 [class*="text-[#F97316]"] { color: var(--agtp-secondary) !important; }

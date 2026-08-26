@@ -258,7 +258,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="bg-[#0B1F33] pb-20 text-white">
+    <div className="bg-[#060709] pb-20 text-white">
       <HeroCarousel />
 
       <Marquee items={categoryMarqueeItems} />
