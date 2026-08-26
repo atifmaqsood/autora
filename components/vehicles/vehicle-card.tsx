@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, Zap } from "lucide-react";
+import { Fuel, Gauge } from "lucide-react";
 import { Vehicle } from "@/lib/vehicles/types";
 import { agtpAssets } from "@/src/assets";
 
@@ -14,6 +14,8 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
   const fullTitle = `(LHD) ${vehicle.make.toUpperCase()} ${vehicle.model.toUpperCase()} ${
     vehicle.variant ? vehicle.variant.toUpperCase() : ""
   } MY${vehicle.year} - ${(vehicle.exteriorColor || "BLACK").toUpperCase()}`;
+
+  const formattedMileage = vehicle.mileage === 0 || !vehicle.mileage ? "0 Miles" : `${vehicle.mileage.toLocaleString()} Miles`;
 
   return (
     <article className="group overflow-hidden rounded-[22px] border border-[#24445F] bg-[#14314B] shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3D6480]">
@@ -32,7 +34,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
         </div>
       </Link>
 
-      <div className="flex min-h-[242px] flex-col p-5">
+      <div className="flex min-h-[250px] flex-col p-5">
         <Link href={`/vehicles/${vehicle.slug}`}>
           <h3 className="h-[57px] overflow-hidden text-[17px] font-black uppercase leading-[1.12] tracking-normal text-white transition-colors group-hover:text-[#FDBA74]">
             {fullTitle}
@@ -41,15 +43,19 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
 
         <div className="mt-5 h-px bg-[#315671]" />
 
-        <div className="mt-4 grid grid-cols-2 gap-3 text-[14px] font-medium text-slate-300">
-            <span className="flex min-w-0 items-center gap-2 truncate">
-              <Zap className="h-4 w-4 text-[#FDBA74]" />
-              {vehicle.engineSize || "4.4P"}
-            </span>
-            <span className="flex min-w-0 items-center gap-2 truncate">
-              <Clock className="h-4 w-4 text-[#FDBA74]" />
-              {vehicle.transmission || "Automatic"}
-            </span>
+        <div className="my-4 grid grid-cols-3 gap-1 text-center text-[13px] font-medium text-slate-300">
+          <div className="flex flex-col items-center justify-center min-w-0">
+            <Gauge className="h-4 w-4 text-slate-300 mb-1.5 shrink-0" />
+            <span className="truncate w-full">{formattedMileage}</span>
+          </div>
+          <div className="flex flex-col items-center justify-center min-w-0 border-x border-[#315671]/60 px-1">
+            <Fuel className="h-4 w-4 text-slate-300 mb-1.5 shrink-0" />
+            <span className="truncate w-full">{vehicle.fuelType || "Hybrid"}</span>
+          </div>
+          <div className="flex flex-col items-center justify-center min-w-0">
+            <TransmissionIcon className="h-4 w-4 text-slate-300 mb-1.5 shrink-0" />
+            <span className="truncate w-full">{vehicle.transmission || "Automatic"}</span>
+          </div>
         </div>
 
         <Link
@@ -60,6 +66,20 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
         </Link>
       </div>
     </article>
+  );
+}
+
+function TransmissionIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 4v16M12 4v16M18 4v16M6 12h12" />
+      <circle cx="6" cy="4" r="1.2" fill="currentColor" />
+      <circle cx="12" cy="4" r="1.2" fill="currentColor" />
+      <circle cx="18" cy="4" r="1.2" fill="currentColor" />
+      <circle cx="6" cy="20" r="1.2" fill="currentColor" />
+      <circle cx="12" cy="20" r="1.2" fill="currentColor" />
+      <circle cx="18" cy="20" r="1.2" fill="currentColor" />
+    </svg>
   );
 }
 

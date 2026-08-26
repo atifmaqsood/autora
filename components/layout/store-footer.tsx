@@ -7,14 +7,14 @@ export function StoreFooter() {
     <footer className="relative overflow-hidden border-t border-[#24445F] bg-[#102941] pt-16 text-slate-400">
       <div className="mx-auto max-w-[1720px] px-6 pb-6 pt-14 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
         <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-[1.1fr_0.75fr_0.9fr_0.9fr_1.1fr] xl:gap-x-14">
-          <div className="space-y-8">
+          <div className="-mt-5 space-y-6">
             <Logo />
             <p className="text-[15px] font-semibold text-[#FDBA74]">Dubai to Worldwide</p>
             <p className="max-w-sm text-[17px] font-medium leading-[1.45] text-slate-400">
               Your trusted global partner for seamless import/export, offering reliable sourcing,
               competitive pricing, and efficient logistics.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 pt-2">
               {[
                 { label: "LinkedIn", icon: Linkedin },
                 { label: "Instagram", icon: Instagram },
@@ -24,7 +24,7 @@ export function StoreFooter() {
                 <a
                   key={item.label}
                   href="#"
-                className="flex h-11 w-11 items-center justify-center rounded-[12px] border border-[#315671] text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
+                  className="flex h-11 w-11 items-center justify-center rounded-[12px] border border-[#315671] text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
                   aria-label={item.label}
                 >
                   <item.icon className="h-5 w-5" />
@@ -69,26 +69,18 @@ export function StoreFooter() {
             <ul className="space-y-6 text-[17px] font-medium leading-[1.45]">
               <li className="flex items-start gap-5">
                 <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#FDBA74]" />
-                <span>Sharjah Media City, Sharjah, United Arab Emirates</span>
+                <span>Meydan Grandstand, 6th Floor, Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates</span>
               </li>
               <li className="flex items-center gap-5">
                 <Phone className="h-5 w-5 shrink-0 text-[#FDBA74]" />
-                <span>+971 58 585729</span>
-              </li>
-              <li className="flex items-center gap-5">
-                <MessageCircle className="h-5 w-5 shrink-0 text-[#FDBA74]" />
-                <span>agtpgroup@gmail.com</span>
-              </li>
-              <li className="flex items-center gap-5">
-                <Mail className="h-5 w-5 shrink-0 text-[#FDBA74]" />
-                <span>inquiries@agtpgroup.com</span>
+                <span>+971 58 58 55729</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="pointer-events-none mt-20 select-none overflow-hidden text-center">
-          <span className="inline-block text-[12.5vw] font-black uppercase leading-none tracking-normal text-transparent opacity-35 footer-watermark">
+          <span className="inline-block text-[12.5vw] font-black uppercase leading-none tracking-normal text-transparent opacity-80 footer-watermark">
             AGTP GROUP
           </span>
         </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { ContentProvider } from "@/lib/content/context";
 import { PageLoader } from "@/components/ui/page-loader";
@@ -7,6 +7,11 @@ import { PageLoader } from "@/components/ui/page-loader";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans"
+});
+
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora"
 });
 
 export const metadata: Metadata = {
@@ -24,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning className={`${inter.variable} min-h-screen bg-[#0B1F33] font-sans text-white antialiased`}>
+      <body suppressHydrationWarning className={`${inter.variable} ${sora.variable} min-h-screen bg-[#0B1F33] font-sans text-white antialiased`}>
         <ContentProvider>
           {children}
           <PageLoader />

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Linkedin, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { Logo } from "./logo";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 
@@ -50,21 +50,31 @@ export function StoreHeader() {
       <div className="fixed inset-x-0 top-0 z-50">
         <div className="hidden h-[46px] border-b border-white/5 bg-[#222831]/95 px-4 text-[14px] font-extrabold text-white xl:block">
           <div className="mx-auto flex h-full max-w-[1300px] items-center justify-end gap-7">
-            <a href="mailto:inquiries@agtpgroup.com" className="flex items-center gap-3 transition-colors hover:text-white">
-              <Mail className="h-4 w-4" />
-              <span>inquiries@agtpgroup.com</span>
+            <a
+              href="https://wa.me/971585855729"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-colors hover:text-emerald-400"
+            >
+              <MessageCircle className="h-4 w-4 text-emerald-400" />
+              <span>WhatsApp</span>
             </a>
-            <a href="tel:+97158585729" className="flex items-center gap-3 transition-colors hover:text-white">
-              <Phone className="h-4 w-4" />
-              <span>Contact Us: +971 58 585729</span>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-colors hover:text-sky-400"
+            >
+              <Linkedin className="h-4 w-4 text-sky-400" />
+              <span>LinkedIn</span>
             </a>
-            <a href="tel:+97158585729" className="flex items-center gap-3 transition-colors hover:text-white">
+            <a href="tel:+971585855729" className="flex items-center gap-3 transition-colors hover:text-white">
               <Phone className="h-4 w-4" />
-              <span>Head Office: Sharjah Media City</span>
+              <span>Contact Us: +971 58 58 55729</span>
             </a>
-            <a href="mailto:agtpgroup@gmail.com" className="flex items-center gap-3 transition-colors hover:text-white">
+            <a href="tel:+971585855729" className="flex items-center gap-3 transition-colors hover:text-white">
               <Phone className="h-4 w-4" />
-              <span>agtpgroup@gmail.com</span>
+              <span>Head Office: Meydan Road, Dubai</span>
             </a>
           </div>
         </div>

@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Cog,
   FileCheck,
   Globe2,
   Package,
@@ -36,95 +35,17 @@ import {
 import { usePrefersReducedMotion } from "@/components/ui/use-reduced-motion";
 import { agtpAssets } from "@/src/assets";
 
-const serviceCards = [
-  {
-    num: "01 / 08",
-    category: "TRADE-IN",
-    title: "Automotive Trading & Export",
-    desc: "Luxury cars and quality vehicles sourced from Dubai for global export.",
-    image: agtpAssets.sedans,
-    href: "/vehicles?category=sedan"
-  },
-  {
-    num: "02 / 08",
-    category: "PARTS",
-    title: "Machinery & Spare Parts",
-    desc: "High-quality automotive spare parts supplied with AGTP trust and performance.",
-    image: agtpAssets.suvs,
-    href: "/vehicles?category=suv"
-  },
-  {
-    num: "03 / 08",
-    category: "MATERIALS",
-    title: "Construction Supplies",
-    desc: "Reliable construction materials sourced for trade and project requirements.",
-    image: agtpAssets.pickups,
-    href: "/vehicles?category=pickup"
-  },
-  {
-    num: "04 / 08",
-    category: "STONE",
-    title: "Marble, Tiles & Stone",
-    desc: "Quality marble, tiles, and stone products for global trading needs.",
-    image: agtpAssets.vans,
-    href: "/vehicles"
-  },
-  {
-    num: "05 / 08",
-    category: "ELECTRONICS",
-    title: "Electronics & Appliances",
-    desc: "Electronics and appliances supplied through dependable sourcing channels.",
-    image: agtpAssets.vans,
-    href: "/vehicles"
-  },
-  {
-    num: "06 / 08",
-    category: "COMMERCE",
-    title: "E-commerce Products",
-    desc: "General merchandise and e-commerce products sourced for international customers.",
-    image: agtpAssets.pickups,
-    href: "/vehicles"
-  },
-  {
-    num: "07 / 08",
-    category: "HOME",
-    title: "Home Decor & Furniture",
-    desc: "Furniture and home items selected for quality, value, and reliable delivery.",
-    image: agtpAssets.exportPort,
-    href: "/contact"
-  },
-  {
-    num: "08 / 08",
-    category: "GLOBAL",
-    title: "General Trading Solutions",
-    desc: "Seamless import and export with reliable sourcing, pricing, and logistics.",
-    image: agtpAssets.suvs,
-    href: "/contact"
-  }
-];
 
-const testimonials = [
-  ["Satisfied Customers: 10+. AGTP GROUP continues to exceed expectations with dedicated service and reliable sourcing.", "Customer Support"],
-  ["Vehicles Handled: 1k+. Quality cars, parts, and trading solutions are sourced through dependable global channels.", "Global Trading Excellence"],
-  ["Your trusted global partner for seamless import/export, offering reliable sourcing, competitive pricing, and efficient logistics.", "AGTP GROUP"]
-];
 
-const locations = [
-  ["Head Office", "Sharjah Media City", "Sharjah", "United Arab Emirates"],
-  ["Reach Us", "Meydan Grandstand, 6th Floor", "Meydan Road, Nad Al Sheba, Dubai", "United Arab Emirates"],
-  ["Automotive", "Luxury Cars, Trusted Worldwide", "Premium Vehicles for Export", "Dubai, UAE"],
-  ["Spare Parts", "Precision Parts, Global Reach", "High-Quality Automotive Parts", "Dubai, UAE"],
-  ["Construction Materials", "Delivering Quality", "Building Trust", "United Arab Emirates"],
-  ["General Merchandise", "Seamless Import / Export", "Reliable Global Sourcing", "United Arab Emirates"],
-  ["Industrial Equipment", "Machinery & Spare Parts", "Efficient Logistics Support", "United Arab Emirates"],
-  ["Furniture & Home Items", "Home Decor & Furniture", "Quality Trading Solutions", "United Arab Emirates"]
-];
+
+
+
 
 const heroStats = [
   { icon: Ship, value: 10000, suffix: "+", label: "Exports" },
   { icon: Globe2, value: 25, suffix: "+", label: "Countries Served" },
   { icon: FileCheck, value: 11, suffix: "+", label: "Years in Trade" },
-  { icon: Truck, value: 94, suffix: "+", label: "On-Time Delivery" }
+  { icon: Truck, value: 94, suffix: "%", label: "On-Time Delivery" }
 ];
 
 const industryCards = [
@@ -167,22 +88,6 @@ const industryCards = [
     icon: Wrench,
     href: "/spare-parts",
     layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]"
-  },
-  {
-    title: "Engines & Gears",
-    subtitle: "Powertrain solutions for every requirement",
-    image: agtpAssets.cadillacEscaladeCard,
-    icon: Cog,
-    href: "/spare-parts",
-    layout: "min-h-[280px] xl:col-span-6 xl:min-h-[300px]"
-  },
-  {
-    title: "Modifications",
-    subtitle: "Custom upgrades and specialist configurations",
-    image: agtpAssets.bmwX2Card,
-    icon: Wrench,
-    href: "/contact-us",
-    layout: "min-h-[280px] xl:col-span-6 xl:min-h-[300px]"
   }
 ];
 
@@ -214,12 +119,42 @@ const processSteps = [
 ];
 
 const globalMarkets = [
-  { name: "Angola", region: "Southern Africa", code: "01" },
-  { name: "Ghana", region: "West Africa", code: "02" },
-  { name: "Congo", region: "Central Africa", code: "03" },
-  { name: "Nigeria", region: "West Africa", code: "04" },
-  { name: "Togo", region: "West Africa", code: "05" },
-  { name: "Cameroon", region: "Central Africa", code: "06" }
+  {
+    name: "Angola",
+    region: "Southern Africa",
+    code: "01",
+    image: "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Ghana",
+    region: "West Africa",
+    code: "02",
+    image: "https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Congo",
+    region: "Central Africa",
+    code: "03",
+    image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Nigeria",
+    region: "West Africa",
+    code: "04",
+    image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Togo",
+    region: "West Africa",
+    code: "05",
+    image: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Cameroon",
+    region: "Central Africa",
+    code: "06",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
+  }
 ];
 
 const supplierCards = [
@@ -235,58 +170,63 @@ const customerStories = [
   {
     name: "Mr. Ringo",
     label: "Repeat Vehicle Buyer",
-    image: agtpAssets.cadillacEscaladeCard,
+    image: agtpAssets.reviewR1,
     story:
       "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group."
   },
   {
     name: "Mr. Jorge Goncalves",
     label: "Oil & Gas Professional",
-    image: agtpAssets.bmw760Card,
+    image: agtpAssets.reviewR2,
     story:
       "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola."
   },
   {
     name: "Mr. Muhammad Sumani",
     label: "Engineer",
-    image: agtpAssets.exportPort,
+    image: agtpAssets.reviewR3,
     story:
       "Completed his vehicle purchase entirely online, with AGTP Group safely exporting and delivering the unit to Ghana."
   },
   {
     name: "Mr. Eduardo Conde Salamau",
     label: "Oil & Gas Professional",
-    image: agtpAssets.suvs,
+    image: agtpAssets.reviewR4,
     story:
       "Used our secure online payment process while AGTP Group managed the full export and delivery coordination."
   }
 ];
 
+const siMercedesbenz = {
+  hex: "FFFFFF",
+  path: "M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 1.6c5.744 0 10.4 4.656 10.4 10.4S17.744 22.4 12 22.4 1.6 17.744 1.6 12 6.256 1.6 12 1.6zm0 1.8L9.5 11.2l-7.7 3.5 8.4-1.5 1.8 7.8 1.8-7.8 8.4 1.5-7.7-3.5z"
+};
+
+const siBydBadge = {
+  hex: "FFFFFF",
+  path: "M12 4c-5.52 0-10 3.58-10 8s4.48 8 10 8 10-3.58 10-8-4.48-8-10-8zm-5.5 5h3.2c1.2 0 2.1.8 2.1 2s-.9 2-2.1 2H6.5V9zm1.8 1.4v1.2h1.3c.4 0 .7-.2.7-.6s-.3-.6-.7-.6H8.3zm5.2-1.4h1.8l1.7 3.2 1.7-3.2h1.8l-2.6 4.8V15h-1.8v-1.2L13.5 9zm-8.8 7V9h1.8v6H4.7z"
+};
+
+const siJetourBadge = {
+  hex: "FFFFFF",
+  path: "M2 7h20v2.5H2V7zm2 4h16v2H4v-2zm3 3.5h10v2.5H7v-2.5z"
+};
+
 const leadingBrands = ["BYD", "Toyota", "Suzuki", "Mitsubishi", "Hyundai", "Kia", "Nissan", "Jetour", "Mercedes", "BMW"];
 const brandMarks = {
+  BYD: siBydBadge,
   Toyota: siToyota,
   Suzuki: siSuzuki,
   Mitsubishi: siMitsubishi,
   Hyundai: siHyundai,
   Kia: siKia,
   Nissan: siNissan,
+  Jetour: siJetourBadge,
+  Mercedes: siMercedesbenz,
   BMW: siBmw
 };
 
-const insightCards = [
-  {
-    title: "The Future of Cross-Border Trade: Opportunities for SMEs",
-    image: agtpAssets.exportPort
-  },
-  {
-    title: "Why Supplier Verification Is Critical in Global Sourcing",
-    image: agtpAssets.sparePartsHero
-  },
-  {
-    title: "5 Common Challenges in International Procurement and How to Overcome Them",
-    image: agtpAssets.vans
-  }
-];
+
 
 const expertiseVehicleCards = [
   {
@@ -322,21 +262,27 @@ export default function HomePage() {
       )
     : allVehicles;
 
+  const categoryMarqueeItems = [
+    { label: "Sedans & SUVs", href: "/vehicles" },
+    { label: "Pickups & trucks", href: "/vehicles?category=Pickup" },
+    { label: "Vans & buses", href: "/vehicles?search=van" },
+    { label: "Fire Apparatus & Ambulance", href: "/vehicles?search=ambulance" },
+    { label: "Parts & accessories", href: "/spare-parts" },
+    { label: "Engines & Gears", href: "/spare-parts" },
+    { label: "Modifications", href: "/contact-us" }
+  ];
+
   return (
     <div className="bg-[#0B1F33] pb-20 text-white">
       <HeroCarousel />
+
+      <Marquee items={categoryMarqueeItems} />
 
       <VehicleShowcaseSection
         vehicles={filteredVehicles}
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}
       />
-
-      <div className="mt-[82px]">
-        <Marquee items={["AUTOMOTIVE TRADING", "SPARE PARTS", "CONSTRUCTION MATERIALS", "ELECTRONICS", "FURNITURE", "GENERAL TRADING"]} />
-      </div>
-
-      <HeroCopySection />
 
       <ExpertiseVehiclesSection />
 
@@ -346,71 +292,19 @@ export default function HomePage() {
 
       <GlobalNetworkSection />
 
+      <WhyAgtpGroupSection />
+
+      <HeroStatsSection />
+
       <DubaiMarketsSection />
 
-      <TrustStatementSection />
-
       <PromiseRevealSection />
-
-      <ServicesHorizontalSection />
 
       <AutomotivePartsSpotlight />
 
       <CustomerStoriesSection />
 
       <LeadingBrandsSection />
-
-      <section className="mx-auto max-w-[1570px] px-6 pt-[95px] text-center">
-        <SectionEyebrow center>WHY CHOOSE AGTP GROUP?</SectionEyebrow>
-        <RevealHeading>
-          <h2 className="mx-auto mt-7 max-w-[840px] text-[42px] font-black leading-[1.12] tracking-normal md:text-[62px]">
-            Why Choose AGTP Group?
-          </h2>
-        </RevealHeading>
-        <RevealStagger staggerDelay={120} className="mt-[68px] grid grid-cols-1 gap-7 lg:grid-cols-3">
-          {testimonials.map(([quote, author]) => (
-            <div key={author} className="min-h-[330px] rounded-[18px] border border-[#315671] bg-[#14314B] p-8 text-left">
-              <div className="mb-7 text-[16px] font-black tracking-[0.2em] text-[#F97316]">*****</div>
-              <p className="text-[19px] font-semibold leading-[1.45] text-slate-100">&quot;{quote}&quot;</p>
-              <div className="mt-14 text-[17px] font-black text-white">{author}</div>
-            </div>
-          ))}
-        </RevealStagger>
-      </section>
-
-      <section className="mx-auto max-w-[1570px] px-6 pt-[95px] text-center">
-        <SectionEyebrow center>CONTACT US</SectionEyebrow>
-        <RevealHeading>
-          <h2 className="mx-auto mt-7 max-w-[820px] text-[42px] font-black leading-[1.04] tracking-normal md:text-[62px]">
-            Get in touch with us
-          </h2>
-        </RevealHeading>
-        <RevealStagger staggerDelay={80} className="mt-[68px] grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {locations.map(([name, line1, line2, line3]) => (
-            <div key={name} className="rounded-[16px] border border-[#315671] bg-[#14314B] p-7 text-center">
-              <h3 className="text-[20px] font-black text-white">{name}</h3>
-              <p className="mt-5 text-[16px] font-medium leading-[1.6] text-slate-400">
-                {line1}
-                <br />
-                {line2}
-                <br />
-                {line3}
-              </p>
-              <p className="mt-7 text-[16px] font-medium leading-[1.6] text-slate-400">
-                Contact: <span className="text-[#FDBA74]">+971 58 585729</span>
-                <br />
-                WhatsApp: <span className="text-[#FDBA74]">+971 58 585729</span>
-              </p>
-            </div>
-          ))}
-        </RevealStagger>
-      </section>
-
-      <Marquee muted items={["GLOBAL TRADING EXCELLENCE", "DELIVERING QUALITY", "BUILDING TRUST"]} />
-
-      <InsightsSection />
-
-      <HeroStatsSection />
 
       <section className="mx-auto max-w-[1570px] px-6 pt-[80px]">
         <Reveal>
@@ -421,12 +315,14 @@ export default function HomePage() {
               <SectionEyebrow>GET A QUOTE</SectionEyebrow>
               <RevealHeading>
                 <h2 className="mt-6 max-w-[760px] text-[42px] font-black leading-[1.05] tracking-normal md:text-[62px]">
-                  Tell us what you need. We will handle the route from there.
+                  Tell Us What You Need.
+                  <br />
+                  We’ll Take It From There.
                 </h2>
               </RevealHeading>
               <RevealText>
                 <p className="mt-7 max-w-[670px] text-[17px] font-medium leading-[1.65] text-slate-200 md:text-[19px]">
-                  Share your requirements and receive a clear quotation backed by verified sourcing, export support, and reliable delivery planning.
+                  Share your requirements and receive a clear quotation with reliable supply, export coordination, and delivery support.
                 </p>
               </RevealText>
               <RevealButton>
@@ -464,33 +360,6 @@ function SectionEyebrow({ children, center = false }: { children: React.ReactNod
   );
 }
 
-function HeroCopySection() {
-  return (
-    <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
-      <Reveal>
-        <div className="grid gap-8 rounded-[18px] border border-[#315671] bg-[#14314B] p-7 shadow-lg lg:grid-cols-[1fr_auto] lg:items-center lg:p-9">
-          <div>
-            <SectionEyebrow>GLOBAL SOURCING</SectionEyebrow>
-            <h2 className="mt-6 max-w-[860px] text-[34px] font-black leading-[1.08] tracking-normal text-white md:text-[52px]">
-              Global Sourcing. International Trade. Export Logistics.
-            </h2>
-            <p className="mt-5 max-w-[720px] text-[15px] font-semibold leading-[1.6] text-slate-400 md:text-[17px]">
-              Helping importers, distributors and manufacturers source verified products from trusted suppliers across the UAE, China and global markets.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/contact-us" className="inline-flex h-[52px] items-center gap-2.5 rounded-full bg-[#F97316] px-7 text-[14px] font-black text-white transition-colors hover:bg-[#EA580C]">
-              Start Sourcing <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/brands" className="inline-flex h-[52px] items-center rounded-full border border-[#3D6480] px-7 text-[14px] font-black text-white transition-colors hover:border-[#F97316] hover:bg-[#18213a]">
-              Explore Suppliers
-            </Link>
-          </div>
-        </div>
-      </Reveal>
-    </section>
-  );
-}
 
 function VehicleShowcaseSection({
   vehicles,
@@ -531,9 +400,9 @@ function VehicleShowcaseSection({
         </RevealButton>
       </div>
 
-      <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <RevealStagger staggerDelay={70} className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
         {vehicles.slice(0, 6).map((vehicle, index) => (
-          <div key={vehicle.id} className={index > 3 ? "hidden md:block" : undefined}>
+          <div key={vehicle.id} className={index >= 4 ? "hidden lg:block" : undefined}>
             <VehicleCard vehicle={vehicle} />
           </div>
         ))}
@@ -622,7 +491,7 @@ function IndustriesSection() {
         <SectionEyebrow center>INDUSTRIES WE SERVE</SectionEyebrow>
         <RevealHeading>
           <h2 className="mx-auto mt-6 max-w-[760px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
-            Built For Every Road Ahead
+            Your Needs. Our Global Supply
           </h2>
         </RevealHeading>
       </div>
@@ -712,31 +581,39 @@ function GlobalNetworkSection() {
             <SectionEyebrow>OUR GLOBAL NETWORK</SectionEyebrow>
             <RevealHeading>
               <h2 className="mt-6 max-w-[780px] text-[34px] font-black leading-[1.08] tracking-normal md:text-[50px]">
-                Connected from Dubai to the markets that matter.
+                Dubai Supply. Global Markets. One Connection.
               </h2>
             </RevealHeading>
           </div>
           <RevealText>
             <p className="max-w-[650px] text-[16px] font-medium leading-[1.65] text-slate-300">
-              Our sourcing, verification, and export support connects trusted suppliers in Dubai with buyers across key African markets.
+              From Dubai, we deliver reliable products to buyers across key African markets.
             </p>
           </RevealText>
         </div>
 
         <div className="mt-[48px] grid grid-cols-1 gap-5 lg:grid-cols-[0.88fr_1.12fr]">
           <Reveal className="h-full">
-            <div className="relative flex min-h-[440px] flex-col overflow-hidden rounded-[18px] border border-[#315671] bg-[#102941] p-8 shadow-lg">
+            <div className="group relative flex min-h-[440px] flex-col overflow-hidden rounded-[18px] border border-[#315671] bg-[#102941] p-8 shadow-lg">
+              <Image
+                src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80"
+                alt="Dubai, UAE Landmark"
+                fill
+                className="object-cover opacity-45 transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-[#0B1F33]/70 to-[#0B1F33]/20" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(249,115,22,0.16),transparent_35%)]" />
-              <span className="absolute -bottom-14 -right-5 text-[220px] font-black leading-none text-white/[0.035]" aria-hidden="true">
+              <span className="absolute -bottom-14 -right-5 text-[220px] font-black leading-none text-white/[0.04]" aria-hidden="true">
                 DXB
               </span>
-              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[#F97316]/40 bg-[#F97316]/10 text-[#FDBA74]">
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[#F97316]/40 bg-[#0B1F33]/80 text-[#FDBA74] backdrop-blur-md">
                 <Globe2 className="h-7 w-7" />
               </div>
               <div className="relative z-10 mt-auto">
                 <p className="text-[12px] font-black uppercase tracking-[0.22em] text-[#FDBA74]">Export Hub</p>
                 <h3 className="mt-3 text-[38px] font-black leading-none text-white md:text-[48px]">Dubai, UAE</h3>
-                <p className="mt-5 max-w-[390px] text-[16px] font-medium leading-[1.6] text-slate-300">
+                <p className="mt-5 max-w-[390px] text-[16px] font-medium leading-[1.6] text-slate-200">
                   Coordinating sourcing, inspection, documentation, and shipment from one connected trade hub.
                 </p>
               </div>
@@ -745,17 +622,25 @@ function GlobalNetworkSection() {
 
           <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {globalMarkets.map((market) => (
-              <div key={market.name} className="group relative min-h-[205px] overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#F97316]/70">
-                <span className="absolute right-5 top-4 text-[52px] font-black leading-none text-white/[0.045]" aria-hidden="true">
+              <div key={market.name} className="group relative min-h-[205px] overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#F97316]">
+                <Image
+                  src={market.image}
+                  alt={market.name}
+                  fill
+                  className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-[#0B1F33]/75 to-[#0B1F33]/30" />
+                <span className="absolute right-5 top-4 text-[52px] font-black leading-none text-white/[0.08]" aria-hidden="true">
                   {market.code}
                 </span>
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/35 bg-[#F97316]/10 text-[#FDBA74] transition-transform duration-300 group-hover:scale-110">
+                <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
                   <ArrowRight className="h-4 w-4" />
                 </div>
-                <div className="mt-10">
+                <div className="relative z-10 mt-10">
                   <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#FDBA74]">Active Market</p>
                   <h3 className="mt-2 text-[25px] font-black leading-none text-white">{market.name}</h3>
-                  <p className="mt-3 text-[14px] font-semibold text-slate-400">{market.region}</p>
+                  <p className="mt-3 text-[14px] font-semibold text-slate-200">{market.region}</p>
                 </div>
               </div>
             ))}
@@ -809,59 +694,7 @@ function DubaiMarketsSection() {
   );
 }
 
-function TrustStatementSection() {
-  return (
-    <section className="mt-[82px] border-y border-[#24445F] bg-[#081A2B] py-[82px]">
-      <div className="mx-auto max-w-[1570px] px-6 text-center">
-        <SectionEyebrow center>OUR MISSION</SectionEyebrow>
-        <Reveal>
-          <div className="mx-auto mt-[34px] grid max-w-[1180px] overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B] text-left shadow-xl lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="relative min-h-[260px] border-b border-[#315671] bg-[#102941] p-8 lg:border-b-0 lg:border-r">
-              <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(249,115,22,0.12),transparent_42%)]" />
-              <span className="absolute -bottom-7 -right-2 text-[150px] font-black leading-none text-white/[0.035]" aria-hidden="true">
-                01
-              </span>
-              <div className="relative z-10 flex h-full flex-col justify-between">
-                <div>
-                  <span className="inline-flex rounded-full border border-[#F97316]/35 bg-[#F97316]/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-[#FDBA74]">
-                    Our Mission
-                  </span>
-                  <h3 className="mt-6 max-w-[360px] text-[26px] font-black leading-[1.12] text-white">
-                    Make global trade clear, reliable, and built to last.
-                  </h3>
-                </div>
-                <div className="mt-8 grid grid-cols-2 gap-3">
-                  {["Transparency", "Accountability"].map((item) => (
-                    <div key={item} className="rounded-[12px] border border-[#315671] bg-[#0B1F33]/70 px-4 py-3 text-[12px] font-bold text-slate-300">
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
 
-            <div className="p-8 md:p-10 lg:p-12">
-              <div className="mb-6 h-px w-20 bg-[#F97316]" />
-              <p className="text-[17px] font-semibold leading-[1.7] text-slate-200 md:text-[19px]">
-                When we founded AGTP Group, our goal was not simply to move products across borders. It was to build a company that businesses could trust for years to come.
-              </p>
-              <p className="mt-5 text-[15px] font-medium leading-[1.7] text-slate-400 md:text-[16px]">
-                Every partnership we create is built on transparency, accountability, and a commitment to delivering value beyond a single transaction.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                {["Trusted Sourcing", "Verified Partners", "Long-Term Value"].map((item) => (
-                  <span key={item} className="rounded-full border border-[#F97316]/30 bg-[#F97316]/10 px-4 py-2 text-[12px] font-black uppercase tracking-[0.12em] text-[#FDBA74]">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
 const automotivePartsPanels = [
   { label: "Category", value: "Spare Parts", href: "/spare-parts" },
@@ -914,9 +747,9 @@ function AutomotivePartsSpotlight() {
 
   const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
   const headingEnter = clamp(progress / 0.18);
-  const headingExit = clamp((progress - 0.42) / 0.22);
+  const headingExit = clamp((progress - 0.65) / 0.18);
   const headingOpacity = scrollMotionEnabled ? headingEnter * (1 - headingExit) : 1;
-  const headingShift = scrollMotionEnabled ? 54 - progress * 138 : 0;
+  const headingShift = scrollMotionEnabled ? 30 - progress * 70 : 0;
 
   return (
     <section ref={sectionRef} className={`relative ${scrollMotionEnabled ? "md:h-[330vh]" : ""}`}>
@@ -985,10 +818,10 @@ function LeadingBrandsSection() {
   return (
     <section className="overflow-hidden border-y border-[#24445F] bg-[#081A2B] py-[82px]">
       <div className="mx-auto max-w-[1570px] px-6 text-center">
-        <SectionEyebrow center>LEADING BRANDS</SectionEyebrow>
+        <SectionEyebrow center>LEADING CAR BRANDS</SectionEyebrow>
         <RevealHeading>
           <h2 className="mx-auto mt-6 max-w-[740px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
-            Trusted brands. Export-ready support.
+            Trusted Global Brands
           </h2>
         </RevealHeading>
       </div>
@@ -1000,8 +833,30 @@ function LeadingBrandsSection() {
   );
 }
 
+function WhyAgtpGroupSection() {
+  return (
+    <section className="mx-auto max-w-[1570px] px-6 py-[95px] text-center">
+      <SectionEyebrow center>WHY AGTP GROUP</SectionEyebrow>
+      <RevealHeading>
+        <h2 className="mx-auto mt-7 max-w-[900px] text-[42px] font-black leading-[1.1] tracking-normal text-white md:text-[64px]">
+          11 Years of Exports.
+          <br />
+          One Partner. Zero
+          <br />
+          Surprises.
+        </h2>
+      </RevealHeading>
+      <RevealText>
+        <p className="mx-auto mt-8 max-w-[680px] text-[17px] font-medium leading-[1.6] text-slate-300 md:text-[19px]">
+          We simplify international trade with reliable supply, transparent communication &amp; dependable delivery from Dubai to the world.
+        </p>
+      </RevealText>
+    </section>
+  );
+}
+
 function BrandMarquee({ brands }: { brands: string[] }) {
-  const repeatedBrands = [...brands, ...brands];
+  const repeatedBrands = [...brands, ...brands, ...brands];
 
   return (
     <div className="flex overflow-hidden motion-reduce:overflow-x-auto">
@@ -1012,18 +867,17 @@ function BrandMarquee({ brands }: { brands: string[] }) {
           return (
             <div
               key={`${brand}-${index}`}
-              className="flex h-[72px] min-w-[190px] items-center gap-4 border-r border-[#315671]/80 px-7 text-left"
+              className="flex h-[96px] min-w-[160px] items-center justify-center border-r border-[#315671]/80 px-10 text-center transition-colors hover:bg-white/[0.03]"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center text-[#FDBA74]">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center text-[#FDBA74] transition-transform duration-300 hover:scale-110">
                 {mark ? (
-                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-8 w-8" fill={`#${mark.hex}`}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-12 w-12" fill={`#${mark.hex}`}>
                     <path d={mark.path} />
                   </svg>
                 ) : (
-                  <Car className="h-7 w-7" aria-hidden="true" />
+                  <Car className="h-10 w-10" aria-hidden="true" />
                 )}
               </span>
-              <span className="text-[19px] font-black tracking-normal text-white">{brand}</span>
             </div>
           );
         })}
@@ -1074,12 +928,12 @@ function CustomerStoriesSection() {
 
               const isActive = offset === 0;
               const isNearby = Math.abs(offset) === 1;
-              const translation = offset * 365;
+              const translation = offset * 375;
 
               return (
                 <article
                   key={story.name}
-                  className="absolute left-1/2 top-3 flex h-[520px] w-[min(54vw,640px)] -translate-x-1/2 flex-col overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] text-left shadow-2xl transition-[opacity,transform,filter] duration-700 ease-out"
+                  className="absolute left-1/2 top-3 flex h-[560px] w-[min(54vw,660px)] -translate-x-1/2 flex-col overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B] text-left shadow-2xl transition-[opacity,transform,filter] duration-700 ease-out"
                   style={{
                     opacity: isActive ? 1 : isNearby ? 0.48 : 0,
                     transform: `translateX(calc(-50% + ${translation}px)) scale(${isActive ? 1 : isNearby ? 0.86 : 0.78})`,
@@ -1095,7 +949,7 @@ function CustomerStoriesSection() {
           </div>
 
           <div className={prefersReducedMotion ? "" : "xl:hidden"}>
-            <article className="mx-auto flex min-h-[525px] max-w-[620px] flex-col overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] text-left shadow-2xl">
+            <article className="mx-auto flex min-h-[560px] max-w-[640px] flex-col overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B] text-left shadow-2xl">
               <TestimonialCard story={customerStories[activeStory]} active />
             </article>
           </div>
@@ -1145,91 +999,52 @@ function TestimonialCard({
 }) {
   return (
     <>
-      <div className="relative h-[245px] shrink-0 overflow-hidden bg-[#0B1F33]">
+      <div className="relative h-[340px] shrink-0 overflow-hidden bg-[#06101C]">
         <Image
           src={story.image}
           alt={`${story.name} customer story`}
           fill
-          className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 640px"
+          className="object-cover object-top"
+          sizes="(max-width: 1024px) 100vw, 660px"
+          priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-[#102941]/20 to-transparent" />
-        <span className="absolute left-6 top-6 rounded-full border border-white/20 bg-[#0B1F33]/80 px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-black/25" />
+        <span className="absolute left-6 top-6 rounded-full border border-white/20 bg-[#0B1F33]/80 px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-sm">
           Customer Story
         </span>
       </div>
-      <div className="relative flex flex-1 flex-col p-7 md:p-8">
-        <span className="absolute -top-6 right-7 flex h-12 w-12 items-center justify-center rounded-full border border-[#F97316]/50 bg-[#102941] text-[34px] font-black leading-none text-[#FDBA74]">
-          &ldquo;
-        </span>
-        <div className="flex items-start gap-3 pr-12">
-          <span className="mt-1 h-9 w-1.5 shrink-0 rounded-full bg-[#F97316]" />
-          <div>
-            <h3 className="text-[24px] font-black leading-tight text-white">{story.name}</h3>
-            <p className="mt-1 text-[12px] font-black uppercase tracking-[0.15em] text-[#FDBA74]">{story.label}</p>
+      <div className="relative flex flex-1 flex-col justify-between p-6 md:p-7">
+        <div>
+          <div className="flex items-start gap-3 pr-10">
+            <span className="mt-1 h-8 w-1.5 shrink-0 rounded-full bg-[#F97316]" />
+            <div>
+              <h3 className="text-[22px] font-black leading-tight text-white">{story.name}</h3>
+              <p className="mt-0.5 text-[11px] font-black uppercase tracking-[0.15em] text-[#FDBA74]">{story.label}</p>
+            </div>
           </div>
+          <p className="mt-4 text-[14px] font-medium leading-[1.6] text-slate-200 md:text-[15px]">
+            &ldquo;{story.story}&rdquo;
+          </p>
         </div>
-        <p className={`mt-6 text-[16px] font-medium leading-[1.65] ${active ? "text-slate-100" : "text-slate-300"}`}>{story.story}</p>
       </div>
     </>
   );
 }
 
-function InsightsSection() {
-  return (
-    <section className="mx-auto max-w-[1570px] px-6 pt-[82px]">
-      <div className="text-center">
-        <SectionEyebrow center>OUR INSIGHTS</SectionEyebrow>
-        <RevealHeading>
-          <h2 className="mx-auto mt-6 max-w-[720px] text-[34px] font-black leading-[1.1] tracking-normal md:text-[50px]">
-            Our Insights
-          </h2>
-        </RevealHeading>
-      </div>
-      <RevealStagger staggerDelay={90} className="mt-[48px] grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {insightCards.map((insight) => (
-          <Link key={insight.title} href="/blogs" className="group overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] shadow-lg">
-            <div className="relative h-[230px]">
-              <Image src={insight.image} alt={insight.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 33vw" />
-              <span className="absolute left-5 top-5 rounded-full bg-white px-4 py-2 text-[12px] font-black text-[#0B1F33]">
-                AGTP Insights
-              </span>
-            </div>
-            <div className="p-6">
-              <p className="text-[13px] font-semibold text-slate-400">June 16, 2026</p>
-              <h3 className="mt-3 text-[20px] font-black leading-tight text-white transition-colors group-hover:text-[#FDBA74]">
-                {insight.title}
-              </h3>
-            </div>
-          </Link>
-        ))}
-      </RevealStagger>
-    </section>
-  );
-}
+
 
 function PromiseRevealSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeCount, setActiveCount] = useState(0);
-  const [scrollSequenceEnabled, setScrollSequenceEnabled] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
   const words =
-    "AGTP Group Spare Parts, rooted in Dubai, UAE, has grown into a trusted global seller delivering quality automotive parts with unmatched customer service.".split(
+    "Our promise is simple: transparency in every step, reliability in every delivery, and value in every partnership.".split(
       " "
     );
   const blueStartIndex = Math.floor(words.length / 2);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 1280px)");
-    const updateMode = () => setScrollSequenceEnabled(mediaQuery.matches && !prefersReducedMotion);
-
-    updateMode();
-    mediaQuery.addEventListener("change", updateMode);
-    return () => mediaQuery.removeEventListener("change", updateMode);
-  }, [prefersReducedMotion]);
-
-  useEffect(() => {
-    if (!scrollSequenceEnabled) {
+    if (prefersReducedMotion) {
       setActiveCount(words.length);
       return;
     }
@@ -1244,10 +1059,13 @@ function PromiseRevealSection() {
         const section = sectionRef.current;
         if (!section) return;
 
-        const rect = section.getBoundingClientRect();
-        const stickyOffset = 144;
-        const total = Math.max(section.offsetHeight - window.innerHeight + stickyOffset, 1);
-        const progress = Math.min(Math.max((stickyOffset - rect.top) / total, 0), 1);
+        const heading = section.querySelector("h2");
+        const rect = heading ? heading.getBoundingClientRect() : section.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const start = windowHeight * 0.72;
+        const end = windowHeight * 0.25;
+        const progress = Math.min(Math.max((start - rect.top) / (start - end), 0), 1);
+
         setActiveCount(Math.round(progress * words.length));
       });
     };
@@ -1261,167 +1079,54 @@ function PromiseRevealSection() {
       window.removeEventListener("resize", update);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [scrollSequenceEnabled, words.length]);
+  }, [prefersReducedMotion, words.length]);
 
   return (
-    <section ref={sectionRef} className={`relative border-y border-[#111827] ${scrollSequenceEnabled ? "xl:h-[170vh]" : "py-[82px]"}`}>
-      <div className={`${scrollSequenceEnabled ? "xl:sticky xl:top-[144px] xl:flex xl:min-h-[calc(100vh-144px)] xl:items-center" : ""}`}>
-        <div className="mx-auto w-full max-w-[1570px] px-6">
-          <SectionEyebrow>OUR PROMISE</SectionEyebrow>
-          <h2 className="mt-12 max-w-[1120px] text-[45px] font-black leading-[1.22] tracking-normal md:text-[70px]">
-            {words.map((word, index) => (
-              <span
-                key={`${word}-${index}`}
-                className={`mr-[0.23em] inline-block transition-colors duration-300 ${
-                  index < activeCount ? (index >= blueStartIndex ? "text-[#F97316]" : "text-slate-100") : "text-[#27445D]"
-                }`}
-              >
-                {word}
-              </span>
-            ))}
-          </h2>
-        </div>
+    <section ref={sectionRef} className="relative border-y border-[#111827] py-[82px]">
+      <div className="mx-auto w-full max-w-[1570px] px-6">
+        <SectionEyebrow>OUR PROMISE</SectionEyebrow>
+        <h2 className="mt-8 max-w-[700px] font-[family-name:var(--font-sora)] text-[32px] font-extrabold leading-[1.24] tracking-normal text-[#EEF1FA] md:text-[44px] lg:text-[57.6px]">
+          {words.map((word, index) => (
+            <span
+              key={`${word}-${index}`}
+              className={`mr-[0.23em] inline-block transition-colors duration-300 ${
+                index < activeCount ? (index >= blueStartIndex ? "text-[#F97316]" : "text-[#EEF1FA]") : "text-[#27445D]"
+              }`}
+            >
+              {word}
+            </span>
+          ))}
+        </h2>
       </div>
     </section>
   );
 }
 
-function ServicesHorizontalSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const viewportRef = useRef<HTMLDivElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
 
-  useEffect(() => {
-    let frame = 0;
-    let scrollDistance = 0;
 
-    const update = () => {
-      if (frame) return;
+type MarqueeItem = string | { label: string; href: string };
 
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-
-        const section = sectionRef.current;
-        const track = trackRef.current;
-        if (!section || !track || scrollDistance <= 0) return;
-
-        const stickyOffset = window.innerWidth >= 1280 ? 144 : 92;
-        const progress = Math.min(
-          Math.max((stickyOffset - section.getBoundingClientRect().top) / scrollDistance, 0),
-          1
-        );
-        track.style.transform = `translate3d(${-progress * scrollDistance}px, 0, 0)`;
-      });
-    };
-
-    const measure = () => {
-      const section = sectionRef.current;
-      const viewport = viewportRef.current;
-      const track = trackRef.current;
-      if (!section || !viewport || !track) return;
-
-      if (window.innerWidth < 768 || prefersReducedMotion) {
-        section.style.height = "auto";
-        track.style.transform = "translate3d(0, 0, 0)";
-        scrollDistance = 0;
-        return;
-      }
-
-      scrollDistance = Math.max(track.scrollWidth - viewport.clientWidth, 0);
-      const stickyOffset = window.innerWidth >= 1280 ? 144 : 92;
-      section.style.height = `${window.innerHeight - stickyOffset + scrollDistance}px`;
-      update();
-    };
-
-    measure();
-    window.addEventListener("resize", measure);
-    window.addEventListener("scroll", update, { passive: true });
-
-    return () => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", update);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, [prefersReducedMotion]);
-
-  return (
-    <section ref={sectionRef} className="relative z-10 bg-[#0B1F33] pt-[95px] md:pt-0">
-      <div className={`bg-[#0B1F33] ${prefersReducedMotion ? "" : "md:sticky md:top-[92px] md:flex md:min-h-[calc(100vh-92px)] md:items-center md:overflow-hidden xl:top-[144px] xl:min-h-[calc(100vh-144px)]"}`}>
-        <div ref={viewportRef} className={`w-full overflow-x-auto px-6 pb-4 scrollbar-none md:px-8 xl:px-10 ${prefersReducedMotion ? "md:overflow-x-auto" : "md:overflow-hidden"}`}>
-          <div
-            ref={trackRef}
-            className="grid gap-12 md:flex md:w-max md:gap-6 md:transition-transform md:duration-75 md:ease-linear md:will-change-transform xl:gap-7"
-          >
-            <div className="shrink-0 md:flex md:h-[460px] md:w-[340px] md:flex-col md:justify-center xl:h-[500px] xl:w-[430px]">
-              <SectionEyebrow>WHO WE ARE?</SectionEyebrow>
-              <RevealHeading>
-                <h2 className="mt-7 max-w-[480px] text-[42px] font-black leading-[1.08] tracking-normal md:text-[56px]">
-                  Global Trading Excellence. Delivering Quality, Building Trust.
-                </h2>
-              </RevealHeading>
-              <RevealText>
-                <p className="mt-7 max-w-[460px] text-[18px] font-medium leading-[1.45] text-slate-400">
-                  AGTP GROUP is your trusted global partner for seamless import/export, offering reliable sourcing,
-                  competitive pricing, and efficient logistics.
-                </p>
-              </RevealText>
-              <RevealButton>
-                <Link href="/vehicles" className="mt-9 inline-flex items-center gap-3 text-[18px] font-extrabold text-white">
-                  <span>Explore More</span>
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </RevealButton>
-            </div>
-
-            <div className="flex gap-7 overflow-x-auto scrollbar-none md:contents">
-              {serviceCards.map((item) => (
-                <Link
-                  key={item.num}
-                  href={item.href}
-                  className="group relative flex h-[460px] w-[360px] shrink-0 flex-col justify-end overflow-hidden rounded-[20px] border border-[#315671] bg-slate-800 p-7 md:w-[390px] xl:h-[500px] xl:w-[460px] xl:p-8"
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover opacity-65 transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 767px) 360px, (max-width: 1279px) 390px, 460px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-slate-300/75 via-slate-700/40 to-[#14314B]/95" />
-                  <span className="absolute left-8 top-8 text-[15px] font-black tracking-[0.2em] text-white/80">
-                    {item.num}
-                  </span>
-                  <div className="relative z-10">
-                    <span className="text-[13px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
-                      {item.category}
-                    </span>
-                    <h3 className="mt-3 text-[30px] font-black leading-none text-white xl:text-[34px]">{item.title}</h3>
-                    <p className="mt-4 max-w-[360px] text-[16px] font-medium leading-[1.45] text-slate-200 xl:text-[17px]">
-                      {item.desc}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Marquee({ items, muted = false }: { items: string[]; muted?: boolean }) {
+function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boolean }) {
   const content = [...items, ...items, ...items, ...items];
   return (
-    <div className={`${muted ? "mt-[75px] border-y border-[#24445F] bg-[#102941] py-12" : "border-y border-[#24445F] bg-[#102941] py-9"} overflow-hidden`}>
-      <div className={`${muted ? "text-[48px] text-transparent opacity-50 marquee-outline" : "text-[52px] text-white"} animate-marquee flex items-center gap-14 whitespace-nowrap font-black uppercase leading-none tracking-normal`}>
-        {content.map((item, index) => (
-          <span key={`${item}-${index}`} className="flex items-center gap-14">
-            {item}
-            <span className="text-[#F97316]">*</span>
-          </span>
-        ))}
+    <div className={`${muted ? "mt-[75px] border-y border-[#24445F] bg-[#102941] py-12" : "border-y border-[#24445F] bg-[#102941] py-9"} overflow-hidden group`}>
+      <div className={`${muted ? "text-[48px] text-transparent opacity-50 marquee-outline" : "text-[52px] text-white"} animate-marquee group-hover:[animation-play-state:paused] flex items-center gap-14 whitespace-nowrap font-black uppercase leading-none tracking-normal`}>
+        {content.map((item, index) => {
+          const label = typeof item === "string" ? item : item.label;
+          const href = typeof item === "string" ? undefined : item.href;
+          return (
+            <span key={`${label}-${index}`} className="flex items-center gap-14">
+              {href ? (
+                <Link href={href} className="transition-colors hover:text-[#F97316] hover:underline underline-offset-8 decoration-2">
+                  {label}
+                </Link>
+              ) : (
+                <span>{label}</span>
+              )}
+              <span className="text-[#F97316]">*</span>
+            </span>
+          );
+        })}
       </div>
     </div>
   );

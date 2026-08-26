@@ -24,7 +24,7 @@ export function VehicleInquiryModal({
     name: "",
     email: "",
     phone: "",
-    preferredShowroom: "Dubai Central Showroom",
+    exportCountry: "Export Country",
     message: ""
   });
   const [submitted, setSubmitted] = useState(false);
@@ -49,7 +49,7 @@ export function VehicleInquiryModal({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        preferredShowroom: formData.preferredShowroom,
+        exportCountry: formData.exportCountry,
         message: formData.message,
         createdAt: new Date().toISOString(),
         status: "Pending"
@@ -68,7 +68,7 @@ export function VehicleInquiryModal({
       name: "",
       email: "",
       phone: "",
-      preferredShowroom: "Dubai Central Showroom",
+      exportCountry: "Export Country",
       message: ""
     });
     onClose();
@@ -99,7 +99,7 @@ export function VehicleInquiryModal({
             <div className="bg-slate-50 p-4 rounded-xl text-xs text-slate-500 border border-slate-200 text-left space-y-1">
               <div><strong>Vehicle:</strong> {vehicleTitle || "General Inquiry"}</div>
               <div><strong>Contact Email:</strong> {formData.email}</div>
-              <div><strong>Showroom Hub:</strong> {formData.preferredShowroom}</div>
+              <div><strong>Export Country:</strong> {formData.exportCountry || "Not specified"}</div>
             </div>
             <Button
               variant="default"
@@ -165,18 +165,25 @@ export function VehicleInquiryModal({
               </div>
 
               <div>
-                <Label htmlFor="inq-showroom" className="text-xs">Preferred Showroom Location</Label>
+                <Label htmlFor="inq-country" className="text-xs">Export Country</Label>
                 <select
-                  id="inq-showroom"
-                  value={formData.preferredShowroom}
-                  onChange={(e) => setFormData({ ...formData, preferredShowroom: e.target.value })}
+                  id="inq-country"
+                  value={formData.exportCountry}
+                  onChange={(e) => setFormData({ ...formData, exportCountry: e.target.value })}
                   className="w-full h-10 px-3 mt-1 rounded-md border border-slate-300 bg-white text-sm text-slate-900 focus:outline-none"
                 >
-                  <option value="Dubai Central Showroom">Dubai Central Showroom (UAE)</option>
-                  <option value="Tokyo Gallery">Tokyo Gallery (Japan)</option>
-                  <option value="London Flagship Store">London Flagship Store (UK)</option>
-                  <option value="Munich Performance Center">Munich Performance Center (Germany)</option>
-                  <option value="Miami Showroom">Miami Showroom (USA)</option>
+                  <option value="Export Country">Export Country</option>
+                  <option value="Angola">Angola</option>
+                  <option value="Ghana">Ghana</option>
+                  <option value="Cameroon">Cameroon</option>
+                  <option value="Nigeria">Nigeria</option>
+                  <option value="Kenya">Kenya</option>
+                  <option value="Tanzania">Tanzania</option>
+                  <option value="Congo">Congo</option>
+                  <option value="Ethiopia">Ethiopia</option>
+                  <option value="Saudi Arabia">Saudi Arabia</option>
+                  <option value="United Arab Emirates">United Arab Emirates</option>
+                  <option value="Other Country">Other Country</option>
                 </select>
               </div>
 
@@ -185,7 +192,7 @@ export function VehicleInquiryModal({
                 <Textarea
                   id="inq-msg"
                   rows={3}
-                  placeholder="e.g. Interested in custom export shipping options, factory warranty extension, or viewing schedule."
+                  placeholder="e.g. I need a Toyota Land Cruiser 300, 2026 model. What is the export price including shipping to Luanda, Angola?"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="mt-1 text-sm"

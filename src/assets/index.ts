@@ -20,6 +20,11 @@ import spotlightFerrari from "./milele/home/spotlight-ferrari.jpg";
 import suvs from "./milele/home/suvs.jpg";
 import vans from "./milele/home/vans.jpg";
 
+import reviewR1 from "./reviews/r1.webp";
+import reviewR2 from "./reviews/r2.webp";
+import reviewR3 from "./reviews/r3.webp";
+import reviewR4 from "./reviews/r4.webp";
+
 export const agtpAssets = {
   aboutHero,
   aboutYard,
@@ -40,5 +45,9 @@ export const agtpAssets = {
   sedans,
   spotlightFerrari,
   suvs,
-  vans
+  vans,
+  reviewR1,
+  reviewR2,
+  reviewR3,
+  reviewR4
 };
