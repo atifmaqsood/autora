@@ -58,15 +58,15 @@ const industryCards = [
     layout: "min-h-[360px] xl:col-span-5 xl:row-span-2 xl:min-h-[540px]"
   },
   {
-    title: "Pickups & Trucks",
-    subtitle: "Utility and commercial-ready vehicles",
+    title: "Pickups & Ambulance",
+    subtitle: "Utility, commercial & emergency vehicles",
     image: agtpAssets.pickups,
     icon: Truck,
     href: "/vehicles?category=Pickup",
     layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]"
   },
   {
-    title: "Vans & Buses",
+    title: "Vans & buses",
     subtitle: "Practical passenger and cargo transport",
     image: agtpAssets.vans,
     icon: Truck,
@@ -74,15 +74,15 @@ const industryCards = [
     layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]"
   },
   {
-    title: "Fire Apparatus & Ambulance",
-    subtitle: "Special-purpose emergency vehicles",
+    title: "Engines & Modifications",
+    subtitle: "Engines, gearboxes, and custom upgrades",
     image: agtpAssets.mercedesCclassCard,
     icon: Package,
-    href: "/vehicles?search=ambulance",
+    href: "/spare-parts",
     layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]"
   },
   {
-    title: "Parts & Accessories",
+    title: "Parts & accessories",
     subtitle: "OEM, genuine, and aftermarket supply",
     image: agtpAssets.sparePartsHero,
     icon: Wrench,
@@ -264,12 +264,10 @@ export default function HomePage() {
 
   const categoryMarqueeItems = [
     { label: "Sedans & SUVs", href: "/vehicles" },
-    { label: "Pickups & trucks", href: "/vehicles?category=Pickup" },
+    { label: "Pickups & Ambulance", href: "/vehicles?category=Pickup" },
     { label: "Vans & buses", href: "/vehicles?search=van" },
-    { label: "Fire Apparatus & Ambulance", href: "/vehicles?search=ambulance" },
     { label: "Parts & accessories", href: "/spare-parts" },
-    { label: "Engines & Gears", href: "/spare-parts" },
-    { label: "Modifications", href: "/contact-us" }
+    { label: "Engines & Modifications", href: "/spare-parts" }
   ];
 
   return (
@@ -859,23 +857,24 @@ function BrandMarquee({ brands }: { brands: string[] }) {
   const repeatedBrands = [...brands, ...brands, ...brands];
 
   return (
-    <div className="flex overflow-hidden motion-reduce:overflow-x-auto">
-      <div className="animate-marquee flex w-max shrink-0 gap-0 motion-reduce:animate-none">
+    <div className="flex overflow-hidden py-4 motion-reduce:overflow-x-auto">
+      <div className="animate-marquee flex w-max shrink-0 gap-6 px-4 motion-reduce:animate-none">
         {repeatedBrands.map((brand, index) => {
           const mark = brandMarks[brand as keyof typeof brandMarks];
 
           return (
             <div
               key={`${brand}-${index}`}
-              className="flex h-[96px] min-w-[160px] items-center justify-center border-r border-[#315671]/80 px-10 text-center transition-colors hover:bg-white/[0.03]"
+              className="group relative flex h-[120px] w-[180px] shrink-0 items-center justify-center rounded-[22px] border border-[#315671] bg-[#14314B] p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-[#F97316] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]"
             >
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center text-[#FDBA74] transition-transform duration-300 hover:scale-110">
+              <div className="absolute inset-0 rounded-[22px] bg-gradient-to-b from-white/[0.08] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <span className="relative z-10 flex h-16 w-16 items-center justify-center text-white transition-transform duration-300 group-hover:scale-110">
                 {mark ? (
-                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-12 w-12" fill={`#${mark.hex}`}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-14 w-14" fill={mark.hex === "FFFFFF" ? "#FFFFFF" : `#${mark.hex}`}>
                     <path d={mark.path} />
                   </svg>
                 ) : (
-                  <Car className="h-10 w-10" aria-hidden="true" />
+                  <Car className="h-12 w-12 text-[#FDBA74]" aria-hidden="true" />
                 )}
               </span>
             </div>
