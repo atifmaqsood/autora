@@ -264,10 +264,12 @@ export default function HomePage() {
 
   const categoryMarqueeItems = [
     { label: "Sedans & SUVs", href: "/vehicles" },
-    { label: "Pickups & Ambulance", href: "/vehicles?category=Pickup" },
+    { label: "Pickups & trucks", href: "/vehicles?category=Pickup" },
     { label: "Vans & buses", href: "/vehicles?search=van" },
+    { label: "Fire Apparatus & Ambulance", href: "/vehicles?search=ambulance" },
     { label: "Parts & accessories", href: "/spare-parts" },
-    { label: "Engines & Modifications", href: "/spare-parts" }
+    { label: "Engines & Gears", href: "/spare-parts" },
+    { label: "Modifications", href: "/contact-us" }
   ];
 
   return (
