@@ -59,10 +59,10 @@ export function HeroCarousel() {
         )}
       </div>
 
-      {/* Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-[#06101C]/45" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-black/75 via-black/45 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-transparent to-black/40" />
+      {/* Light Ultra-Clear Gradient Overlay */}
+      <div className="absolute inset-0 bg-[#06101C]/10" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-black/35 via-black/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-transparent to-transparent" />
 
       {/* Left-Aligned Hero Content Box */}
       <div className="relative z-20 mx-auto flex h-full max-w-[1720px] flex-col justify-center px-6 pt-24 sm:px-10 lg:px-16 xl:px-20">

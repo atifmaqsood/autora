@@ -20,27 +20,23 @@ export function StoreHeader() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const businessLinks = [
-    { name: "Automotive", href: "/automotive" },
-    { name: "Construction Materials", href: "/construction-materials" },
-    { name: "Furniture And Home Items", href: "/furniture-and-home-items" },
-    { name: "General Merchandise", href: "/general-merchandise" },
-    { name: "Industrial Equipment", href: "/industrial-equipment" },
-    { name: "Packaging Materials", href: "/packaging-materials" },
-    { name: "Apparel And Textiles", href: "/apparel-and-textiles" },
-    { name: "Electronics", href: "/electronics" }
+  const expertiseLinks = [
+    { name: "Global Sourcing", href: "/how-it-works" },
+    { name: "Automotive Vehicles", href: "/vehicles" },
+    { name: "Automotive Parts", href: "/spare-parts" },
+    { name: "Freight & Logistics", href: "/contact-us" }
   ];
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Brands", href: "/brands" },
-    { name: "FAQs", href: "/faqs" },
-    { name: "Contact Us", href: "/contact-us" },
     { name: "About Us", href: "/about-us" },
-    { name: "Business Solutions", href: "/business-solutions", children: businessLinks }
+    { name: "Dubai Markets", href: "/dubai-markets" },
+    { name: "Areas Of Expertise", href: "#", children: expertiseLinks },
+    { name: "Customer Reviews", href: "/customer-reviews" }
   ];
 
   const isActive = (path: string) => {
+    if (!path || path === "#") return false;
     if (path === "/") return pathname === "/";
     return pathname.startsWith(path);
   };

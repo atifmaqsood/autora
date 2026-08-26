@@ -310,7 +310,7 @@ export default function HomePage() {
         <Reveal>
           <div className="relative min-h-[560px] overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B]">
             <Image src={agtpAssets.exportPort} alt="Shipping containers at an export port" fill className="object-cover" sizes="1570px" />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.94)_0%,rgba(6,16,28,0.76)_50%,rgba(6,16,28,0.56)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.50)_0%,rgba(6,16,28,0.22)_55%,rgba(6,16,28,0.05)_100%)]" />
             <div className="relative z-10 flex min-h-[560px] max-w-[840px] flex-col justify-center px-8 py-12 text-left md:px-14 lg:px-20">
               <SectionEyebrow>GET A QUOTE</SectionEyebrow>
               <RevealHeading>
@@ -502,8 +502,8 @@ function IndustriesSection() {
           return (
             <Reveal key={card.title} delay={index * 85} className={card.layout}>
               <Link href={card.href} className="group relative flex h-full overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)]">
-                <Image src={card.image} alt={card.title} fill className="object-cover opacity-65 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-[#0B1F33]/50 to-[#0B1F33]/10" />
+                <Image src={card.image} alt={card.title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/90 via-[#0B1F33]/20 to-transparent" />
                 <div className="absolute inset-x-6 top-6 flex items-center justify-between">
                   <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
                     Explore
@@ -599,10 +599,10 @@ function GlobalNetworkSection() {
                 src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80"
                 alt="Dubai, UAE Landmark"
                 fill
-                className="object-cover opacity-45 transition-transform duration-700 group-hover:scale-105"
+                className="object-cover opacity-95 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-[#0B1F33]/70 to-[#0B1F33]/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/85 via-[#0B1F33]/20 to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(249,115,22,0.16),transparent_35%)]" />
               <span className="absolute -bottom-14 -right-5 text-[220px] font-black leading-none text-white/[0.04]" aria-hidden="true">
                 DXB
@@ -627,10 +627,10 @@ function GlobalNetworkSection() {
                   src={market.image}
                   alt={market.name}
                   fill
-                  className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover opacity-95 transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-[#0B1F33]/75 to-[#0B1F33]/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/85 via-[#0B1F33]/20 to-transparent" />
                 <span className="absolute right-5 top-4 text-[52px] font-black leading-none text-white/[0.08]" aria-hidden="true">
                   {market.code}
                 </span>
@@ -672,7 +672,7 @@ function DubaiMarketsSection() {
         {supplierCards.map((supplier) => (
           <div key={supplier.title} className="overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] shadow-lg">
             <div className="relative h-[220px] bg-[#0B1F33]">
-              <Image src={supplier.image} alt={supplier.title} fill className="object-cover opacity-80" sizes="(max-width: 768px) 100vw, 33vw" />
+              <Image src={supplier.image} alt={supplier.title} fill className="object-cover opacity-100" sizes="(max-width: 768px) 100vw, 33vw" />
               <div className="absolute right-4 top-4 rounded-full bg-[#0B1F33]/80 px-3.5 py-2 text-[11px] font-black text-white">
                 Automotive Parts, Body Kits, Tyres
               </div>
@@ -762,8 +762,8 @@ function AutomotivePartsSpotlight() {
           className="object-cover object-center"
           style={scrollMotionEnabled ? { transform: `scale(${1 + progress * 0.07}) translateX(${-progress * 2}%)` } : undefined}
         />
-        <div className="absolute inset-0 bg-[#06101C]/55" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.82)_0%,rgba(6,16,28,0.54)_44%,rgba(6,16,28,0.28)_100%)]" />
+        <div className="absolute inset-0 bg-[#06101C]/10" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.45)_0%,rgba(6,16,28,0.18)_44%,transparent_100%)]" />
 
         <div className="relative z-10 mx-auto flex min-h-[650px] max-w-[1570px] flex-col justify-end px-6 py-10 md:h-full md:min-h-0 md:px-8 md:py-12 xl:px-12 xl:py-14">
           <div
@@ -917,7 +917,7 @@ function CustomerStoriesSection() {
 
       <Reveal className="mt-[48px]">
         <div
-          className="relative overflow-hidden py-3 xl:h-[550px]"
+          className="relative overflow-hidden py-4 xl:h-[660px]"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
@@ -929,16 +929,16 @@ function CustomerStoriesSection() {
 
               const isActive = offset === 0;
               const isNearby = Math.abs(offset) === 1;
-              const translation = offset * 375;
+              const translation = offset * 320;
 
               return (
                 <article
                   key={story.name}
-                  className="absolute left-1/2 top-3 flex h-[560px] w-[min(54vw,660px)] -translate-x-1/2 flex-col overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B] text-left shadow-2xl transition-[opacity,transform,filter] duration-700 ease-out"
+                  className="absolute left-1/2 top-4 flex h-[630px] w-[420px] -translate-x-1/2 flex-col overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] text-left shadow-2xl transition-[opacity,transform,filter] duration-700 ease-out"
                   style={{
-                    opacity: isActive ? 1 : isNearby ? 0.48 : 0,
-                    transform: `translateX(calc(-50% + ${translation}px)) scale(${isActive ? 1 : isNearby ? 0.86 : 0.78})`,
-                    filter: isActive ? "none" : "saturate(0.45) brightness(0.76)",
+                    opacity: isActive ? 1 : isNearby ? 0.45 : 0,
+                    transform: `translateX(calc(-50% + ${translation}px)) scale(${isActive ? 1 : isNearby ? 0.88 : 0.78})`,
+                    filter: isActive ? "none" : "saturate(0.4) brightness(0.75)",
                     pointerEvents: isActive ? "auto" : "none",
                     zIndex: isActive ? 30 : isNearby ? 20 : 10
                   }}
@@ -950,14 +950,14 @@ function CustomerStoriesSection() {
           </div>
 
           <div className={prefersReducedMotion ? "" : "xl:hidden"}>
-            <article className="mx-auto flex min-h-[560px] max-w-[640px] flex-col overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B] text-left shadow-2xl">
+            <article className="mx-auto flex h-[630px] max-w-[420px] flex-col overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] text-left shadow-2xl">
               <TestimonialCard story={customerStories[activeStory]} active />
             </article>
           </div>
         </div>
       </Reveal>
 
-      <div className="mt-7 flex items-center justify-center gap-4">
+      <div className="mt-8 flex items-center justify-center gap-4">
         <button
           type="button"
           onClick={() => selectStory(activeStory - 1)}
@@ -1000,30 +1000,30 @@ function TestimonialCard({
 }) {
   return (
     <>
-      <div className="relative h-[340px] shrink-0 overflow-hidden bg-[#06101C]">
+      <div className="relative h-[460px] w-full shrink-0 overflow-hidden bg-[#06101C]">
         <Image
           src={story.image}
           alt={`${story.name} customer story`}
           fill
-          className="object-cover object-top"
-          sizes="(max-width: 1024px) 100vw, 660px"
+          className="object-cover object-center"
+          sizes="420px"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-black/25" />
-        <span className="absolute left-6 top-6 rounded-full border border-white/20 bg-[#0B1F33]/80 px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent" />
+        <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md">
           Customer Story
         </span>
       </div>
-      <div className="relative flex flex-1 flex-col justify-between p-6 md:p-7">
+      <div className="relative flex flex-1 flex-col justify-between p-5 sm:p-6 bg-[#14314B]">
         <div>
-          <div className="flex items-start gap-3 pr-10">
-            <span className="mt-1 h-8 w-1.5 shrink-0 rounded-full bg-[#F97316]" />
+          <div className="flex items-start gap-3">
+            <span className="mt-1 h-7 w-1.5 shrink-0 rounded-full bg-[#F97316]" />
             <div>
-              <h3 className="text-[19px] font-black leading-tight text-white">{story.name}</h3>
-              <p className="mt-0.5 text-[11px] font-black uppercase tracking-[0.15em] text-[#FDBA74]">{story.label}</p>
+              <h3 className="text-[17px] font-black leading-tight text-white">{story.name}</h3>
+              <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.15em] text-[#FDBA74]">{story.label}</p>
             </div>
           </div>
-          <p className="mt-3.5 text-[13px] font-medium leading-[1.55] text-slate-200 md:text-[14px]">
+          <p className="mt-3 text-[13px] font-medium leading-[1.5] text-slate-200 line-clamp-3">
             &ldquo;{story.story}&rdquo;
           </p>
         </div>
