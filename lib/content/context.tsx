@@ -31,14 +31,22 @@ export function ContentProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    const primary = /^#[0-9a-f]{6}$/i.test(content.site.primaryColor) ? content.site.primaryColor : defaultContent.site.primaryColor;
-    const secondary = /^#[0-9a-f]{6}$/i.test(content.site.secondaryColor) ? content.site.secondaryColor : defaultContent.site.secondaryColor;
-    const bg = /^#[0-9a-f]{6}$/i.test(content.site.backgroundColor) ? content.site.backgroundColor : defaultContent.site.backgroundColor;
+    const normalizeHex = (hex: string | undefined, fallback: string) => {
+      if (!hex) return fallback;
+      const trimmed = hex.trim();
+      if (/^#[0-9a-f]{3,8}$/i.test(trimmed)) return trimmed;
+      if (/^[0-9a-f]{3,8}$/i.test(trimmed)) return `#${trimmed}`;
+      return fallback;
+    };
+
+    const primary = normalizeHex(content.site?.primaryColor, defaultContent.site.primaryColor);
+    const secondary = normalizeHex(content.site?.secondaryColor, defaultContent.site.secondaryColor);
+    const bg = normalizeHex(content.site?.backgroundColor, defaultContent.site.backgroundColor);
 
     root.style.setProperty("--agtp-primary", primary);
     root.style.setProperty("--agtp-secondary", secondary);
     root.style.setProperty("--agtp-bg", bg);
-  }, [content.site.primaryColor, content.site.secondaryColor, content.site.backgroundColor]);
+  }, [content.site?.primaryColor, content.site?.secondaryColor, content.site?.backgroundColor]);
 
   const updateContent = useCallback((patch: Partial<ShowcaseContent>) => {
     setContent((prev) => {

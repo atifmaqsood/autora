@@ -488,7 +488,7 @@ function IndustriesSection() {
             <Reveal key={card.title} delay={index * 85} className={card.layout}>
               <Link href={card.href} className="group relative flex h-full overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)]">
                 <Image src={card.image} alt={card.title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/90 via-[#0B1F33]/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-[#0B1F33]/15 to-transparent" />
                 <div className="absolute inset-x-6 top-6 flex items-center justify-between">
                   <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
                     Explore
@@ -584,11 +584,11 @@ function GlobalNetworkSection() {
                 src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80"
                 alt="Dubai, UAE Landmark"
                 fill
-                className="object-cover opacity-95 transition-transform duration-700 group-hover:scale-105"
+                className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/85 via-[#0B1F33]/20 to-transparent" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(249,115,22,0.16),transparent_35%)]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-[#0B1F33]/15 to-transparent" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,color-mix(in_srgb,var(--agtp-secondary,#F97316)_12%,transparent),transparent_35%)]" />
               <span className="absolute -bottom-14 -right-5 text-[220px] font-black leading-none text-white/[0.04]" aria-hidden="true">
                 DXB
               </span>
@@ -612,10 +612,10 @@ function GlobalNetworkSection() {
                   src={market.image}
                   alt={market.name}
                   fill
-                  className="object-cover opacity-95 transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/85 via-[#0B1F33]/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-[#0B1F33]/10 to-transparent" />
                 <span className="absolute right-5 top-4 text-[52px] font-black leading-none text-white/[0.08]" aria-hidden="true">
                   {market.code}
                 </span>

@@ -25,6 +25,9 @@ import reviewR2 from "./reviews/r2.webp";
 import reviewR3 from "./reviews/r3.webp";
 import reviewR4 from "./reviews/r4.webp";
 
+import bydLogo from "./svgs/Logo.svg";
+import mercedesLogo from "./svgs/Symbol.svg";
+
 export const agtpAssets = {
   aboutHero,
   aboutYard,
@@ -49,5 +52,7 @@ export const agtpAssets = {
   reviewR1,
   reviewR2,
   reviewR3,
-  reviewR4
+  reviewR4,
+  bydLogo,
+  mercedesLogo
 };

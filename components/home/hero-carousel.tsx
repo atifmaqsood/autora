@@ -78,7 +78,7 @@ export function HeroCarousel() {
           <h1 className="text-[38px] font-black leading-[1.06] tracking-tight text-white sm:text-[52px] md:text-[62px] lg:text-[68px]">
             Driven by Quality,
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-amber-200">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-[#FDBA74]">
               Delivered Worldwide
             </span>
           </h1>
