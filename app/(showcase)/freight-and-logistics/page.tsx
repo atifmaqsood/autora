@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Globe2, Mail, Phone, Plane, Ship, Truck } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 import {
   Reveal,
@@ -42,49 +42,22 @@ const transportModes = [
 
 export default function FreightAndLogisticsPage() {
   return (
-    <div className="bg-[#0B1F33] pb-24 text-white">
-      {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.exportPort}
-          alt="Freight & Logistics Header"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <RevealEyebrow>
-            <div className="flex items-center gap-2 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
-              <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-              <span>/</span>
-              <span className="text-slate-400">AREAS OF EXPERTISE</span>
-              <span>/</span>
-              <span className="text-[#F97316]">FREIGHT & LOGISTICS</span>
-            </div>
-          </RevealEyebrow>
-
-          <RevealEyebrow delay={100}>
-            <div className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
-              <span className="h-px w-9 bg-[#F97316]" />
-              AREAS OF EXPERTISE
-            </div>
-          </RevealEyebrow>
-
-          <RevealHeading delay={150}>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-5xl leading-none drop-shadow-lg">
-              FREIGHT & LOGISTICS
-            </h1>
-          </RevealHeading>
-
-          <RevealText delay={200}>
-            <p className="text-sm sm:text-base text-slate-200 max-w-3xl leading-relaxed drop-shadow-md">
-              Delivering Global Trade with Confidence
-            </p>
-          </RevealText>
-        </div>
-      </section>
+    <div className="bg-[#060709] pb-24 text-white">
+      {/* ── 1. Hero Header Banner matching new design ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "AREAS OF EXPERTISE" },
+          { label: "FREIGHT & LOGISTICS" }
+        ]}
+        badge={{
+          text: "AREAS OF EXPERTISE — GLOBAL FREIGHT"
+        }}
+        title="FREIGHT & LOGISTICS"
+        subtitle="Delivering global trade with confidence. End-to-end containerized sea freight, air cargo, and port documentation."
+        imageSrc={agtpAssets.exportPort}
+        imageAlt="AGTP Group Freight and Logistics Port"
+      />
 
       {/* ── 2. Overview Intro Section ── */}
       <section className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
@@ -203,7 +176,7 @@ export default function FreightAndLogisticsPage() {
       {/* ── 6. Contact & Questions CTA Banner ── */}
       <section className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-[linear-gradient(135deg,#14314B_0%,#0B1F33_100%)] p-10 md:p-14 text-center shadow-2xl space-y-6">
+          <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-br from-[#14314B] to-[#0B1F33] p-10 md:p-14 text-center shadow-2xl space-y-6">
             <RevealHeading>
               <h2 className="text-[32px] font-black text-white md:text-[44px]">
                 Have More Questions?

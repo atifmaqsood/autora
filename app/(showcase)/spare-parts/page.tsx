@@ -13,7 +13,7 @@ import {
   ShieldCheck,
   Truck
 } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { Reveal, RevealButton, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from "@/components/ui/scroll-reveal";
 import { useContent } from "@/lib/content/context";
@@ -50,83 +50,55 @@ export default function SparePartsPage() {
   const page = content.sparePartsPage;
 
   return (
-    <div className="bg-[#0B1F33] pb-20 text-white">
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.sparePartsHero}
-          alt="AGTP GROUP spare parts sourcing"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
+    <div className="bg-[#060709] pb-20 text-white">
+      {/* ── 1. Hero Header Banner matching new design ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "SPARE PARTS" }
+        ]}
+        badge={{
+          text: "OEM & AFTERMARKET — FAST EXPORT"
+        }}
+        title="GENUINE AUTO SPARE PARTS"
+        subtitle={page.heroSubtitle || "Wholesale sourcing for genuine OEM engines, body kits, transmissions, and vehicle maintenance components worldwide."}
+        imageSrc={agtpAssets.sparePartsHero}
+        imageAlt="AGTP GROUP Spare Parts Sourcing"
+      >
+        <button
+          onClick={() => setInquiryModalOpen(true)}
+          className="inline-flex items-center gap-3 rounded-full bg-[#F97316] px-8 py-4 text-sm font-black text-white shadow-2xl transition-all hover:bg-[#EA580C]"
+        >
+          <span>Request Parts Quote</span>
+          <ArrowRight className="h-4 w-4" />
+        </button>
+        <a
+          href="#parts-categories"
+          className="ml-4 inline-flex items-center rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-slate-900"
+        >
+          {page.secondaryCtaLabel}
+        </a>
+      </PageHero>
 
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-end gap-10 lg:grid-cols-12">
-          <div className="space-y-6 lg:col-span-8">
-            <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-slate-400">
-              <Link href="/" className="transition-colors hover:text-white">HOME</Link>
-              <span>/</span>
-              <span className="text-[#F97316]">SPARE PARTS</span>
-            </div>
-
-            <RevealEyebrow>
-              <div className="flex items-center gap-4 text-xs font-black uppercase tracking-[0.32em] text-[#FDBA74]">
-                <span className="h-px w-10 bg-[#F97316]" />
-                {page.heroEyebrow}
+      {/* ── 2. Verified Metrics Bar ── */}
+      <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+        <Reveal delay={100}>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 rounded-3xl border border-[#315671] bg-[#102941] p-6 shadow-xl">
+            {[
+              ["OEM", "verified sourcing"],
+              ["24H", "quote review"],
+              ["VIN", "fitment checks"],
+              ["90+", "export markets"]
+            ].map(([value, label]) => (
+              <div key={label} className="rounded-2xl border border-[#315671]/70 bg-[#0B1F33]/80 p-5 text-center">
+                <div className="text-3xl font-black text-[#FDBA74]">{value}</div>
+                <div className="mt-1 text-[11px] font-bold uppercase leading-snug tracking-wider text-slate-400">
+                  {label}
+                </div>
               </div>
-            </RevealEyebrow>
-
-            <RevealHeading>
-              <h1 className="max-w-5xl text-5xl font-black uppercase leading-[0.92] tracking-normal text-white sm:text-7xl lg:text-[96px]">
-                {page.heroTitle}
-              </h1>
-            </RevealHeading>
-
-            <RevealText>
-              <p className="max-w-2xl text-base font-semibold leading-relaxed text-slate-300 sm:text-lg">
-                {page.heroSubtitle}
-              </p>
-            </RevealText>
-
-            <RevealButton>
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <button
-                  onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex items-center gap-3 rounded-full bg-[#F97316] px-8 py-4 text-sm font-black text-white shadow-2xl shadow-[#F97316]/25 transition-all hover:bg-[#EA580C]"
-                >
-                  <span>{page.primaryCtaLabel}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-                <a
-                  href="#parts-categories"
-                  className="inline-flex items-center rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-slate-900"
-                >
-                  {page.secondaryCtaLabel}
-                </a>
-              </div>
-            </RevealButton>
+            ))}
           </div>
-
-          <Reveal className="lg:col-span-4" delay={180}>
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-md">
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  ["OEM", "verified sourcing"],
-                  ["24H", "quote review"],
-                  ["VIN", "fitment checks"],
-                  ["90+", "export markets"]
-                ].map(([value, label]) => (
-                  <div key={label} className="rounded-2xl border border-white/10 bg-[#0B1F33]/70 p-5">
-                    <div className="text-3xl font-black text-white">{value}</div>
-                    <div className="mt-1 text-[11px] font-bold uppercase leading-snug tracking-wider text-slate-400">
-                      {label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </div>
+        </Reveal>
       </section>
 
       <section id="parts-categories" className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">

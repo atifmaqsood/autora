@@ -61,7 +61,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
   const relatedVehicles = getRelatedVehicles(vehicle, 3);
 
   return (
-    <div className="min-h-screen space-y-12 bg-[#0B1F33] pb-20 pt-[144px] text-white lg:pt-[158px]">
+    <div className="min-h-screen space-y-12 bg-[#060709] pb-20 pt-[144px] text-white lg:pt-[158px]">
       {/* Breadcrumb Navigation Bar */}
       <div className="border-y border-[#24445F] bg-[#102941] py-3 text-xs text-slate-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">

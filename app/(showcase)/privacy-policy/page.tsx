@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AlertCircle, Database, Eye, Lock, Shield } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 import {
   Reveal,
@@ -14,47 +14,21 @@ import {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="bg-[#0B1F33] pb-24 text-white">
-      {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.blogsHero}
-          alt="Privacy Policy Header"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <RevealEyebrow>
-            <div className="flex items-center gap-2 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
-              <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-              <span>/</span>
-              <span className="text-[#F97316]">PRIVACY POLICY</span>
-            </div>
-          </RevealEyebrow>
-
-          <RevealEyebrow delay={100}>
-            <div className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
-              <span className="h-px w-9 bg-[#F97316]" />
-              DATA PROTECTION & PRIVACY
-            </div>
-          </RevealEyebrow>
-
-          <RevealHeading delay={150}>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-4xl leading-none drop-shadow-lg">
-              PRIVACY POLICY
-            </h1>
-          </RevealHeading>
-
-          <RevealText delay={200}>
-            <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
-              How AGTP Group L.L.C-FZ collects, uses, stores, and protects your personal and business information.
-            </p>
-          </RevealText>
-        </div>
-      </section>
+    <div className="bg-[#060709] pb-24 text-white">
+      {/* ── 1. Hero Header Banner matching new design ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "PRIVACY POLICY" }
+        ]}
+        badge={{
+          text: "DATA PROTECTION & PRIVACY"
+        }}
+        title="PRIVACY POLICY"
+        subtitle="How AGTP Group L.L.C-FZ collects, uses, stores, and protects your personal and business information."
+        imageSrc={agtpAssets.aboutHero}
+        imageAlt="Privacy Policy AGTP Group"
+      />
 
       {/* ── 2. Main Privacy Policy Article with Line-by-Line Scroll Reveal ── */}
       <section className="mx-auto max-w-[1100px] px-6 pt-16">

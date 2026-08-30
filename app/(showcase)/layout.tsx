@@ -8,7 +8,7 @@ export default function ShowcaseLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-900">
+    <div className="min-h-screen flex flex-col bg-[#060709] font-sans text-white">
       <StoreHeader />
       <main className="flex-1">{children}</main>
       <StoreFooter />
@@ -16,5 +16,3 @@ export default function ShowcaseLayout({
     </div>
   );
 }
-
-

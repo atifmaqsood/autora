@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Compass, Eye, ShieldCheck } from "lucide-react";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 import {
   Reveal,
@@ -21,34 +21,18 @@ export default function AboutPage() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
 
   return (
-    <div className="space-y-0 pb-20 bg-[#0B1F33] text-white">
-      {/* ── 1. Hero Header with Parallax ───────────────────────────── */}
-      <section className="relative min-h-[85vh] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-28 pb-12">
-        <ParallaxImage
-          src={agtpAssets.aboutHero}
-          alt="Showroom Header"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/90 via-[#081A2B]/60 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
-            <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-            <span>/</span>
-            <span className="text-[#F97316]">ABOUT</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-3xl leading-none drop-shadow-lg">
-            ABOUT AGTP GROUP
-          </h1>
-
-          <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
-            AGTP Group has built a strong reputation for reliability, quality, and exceptional service as a leading re-exporter of auto spare parts for over two decades.
-          </p>
-        </div>
-      </section>
+    <div className="space-y-0 pb-20 bg-[#060709] text-white">
+      {/* ── 1. Hero Header Banner matching new design ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "ABOUT US" }
+        ]}
+        title="ABOUT AGTP GROUP"
+        subtitle="AGTP Group has built a global reputation for reliability, quality, and exceptional service as a leading automotive and spare parts exporter for over two decades."
+        imageSrc={agtpAssets.aboutHero}
+        imageAlt="AGTP Group Showroom & Headquarters"
+      />
 
       {/* ── 2. ABOUT AGTP GROUP — Reliable Suppliers of Auto Spare Parts in the UAE ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
@@ -71,8 +55,6 @@ export default function AboutPage() {
               </div>
             </Reveal>
           </div>
-
-          {/* Right Text Content */}
           <div className="lg:col-span-6 space-y-6">
             <RevealEyebrow>
               <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
@@ -360,6 +342,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
-
-

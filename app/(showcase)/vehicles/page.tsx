@@ -9,7 +9,7 @@ import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal
 import { getAllVehicles, filterVehicles } from "@/lib/vehicles/data";
 import { VehicleFilterState } from "@/lib/vehicles/types";
 import { RevealStagger, Reveal } from "@/components/ui/scroll-reveal";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 
 function CatalogContent() {
@@ -36,7 +36,7 @@ function CatalogContent() {
   }, [allVehicles, filters]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#0B1F33] text-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#060709] text-white">
       {/* Dark Filter Bar */}
       <div className="bg-[#102941] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 w-full">
@@ -150,33 +150,20 @@ function CatalogContent() {
 
 export default function VehiclesCatalogPage() {
   return (
-    <div className="space-y-0 pb-20 bg-[#0B1F33] min-h-screen">
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 text-white overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.inventoryHero}
-          alt="Inventory Header"
-          overlayOpacity="opacity-45"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/90 via-[#081A2B]/60 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
-            <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-            <span>/</span>
-            <span className="text-[#F97316]">INVENTORY</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans drop-shadow-lg">
-            AVAILABLE VEHICLES
-          </h1>
-
-          <p className="text-sm sm:text-base text-slate-200 max-w-xl leading-relaxed drop-shadow-md">
-            Search every vehicle in stock, then request a fixed, all-in quote.
-          </p>
-        </div>
-      </section>
+    <div className="space-y-0 pb-20 bg-[#060709] min-h-screen text-white">
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "VEHICLES" }
+        ]}
+        badge={{
+          text: "READY FOR EXPORT — WORLDWIDE SHIPPING"
+        }}
+        title="FIND YOUR VEHICLE"
+        subtitle="Search every vehicle in stock, then request a fixed, all-in quote for worldwide dispatch."
+        imageSrc={agtpAssets.inventoryHero}
+        imageAlt="Available Vehicles Inventory"
+      />
 
       <Suspense fallback={
         <div className="max-w-7xl mx-auto px-4 py-16 text-center text-slate-500">

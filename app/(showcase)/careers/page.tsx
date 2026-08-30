@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Eye, Star, Users, UserCheck, ArrowRight, Mail } from "lucide-react";
+import { PageHero } from "@/components/ui/page-hero";
 import { ParallaxImage } from "@/components/ui/parallax-image";
 import { agtpAssets } from "@/src/assets";
 import {
@@ -15,34 +15,21 @@ import {
 
 export default function CareersPage() {
   return (
-    <div className="space-y-0 pb-20 bg-[#0B1F33] text-white">
-      {/* ── 1. Hero Header with Parallax ───────────────────────────── */}
-      <section className="relative min-h-[85vh] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-28 pb-12">
-        <ParallaxImage
-          src={agtpAssets.careersHero}
-          alt="Careers Header"
-          overlayOpacity="opacity-50"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/90 via-[#081A2B]/60 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
-            <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-            <span>/</span>
-            <span className="text-[#F97316]">CAREERS</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-3xl leading-none drop-shadow-lg">
-            BUILD A CAREER THAT LASTS AGTP GROUP
-          </h1>
-
-          <p className="text-sm sm:text-base text-slate-200 max-w-xl leading-relaxed drop-shadow-md">
-            Join a global export team that moves vehicles — and people&apos;s careers — forward.
-          </p>
-        </div>
-      </section>
+    <div className="space-y-0 pb-20 bg-[#060709] text-white">
+      {/* ── 1. Hero Header Banner matching new design ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "CAREERS" }
+        ]}
+        badge={{
+          text: "CAREERS & TALENT OPPORTUNITIES"
+        }}
+        title="JOIN AGTP GROUP"
+        subtitle="Build a lasting career in international automotive export, supply chain operations, and global commercial trade from Dubai."
+        imageSrc={agtpAssets.careersHero}
+        imageAlt="Careers at AGTP Group"
+      />
 
       {/* ── 2. WHY AGTP GROUP — Core Values Grid ──────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
@@ -190,5 +177,3 @@ export default function CareersPage() {
     </div>
   );
 }
-
-

@@ -14,7 +14,7 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
   const otherSolutions = businessSolutions.filter((s) => s.slug !== solution.slug);
 
   return (
-    <div className="bg-[#0B1F33] pb-24 text-white">
+    <div className="bg-[#060709] pb-24 text-white">
       {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
       <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
         <ParallaxImage
@@ -64,7 +64,7 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
               </p>
               <div className="pt-4">
                 <Link
-                  href="/get-a-quote"
+                  href="/contact-us"
                   className="inline-flex h-[52px] items-center gap-3 rounded-full bg-[#F97316] px-8 text-[15px] font-black text-white transition-colors hover:bg-[#EA580C]"
                 >
                   <span>Request Quotation</span>

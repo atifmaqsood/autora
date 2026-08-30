@@ -2,8 +2,9 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight, Filter, Quote, Star, UserCheck } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 import {
   Reveal,
@@ -135,7 +136,7 @@ const reviews: CustomerReview[] = [
     flag: "🇦🇴",
     quote: "Mr. Jorge Goncalves has purchased multiple vehicles through our secure online process and many of his colleagues have also trusted us. Every shipment was successfully delivered.",
     tag: "Repeat Oil & Gas Buyer",
-    image: agtpAssets.aboutHero
+    image: agtpAssets.bmw760ArmoredCard
   },
   {
     id: 12,
@@ -145,7 +146,7 @@ const reviews: CustomerReview[] = [
     flag: "🇦🇴",
     quote: "Mr. Luis Nzau has purchased several vehicles through our secure online payment system, and many of his colleagues have also become our customers. Every shipment was successfully delivered.",
     tag: "Trusted Corporate Partner",
-    image: agtpAssets.contactHero
+    image: agtpAssets.spotlightFerrari
   },
   {
     id: 13,
@@ -155,7 +156,7 @@ const reviews: CustomerReview[] = [
     flag: "🇦🇴",
     quote: "Mr. Kennedy was referred to AGTP Group by his colleagues and completed his vehicle purchase through a secure bank transfer. We managed the entire export process to Angola.",
     tag: "Wire Transfer Order",
-    image: agtpAssets.inventoryHero
+    image: agtpAssets.aboutYard
   },
   {
     id: 14,
@@ -175,13 +176,13 @@ const reviews: CustomerReview[] = [
     flag: "🇦🇴",
     quote: "Mr. Alvaro was referred to AGTP Group by his colleagues and completed his purchase through a secure bank transfer. We managed sourcing and international shipment to Angola.",
     tag: "International Port Shipment",
-    image: agtpAssets.exportPort
+    image: agtpAssets.inventoryHero
   }
 ];
 
 const reviewStats = [
-  { value: "15+", label: "Verified Buyer Stories" },
-  { value: "1k+", label: "Vehicles & Parts Exported" },
+  { value: "11+", label: "Years in Trade" },
+  { value: "10,000+", label: "Vehicles & Parts Exported" },
   { value: "25+", label: "Countries Served Worldwide" },
   { value: "100%", label: "Verified Port Delivery" }
 ];
@@ -191,7 +192,7 @@ const countries = ["ALL", "Angola", "Congo", "Ghana"];
 export default function CustomerReviewsPage() {
   const [selectedCountry, setSelectedCountry] = useState("ALL");
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [viewMode, setViewMode] = useState<"slider" | "grid">("slider");
+  const [viewMode, setViewMode] = useState<"slider" | "grid">("grid");
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   const filteredReviews = useMemo(() => {
@@ -224,47 +225,21 @@ export default function CustomerReviewsPage() {
   };
 
   return (
-    <div className="bg-[#0B1F33] pb-24 text-white">
-      {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.aboutHero}
-          alt="Customer Reviews Header"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <RevealEyebrow>
-            <div className="flex items-center gap-2 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
-              <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-              <span>/</span>
-              <span className="text-[#F97316]">CUSTOMER REVIEWS</span>
-            </div>
-          </RevealEyebrow>
-
-          <RevealEyebrow delay={100}>
-            <div className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
-              <span className="h-px w-9 bg-[#F97316]" />
-              CLIENT TRUST & TESTIMONIALS
-            </div>
-          </RevealEyebrow>
-
-          <RevealHeading delay={150}>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-4xl leading-none drop-shadow-lg">
-              CUSTOMER REVIEWS
-            </h1>
-          </RevealHeading>
-
-          <RevealText delay={200}>
-            <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
-              Hear directly from international buyers, engineers, oil & gas professionals, and corporate partners who source vehicles through AGTP Group.
-            </p>
-          </RevealText>
-        </div>
-      </section>
+    <div className="bg-[#060709] pb-24 text-white">
+      {/* ── 1. Hero Header Banner ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "CUSTOMER REVIEWS" }
+        ]}
+        badge={{
+          text: "VERIFIED BUYERS & CLIENT FEEDBACK"
+        }}
+        title="CUSTOMER REVIEWS & STORIES"
+        subtitle="Meet customers from around the world who chose AGTP Group for their vehicles and automotive spare parts."
+        imageSrc={agtpAssets.aboutYard}
+        imageAlt="AGTP Group Customer Delivery Yard"
+      />
 
       {/* ── 2. Live Stats Section ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-16">
@@ -272,7 +247,7 @@ export default function CustomerReviewsPage() {
           <div className="grid grid-cols-2 gap-5 rounded-[20px] border border-[#315671] bg-[#102941] p-8 shadow-lg md:grid-cols-4">
             {reviewStats.map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-[38px] font-black text-[#FDBA74] md:text-[50px]">{stat.value}</div>
+                <div className="text-[36px] font-black text-[#FDBA74] md:text-[46px]">{stat.value}</div>
                 <div className="mt-1 text-[14px] font-bold text-slate-300">{stat.label}</div>
               </div>
             ))}
@@ -308,16 +283,6 @@ export default function CustomerReviewsPage() {
             <div className="flex items-center gap-3">
               <div className="flex rounded-full border border-[#315671] bg-[#0B1F33] p-1">
                 <button
-                  onClick={() => setViewMode("slider")}
-                  className={`rounded-full px-4 py-1.5 text-[12px] font-bold transition-all ${
-                    viewMode === "slider"
-                      ? "bg-[#F97316] text-white shadow-md"
-                      : "text-slate-400 hover:text-white"
-                  }`}
-                >
-                  Testimonials Slider
-                </button>
-                <button
                   onClick={() => setViewMode("grid")}
                   className={`rounded-full px-4 py-1.5 text-[12px] font-bold transition-all ${
                     viewMode === "grid"
@@ -326,6 +291,16 @@ export default function CustomerReviewsPage() {
                   }`}
                 >
                   Grid View
+                </button>
+                <button
+                  onClick={() => setViewMode("slider")}
+                  className={`rounded-full px-4 py-1.5 text-[12px] font-bold transition-all ${
+                    viewMode === "slider"
+                      ? "bg-[#F97316] text-white shadow-md"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  Slider Spotlight
                 </button>
               </div>
 
@@ -352,44 +327,130 @@ export default function CustomerReviewsPage() {
         </Reveal>
       </section>
 
-      {/* ── 4. Reviews Content (Slider vs Grid) ── */}
+      {/* ── 4. Reviews Content (Grid View by Default with Horizontal Images) ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-10">
-        {viewMode === "slider" && filteredReviews.length > 0 ? (
-          /* Testimonials Slider Spotlight */
-          <Reveal>
-            <div className="space-y-6">
-              <div className="relative overflow-hidden rounded-[28px] border border-[#F97316] bg-gradient-to-b from-[#14314B] via-[#102941] to-[#0B1F33] p-8 md:p-14 shadow-2xl transition-all duration-700">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316]" />
+        {viewMode === "grid" ? (
+          /* Grid View Mode */
+          <div>
+            <div className="mb-6 flex items-center justify-between">
+              <span className="text-[13px] font-semibold text-slate-400">
+                Showing <strong className="text-white">{filteredReviews.length}</strong> verified customer stories
+              </span>
+            </div>
 
-                <div className="flex flex-col gap-6">
-                  <div className="flex items-center justify-between border-b border-[#24445F]/80 pb-6">
-                    <div className="flex items-center gap-2 text-[#F97316]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-[#F97316]" />
-                      ))}
+            <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+              {filteredReviews.map((rev) => (
+                <div
+                  key={`${rev.id}-${rev.name}`}
+                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] p-6 sm:p-7 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:border-[#F97316] hover:shadow-orange-500/10"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div>
+                    {/* Horizontal Vehicle / Delivery Photo */}
+                    {rev.image && (
+                      <div className="relative mb-5 h-48 w-full overflow-hidden rounded-2xl border border-[#315671]/60 bg-[#0B1F33]">
+                        <Image
+                          src={rev.image}
+                          alt={`${rev.name} - ${rev.tag}`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <span className="absolute bottom-3 left-3 rounded-full bg-[#0B1F33]/90 backdrop-blur-sm border border-[#F97316]/50 px-3 py-1 text-[11px] font-black text-[#FDBA74]">
+                          {rev.tag}
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between border-b border-[#24445F]/60 pb-3">
+                      <div className="flex gap-1 text-[#F97316]">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 fill-[#F97316]" />
+                        ))}
+                      </div>
+                      <span className="flex items-center gap-1.5 rounded-full border border-[#F97316]/40 bg-[#0B1F33] px-3 py-1 text-[12px] font-black text-[#FDBA74]">
+                        <span>{rev.country}</span>
+                        <span>{rev.flag}</span>
+                      </span>
                     </div>
-                    <span className="flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33] px-4 py-1.5 text-[13px] font-black text-[#FDBA74]">
-                      <span>{filteredReviews[currentSlide].country}</span>
-                      <span>{filteredReviews[currentSlide].flag}</span>
-                    </span>
+
+                    <Quote className="mt-4 h-7 w-7 text-[#F97316]/40 group-hover:text-[#F97316] transition-colors" />
+
+                    <p className="mt-2 text-[14px] sm:text-[15px] font-medium leading-relaxed text-slate-200">
+                      &quot;{rev.quote}&quot;
+                    </p>
                   </div>
 
-                  <Quote className="h-10 w-10 text-[#F97316]/40" />
-
-                  <p className="text-[18px] font-medium leading-relaxed text-slate-100 md:text-[22px]">
-                    &quot;{filteredReviews[currentSlide].quote}&quot;
-                  </p>
-
-                  <div className="flex items-center justify-between pt-6 border-t border-[#24445F]/80">
+                  <div className="mt-6 pt-5 border-t border-[#24445F]/60 flex items-center justify-between">
                     <div>
-                      <h3 className="text-[22px] font-black text-white">
-                        {filteredReviews[currentSlide].name}
+                      <h3 className="text-[18px] font-black text-white group-hover:text-[#FDBA74] transition-colors">
+                        {rev.name}
                       </h3>
-                      <p className="text-[14px] font-semibold text-slate-400">
-                        {filteredReviews[currentSlide].role} • <span className="text-[#FDBA74]">{filteredReviews[currentSlide].tag}</span>
+                      <p className="text-[13px] font-semibold text-slate-400">
+                        {rev.role}
                       </p>
                     </div>
-                    <UserCheck className="h-8 w-8 text-[#F97316]" />
+                    <UserCheck className="h-6 w-6 text-[#F97316] shrink-0" />
+                  </div>
+                </div>
+              ))}
+            </RevealStagger>
+          </div>
+        ) : (
+          /* Slider Spotlight View Mode */
+          <Reveal>
+            <div className="space-y-6">
+              <div className="relative overflow-hidden rounded-[28px] border border-[#F97316] bg-gradient-to-b from-[#14314B] via-[#102941] to-[#0B1F33] p-8 md:p-12 shadow-2xl transition-all duration-700">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316]" />
+
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-12 items-center">
+                  {filteredReviews[currentSlide].image && (
+                    <div className="relative h-64 md:h-80 w-full overflow-hidden rounded-2xl border border-[#315671] bg-[#0B1F33] md:col-span-5">
+                      <Image
+                        src={filteredReviews[currentSlide].image}
+                        alt={filteredReviews[currentSlide].name}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      <span className="absolute bottom-4 left-4 rounded-full bg-[#0B1F33]/90 backdrop-blur-sm border border-[#F97316]/60 px-3.5 py-1 text-[12px] font-black text-[#FDBA74]">
+                        {filteredReviews[currentSlide].tag}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className={`flex flex-col gap-5 ${filteredReviews[currentSlide].image ? "md:col-span-7" : "md:col-span-12"}`}>
+                    <div className="flex items-center justify-between border-b border-[#24445F]/80 pb-4">
+                      <div className="flex items-center gap-2 text-[#F97316]">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="h-5 w-5 fill-[#F97316]" />
+                        ))}
+                      </div>
+                      <span className="flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33] px-4 py-1.5 text-[13px] font-black text-[#FDBA74]">
+                        <span>{filteredReviews[currentSlide].country}</span>
+                        <span>{filteredReviews[currentSlide].flag}</span>
+                      </span>
+                    </div>
+
+                    <Quote className="h-9 w-9 text-[#F97316]/40" />
+
+                    <p className="text-[17px] font-medium leading-relaxed text-slate-100 md:text-[20px]">
+                      &quot;{filteredReviews[currentSlide].quote}&quot;
+                    </p>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-[#24445F]/80">
+                      <div>
+                        <h3 className="text-[22px] font-black text-white">
+                          {filteredReviews[currentSlide].name}
+                        </h3>
+                        <p className="text-[14px] font-semibold text-slate-400">
+                          {filteredReviews[currentSlide].role} • <span className="text-[#FDBA74]">{filteredReviews[currentSlide].tag}</span>
+                        </p>
+                      </div>
+                      <UserCheck className="h-8 w-8 text-[#F97316]" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -412,99 +473,64 @@ export default function CustomerReviewsPage() {
               </div>
             </div>
           </Reveal>
-        ) : (
-          /* Grid View Mode */
-          <div>
-            <div className="mb-6 flex items-center justify-between">
-              <span className="text-[13px] font-semibold text-slate-400">
-                Showing <strong className="text-white">{filteredReviews.length}</strong> verified customer stories
-              </span>
-            </div>
-
-            <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-              {filteredReviews.map((rev) => (
-                <div
-                  key={`${rev.id}-${rev.name}`}
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] p-8 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:border-[#F97316] hover:shadow-orange-500/10"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316] opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                  <div>
-                    <div className="flex items-center justify-between border-b border-[#24445F]/60 pb-4">
-                      <div className="flex gap-1 text-[#F97316]">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="h-4 w-4 fill-[#F97316]" />
-                        ))}
-                      </div>
-                      <span className="flex items-center gap-1.5 rounded-full border border-[#F97316]/40 bg-[#0B1F33] px-3.5 py-1 text-[12px] font-black text-[#FDBA74]">
-                        <span>{rev.country}</span>
-                        <span>{rev.flag}</span>
-                      </span>
-                    </div>
-
-                    <Quote className="mt-5 h-8 w-8 text-[#F97316]/30 group-hover:text-[#F97316]/60 transition-colors" />
-
-                    <p className="mt-2 text-[15px] font-medium leading-relaxed text-slate-200">
-                      &quot;{rev.quote}&quot;
-                    </p>
-                  </div>
-
-                  <div className="mt-8 pt-6 border-t border-[#24445F]/60 flex items-center justify-between">
-                    <div>
-                      <h3 className="text-[19px] font-black text-white group-hover:text-[#FDBA74] transition-colors">
-                        {rev.name}
-                      </h3>
-                      <p className="text-[13px] font-semibold text-slate-400">
-                        {rev.role} • <span className="text-[#FDBA74]">{rev.tag}</span>
-                      </p>
-                    </div>
-                    <UserCheck className="h-6 w-6 text-[#F97316] shrink-0" />
-                  </div>
-                </div>
-              ))}
-            </RevealStagger>
-          </div>
         )}
       </section>
 
-      {/* ── 5. Trust & Remote Sourcing Banner ── */}
+      {/* ── 5. Immersive Hero-Style Bottom CTA Banner with Lightened Overlay & High-Contrast Buttons ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-24">
         <Reveal>
-          <div className="rounded-[24px] border border-[#315671] bg-[#102941] p-8 md:p-14 shadow-xl text-center">
-            <RevealEyebrow>
-              <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
-                <span className="h-px w-8 bg-[#F97316]" />
-                SECURE REMOTE PURCHASING
-              </div>
-            </RevealEyebrow>
+          <div className="relative overflow-hidden rounded-[32px] border border-[#315671] shadow-2xl">
+            {/* Background Image */}
+            <div className="absolute inset-0 -z-10">
+              <Image
+                src={agtpAssets.inventoryHero}
+                alt="AGTP Group Global Sourcing"
+                fill
+                className="object-cover object-center brightness-105"
+                sizes="(max-width: 1570px) 100vw, 1570px"
+              />
+              {/* Lightened soft overlay so background car image is clearly visible */}
+              <div className="absolute inset-0 bg-black/25" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-transparent to-[#0B1F33]/60" />
+            </div>
 
-            <RevealHeading>
-              <h2 className="mt-4 text-[32px] font-black text-white md:text-[46px]">
-                Buy From Dubai With Complete Peace of Mind
-              </h2>
-            </RevealHeading>
+            <div className="relative z-10 px-8 py-16 text-center sm:px-12 md:py-24 lg:py-28">
+              <RevealEyebrow>
+                <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
+                  <span className="h-px w-8 bg-[#F97316]" />
+                  TRUSTED ACROSS BORDERS
+                  <span className="h-px w-8 bg-[#F97316]" />
+                </div>
+              </RevealEyebrow>
 
-            <RevealText delay={120}>
-              <p className="mx-auto mt-4 max-w-2xl text-[16px] font-medium leading-relaxed text-slate-300">
-                Over 90% of our international clients complete their vehicle and trade sourcing orders online, relying on our inspection photos, SWIFT payment verification, and guaranteed shipment tracking.
-              </p>
-            </RevealText>
+              <RevealHeading>
+                <h2 className="mx-auto mt-4 max-w-4xl text-[34px] font-black uppercase leading-tight tracking-tight text-white sm:text-[46px] md:text-[56px] lg:text-[64px] drop-shadow-md">
+                  Buy From Dubai With Confidence
+                </h2>
+              </RevealHeading>
 
-            <RevealButton delay={180} className="mt-10 flex flex-wrap justify-center gap-4">
-              <Link
-                href="/get-a-quote"
-                className="inline-flex h-[56px] items-center gap-3 rounded-full bg-[#F97316] px-9 text-[16px] font-black text-white transition-colors hover:bg-[#EA580C] shadow-lg hover:shadow-orange-500/20"
-              >
-                <span>Start Your Order</span>
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link
-                href="/contact-us"
-                className="inline-flex h-[56px] items-center rounded-full border border-[#315671] px-9 text-[16px] font-black text-white transition-colors hover:border-[#F97316] hover:bg-[#14314B]"
-              >
-                Speak to Sales Team
-              </Link>
-            </RevealButton>
+              <RevealText delay={120}>
+                <p className="mx-auto mt-6 max-w-3xl text-[16px] font-semibold leading-relaxed text-slate-100 sm:text-[18px] drop-shadow">
+                  Customers around the world choose AGTP Group for vehicles and automotive spare parts, with clear communication, reliable service, and support throughout the purchasing process.
+                </p>
+              </RevealText>
+
+              <RevealButton delay={180} className="mt-10 flex flex-wrap justify-center gap-4">
+                <Link
+                  href="/contact-us"
+                  className="inline-flex h-[56px] items-center gap-3 rounded-full bg-[#F97316] px-10 text-[16px] font-black text-white transition-all duration-300 hover:bg-[#EA580C] shadow-xl hover:scale-105"
+                >
+                  <span>Get A Quote</span>
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+                <Link
+                  href="/vehicles"
+                  className="inline-flex h-[56px] items-center rounded-full border border-[#315671] bg-[#102941]/90 backdrop-blur-md px-10 text-[16px] font-black text-white transition-all duration-300 hover:border-[#F97316] hover:bg-[#F97316] hover:text-white hover:scale-105 shadow-xl"
+                >
+                  Explore Vehicles
+                </Link>
+              </RevealButton>
+            </div>
           </div>
         </Reveal>
       </section>

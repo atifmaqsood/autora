@@ -2,59 +2,30 @@
 
 import Link from "next/link";
 import { AlertCircle } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 import {
   Reveal,
-  RevealEyebrow,
-  RevealHeading,
-  RevealLines,
-  RevealText
+  RevealLines
 } from "@/components/ui/scroll-reveal";
 
 export default function RefundPolicyPage() {
   return (
-    <div className="bg-[#0B1F33] pb-24 text-white">
-      {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.inventoryHero}
-          alt="Refund Policy Header"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <RevealEyebrow>
-            <div className="flex items-center gap-2 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
-              <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-              <span>/</span>
-              <span className="text-[#F97316]">REFUND POLICY</span>
-            </div>
-          </RevealEyebrow>
-
-          <RevealEyebrow delay={100}>
-            <div className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
-              <span className="h-px w-9 bg-[#F97316]" />
-              COMMERCIAL TERMS & REFUNDS
-            </div>
-          </RevealEyebrow>
-
-          <RevealHeading delay={150}>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-4xl leading-none drop-shadow-lg">
-              REFUND POLICY
-            </h1>
-          </RevealHeading>
-
-          <RevealText delay={200}>
-            <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
-              Terms governing refund evaluations, eligibility, and payment processing for AGTP Group L.L.C-FZ.
-            </p>
-          </RevealText>
-        </div>
-      </section>
+    <div className="bg-[#060709] pb-24 text-white">
+      {/* ── 1. Hero Header Banner matching new design ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "REFUND POLICY" }
+        ]}
+        badge={{
+          text: "REFUND TERMS & CONDITIONS"
+        }}
+        title="REFUND POLICY"
+        subtitle="Terms governing refund evaluations, eligibility, and payment processing for AGTP Group L.L.C-FZ."
+        imageSrc={agtpAssets.aboutHero}
+        imageAlt="Refund Policy AGTP Group"
+      />
 
       {/* ── 2. Main Content Article with Line-by-Line Scroll Reveal ── */}
       <section className="mx-auto max-w-[1100px] px-6 pt-16">
@@ -124,9 +95,9 @@ export default function RefundPolicyPage() {
             <p className="mt-3">In certain cases, partial refunds may be approved after deducting:</p>
             <ul className="mt-3 list-disc pl-6 space-y-2 text-slate-200">
               <li>Administrative costs</li>
-              <li>Sourcing or inspection expenses</li>
               <li>Documentation or processing fees</li>
               <li>Shipping or logistics charges already incurred</li>
+              <li>Payment processing or transaction fees</li>
             </ul>
             <p className="mt-3 text-[14px] text-[#FDBA74]">The final refundable amount, if any, will be communicated in writing.</p>
           </RevealLines>
@@ -171,9 +142,11 @@ export default function RefundPolicyPage() {
             <div className="rounded-2xl border border-[#F97316]/40 bg-[#F97316]/10 p-6 flex items-start gap-4 text-[#FDBA74]">
               <AlertCircle className="h-7 w-7 shrink-0 text-[#F97316]" />
               <div>
-                <h4 className="text-[17px] font-black text-white">⚠️ Important Notice Regarding Destination Import Rules</h4>
+                <h4 className="text-[17px] font-black uppercase text-white">
+                  IMPORTANT NOTICE REGARDING REFUND ELIGIBILITY
+                </h4>
                 <p className="mt-1 text-[14px] leading-relaxed text-slate-300">
-                  AGTP Group does not provide guarantees related to customs clearance, import approval, or destination-country regulations. Clients are responsible for understanding local import requirements prior to placing an order.
+                  Not all orders or payments are eligible for a refund. Refund requests are reviewed according to the terms and conditions of this Refund Policy.
                 </p>
               </div>
             </div>

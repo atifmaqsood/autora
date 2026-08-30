@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Car, ChevronLeft, ChevronRight, Cog, Disc, Layers, Wrench } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 import {
   Reveal,
@@ -92,47 +92,21 @@ export default function DubaiMarketsPage() {
   };
 
   return (
-    <div className="bg-[#0B1F33] pb-24 text-white">
-      {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.inventoryHero}
-          alt="Dubai Markets Header"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <RevealEyebrow>
-            <div className="flex items-center gap-2 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
-              <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-              <span>/</span>
-              <span className="text-[#F97316]">DUBAI MARKETS</span>
-            </div>
-          </RevealEyebrow>
-
-          <RevealEyebrow delay={100}>
-            <div className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
-              <span className="h-px w-9 bg-[#F97316]" />
-              DUBAI TRADE HUB
-            </div>
-          </RevealEyebrow>
-
-          <RevealHeading delay={150}>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-4xl leading-none drop-shadow-lg">
-              DUBAI MARKETS
-            </h1>
-          </RevealHeading>
-
-          <RevealText delay={200}>
-            <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
-              Connecting international buyers with verified suppliers across Dubai&apos;s premier automotive, spare parts, and general trading hubs.
-            </p>
-          </RevealText>
-        </div>
-      </section>
+    <div className="bg-[#060709] pb-24 text-white">
+      {/* ── 1. Hero Header Banner matching new design ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "DUBAI MARKETS" }
+        ]}
+        badge={{
+          text: "DUBAI TRADE HUB — SOURCING & EXPORT"
+        }}
+        title="DUBAI EXPORT MARKETS"
+        subtitle="Connecting international buyers with verified suppliers across Dubai's premier automotive, spare parts, and general trading hubs."
+        imageSrc={agtpAssets.exportPort}
+        imageAlt="Dubai Export Trading Hub"
+      />
 
       {/* ── 2. Live Stats Bar ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-16">
@@ -276,8 +250,8 @@ export default function DubaiMarketsPage() {
 
                   <div>
                     <div className="flex items-center justify-between">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#F97316]/40 bg-[#0B1F33] text-[#FDBA74] group-hover:bg-[#F97316] group-hover:text-white transition-colors duration-300">
-                        <Icon className="h-7 w-7" />
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#315671] bg-[#0B1F33] text-[#F97316] group-hover:border-[#F97316] group-hover:bg-[#14314B] group-hover:shadow-[0_0_15px_rgba(249,115,22,0.25)] transition-all duration-300">
+                        <Icon className="h-7 w-7 stroke-[2.2] transition-transform duration-300 group-hover:scale-110" />
                       </div>
                       <span className="rounded-full border border-[#F97316]/40 bg-[#0B1F33] px-3.5 py-1 text-[11px] font-black text-[#FDBA74]">
                         Dubai Hub
@@ -307,7 +281,7 @@ export default function DubaiMarketsPage() {
       {/* ── 4. CTA Section ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-20">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-[linear-gradient(135deg,#14314B_0%,#0B1F33_100%)] p-10 md:p-16 text-center shadow-2xl">
+          <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-br from-[#14314B] to-[#0B1F33] p-10 md:p-16 text-center shadow-2xl">
             <RevealHeading>
               <h2 className="text-[36px] font-black leading-tight text-white md:text-[52px]">
                 Looking for a Specific Supplier or Product in Dubai?
@@ -320,7 +294,7 @@ export default function DubaiMarketsPage() {
             </RevealText>
             <RevealButton delay={180} className="mt-8 flex justify-center">
               <Link
-                href="/get-a-quote"
+                href="/contact-us"
                 className="inline-flex h-[56px] items-center gap-3 rounded-full bg-[#F97316] px-9 text-[16px] font-black text-white transition-colors hover:bg-[#EA580C] shadow-lg hover:shadow-orange-500/20"
               >
                 <span>Request Custom Sourcing</span>

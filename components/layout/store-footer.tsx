@@ -1,31 +1,51 @@
+"use client";
+
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import { Logo } from "./logo";
+import { Mail, MapPin, MessageCircle, Phone, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Logo } from "@/components/layout/logo";
+import { useContent } from "@/lib/content/context";
+
+const socialLinks = [
+  { icon: Facebook, href: "https://www.facebook.com/agtpgroup", label: "Facebook" },
+  { icon: Instagram, href: "https://www.instagram.com/agtpgroup/", label: "Instagram" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/agtp-group-l-l-c/", label: "LinkedIn" },
+  { icon: MessageCircle, href: "https://wa.me/971585855729", label: "WhatsApp" },
+  { icon: Mail, href: "mailto:inquiries@agtpgroup.com", label: "Email" }
+];
 
 export function StoreFooter() {
+  const { content } = useContent();
+  const site = content?.site || {};
+  const primaryColor = site.primaryColor || "#0B1F33";
+  const brandName = site.brandName || "AGTP GROUP";
+  const supportEmail = site.supportEmail || "inquiries@agtpgroup.com";
+  const supportPhone = site.supportPhone || "+971 58 58 55729";
+  const defaultLocation =
+    site.defaultLocation ||
+    "Meydan Grandstand, 6th Floor, Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates";
+
   return (
-    <footer className="relative overflow-hidden border-t border-[#24445F] bg-[#102941] pt-16 text-slate-400">
-      <div className="mx-auto max-w-[1720px] px-6 pb-6 pt-14 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-[1.1fr_0.75fr_0.9fr_0.9fr_1.1fr] xl:gap-x-14">
-          <div className="-mt-5 space-y-6">
+    <footer
+      className="border-t border-[#24445F] bg-[#071626] text-slate-300 transition-colors duration-300"
+      style={{ backgroundColor: primaryColor }}
+    >
+      <div className="mx-auto max-w-[1570px] px-6 py-20">
+        <div className="grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-5">
+          <div className="space-y-6 lg:col-span-1">
             <Logo />
-            <p className="text-[15px] font-semibold text-[#FDBA74]">Dubai to Worldwide</p>
-            <p className="max-w-sm text-[17px] font-medium leading-[1.45] text-slate-400">
-              Your trusted global partner for seamless import/export, offering reliable sourcing,
-              competitive pricing, and efficient logistics.
+            <p className="text-[15px] font-medium leading-[1.6] text-slate-400">
+              {brandName} is a premier trading and export powerhouse delivering commercial and private vehicles, automotive spare parts, and specialized heavy machinery worldwide.
             </p>
-            <div className="flex items-center gap-4 pt-2">
-              {[
-                { label: "LinkedIn", icon: Linkedin },
-                { label: "Instagram", icon: Instagram },
-                { label: "WhatsApp", icon: MessageCircle },
-                { label: "Facebook", icon: Facebook }
-              ].map((item) => (
+            <div className="flex flex-wrap gap-2 pt-2">
+              {socialLinks.map((item) => (
                 <a
                   key={item.label}
-                  href="#"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex h-11 w-11 items-center justify-center rounded-[12px] border border-[#315671] text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
                   aria-label={item.label}
+                  title={item.label}
                 >
                   <item.icon className="h-5 w-5" />
                 </a>
@@ -50,8 +70,8 @@ export function StoreFooter() {
               ["Dubai Markets", "/dubai-markets"],
               ["Customer Reviews", "/customer-reviews"],
               ["Payment", "/payment"],
-              ["Get A Quote", "/get-a-quote"],
-              ["Blogs & Articles", "/blogs"]
+              ["Blogs & Articles", "/blogs"],
+              ["Careers", "/careers"]
             ]}
           />
 
@@ -66,14 +86,33 @@ export function StoreFooter() {
 
           <div className="space-y-6">
             <h4 className="text-[14px] font-black tracking-[0.24em] text-slate-500">GET IN TOUCH</h4>
-            <ul className="space-y-6 text-[17px] font-medium leading-[1.45]">
-              <li className="flex items-start gap-5">
+            <ul className="space-y-4 text-[16px] font-medium leading-[1.45]">
+              <li className="flex items-start gap-4">
                 <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#FDBA74]" />
-                <span>Meydan Grandstand, 6th Floor, Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates</span>
+                <span>{defaultLocation}</span>
               </li>
-              <li className="flex items-center gap-5">
+              <li className="flex items-center gap-4">
                 <Phone className="h-5 w-5 shrink-0 text-[#FDBA74]" />
-                <span>+971 58 58 55729</span>
+                <a href={`tel:${supportPhone.replace(/\s+/g, "")}`} className="transition-colors hover:text-white">
+                  {supportPhone}
+                </a>
+              </li>
+              <li className="flex items-center gap-4">
+                <MessageCircle className="h-5 w-5 shrink-0 text-emerald-400" />
+                <a
+                  href={`https://wa.me/${supportPhone.replace(/[^0-9]/g, "") || "971585855729"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-emerald-400"
+                >
+                  WhatsApp: {supportPhone}
+                </a>
+              </li>
+              <li className="flex items-center gap-4">
+                <Mail className="h-5 w-5 shrink-0 text-[#FDBA74]" />
+                <a href={`mailto:${supportEmail}`} className="transition-colors hover:text-white">
+                  {supportEmail}
+                </a>
               </li>
             </ul>
           </div>
@@ -81,12 +120,12 @@ export function StoreFooter() {
 
         <div className="pointer-events-none mt-20 select-none overflow-hidden text-center">
           <span className="inline-block text-[12.5vw] font-black uppercase leading-none tracking-normal text-transparent opacity-80 footer-watermark">
-            AGTP GROUP
+            {brandName}
           </span>
         </div>
 
         <div className="mt-8 flex flex-col gap-4 border-t border-[#24445F] pt-8 text-[15px] font-semibold text-slate-300 md:flex-row md:items-center md:justify-between">
-          <span>AGTP Group LLC | All rights reserved</span>
+          <span>{brandName} LLC | All rights reserved</span>
           <div className="flex flex-wrap gap-4">
             <Link href="/privacy-policy" className="transition-colors hover:text-white">
               Privacy Policy
@@ -108,7 +147,7 @@ function FooterColumn({ title, links }: { title: string; links: [string, string]
       <h4 className="text-[14px] font-black tracking-[0.24em] text-slate-500">{title}</h4>
       <ul className="space-y-5 text-[17px] font-medium">
         {links.map(([label, href]) => (
-          <li key={label}>
+          <li key={`${label}-${href}`}>
             <Link href={href} className="transition-colors hover:text-white">
               {label}
             </Link>
@@ -118,5 +157,3 @@ function FooterColumn({ title, links }: { title: string; links: [string, string]
     </div>
   );
 }
-
-

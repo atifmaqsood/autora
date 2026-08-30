@@ -2,46 +2,28 @@
 
 import Link from "next/link";
 import { ArrowRight, BadgeCheck } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { PageHero } from "@/components/ui/page-hero";
 import { Reveal, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from "@/components/ui/scroll-reveal";
 import { agtpBrandGroups, agtpProductGroups } from "@/lib/agtp/content";
 import { agtpAssets } from "@/src/assets";
 
 export default function BrandsPage() {
   return (
-    <div className="bg-[#0B1F33] pb-20 text-white">
-      {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.sparePartsHero}
-          alt="Genuine Auto Spare Parts"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="flex items-center gap-2 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
-            <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-            <span>/</span>
-            <span className="text-[#F97316]">BRANDS</span>
-          </div>
-
-          <div className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
-            <span className="h-px w-9 bg-[#F97316]" />
-            Genuine Auto Spare Parts
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-5xl leading-none drop-shadow-lg">
-            GENUINE AUTO SPARE PARTS
-          </h1>
-
-          <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
-            AGTP Group Wholesale Suppliers in Dubai and the UAE for Japanese, European, American, and Korean auto spare parts.
-          </p>
-        </div>
-      </section>
+    <div className="bg-[#060709] pb-20 text-white">
+      {/* ── 1. Hero Header Banner matching new design ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "BRANDS" }
+        ]}
+        badge={{
+          text: "OFFICIAL OEM & AFTERMARKET BRANDS"
+        }}
+        title="GLOBAL AUTOMOTIVE BRANDS"
+        subtitle="AGTP Group wholesale sourcing in Dubai and the UAE for Japanese, European, American, and Korean vehicles and auto spare parts."
+        imageSrc={agtpAssets.inventoryHero}
+        imageAlt="Global Automotive Brands"
+      />
 
       {/* ── 2. Brand Groups Grid ── */}
       <section className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">

@@ -3,15 +3,16 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calendar, Filter, Send, Tag } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
+import { ArrowRight, Calendar, Filter, Send } from "lucide-react";
+import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 import {
   RevealHeading,
   RevealText,
   RevealButton,
   RevealEyebrow,
-  RevealStagger
+  RevealStagger,
+  Reveal
 } from "@/components/ui/scroll-reveal";
 
 interface BlogPost {
@@ -239,65 +240,49 @@ export default function BlogsPage() {
   }, [activeCategory]);
 
   return (
-    <div className="bg-[#0B1F33] pb-24 text-white">
-      {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
-      <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.blogsHero}
-          alt="Blogs & Articles Header"
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
-
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="flex items-center gap-2 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
-            <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-            <span>/</span>
-            <span className="text-[#F97316]">BLOGS & ARTICLES</span>
-          </div>
-
-          <div className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
-            <span className="h-px w-9 bg-[#F97316]" />
-            AGTP Insights & Trade News
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-4xl leading-none drop-shadow-lg">
-            BLOGS & ARTICLES
-          </h1>
-
-          <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
-            Practical knowledge on global trade, vehicle import procedures, supplier verification, and supply chain logistics.
-          </p>
-        </div>
-      </section>
+    <div className="bg-[#060709] pb-24 text-white">
+      {/* ── 1. Hero Header Banner ── */}
+      <PageHero
+        breadcrumbs={[
+          { label: "HOME", href: "/" },
+          { label: "BLOGS & ARTICLES" }
+        ]}
+        badge={{
+          text: "AGTP INSIGHTS & TRADE NEWS"
+        }}
+        title="AUTOMOTIVE INSIGHTS & GUIDES"
+        subtitle="Practical insights on vehicles, automotive spare parts, maintenance, exports, and buying from the UAE."
+        imageSrc={agtpAssets.blogsHero}
+        imageAlt="AGTP Group Automotive Insights and Guides"
+      />
 
       {/* ── 2. Category Filter Bar ── */}
-      <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap items-center gap-2.5 rounded-2xl border border-[#315671] bg-[#102941] p-4 shadow-xl">
-          <span className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74] mr-2">
-            <Filter className="h-4 w-4 text-[#F97316]" />
-            Filter By Category:
-          </span>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`rounded-full px-4 py-2 text-[12px] font-black transition-all ${
-                activeCategory.toLowerCase() === cat.toLowerCase()
-                  ? "bg-[#F97316] text-white shadow-md"
-                  : "border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-white"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+      <section className="mx-auto max-w-[1570px] px-6 pt-12">
+        <Reveal>
+          <div className="flex flex-wrap items-center gap-2.5 rounded-2xl border border-[#315671] bg-[#102941] p-4 shadow-xl">
+            <span className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74] mr-2">
+              <Filter className="h-4 w-4 text-[#F97316]" />
+              Filter By Category:
+            </span>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`rounded-full px-4 py-2 text-[12px] font-black transition-all ${
+                  activeCategory.toLowerCase() === cat.toLowerCase()
+                    ? "bg-[#F97316] text-white shadow-md"
+                    : "border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-white"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </Reveal>
       </section>
 
       {/* ── 3. Blog Posts Grid ── */}
-      <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1570px] px-6 pt-12">
         <div className="mb-6 flex items-center justify-between">
           <span className="text-[13px] font-semibold text-slate-400">
             Showing <strong className="text-white">{filteredPosts.length}</strong> articles
@@ -351,62 +336,79 @@ export default function BlogsPage() {
         </RevealStagger>
       </section>
 
-      {/* ── 4. Newsletter Banner ── */}
-      <section className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[28px] border border-[#315671] bg-[#102941] p-10 md:p-16 text-center shadow-2xl">
-          <div className="relative z-20 max-w-2xl mx-auto space-y-6">
-            <RevealEyebrow>
-              <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#F97316] uppercase tracking-widest">
-                <span className="w-6 h-[1.5px] bg-[#F97316]" />
-                STAY IN THE LOOP
-              </div>
-            </RevealEyebrow>
+      {/* ── 4. Immersive Hero-Style Newsletter Banner matching design reference ── */}
+      <section className="mx-auto max-w-[1570px] px-6 pt-24">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[32px] border border-[#315671] shadow-2xl">
+            {/* Background Image */}
+            <div className="absolute inset-0 -z-10">
+              <Image
+                src={agtpAssets.exportPort}
+                alt="AGTP Group Export Insights"
+                fill
+                className="object-cover object-center brightness-105"
+                sizes="(max-width: 1570px) 100vw, 1570px"
+              />
+              {/* Soft modern overlay for readability */}
+              <div className="absolute inset-0 bg-black/35" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#0B1F33]/85 via-[#0B1F33]/70 to-[#0B1F33]/90" />
+            </div>
 
-            <RevealHeading>
-              <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight font-sans">
-                GET THE LATEST INSIGHTS, STRAIGHT IN YOUR INBOX
-              </h2>
-            </RevealHeading>
-
-            <RevealText delay={120}>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Monthly trade insights on shipping, vehicle export rules, and market demand.
-              </p>
-            </RevealText>
-
-            <RevealButton delay={180}>
-              {subscribed ? (
-                <div className="bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 p-4 rounded-2xl text-xs font-bold">
-                  Thank you for subscribing to AGTP GROUP Export Insights!
+            <div className="relative z-10 px-8 py-16 text-center sm:px-12 md:py-24 lg:py-28">
+              <RevealEyebrow>
+                <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
+                  <span className="h-px w-8 bg-[#F97316]" />
+                  STAY UPDATED
+                  <span className="h-px w-8 bg-[#F97316]" />
                 </div>
-              ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (email) setSubscribed(true);
-                  }}
-                  className="flex flex-col sm:flex-row items-center gap-3 pt-2 max-w-md mx-auto"
-                >
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@company.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-[#0B1F33] border border-[#315671] text-xs text-white placeholder-slate-500 px-5 py-3.5 rounded-full focus:outline-none focus:border-[#F97316] font-medium"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full sm:w-auto bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-8 py-3.5 rounded-full shadow-lg transition-all shrink-0 flex items-center justify-center gap-2"
+              </RevealEyebrow>
+
+              <RevealHeading>
+                <h2 className="mx-auto mt-4 max-w-4xl text-[34px] font-black uppercase leading-tight tracking-tight text-white sm:text-[46px] md:text-[56px] lg:text-[62px] drop-shadow-md">
+                  GET THE LATEST AUTOMOTIVE INSIGHTS
+                </h2>
+              </RevealHeading>
+
+              <RevealText delay={120}>
+                <p className="mx-auto mt-6 max-w-2xl text-[16px] font-semibold leading-relaxed text-slate-100 sm:text-[18px] drop-shadow">
+                  Get useful updates on vehicles, spare parts, automotive trends, and export information from AGTP Group.
+                </p>
+              </RevealText>
+
+              <RevealButton delay={180} className="mt-10 max-w-xl mx-auto">
+                {subscribed ? (
+                  <div className="rounded-full border border-emerald-500/50 bg-[#0B1F33]/90 backdrop-blur-md px-8 py-4 text-[14px] font-bold text-emerald-400 shadow-xl">
+                    ✓ Thank you for subscribing to AGTP Group Automotive Insights!
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (email) setSubscribed(true);
+                    }}
+                    className="flex flex-col sm:flex-row items-center gap-3"
                   >
-                    <span>Subscribe</span>
-                    <Send className="w-3.5 h-3.5" />
-                  </button>
-                </form>
-              )}
-            </RevealButton>
+                    <input
+                      type="email"
+                      required
+                      placeholder="you@company.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full h-[56px] rounded-full border border-[#315671] bg-[#0B1F33]/90 backdrop-blur-md px-6 text-[15px] font-medium text-white placeholder-slate-400 outline-none focus:border-[#F97316] shadow-lg transition-all"
+                    />
+                    <button
+                      type="submit"
+                      className="h-[56px] w-full sm:w-auto shrink-0 rounded-full bg-[#F97316] px-10 text-[16px] font-black text-white transition-all duration-300 hover:bg-[#EA580C] shadow-xl hover:scale-105 flex items-center justify-center gap-2"
+                    >
+                      <span>Subscribe</span>
+                      <Send className="h-4 w-4" />
+                    </button>
+                  </form>
+                )}
+              </RevealButton>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </div>
   );

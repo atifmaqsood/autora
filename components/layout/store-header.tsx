@@ -6,9 +6,15 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, ChevronDown, Linkedin, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { Logo } from "./logo";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
+import { useContent } from "@/lib/content/context";
 
 export function StoreHeader() {
   const pathname = usePathname();
+  const { content } = useContent();
+  const site = content?.site || {};
+  const supportPhone = site.supportPhone || "+971 58 58 55729";
+  const defaultLocation = site.defaultLocation || "Meydan Road, Dubai";
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -44,10 +50,10 @@ export function StoreHeader() {
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-50">
-        <div className="hidden h-[46px] border-b border-white/5 bg-[#222831]/95 px-4 text-[14px] font-extrabold text-white xl:block">
+        <div className="hidden h-[46px] border-b border-white/5 bg-[#0B1F33] px-4 text-[14px] font-extrabold text-white xl:block">
           <div className="mx-auto flex h-full max-w-[1300px] items-center justify-end gap-7">
             <a
-              href="https://wa.me/971585855729"
+              href={`https://wa.me/${supportPhone.replace(/[^0-9]/g, "") || "971585855729"}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 transition-colors hover:text-emerald-400"
@@ -56,7 +62,7 @@ export function StoreHeader() {
               <span>WhatsApp</span>
             </a>
             <a
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/company/agtp-group-l-l-c/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 transition-colors hover:text-sky-400"
@@ -64,13 +70,13 @@ export function StoreHeader() {
               <Linkedin className="h-4 w-4 text-sky-400" />
               <span>LinkedIn</span>
             </a>
-            <a href="tel:+971585855729" className="flex items-center gap-3 transition-colors hover:text-white">
-              <Phone className="h-4 w-4" />
-              <span>Contact Us: +971 58 58 55729</span>
+            <a href={`tel:${supportPhone.replace(/\s+/g, "")}`} className="flex items-center gap-3 transition-colors hover:text-white">
+              <Phone className="h-4 w-4 text-[#FDBA74]" />
+              <span>Contact Us: {supportPhone}</span>
             </a>
-            <a href="tel:+971585855729" className="flex items-center gap-3 transition-colors hover:text-white">
-              <Phone className="h-4 w-4" />
-              <span>Head Office: Meydan Road, Dubai</span>
+            <a href={`tel:${supportPhone.replace(/\s+/g, "")}`} className="flex items-center gap-3 transition-colors hover:text-white">
+              <Phone className="h-4 w-4 text-[#FDBA74]" />
+              <span>Head Office: {defaultLocation}</span>
             </a>
           </div>
         </div>
@@ -78,7 +84,7 @@ export function StoreHeader() {
         <header
           className={`transition-all duration-500 ${
             scrolled
-              ? "border-b border-[#24445F] bg-[#0a0f1c]/95 shadow-2xl backdrop-blur-md"
+              ? "border-b border-[#24445F] bg-[#0B1F33]/95 shadow-2xl backdrop-blur-md"
               : "border-b border-transparent bg-transparent"
           }`}
         >
@@ -103,13 +109,13 @@ export function StoreHeader() {
                       {active && <span className="absolute bottom-0 left-1 h-1.5 w-1.5 rounded-full bg-[#F97316]" />}
                     </Link>
                     {link.children && (
-                      <div className="invisible absolute left-1/2 top-[calc(100%+18px)] z-[70] w-[315px] -translate-x-1/2 translate-y-3 rounded-[18px] border border-[#3D6480] bg-[#080d18] p-3 opacity-0 shadow-[0_24px_70px_rgba(0,0,0,0.55)] ring-1 ring-white/5 backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                        <div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-[#3D6480] bg-[#080d18]" />
+                      <div className="invisible absolute left-1/2 top-[calc(100%+18px)] z-[70] w-[315px] -translate-x-1/2 translate-y-3 rounded-[18px] border border-[#3D6480] bg-[#0B1F33] p-3 opacity-0 shadow-[0_24px_70px_rgba(0,0,0,0.55)] ring-1 ring-white/5 backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                        <div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-[#3D6480] bg-[#0B1F33]" />
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="relative z-10 block rounded-[12px] px-4 py-3 text-[13px] font-extrabold text-slate-300 transition-colors hover:bg-[#18213a] hover:text-white"
+                            className="relative z-10 block rounded-[12px] px-4 py-3 text-[13px] font-extrabold text-slate-300 transition-colors hover:bg-[#14314B] hover:text-white"
                           >
                             {child.name}
                           </Link>
@@ -158,8 +164,8 @@ export function StoreHeader() {
                       href={link.href}
                       className={`block rounded-xl px-4 py-2.5 text-base font-semibold transition-colors ${
                         isActive(link.href)
-                          ? "bg-slate-800 text-[#FDBA74]"
-                          : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                          ? "bg-[#14314B] text-[#FDBA74]"
+                          : "text-slate-300 hover:bg-[#14314B] hover:text-white"
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -171,7 +177,7 @@ export function StoreHeader() {
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 hover:bg-slate-900 hover:text-white"
+                            className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-400 hover:bg-[#14314B] hover:text-white"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             {child.name}
@@ -191,5 +197,3 @@ export function StoreHeader() {
     </>
   );
 }
-
-
