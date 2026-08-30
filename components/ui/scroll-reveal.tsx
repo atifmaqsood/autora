@@ -10,8 +10,8 @@ interface UseInViewOptions {
 }
 
 export function useInView({
-  threshold = 0.15,
-  rootMargin = "0px 0px -40px 0px",
+  threshold = 0.05,
+  rootMargin = "0px 0px 80px 0px",
   triggerOnce = true
 }: UseInViewOptions = {}) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -21,14 +21,28 @@ export function useInView({
     const el = ref.current;
     if (!el) return;
 
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (typeof window !== "undefined") {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setIsInView(true);
+        return;
+      }
+
+      // If already in or above viewport on mount, make visible immediately
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        setIsInView(true);
+        if (triggerOnce) return;
+      }
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
       setIsInView(true);
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting || entry.intersectionRatio > 0) {
           setIsInView(true);
           if (triggerOnce) {
             observer.unobserve(entry.target);
@@ -37,7 +51,7 @@ export function useInView({
           setIsInView(false);
         }
       },
-      { threshold, rootMargin }
+      { threshold: Math.min(threshold, 0.05), rootMargin }
     );
 
     observer.observe(el);
@@ -96,7 +110,7 @@ export function Reveal({
   return (
     <Component
       ref={ref}
-      className={cn("transition-all soft-rise", className)}
+      className={cn("transition-all duration-700 ease-out", className)}
       style={{
         opacity: isInView ? 1 : 0,
         transform: getTransform(),
@@ -244,24 +258,25 @@ interface RevealStaggerProps extends React.HTMLAttributes<HTMLDivElement> {
 export function RevealStagger({
   children,
   className,
-  staggerDelay = 80,
+  staggerDelay = 60,
   baseDelay = 0,
   ...props
 }: RevealStaggerProps) {
-  const { ref, isInView } = useInView({ triggerOnce: true });
+  const { ref, isInView } = useInView({ threshold: 0.01, rootMargin: "0px 0px 80px 0px", triggerOnce: true });
 
   return (
     <div ref={ref} className={className} {...props}>
       {React.Children.map(children, (child, idx) => {
         if (!React.isValidElement(child)) return child;
-        const itemDelay = baseDelay + idx * staggerDelay;
+        // Stagger per row (max 300ms) so items far down don't wait seconds
+        const itemDelay = baseDelay + Math.min((idx % 6) * staggerDelay, 300);
 
         return (
           <div
-            className="transition-all soft-rise duration-700"
+            className="transition-all duration-600 ease-out"
             style={{
               opacity: isInView ? 1 : 0,
-              transform: isInView ? "translateY(0px)" : "translateY(25px)",
+              transform: isInView ? "translateY(0px)" : "translateY(20px)",
               transitionDelay: `${itemDelay}ms`,
               willChange: "opacity, transform"
             }}
