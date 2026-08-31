@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, HelpCircle, Mail, MessageCircle, Phone, Search } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
+import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { Reveal, RevealButton, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from "@/components/ui/scroll-reveal";
 import { agtpAssets } from "@/src/assets";
 
@@ -104,6 +105,7 @@ export default function FaqsPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState("All Questions");
   const [searchQuery, setSearchQuery] = useState("");
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -272,17 +274,23 @@ export default function FaqsPage() {
             </div>
 
             <RevealButton delay={180} className="pt-4 flex justify-center">
-              <Link
-                href="/contact-us"
+              <button
+                type="button"
+                onClick={() => setInquiryModalOpen(true)}
                 className="inline-flex h-[56px] items-center gap-3 rounded-full bg-[#F97316] px-9 text-[16px] font-black text-white transition-colors hover:bg-[#EA580C] shadow-lg hover:shadow-orange-500/20"
               >
                 <span>Get a Quote</span>
                 <ArrowRight className="h-5 w-5" />
-              </Link>
+              </button>
             </RevealButton>
           </div>
         </Reveal>
       </section>
+
+      <VehicleInquiryModal
+        isOpen={inquiryModalOpen}
+        onClose={() => setInquiryModalOpen(false)}
+      />
     </div>
   );
 }

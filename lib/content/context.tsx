@@ -24,9 +24,27 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   const [content, setContent] = useState<ShowcaseContent>(defaultContent);
   const [isDirty, setIsDirty] = useState(false);
 
-  // Hydrate from localStorage on mount
+  // Hydrate from localStorage first, then sync from server API
   useEffect(() => {
-    setContent(getShowcaseContent());
+    // 1. Instant local cache load
+    const cached = getShowcaseContent();
+    setContent(cached);
+
+    // 2. Fetch server-persisted content so changes made from any laptop/device appear immediately
+    fetch("/api/content")
+      .then((res) => {
+        if (res.ok) return res.json();
+        return null;
+      })
+      .then((serverData) => {
+        if (serverData && serverData.site) {
+          setContent(serverData);
+          saveShowcaseContent(serverData);
+        }
+      })
+      .catch((err) => {
+        console.warn("Could not sync content from server:", err);
+      });
   }, []);
 
   useEffect(() => {
@@ -52,6 +70,16 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     setContent((prev) => {
       const next = { ...prev, ...patch };
       saveShowcaseContent(next);
+
+      // Persist to server so any other laptop/pc gets the updated colors & content
+      fetch("/api/content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(patch)
+      }).catch((err) => {
+        console.error("Failed to persist content to server:", err);
+      });
+
       return next;
     });
     setIsDirty(true);
@@ -61,6 +89,13 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     saveShowcaseContent(defaultContent);
     setContent(defaultContent);
     setIsDirty(false);
+    fetch("/api/content", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(defaultContent)
+    }).catch((err) => {
+      console.error("Failed to reset content on server:", err);
+    });
   }, []);
 
   return (
@@ -75,5 +110,3 @@ export function useContent(): ContentContextValue {
   if (!ctx) throw new Error("useContent must be used within <ContentProvider>");
   return ctx;
 }
-
-

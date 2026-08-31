@@ -213,29 +213,6 @@ const brandLogoSrc: Record<string, string> = {
 
 
 
-const expertiseVehicleCards = [
-  {
-    title: "Changan X5 Plus 1.5L 2026 | Full Option - Export Only",
-    meta: ["0 Miles", "Petrol", "Automatic"],
-    image: agtpAssets.bydDestroyerCard
-  },
-  {
-    title: "Toyota Sequoia TRD Pro 2025 - Export Only",
-    meta: ["0 Miles", "Hybrid", "Automatic"],
-    image: agtpAssets.cadillacEscaladeCard
-  },
-  {
-    title: "Toyota RAV4 HEV XLE - G 2025 - Export Only",
-    meta: ["0 Miles", "Hybrid", "Automatic"],
-    image: agtpAssets.bmwX2Card
-  },
-  {
-    title: "Toyota Sequoia 1794 Edition Hybrid 2025 - Export Only",
-    meta: ["0 Miles", "Hybrid", "Automatic"],
-    image: agtpAssets.suvs
-  }
-];
-
 export default function HomePage() {
   const allVehicles = getAllVehicles();
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
@@ -268,8 +245,6 @@ export default function HomePage() {
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}
       />
-
-      <ExpertiseVehiclesSection />
 
       <IndustriesSection />
 
@@ -338,7 +313,7 @@ function SectionEyebrow({ children, center = false }: { children: React.ReactNod
   return (
     <RevealEyebrow>
       <div className={`flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.28em] text-[#FDBA74] ${center ? "justify-center" : ""}`}>
-        <span className="h-px w-8 bg-[#F97316]" />
+        <span style={{ backgroundColor: "var(--agtp-secondary)" }} className="h-px w-8" />
         {children}
       </div>
     </RevealEyebrow>
@@ -418,52 +393,6 @@ function HeroStatsSection() {
             </div>
           );
         })}
-      </RevealStagger>
-    </section>
-  );
-}
-
-function ExpertiseVehiclesSection() {
-  return (
-    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px]">
-      <div className="text-center">
-        <SectionEyebrow center>AREAS OF EXPERTISE</SectionEyebrow>
-        <RevealHeading>
-          <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
-            Automotive Vehicles
-          </h2>
-        </RevealHeading>
-        <RevealButton>
-          <Link href="/vehicles" className="mt-7 inline-flex h-[48px] items-center rounded-full border border-[#F97316] px-7 text-[14px] font-black text-white transition-colors hover:bg-[#F97316]">
-            View More
-          </Link>
-        </RevealButton>
-      </div>
-
-      <RevealStagger staggerDelay={80} className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {expertiseVehicleCards.map((vehicle) => (
-          <Link key={vehicle.title} href="/vehicles" className="group overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] shadow-lg">
-            <div className="relative aspect-[1024/575] overflow-hidden bg-white">
-              <Image src={vehicle.image} alt={vehicle.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 25vw" />
-            </div>
-            <div className="p-6">
-              <h3 className="line-clamp-2 min-h-[48px] text-[18px] font-black leading-tight text-white transition-colors group-hover:text-[#FDBA74]">
-                {vehicle.title}
-              </h3>
-              <div className="mt-5 h-px bg-[#315671]" />
-              <div className="mt-5 grid grid-cols-3 gap-3 text-center text-[12px] font-semibold text-slate-400">
-                {vehicle.meta.map((item) => (
-                  <span key={item} className="rounded-[10px] border border-[#315671] bg-[#0B1F33] px-2 py-2">
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <span className="mt-5 inline-flex text-[13px] font-black text-white transition-colors group-hover:text-[#FDBA74]">
-                View Details
-              </span>
-            </div>
-          </Link>
-        ))}
       </RevealStagger>
     </section>
   );
@@ -647,7 +576,11 @@ function DubaiMarketsSection() {
           </h2>
         </RevealHeading>
         <RevealButton>
-          <Link href="/brands" className="mt-7 inline-flex h-[48px] items-center rounded-full border border-[#F97316] px-7 text-[14px] font-black text-white transition-colors hover:bg-[#F97316]">
+          <Link
+            href="/brands"
+            style={{ borderColor: "var(--agtp-secondary)" }}
+            className="mt-7 inline-flex h-[48px] items-center rounded-full border px-7 text-[14px] font-black text-white transition-colors hover:bg-[var(--agtp-secondary)]"
+          >
             View More
           </Link>
         </RevealButton>
@@ -668,7 +601,11 @@ function DubaiMarketsSection() {
                 <span>{supplier.experience}</span>
                 <span>{supplier.countries}</span>
               </div>
-              <Link href="/brands" className="mt-6 flex h-[46px] items-center justify-center rounded-full border border-[#F97316]/45 text-[13px] font-black text-white transition-colors hover:bg-[#F97316]">
+              <Link
+                href="/brands"
+                style={{ borderColor: "color-mix(in srgb, var(--agtp-secondary) 50%, transparent)" }}
+                className="mt-6 flex h-[46px] items-center justify-center rounded-full border text-[13px] font-black text-white transition-colors hover:bg-[var(--agtp-secondary)] hover:border-[var(--agtp-secondary)]"
+              >
                 View Supplier Profile
               </Link>
             </div>

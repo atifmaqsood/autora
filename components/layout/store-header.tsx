@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, ChevronDown, Linkedin, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { Logo } from "./logo";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { useContent } from "@/lib/content/context";
@@ -13,7 +13,8 @@ export function StoreHeader() {
   const { content } = useContent();
   const site = content?.site || {};
   const supportPhone = site.supportPhone || "+971 58 58 55729";
-  const defaultLocation = site.defaultLocation || "Meydan Road, Dubai";
+  const supportEmail = site.supportEmail || "inquiries@agtpgroup.com";
+  const defaultLocation = "Meydan Grandstand, Dubai";
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
@@ -53,31 +54,23 @@ export function StoreHeader() {
         <div className="hidden h-[46px] border-b border-white/5 bg-[#0B1F33] px-4 text-[14px] font-extrabold text-white xl:block">
           <div className="mx-auto flex h-full max-w-[1300px] items-center justify-end gap-7">
             <a
-              href={`https://wa.me/${supportPhone.replace(/[^0-9]/g, "") || "971585855729"}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 transition-colors hover:text-emerald-400"
+              href={`mailto:${supportEmail}`}
+              className="flex items-center gap-2.5 transition-colors hover:text-white"
             >
-              <MessageCircle className="h-4 w-4 text-emerald-400" />
-              <span>WhatsApp</span>
+              <Mail className="h-4 w-4 text-[#FDBA74]" />
+              <span>{supportEmail}</span>
             </a>
             <a
-              href="https://www.linkedin.com/company/agtp-group-l-l-c/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 transition-colors hover:text-sky-400"
+              href={`tel:${supportPhone.replace(/\s+/g, "")}`}
+              className="flex items-center gap-2.5 transition-colors hover:text-white"
             >
-              <Linkedin className="h-4 w-4 text-sky-400" />
-              <span>LinkedIn</span>
-            </a>
-            <a href={`tel:${supportPhone.replace(/\s+/g, "")}`} className="flex items-center gap-3 transition-colors hover:text-white">
               <Phone className="h-4 w-4 text-[#FDBA74]" />
-              <span>Contact Us: {supportPhone}</span>
+              <span>HotLine: {supportPhone}</span>
             </a>
-            <a href={`tel:${supportPhone.replace(/\s+/g, "")}`} className="flex items-center gap-3 transition-colors hover:text-white">
-              <Phone className="h-4 w-4 text-[#FDBA74]" />
+            <div className="flex items-center gap-2.5 text-slate-200">
+              <MapPin className="h-4 w-4 text-[#FDBA74]" />
               <span>Head Office: {defaultLocation}</span>
-            </a>
+            </div>
           </div>
         </div>
 

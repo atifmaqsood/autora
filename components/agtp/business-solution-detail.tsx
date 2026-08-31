@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Globe2, ShieldCheck } from "lucide-react";
@@ -7,10 +8,12 @@ import { ParallaxImage } from "@/components/ui/parallax-image";
 import { Reveal, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from "@/components/ui/scroll-reveal";
 import { businessSolutions } from "@/lib/agtp/content";
 import { agtpAssets } from "@/src/assets";
+import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 
 type BusinessSolution = (typeof businessSolutions)[number];
 
 export function BusinessSolutionDetail({ solution }: { solution: BusinessSolution }) {
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const otherSolutions = businessSolutions.filter((s) => s.slug !== solution.slug);
 
   return (
@@ -63,13 +66,14 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
                 AGTP Group acts as your trusted global partner for seamless import/export, offering verified supplier sourcing, competitive pricing, and efficient logistics support.
               </p>
               <div className="pt-4">
-                <Link
-                  href="/contact-us"
+                <button
+                  type="button"
+                  onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[52px] items-center gap-3 rounded-full bg-[#F97316] px-8 text-[15px] font-black text-white transition-colors hover:bg-[#EA580C]"
                 >
                   <span>Request Quotation</span>
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -128,6 +132,11 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
           ))}
         </RevealStagger>
       </section>
+
+      <VehicleInquiryModal
+        isOpen={inquiryModalOpen}
+        onClose={() => setInquiryModalOpen(false)}
+      />
     </div>
   );
 }

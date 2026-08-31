@@ -23,13 +23,13 @@
   --input: 221 30% 20%;
   --ring: 24 95% 53%;
   --radius: 0.625rem;
-  --agtp-primary: #0B1F33;
-  --agtp-secondary: #F97316;
-  --agtp-primary-deep: #0B1F33;
-  --agtp-primary-surface: #102941;
-  --agtp-primary-raised: #14314B;
-  --agtp-secondary-hover: #EA580C;
-  --agtp-secondary-soft: #FDBA74;
+  --agtp-primary: #0D1627;
+  --agtp-secondary: #4361EE;
+  --agtp-primary-deep: #0D1627;
+  --agtp-primary-surface: #111C31;
+  --agtp-primary-raised: #15223C;
+  --agtp-secondary-hover: #3651D4;
+  --agtp-secondary-soft: #8EA8FF;
 }
 
 * {
@@ -69,7 +69,7 @@ body {
 [class*="bg-[#0a0f1c]"],
 [class*="bg-[#222831]"],
 [class*="bg-[#1A3D5C]"]:not([class*="bg-[#1A3D5C]/"]) {
-  background-color: var(--agtp-primary, #0B1F33) !important;
+  background-color: var(--agtp-primary, #0D1627) !important;
 }
 
 /* Primary Hover & Group-Hover Backgrounds */
@@ -85,39 +85,45 @@ body {
 [class*="group"]:hover [class*="group-hover:bg-[#102941]"],
 [class*="group"]:hover [class*="group-hover:bg-[#0B1F33]"],
 [class*="group"]:hover [class*="group-hover:bg-[#1A3D5C]"] {
-  background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, white 20%) !important;
+  background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 80%, white 20%) !important;
 }
 
 /* Primary Color Opacity Variants */
-[class*="bg-[#0B1F33]/95"], [class*="bg-[#102941]/95"], [class*="bg-[#081A2B]/95"], [class*="bg-[#071626]/95"], [class*="bg-[#14314B]/95"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 95%, transparent) !important; }
-[class*="bg-[#0B1F33]/90"], [class*="bg-[#102941]/90"], [class*="bg-[#081A2B]/90"], [class*="bg-[#071626]/90"], [class*="bg-[#14314B]/90"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 90%, transparent) !important; }
-[class*="bg-[#0B1F33]/85"], [class*="bg-[#102941]/85"], [class*="bg-[#081A2B]/85"], [class*="bg-[#071626]/85"], [class*="bg-[#14314B]/85"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 85%, transparent) !important; }
-[class*="bg-[#0B1F33]/80"], [class*="bg-[#102941]/80"], [class*="bg-[#081A2B]/80"], [class*="bg-[#071626]/80"], [class*="bg-[#14314B]/80"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) !important; }
-[class*="bg-[#0B1F33]/75"], [class*="bg-[#102941]/75"], [class*="bg-[#081A2B]/75"], [class*="bg-[#071626]/75"], [class*="bg-[#14314B]/75"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 75%, transparent) !important; }
-[class*="bg-[#0B1F33]/70"], [class*="bg-[#102941]/70"], [class*="bg-[#081A2B]/70"], [class*="bg-[#071626]/70"], [class*="bg-[#14314B]/70"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 70%, transparent) !important; }
-[class*="bg-[#0B1F33]/60"], [class*="bg-[#102941]/60"], [class*="bg-[#081A2B]/60"], [class*="bg-[#071626]/60"], [class*="bg-[#14314B]/60"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 60%, transparent) !important; }
-[class*="bg-[#0B1F33]/50"], [class*="bg-[#102941]/50"], [class*="bg-[#081A2B]/50"], [class*="bg-[#071626]/50"], [class*="bg-[#14314B]/50"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 50%, transparent) !important; }
-[class*="bg-[#0B1F33]/40"], [class*="bg-[#102941]/40"], [class*="bg-[#081A2B]/40"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 40%, transparent) !important; }
-[class*="bg-[#0B1F33]/30"], [class*="bg-[#102941]/30"], [class*="bg-[#081A2B]/30"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 30%, transparent) !important; }
-[class*="bg-[#0B1F33]/20"], [class*="bg-[#102941]/20"], [class*="bg-[#081A2B]/20"] { background-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 20%, transparent) !important; }
+[class*="bg-[#0B1F33]/95"], [class*="bg-[#102941]/95"], [class*="bg-[#081A2B]/95"], [class*="bg-[#071626]/95"], [class*="bg-[#14314B]/95"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 95%, transparent) !important; }
+[class*="bg-[#0B1F33]/90"], [class*="bg-[#102941]/90"], [class*="bg-[#081A2B]/90"], [class*="bg-[#071626]/90"], [class*="bg-[#14314B]/90"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 90%, transparent) !important; }
+[class*="bg-[#0B1F33]/85"], [class*="bg-[#102941]/85"], [class*="bg-[#081A2B]/85"], [class*="bg-[#071626]/85"], [class*="bg-[#14314B]/85"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 85%, transparent) !important; }
+[class*="bg-[#0B1F33]/80"], [class*="bg-[#102941]/80"], [class*="bg-[#081A2B]/80"], [class*="bg-[#071626]/80"], [class*="bg-[#14314B]/80"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 80%, transparent) !important; }
+[class*="bg-[#0B1F33]/75"], [class*="bg-[#102941]/75"], [class*="bg-[#081A2B]/75"], [class*="bg-[#071626]/75"], [class*="bg-[#14314B]/75"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 75%, transparent) !important; }
+[class*="bg-[#0B1F33]/70"], [class*="bg-[#102941]/70"], [class*="bg-[#081A2B]/70"], [class*="bg-[#071626]/70"], [class*="bg-[#14314B]/70"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 70%, transparent) !important; }
+[class*="bg-[#0B1F33]/60"], [class*="bg-[#102941]/60"], [class*="bg-[#081A2B]/60"], [class*="bg-[#071626]/60"], [class*="bg-[#14314B]/60"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 60%, transparent) !important; }
+[class*="bg-[#0B1F33]/50"], [class*="bg-[#102941]/50"], [class*="bg-[#081A2B]/50"], [class*="bg-[#071626]/50"], [class*="bg-[#14314B]/50"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 50%, transparent) !important; }
+[class*="bg-[#0B1F33]/40"], [class*="bg-[#102941]/40"], [class*="bg-[#081A2B]/40"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 40%, transparent) !important; }
+[class*="bg-[#0B1F33]/30"], [class*="bg-[#102941]/30"], [class*="bg-[#081A2B]/30"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 30%, transparent) !important; }
+[class*="bg-[#0B1F33]/20"], [class*="bg-[#102941]/20"], [class*="bg-[#081A2B]/20"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 20%, transparent) !important; }
 
 /* Primary Color Text */
 [class*="text-[#0B1F33]"], [class*="text-[#102941]"], [class*="text-[#14314B]"] {
-  color: var(--agtp-primary, #0B1F33) !important;
+  color: var(--agtp-primary, #0D1627) !important;
 }
 
-/* Primary Color Borders */
-[class*="border-[#24445F]"] {
-  border-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 70%, white 30%) !important;
+/* Primary Color Borders — Soft, subtle, light luxury edges matching Milele */
+[class*="border-[#24445F]"]:not([class*="border-[#24445F]/"]),
+[class*="border-[#315671]"]:not([class*="border-[#315671]/"]),
+[class*="border-[#3D6480]"]:not([class*="border-[#3D6480]/"]),
+[class*="border-[#25304f]"],
+[class*="border-[#1c2438]"],
+[class*="border-slate-800"],
+[class*="border-slate-700"] {
+  border-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 80%, white 10%) !important;
 }
-[class*="border-[#315671]"] {
-  border-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 60%, white 40%) !important;
-}
-[class*="border-[#3D6480]"] {
-  border-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 50%, white 50%) !important;
-}
-[class*="border-[#25304f]"], [class*="border-[#1c2438]"] {
-  border-color: color-mix(in srgb, var(--agtp-primary, #0B1F33) 65%, white 35%) !important;
+
+[class*="border-[#24445F]/60"],
+[class*="border-[#24445F]/80"],
+[class*="border-[#315671]/60"],
+[class*="border-[#315671]/70"],
+[class*="border-slate-800/80"],
+[class*="border-slate-700/80"] {
+  border-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 88%, white 6%) !important;
 }
 
 /* Arbitrary Linear Gradient helpers */
@@ -235,94 +241,94 @@ body {
 
 /* Secondary Solid Text (exclude hover: and group-hover: and opacity variants) */
 [class*="text-[#F97316]"]:not([class*="hover:text-[#F97316]"]):not([class*="group-hover:text-[#F97316]"]):not([class*="text-[#F97316]/"]) {
-  color: var(--agtp-secondary, #F97316) !important;
+  color: var(--agtp-secondary, #4361EE) !important;
 }
 
 /* Secondary Hover & Group-Hover Text (ONLY on hover) */
 [class*="hover:text-[#F97316]"]:hover {
-  color: var(--agtp-secondary, #F97316) !important;
+  color: var(--agtp-secondary, #4361EE) !important;
 }
 .group:hover [class*="group-hover:text-[#F97316]"],
 [class*="group"]:hover [class*="group-hover:text-[#F97316]"] {
-  color: var(--agtp-secondary, #F97316) !important;
+  color: var(--agtp-secondary, #4361EE) !important;
 }
 
 /* Soft / Light Secondary Text & Highlights (Eyebrows, step tags, accents) (exclude hover: and group-hover:) */
 [class*="text-[#FDBA74]"]:not([class*="hover:text-[#FDBA74]"]):not([class*="group-hover:text-[#FDBA74]"]) {
-  color: color-mix(in srgb, var(--agtp-secondary, #F97316) 70%, white 30%) !important;
+  color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 65%, white 35%) !important;
 }
 
 /* Soft / Light Secondary Hover & Group-Hover Text (ONLY on hover) */
 [class*="hover:text-[#FDBA74]"]:hover {
-  color: color-mix(in srgb, var(--agtp-secondary, #F97316) 70%, white 30%) !important;
+  color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 65%, white 35%) !important;
 }
 .group:hover [class*="group-hover:text-[#FDBA74]"],
 [class*="group"]:hover [class*="group-hover:text-[#FDBA74]"] {
-  color: color-mix(in srgb, var(--agtp-secondary, #F97316) 70%, white 30%) !important;
+  color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 65%, white 35%) !important;
 }
 
 /* Secondary Borders (exclude hover: and group-hover: and opacity variants) */
 [class*="border-[#F97316]"]:not([class*="hover:border-[#F97316]"]):not([class*="group-hover:border-[#F97316]"]):not([class*="border-[#F97316]/"]) {
-  border-color: var(--agtp-secondary, #F97316) !important;
+  border-color: var(--agtp-secondary, #4361EE) !important;
 }
 
 /* Secondary Hover & Group-Hover Borders (ONLY on hover) */
 [class*="hover:border-[#F97316]"]:hover {
-  border-color: var(--agtp-secondary, #F97316) !important;
+  border-color: var(--agtp-secondary, #4361EE) !important;
 }
 .group:hover [class*="group-hover:border-[#F97316]"],
 [class*="group"]:hover [class*="group-hover:border-[#F97316]"] {
-  border-color: var(--agtp-secondary, #F97316) !important;
+  border-color: var(--agtp-secondary, #4361EE) !important;
 }
 
 /* 4. Secondary Opacity Variants (preserve alpha transparency) */
-[class*="bg-[#F97316]/10"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 10%, transparent) !important; }
-[class*="bg-[#F97316]/15"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 15%, transparent) !important; }
-[class*="bg-[#F97316]/20"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 20%, transparent) !important; }
-[class*="bg-[#F97316]/30"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 30%, transparent) !important; }
-[class*="bg-[#F97316]/35"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 35%, transparent) !important; }
+[class*="bg-[#F97316]/10"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 10%, transparent) !important; }
+[class*="bg-[#F97316]/15"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 15%, transparent) !important; }
+[class*="bg-[#F97316]/20"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 20%, transparent) !important; }
+[class*="bg-[#F97316]/30"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 30%, transparent) !important; }
+[class*="bg-[#F97316]/35"]:not([class*="hover:"]):not([class*="group-hover:"]) { background-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 35%, transparent) !important; }
 
-[class*="border-[#F97316]/20"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 20%, transparent) !important; }
-[class*="border-[#F97316]/30"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 30%, transparent) !important; }
-[class*="border-[#F97316]/35"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 35%, transparent) !important; }
-[class*="border-[#F97316]/40"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 40%, transparent) !important; }
-[class*="border-[#F97316]/45"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 45%, transparent) !important; }
-[class*="border-[#F97316]/50"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 50%, transparent) !important; }
-[class*="border-[#F97316]/60"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 60%, transparent) !important; }
-[class*="border-[#F97316]/75"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 75%, transparent) !important; }
+[class*="border-[#F97316]/20"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 20%, transparent) !important; }
+[class*="border-[#F97316]/30"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 30%, transparent) !important; }
+[class*="border-[#F97316]/35"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 35%, transparent) !important; }
+[class*="border-[#F97316]/40"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 40%, transparent) !important; }
+[class*="border-[#F97316]/45"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 45%, transparent) !important; }
+[class*="border-[#F97316]/50"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 50%, transparent) !important; }
+[class*="border-[#F97316]/60"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 60%, transparent) !important; }
+[class*="border-[#F97316]/75"]:not([class*="hover:"]):not([class*="group-hover:"]) { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 75%, transparent) !important; }
 
-[class*="hover:border-[#F97316]/75"]:hover { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 75%, transparent) !important; }
+[class*="hover:border-[#F97316]/75"]:hover { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 75%, transparent) !important; }
 .group:hover [class*="group-hover:border-[#F97316]/75"],
 [class*="group"]:hover [class*="group-hover:border-[#F97316]/75"] {
-  border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 75%, transparent) !important;
+  border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 75%, transparent) !important;
 }
 
-[class*="hover:border-[#F97316]/60"]:hover { border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 60%, transparent) !important; }
+[class*="hover:border-[#F97316]/60"]:hover { border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 60%, transparent) !important; }
 .group:hover [class*="group-hover:border-[#F97316]/60"],
 [class*="group"]:hover [class*="group-hover:border-[#F97316]/60"] {
-  border-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 60%, transparent) !important;
+  border-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 60%, transparent) !important;
 }
 
-[class*="text-[#F97316]/60"]:not([class*="hover:"]):not([class*="group-hover:"]) { color: color-mix(in srgb, var(--agtp-secondary, #F97316) 60%, transparent) !important; }
+[class*="text-[#F97316]/60"]:not([class*="hover:"]):not([class*="group-hover:"]) { color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 60%, transparent) !important; }
 .group:hover [class*="group-hover:text-[#F97316]/60"],
-[class*="group"]:hover [class*="group-hover:text-[#F97316]/60"] { color: color-mix(in srgb, var(--agtp-secondary, #F97316) 60%, transparent) !important; }
+[class*="group"]:hover [class*="group-hover:text-[#F97316]/60"] { color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 60%, transparent) !important; }
 
 /* 5. Shadows and Rings */
 [class*="shadow-[#F97316]"],
 [class*="shadow-orange-500"] {
-  --tw-shadow-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 30%, transparent) !important;
+  --tw-shadow-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 30%, transparent) !important;
 }
 [class*="hover:shadow-orange-500"]:hover {
-  --tw-shadow-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 30%, transparent) !important;
+  --tw-shadow-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 30%, transparent) !important;
 }
 [class*="ring-[#F97316]"] {
-  --tw-ring-color: color-mix(in srgb, var(--agtp-secondary, #F97316) 40%, transparent) !important;
+  --tw-ring-color: color-mix(in srgb, var(--agtp-secondary, #4361EE) 40%, transparent) !important;
 }
 [class*="shadow-[0_0_15px_rgba(249,115,22"] {
-  box-shadow: 0 0 15px color-mix(in srgb, var(--agtp-secondary, #F97316) 35%, transparent) !important;
+  box-shadow: 0 0 15px color-mix(in srgb, var(--agtp-secondary, #4361EE) 35%, transparent) !important;
 }
 [class*="shadow-[0_0_20px_rgba(249,115,22"] {
-  box-shadow: 0 0 20px color-mix(in srgb, var(--agtp-secondary, #F97316) 40%, transparent) !important;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--agtp-secondary, #4361EE) 40%, transparent) !important;
 }
 
 @media (pointer: fine) {

@@ -18,6 +18,7 @@ import {
   Volume2
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
+import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { agtpAssets } from "@/src/assets";
 import {
   Reveal,
@@ -75,8 +76,9 @@ const steps = [
 
 export default function HowItWorksPage() {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [viewMode, setViewMode] = useState<"grid" | "slider">("grid"); // Grid view by default
+  const [viewMode, setViewMode] = useState<"slider" | "grid">("slider");
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
 
   // Slider Autoplay
   useEffect(() => {
@@ -461,18 +463,24 @@ export default function HowItWorksPage() {
               </RevealText>
 
               <RevealButton delay={180} className="mt-10 flex justify-center">
-                <Link
-                  href="/contact-us"
+                <button
+                  type="button"
+                  onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[56px] items-center gap-3 rounded-full bg-[#F97316] px-10 text-[16px] font-black text-white transition-all duration-300 hover:bg-[#EA580C] shadow-xl hover:scale-105"
                 >
                   <span>Get A Quote</span>
                   <ArrowRight className="h-5 w-5" />
-                </Link>
+                </button>
               </RevealButton>
             </div>
           </div>
         </Reveal>
       </section>
+
+      <VehicleInquiryModal
+        isOpen={inquiryModalOpen}
+        onClose={() => setInquiryModalOpen(false)}
+      />
     </div>
   );
 }

@@ -15,8 +15,8 @@ export const defaultContent: ShowcaseContent = {
     metaDescription:
       "From Dubai to your driveway: quality cars, spare parts, construction materials, and global trading solutions delivered with reliable sourcing and logistics.",
     faviconUrl: "",
-    primaryColor: "#0B1F33",
-    secondaryColor: "#F97316",
+    primaryColor: "#0D1627",
+    secondaryColor: "#4361EE",
     backgroundColor: "#060709"
   },
 
