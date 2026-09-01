@@ -30,7 +30,7 @@ export function HeroCarousel() {
 
   return (
     <>
-      <section className="relative h-screen min-h-[720px] w-full overflow-hidden bg-[#0B1F33]">
+      <section data-keep-color="true" className="relative h-screen min-h-[720px] w-full overflow-hidden bg-[#0B1F33]">
         {/* Parallax Video / Image Background */}
         <div
           className="absolute inset-0 h-[130%] -top-[15%]"

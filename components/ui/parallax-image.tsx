@@ -45,6 +45,7 @@ export function ParallaxImage({
   return (
     <div
       ref={containerRef}
+      data-keep-color="true"
       className={cn("relative overflow-hidden", className)}
     >
       <div
