@@ -30,7 +30,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     const cached = getShowcaseContent();
     setContent(cached);
 
-    // 2. Fetch server-persisted content so changes made from any laptop/device appear immediately
+    // 2. Fetch server-persisted content so changes made via content.json appear immediately
     fetch("/api/content")
       .then((res) => {
         if (res.ok) return res.json();
@@ -71,13 +71,13 @@ export function ContentProvider({ children }: { children: ReactNode }) {
       const next = { ...prev, ...patch };
       saveShowcaseContent(next);
 
-      // Persist to server so any other laptop/pc gets the updated colors & content
+      // Persist to server (works locally; gracefully ignored on Vercel read-only FS)
       fetch("/api/content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(patch)
       }).catch((err) => {
-        console.error("Failed to persist content to server:", err);
+        console.warn("Could not persist content to server:", err);
       });
 
       return next;
@@ -94,7 +94,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(defaultContent)
     }).catch((err) => {
-      console.error("Failed to reset content on server:", err);
+      console.warn("Could not reset content on server:", err);
     });
   }, []);
 
