@@ -2,12 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useContent } from "@/lib/content/context";
 
-const MIN_VISIBLE_MS = 900;
-const COMPLETE_HOLD_MS = 220;
+const MIN_VISIBLE_MS = 850;
+const COMPLETE_HOLD_MS = 200;
 
 export function PageLoader() {
   const pathname = usePathname();
+  const { content } = useContent();
+  const brandName = content?.site?.brandName || "AGTP GROUP";
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
@@ -20,10 +23,10 @@ export function PageLoader() {
     const interval = window.setInterval(() => {
       setProgress((current) => {
         if (current >= 94) return current;
-        const step = current < 50 ? 5 : current < 80 ? 3 : 1;
+        const step = current < 50 ? 6 : current < 80 ? 4 : 2;
         return Math.min(current + step, 94);
       });
-    }, 55);
+    }, 50);
 
     return () => window.clearInterval(interval);
   }, [visible]);
@@ -80,30 +83,40 @@ export function PageLoader() {
 
   if (!visible) return null;
 
+  const words = brandName.split(" ");
+  let globalCharIndex = 0;
+
   return (
     <div
-      className={`fixed inset-0 z-[2147483646] flex items-center justify-center bg-[#0B1F33] text-slate-100 transition-opacity duration-500 ${
-        exiting ? "opacity-0" : "opacity-100"
+      className={`fixed inset-0 z-[2147483646] flex items-center justify-center bg-[#060709] text-white transition-all duration-500 ${
+        exiting ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
       }`}
       aria-live="polite"
       aria-busy={progress < 100}
     >
-      <div className="w-[min(750px,78vw)] text-center">
-        <div className="text-[64px] font-black uppercase leading-none tracking-[0.04em] md:text-[118px]">
-          AGTP GROUP
-        </div>
-        <div className="mt-10 h-px w-full bg-[#24445F]">
-          <div
-            className="h-px bg-[#F97316] transition-[width] duration-150 ease-out"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <div className="mt-5 font-mono text-[16px] tracking-[0.35em] text-[#FDBA74]">
-          {progress}%
-        </div>
+      <div className="w-[min(850px,88vw)] text-center select-none">
+        {/* Animated Pure White Brand Text with Staggered Kinetic Wave Motion */}
+        <h1 className="flex flex-wrap items-center justify-center gap-x-[0.3em] text-[54px] sm:text-[74px] md:text-[108px] font-black uppercase leading-none tracking-[0.05em] text-white drop-shadow-[0_12px_32px_rgba(0,0,0,0.85)]">
+          {words.map((word, wIdx) => (
+            <span key={`${word}-${wIdx}`} className="inline-flex whitespace-nowrap">
+              {word.split("").map((char, cIdx) => {
+                const delay = globalCharIndex++ * 90;
+                return (
+                  <span
+                    key={`${char}-${cIdx}`}
+                    className="animate-loader-wave"
+                    style={{
+                      animationDelay: `${delay}ms`
+                    }}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
+            </span>
+          ))}
+        </h1>
       </div>
     </div>
   );
 }
-
-
