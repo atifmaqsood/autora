@@ -38,7 +38,6 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <section
-      data-keep-color="true"
       className={cn(
         "relative flex min-h-[580px] sm:min-h-[640px] md:min-h-[700px] lg:min-h-[760px] flex-col justify-center overflow-hidden border-b border-[#24445F] bg-[#060709] pb-20 pt-44 sm:pb-24 sm:pt-48 md:pb-28 md:pt-56 lg:pb-32 lg:pt-60",
         className
