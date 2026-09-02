@@ -166,7 +166,15 @@ const supplierCards = [
   { title: "Automotive Parts Market Location 10", experience: "10+ year Experience", countries: "Serving 25+ Countries", image: agtpAssets.sparePartsHero }
 ];
 
-const customerStories = [
+interface CustomerStoryItem {
+  name: string;
+  label: string;
+  image: any;
+  video?: string;
+  story: string;
+}
+
+const customerStories: CustomerStoryItem[] = [
   {
     name: "Mr. Ringo",
     label: "Repeat Vehicle Buyer",
@@ -175,11 +183,27 @@ const customerStories = [
       "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group."
   },
   {
+    name: "Mr. Patrick Mwamba",
+    label: "Corporate Fleet Importer",
+    image: agtpAssets.reviewR2,
+    video: "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4",
+    story:
+      "Verified video walkaround and live delivery at the port in Congo. Seamless export documentation and premium vehicle quality."
+  },
+  {
     name: "Mr. Jorge Goncalves",
     label: "Oil & Gas Professional",
     image: agtpAssets.reviewR2,
     story:
       "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola."
+  },
+  {
+    name: "Mr. David Ganga",
+    label: "Mining & Logistics Buyer",
+    image: agtpAssets.reviewR4,
+    video: "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4",
+    story:
+      "Inspected our vehicles via live video feed before shipping to Luanda. Every vehicle arrived on schedule in showroom condition."
   },
   {
     name: "Mr. Muhammad Sumani",
@@ -920,23 +944,39 @@ function TestimonialCard({
   story,
   active
 }: {
-  story: (typeof customerStories)[number];
+  story: CustomerStoryItem;
   active: boolean;
 }) {
   return (
     <>
       <div className="relative h-[460px] w-full shrink-0 overflow-hidden bg-[#06101C]">
-        <Image
-          src={story.image}
-          alt={`${story.name} customer story`}
-          fill
-          className="object-cover object-center"
-          sizes="420px"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent" />
-        <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md">
-          Customer Story
+        {story.video ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster={typeof story.image === "string" ? story.image : story.image?.src}
+            className="h-full w-full object-cover object-center"
+            aria-label={`${story.name} customer video story`}
+          >
+            <source src={story.video} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            src={story.image}
+            alt={`${story.name} customer story`}
+            fill
+            className="object-cover object-center"
+            sizes="420px"
+            priority
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
+        <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10">
+          {story.video && <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />}
+          {story.video ? "Video Story" : "Customer Story"}
         </span>
       </div>
       <div className="relative flex flex-1 flex-col justify-between p-5 sm:p-6 bg-[#14314B]">

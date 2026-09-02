@@ -26,6 +26,7 @@ interface CustomerReview {
   quote: string;
   tag: string;
   image: any;
+  video?: string;
 }
 
 const reviews: CustomerReview[] = [
@@ -47,7 +48,19 @@ const reviews: CustomerReview[] = [
     flag: "🇦🇴",
     quote: "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola.",
     tag: "Repeat Oil & Gas Buyer",
-    image: agtpAssets.reviewR2
+    image: agtpAssets.reviewR2,
+    video: "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4"
+  },
+  {
+    name: "Mr. Patrick Mwamba",
+    id: 16,
+    role: "Corporate Fleet Importer",
+    country: "Congo",
+    flag: "🇨🇩",
+    quote: "Verified video walkaround and live delivery at the port in Congo. Seamless export documentation and premium vehicle quality.",
+    tag: "Live Port Delivery",
+    image: agtpAssets.reviewR1,
+    video: "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4"
   },
   {
     id: 3,
@@ -350,31 +363,47 @@ export default function CustomerReviewsPage() {
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316] opacity-0 group-hover:opacity-100 transition-opacity z-20" />
 
                   <div>
-                    {/* Full Vertical Customer & Vehicle Delivery Photo (matching home page h-[460px]) */}
-                    {rev.image && (
+                    {/* Full Vertical Customer & Vehicle Delivery Photo / Video (matching home page h-[460px]) */}
+                    {(rev.video || rev.image) && (
                       <div className="relative h-[460px] w-full shrink-0 overflow-hidden bg-[#06101C]">
-                        <Image
-                          src={rev.image}
-                          alt={`${rev.name} - ${rev.tag}`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent" />
+                        {rev.video ? (
+                          <video
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            preload="auto"
+                            poster={typeof rev.image === "string" ? rev.image : rev.image?.src}
+                            className="h-full w-full object-cover object-center"
+                            aria-label={`${rev.name} customer video story`}
+                          >
+                            <source src={rev.video} type="video/mp4" />
+                          </video>
+                        ) : (
+                          <Image
+                            src={rev.image}
+                            alt={`${rev.name} - ${rev.tag}`}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
                         
                         {/* Country Badge */}
-                        <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full border border-white/20 bg-[#0B1F33]/85 backdrop-blur-md px-3.5 py-1 text-[11px] font-black text-[#FDBA74]">
+                        <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full border border-white/20 bg-[#0B1F33]/85 backdrop-blur-md px-3.5 py-1 text-[11px] font-black text-[#FDBA74] z-10">
                           <span>{rev.country}</span>
                           <span>{rev.flag}</span>
                         </span>
 
                         {/* Customer Story / Tag Badge */}
-                        <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md">
-                          Customer Story
+                        <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10">
+                          {rev.video && <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />}
+                          {rev.video ? "Video Story" : "Customer Story"}
                         </span>
 
                         {/* Tag Badge */}
-                        <span className="absolute bottom-4 left-4 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3 py-1 text-[11px] font-black text-[#FDBA74]">
+                        <span className="absolute bottom-4 left-4 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3 py-1 text-[11px] font-black text-[#FDBA74] z-10">
                           {rev.tag}
                         </span>
                       </div>
@@ -433,26 +462,42 @@ export default function CustomerReviewsPage() {
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316]" />
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-12 items-center">
-                  {filteredReviews[currentSlide].image && (
+                  {(filteredReviews[currentSlide].video || filteredReviews[currentSlide].image) && (
                     <div className="relative h-[460px] md:h-[500px] w-full overflow-hidden rounded-2xl border border-[#315671] bg-[#06101C] md:col-span-5">
-                      <Image
-                        src={filteredReviews[currentSlide].image}
-                        alt={filteredReviews[currentSlide].name}
-                        fill
-                        className="object-cover object-center"
-                        priority
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent" />
-                      <span className="absolute bottom-4 left-4 rounded-full bg-[#0B1F33]/90 backdrop-blur-sm border border-[#F97316]/60 px-3.5 py-1 text-[12px] font-black text-[#FDBA74]">
+                      {filteredReviews[currentSlide].video ? (
+                        <video
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          preload="auto"
+                          poster={typeof filteredReviews[currentSlide].image === "string" ? filteredReviews[currentSlide].image : filteredReviews[currentSlide].image?.src}
+                          className="h-full w-full object-cover object-center"
+                          aria-label={`${filteredReviews[currentSlide].name} customer video story`}
+                        >
+                          <source src={filteredReviews[currentSlide].video} type="video/mp4" />
+                        </video>
+                      ) : (
+                        <Image
+                          src={filteredReviews[currentSlide].image}
+                          alt={filteredReviews[currentSlide].name}
+                          fill
+                          className="object-cover object-center"
+                          priority
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
+                      <span className="absolute bottom-4 left-4 rounded-full bg-[#0B1F33]/90 backdrop-blur-sm border border-[#F97316]/60 px-3.5 py-1 text-[12px] font-black text-[#FDBA74] z-10">
                         {filteredReviews[currentSlide].tag}
                       </span>
-                      <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md">
-                        Customer Story
+                      <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10">
+                        {filteredReviews[currentSlide].video && <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />}
+                        {filteredReviews[currentSlide].video ? "Video Story" : "Customer Story"}
                       </span>
                     </div>
                   )}
 
-                  <div className={`flex flex-col gap-5 ${filteredReviews[currentSlide].image ? "md:col-span-7" : "md:col-span-12"}`}>
+                  <div className={`flex flex-col gap-5 ${filteredReviews[currentSlide].video || filteredReviews[currentSlide].image ? "md:col-span-7" : "md:col-span-12"}`}>
                     <div className="flex items-center justify-between border-b border-[#24445F]/80 pb-4">
                       <div className="flex items-center gap-2 text-[#F97316]">
                         {[...Array(5)].map((_, i) => (
