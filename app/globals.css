@@ -25,6 +25,8 @@
   --radius: 0.625rem;
   --agtp-primary: #0D1627;
   --agtp-secondary: #4361EE;
+  --agtp-navbar: #0B1F33;
+  --agtp-footer: #071626;
   --agtp-primary-deep: #0D1627;
   --agtp-primary-surface: #111C31;
   --agtp-primary-raised: #15223C;
@@ -58,7 +60,6 @@ body {
 /* 2. Primary Brand Color (Cards, Section Backgrounds, Deep Containers) */
 /* Solid Cards and surfaces: exact primary color matching navbar */
 [class*="bg-[#0B1F33]"]:not([class*="bg-[#0B1F33]/"]),
-[class*="bg-[#071626]"]:not([class*="bg-[#071626]/"]),
 [class*="bg-[#14314B]"]:not([class*="bg-[#14314B]/"]),
 [class*="bg-[#102941]"]:not([class*="bg-[#102941]/"]),
 [class*="bg-[#111832]"]:not([class*="bg-[#111832]/"]),
@@ -70,6 +71,12 @@ body {
 [class*="bg-[#222831]"],
 [class*="bg-[#1A3D5C]"]:not([class*="bg-[#1A3D5C]/"]) {
   background-color: var(--agtp-primary, #0D1627) !important;
+}
+
+/* Footer Dynamic Background */
+footer.store-footer,
+.store-footer {
+  background-color: var(--agtp-footer, #071626) !important;
 }
 
 /* Primary Hover & Group-Hover Backgrounds */
@@ -89,14 +96,14 @@ body {
 }
 
 /* Primary Color Opacity Variants */
-[class*="bg-[#0B1F33]/95"], [class*="bg-[#102941]/95"], [class*="bg-[#081A2B]/95"], [class*="bg-[#071626]/95"], [class*="bg-[#14314B]/95"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 95%, transparent) !important; }
-[class*="bg-[#0B1F33]/90"], [class*="bg-[#102941]/90"], [class*="bg-[#081A2B]/90"], [class*="bg-[#071626]/90"], [class*="bg-[#14314B]/90"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 90%, transparent) !important; }
-[class*="bg-[#0B1F33]/85"], [class*="bg-[#102941]/85"], [class*="bg-[#081A2B]/85"], [class*="bg-[#071626]/85"], [class*="bg-[#14314B]/85"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 85%, transparent) !important; }
-[class*="bg-[#0B1F33]/80"], [class*="bg-[#102941]/80"], [class*="bg-[#081A2B]/80"], [class*="bg-[#071626]/80"], [class*="bg-[#14314B]/80"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 80%, transparent) !important; }
-[class*="bg-[#0B1F33]/75"], [class*="bg-[#102941]/75"], [class*="bg-[#081A2B]/75"], [class*="bg-[#071626]/75"], [class*="bg-[#14314B]/75"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 75%, transparent) !important; }
-[class*="bg-[#0B1F33]/70"], [class*="bg-[#102941]/70"], [class*="bg-[#081A2B]/70"], [class*="bg-[#071626]/70"], [class*="bg-[#14314B]/70"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 70%, transparent) !important; }
-[class*="bg-[#0B1F33]/60"], [class*="bg-[#102941]/60"], [class*="bg-[#081A2B]/60"], [class*="bg-[#071626]/60"], [class*="bg-[#14314B]/60"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 60%, transparent) !important; }
-[class*="bg-[#0B1F33]/50"], [class*="bg-[#102941]/50"], [class*="bg-[#081A2B]/50"], [class*="bg-[#071626]/50"], [class*="bg-[#14314B]/50"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 50%, transparent) !important; }
+[class*="bg-[#0B1F33]/95"], [class*="bg-[#102941]/95"], [class*="bg-[#081A2B]/95"], [class*="bg-[#14314B]/95"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 95%, transparent) !important; }
+[class*="bg-[#0B1F33]/90"], [class*="bg-[#102941]/90"], [class*="bg-[#081A2B]/90"], [class*="bg-[#14314B]/90"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 90%, transparent) !important; }
+[class*="bg-[#0B1F33]/85"], [class*="bg-[#102941]/85"], [class*="bg-[#081A2B]/85"], [class*="bg-[#14314B]/85"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 85%, transparent) !important; }
+[class*="bg-[#0B1F33]/80"], [class*="bg-[#102941]/80"], [class*="bg-[#081A2B]/80"], [class*="bg-[#14314B]/80"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 80%, transparent) !important; }
+[class*="bg-[#0B1F33]/75"], [class*="bg-[#102941]/75"], [class*="bg-[#081A2B]/75"], [class*="bg-[#14314B]/75"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 75%, transparent) !important; }
+[class*="bg-[#0B1F33]/70"], [class*="bg-[#102941]/70"], [class*="bg-[#081A2B]/70"], [class*="bg-[#14314B]/70"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 70%, transparent) !important; }
+[class*="bg-[#0B1F33]/60"], [class*="bg-[#102941]/60"], [class*="bg-[#081A2B]/60"], [class*="bg-[#14314B]/60"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 60%, transparent) !important; }
+[class*="bg-[#0B1F33]/50"], [class*="bg-[#102941]/50"], [class*="bg-[#081A2B]/50"], [class*="bg-[#14314B]/50"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 50%, transparent) !important; }
 [class*="bg-[#0B1F33]/40"], [class*="bg-[#102941]/40"], [class*="bg-[#081A2B]/40"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 40%, transparent) !important; }
 [class*="bg-[#0B1F33]/30"], [class*="bg-[#102941]/30"], [class*="bg-[#081A2B]/30"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 30%, transparent) !important; }
 [class*="bg-[#0B1F33]/20"], [class*="bg-[#102941]/20"], [class*="bg-[#081A2B]/20"] { background-color: color-mix(in srgb, var(--agtp-primary, #0D1627) 20%, transparent) !important; }

@@ -16,7 +16,6 @@ const socialLinks = [
 export function StoreFooter() {
   const { content } = useContent();
   const site = content?.site || {};
-  const primaryColor = site.primaryColor || "#0B1F33";
   const brandName = site.brandName || "AGTP GROUP";
   const supportEmail = site.supportEmail || "inquiries@agtpgroup.com";
   const supportPhone = site.supportPhone || "+971 58 58 55729";
@@ -26,8 +25,8 @@ export function StoreFooter() {
 
   return (
     <footer
-      className="border-t border-[#24445F] bg-[#071626] text-slate-300 transition-colors duration-300"
-      style={{ backgroundColor: primaryColor }}
+      className="store-footer border-t border-[#24445F] text-slate-300 transition-colors duration-300"
+      style={{ backgroundColor: "var(--agtp-footer, #071626)" }}
     >
       <div className="mx-auto max-w-[1570px] px-6 py-20">
         <div className="grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-5">

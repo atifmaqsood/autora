@@ -17,7 +17,9 @@ export const defaultContent: ShowcaseContent = {
     faviconUrl: "",
     primaryColor: "#0D1627",
     secondaryColor: "#4361EE",
-    backgroundColor: "#060709"
+    backgroundColor: "#060709",
+    navbarColor: "#0B1F33",
+    footerColor: "#071626"
   },
 
   heroSlides: [

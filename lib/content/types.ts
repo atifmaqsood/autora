@@ -90,6 +90,8 @@ export interface SiteSettings {
   primaryColor: string;
   secondaryColor: string;
   backgroundColor: string;
+  navbarColor?: string;
+  footerColor?: string;
 }
 
 // ─── Root Content Model ──────────────────────────────────────────────────────

@@ -145,6 +145,40 @@ export default function AdminSiteSettingsPage() {
               />
             </div>
           </div>
+          <div>
+            <Label className="text-xs">Navbar Background Color</Label>
+            <div className="flex items-center gap-2 mt-1">
+              <input
+                type="color"
+                value={settings.navbarColor || "#0B1F33"}
+                onChange={(e) => patch({ navbarColor: e.target.value })}
+                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
+              />
+              <Input
+                value={settings.navbarColor || "#0B1F33"}
+                onChange={(e) => patch({ navbarColor: e.target.value })}
+                placeholder="#0B1F33"
+                className="text-sm font-mono flex-1"
+              />
+            </div>
+          </div>
+          <div>
+            <Label className="text-xs">Footer Background Color</Label>
+            <div className="flex items-center gap-2 mt-1">
+              <input
+                type="color"
+                value={settings.footerColor || "#071626"}
+                onChange={(e) => patch({ footerColor: e.target.value })}
+                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
+              />
+              <Input
+                value={settings.footerColor || "#071626"}
+                onChange={(e) => patch({ footerColor: e.target.value })}
+                placeholder="#071626"
+                className="text-sm font-mono flex-1"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -222,11 +256,35 @@ export default function AdminSiteSettingsPage() {
       </div>
 
       {/* Live Preview Panel */}
-      <div className="rounded-2xl border border-slate-800 p-6 space-y-4 shadow-xl transition-colors" style={{ backgroundColor: settings.backgroundColor || "#060709" }}>
+      <div className="rounded-2xl border border-slate-800 p-6 space-y-5 shadow-xl transition-colors" style={{ backgroundColor: settings.backgroundColor || "#060709" }}>
         <h3 className="text-xs font-bold uppercase tracking-widest flex items-center gap-2" style={{ color: settings.secondaryColor }}>
-          <Palette className="w-4 h-4" /> Live Homepage Color Theme Preview
+          <Palette className="w-4 h-4" /> Live Color Theme & Layout Preview
         </h3>
-        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/15 shadow-lg" style={{ backgroundColor: settings.primaryColor }}>
+
+        {/* Mock Navbar Preview */}
+        <div
+          className="rounded-xl border border-white/10 p-3.5 flex items-center justify-between shadow-lg backdrop-blur-md transition-colors"
+          style={{ backgroundColor: `color-mix(in srgb, ${settings.navbarColor || "#0B1F33"} 75%, transparent)` }}
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs text-white shadow-sm" style={{ backgroundColor: settings.secondaryColor }}>
+              A
+            </div>
+            <span className="text-xs font-black uppercase tracking-wider text-white">
+              {settings.brandName || "AGTP GROUP"}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 text-[11px] font-semibold text-slate-300">
+            <span>Home</span>
+            <span>Vehicles</span>
+            <span className="px-3 py-1 rounded-full text-white text-[10px] font-bold" style={{ backgroundColor: settings.secondaryColor }}>
+              Quote
+            </span>
+          </div>
+        </div>
+
+        {/* Mock Content Card Preview */}
+        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/15 shadow-lg transition-colors" style={{ backgroundColor: settings.primaryColor }}>
           <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl text-white shadow-md" style={{ backgroundColor: settings.secondaryColor }}>
             A
           </div>
@@ -238,6 +296,15 @@ export default function AdminSiteSettingsPage() {
               {settings.tagline || "MOTORS · SHOWCASE"}
             </p>
           </div>
+        </div>
+
+        {/* Mock Footer Preview */}
+        <div
+          className="rounded-xl border-t border-white/10 p-3.5 flex items-center justify-between text-[11px] text-slate-400 shadow-md transition-colors"
+          style={{ backgroundColor: settings.footerColor || "#071626" }}
+        >
+          <span>© 2026 {settings.brandName || "AGTP GROUP"}. All rights reserved.</span>
+          <span className="font-semibold" style={{ color: settings.secondaryColor }}>Global Trading & Export</span>
         </div>
       </div>
     </div>

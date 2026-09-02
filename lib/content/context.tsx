@@ -42,11 +42,21 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     const primary = normalizeHex(content.site?.primaryColor, defaultContent.site.primaryColor);
     const secondary = normalizeHex(content.site?.secondaryColor, defaultContent.site.secondaryColor);
     const bg = normalizeHex(content.site?.backgroundColor, defaultContent.site.backgroundColor);
+    const navbar = normalizeHex(content.site?.navbarColor, defaultContent.site.navbarColor || "#0B1F33");
+    const footer = normalizeHex(content.site?.footerColor, defaultContent.site.footerColor || "#071626");
 
     root.style.setProperty("--agtp-primary", primary);
     root.style.setProperty("--agtp-secondary", secondary);
     root.style.setProperty("--agtp-bg", bg);
-  }, [content.site?.primaryColor, content.site?.secondaryColor, content.site?.backgroundColor]);
+    root.style.setProperty("--agtp-navbar", navbar);
+    root.style.setProperty("--agtp-footer", footer);
+  }, [
+    content.site?.primaryColor,
+    content.site?.secondaryColor,
+    content.site?.backgroundColor,
+    content.site?.navbarColor,
+    content.site?.footerColor
+  ]);
 
   const updateContent = useCallback((patch: Partial<ShowcaseContent>) => {
     setContent((prev) => {

@@ -51,7 +51,19 @@ export function StoreHeader() {
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-50">
-        <div className="hidden h-[46px] border-b border-white/5 bg-[#0B1F33] px-4 text-[14px] font-extrabold text-white xl:block">
+        <div
+          className={`hidden h-[46px] border-b px-4 text-[14px] font-extrabold text-white transition-all duration-500 xl:block ${
+            scrolled ? "shadow-md backdrop-blur-xl" : "backdrop-blur-sm"
+          }`}
+          style={{
+            backgroundColor: scrolled
+              ? "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 70%, transparent)"
+              : "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 25%, transparent)",
+            borderColor: scrolled
+              ? "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 75%, white 15%)"
+              : "rgba(255, 255, 255, 0.08)"
+          }}
+        >
           <div className="mx-auto flex h-full max-w-[1300px] items-center justify-end gap-7">
             <a
               href={`mailto:${supportEmail}`}
@@ -77,9 +89,17 @@ export function StoreHeader() {
         <header
           className={`transition-all duration-500 ${
             scrolled
-              ? "border-b border-[#24445F] bg-[#0B1F33]/95 shadow-2xl backdrop-blur-md"
+              ? "border-b shadow-2xl backdrop-blur-xl"
               : "border-b border-transparent bg-transparent"
           }`}
+          style={
+            scrolled
+              ? {
+                  backgroundColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 65%, transparent)",
+                  borderColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 70%, white 18%)"
+                }
+              : undefined
+          }
         >
           <div className="mx-auto max-w-[1735px] px-6 xl:px-[96px]">
             <div className="flex h-[82px] items-center justify-between xl:h-[98px]">
@@ -102,13 +122,25 @@ export function StoreHeader() {
                       {active && <span className="absolute bottom-0 left-1 h-1.5 w-1.5 rounded-full bg-[#F97316]" />}
                     </Link>
                     {link.children && (
-                      <div className="invisible absolute left-1/2 top-[calc(100%+18px)] z-[70] w-[315px] -translate-x-1/2 translate-y-3 rounded-[18px] border border-[#3D6480] bg-[#0B1F33] p-3 opacity-0 shadow-[0_24px_70px_rgba(0,0,0,0.55)] ring-1 ring-white/5 backdrop-blur-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                        <div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-[#3D6480] bg-[#0B1F33]" />
+                      <div
+                        className="invisible absolute left-1/2 top-[calc(100%+18px)] z-[70] w-[315px] -translate-x-1/2 translate-y-3 rounded-[18px] border p-3 opacity-0 shadow-[0_24px_70px_rgba(0,0,0,0.55)] ring-1 ring-white/5 backdrop-blur-2xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100"
+                        style={{
+                          backgroundColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 90%, black 10%)",
+                          borderColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 75%, white 25%)"
+                        }}
+                      >
+                        <div
+                          className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t"
+                          style={{
+                            backgroundColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 90%, black 10%)",
+                            borderColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 75%, white 25%)"
+                          }}
+                        />
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="relative z-10 block rounded-[12px] px-4 py-3 text-[13px] font-extrabold text-slate-300 transition-colors hover:bg-[#14314B] hover:text-white"
+                            className="relative z-10 block rounded-[12px] px-4 py-3 text-[13px] font-extrabold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
                           >
                             {child.name}
                           </Link>
@@ -149,7 +181,13 @@ export function StoreHeader() {
           </div>
 
           {mobileMenuOpen && (
-            <div className="space-y-4 border-t border-slate-800 bg-[#0B1F33] px-5 py-6 shadow-2xl xl:hidden">
+            <div
+              className="space-y-4 border-t px-5 py-6 shadow-2xl backdrop-blur-2xl xl:hidden"
+              style={{
+                backgroundColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 92%, transparent)",
+                borderColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 75%, white 15%)"
+              }}
+            >
               <div className="flex flex-col space-y-2">
                 {navLinks.map((link) => (
                   <div key={link.name}>
@@ -157,20 +195,20 @@ export function StoreHeader() {
                       href={link.href}
                       className={`block rounded-xl px-4 py-2.5 text-base font-semibold transition-colors ${
                         isActive(link.href)
-                          ? "bg-[#14314B] text-[#FDBA74]"
-                          : "text-slate-300 hover:bg-[#14314B] hover:text-white"
+                          ? "bg-white/10 text-[#FDBA74]"
+                          : "text-slate-300 hover:bg-white/10 hover:text-white"
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {link.name}
                     </Link>
                     {link.children && (
-                      <div className="ml-4 mt-1 space-y-1 border-l border-slate-800 pl-3">
+                      <div className="ml-4 mt-1 space-y-1 border-l border-white/15 pl-3">
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-400 hover:bg-[#14314B] hover:text-white"
+                            className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-400 hover:bg-white/10 hover:text-white"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             {child.name}
