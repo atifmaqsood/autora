@@ -116,11 +116,11 @@ export function VehicleInquiryModal({
                 <Car className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-xl font-black text-slate-900">
-                  Request Vehicle Information
+                <h3 className="text-xl font-black uppercase text-slate-900">
+                  REQUEST A QUOTE
                 </h3>
                 <p className="text-xs text-slate-500 font-medium">
-                  {vehicleTitle ? `Inquiring about ${vehicleTitle}` : "Official Vehicle Specification Sheet & Logistics"}
+                  Vehicle, Spare Parts & Export Details
                 </p>
               </div>
             </div>
@@ -204,9 +204,9 @@ export function VehicleInquiryModal({
               <Button type="button" variant="ghost" onClick={handleResetAndClose} className="text-xs">
                 Cancel
               </Button>
-              <Button type="submit" variant="primary" className="gap-2 font-semibold text-sm">
+              <Button type="submit" variant="primary" className="gap-2 font-black text-sm uppercase tracking-wide">
                 <Send className="w-4 h-4" />
-                Submit Specification Request
+                REQUEST A QUOTE
               </Button>
             </div>
           </form>

@@ -9,8 +9,9 @@ export const defaultContent: ShowcaseContent = {
     brandName: "AGTP GROUP",
     tagline: "GLOBAL TRADING",
     supportEmail: "inquiries@agtpgroup.com",
-    supportPhone: "+971 58 585729",
-    defaultLocation: "Sharjah Media City, UAE",
+    supportPhone: "+971 58 58 55729",
+    defaultLocation:
+      "Meydan Grandstand, 6th Floor, Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates",
     metaTitle: "AGTP GROUP - Quality Cars, Parts, and Global Trading",
     metaDescription:
       "From Dubai to your driveway: quality cars, spare parts, construction materials, and global trading solutions delivered with reliable sourcing and logistics.",
@@ -248,6 +249,22 @@ export function getShowcaseContent(): ShowcaseContent {
       const legacyAccent = typeof savedSite.primaryColor === "string" ? savedSite.primaryColor : defaultContent.site.secondaryColor;
       content.site.primaryColor = defaultContent.site.primaryColor;
       content.site.secondaryColor = legacyAccent === "#d97706" ? defaultContent.site.secondaryColor : legacyAccent;
+    }
+
+    // Auto-update legacy/incomplete phone and previous Sharjah address from cached storage
+    if (
+      !content.site.supportPhone ||
+      content.site.supportPhone === "+971 58 585729" ||
+      content.site.supportPhone === "+971 4 000 1234"
+    ) {
+      content.site.supportPhone = defaultContent.site.supportPhone;
+    }
+    if (
+      !content.site.defaultLocation ||
+      content.site.defaultLocation.includes("Sharjah") ||
+      content.site.defaultLocation === "Dubai Central Showroom"
+    ) {
+      content.site.defaultLocation = defaultContent.site.defaultLocation;
     }
 
     return content;

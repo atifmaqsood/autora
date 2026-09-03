@@ -76,7 +76,7 @@ const steps = [
 
 export default function HowItWorksPage() {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [viewMode, setViewMode] = useState<"slider" | "grid">("slider");
+  const [viewMode, setViewMode] = useState<"slider" | "grid">("grid");
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
 
@@ -140,7 +140,7 @@ export default function HowItWorksPage() {
                     onClick={() => setViewMode("grid")}
                     className={`rounded-full px-5 py-2 text-[12px] font-black transition-all ${
                       viewMode === "grid"
-                        ? "bg-[#F97316] text-white shadow-md"
+                        ? "bg-white text-slate-950 shadow-md"
                         : "text-slate-400 hover:text-white"
                     }`}
                   >
@@ -150,7 +150,7 @@ export default function HowItWorksPage() {
                     onClick={() => setViewMode("slider")}
                     className={`rounded-full px-5 py-2 text-[12px] font-black transition-all ${
                       viewMode === "slider"
-                        ? "bg-[#F97316] text-white shadow-md"
+                        ? "bg-white text-slate-950 shadow-md"
                         : "text-slate-400 hover:text-white"
                     }`}
                   >
@@ -187,31 +187,39 @@ export default function HowItWorksPage() {
                   return (
                     <div
                       key={step.number}
-                      className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#F97316] hover:shadow-orange-500/10"
+                      className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-white/40 hover:shadow-2xl"
                     >
                       {/* Top Accent Line */}
-                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316] opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                       <div>
-                        {/* Header Badge & Icon */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            {/* Step Count Number Badge with High-Contrast Hover Colors */}
-                            <span className="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-[#315671] bg-[#0B1F33] text-[18px] font-black text-[#FDBA74] group-hover:border-[#F97316] group-hover:bg-[#102941] group-hover:text-[#F97316] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(249,115,22,0.35)] transition-all duration-300">
-                              {step.number}
-                            </span>
-                            <span className="rounded-full border border-[#315671] bg-[#0B1F33]/90 px-3.5 py-1 text-[11px] font-black text-[#FDBA74] group-hover:border-[#F97316]/50 group-hover:text-white transition-colors">
-                              {step.tag}
-                            </span>
+                        {/* Header: Prominent Number Tile + Phase Tag + Prominent Icon Tile */}
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="flex items-center gap-3.5">
+                            {/* Prominent Number Tile */}
+                            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border-2 border-white/20 bg-white/[0.08] shadow-inner backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:border-white/40 group-hover:bg-white/[0.16]">
+                              <span className="font-[family-name:var(--font-sora)] text-[26px] font-black tracking-tight text-white">
+                                {step.number}
+                              </span>
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-[10px] font-black uppercase tracking-[0.22em] text-slate-400">
+                                Phase
+                              </span>
+                              <span className="text-[13px] font-black text-white">
+                                {step.tag}
+                              </span>
+                            </div>
                           </div>
 
-                          <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#315671] bg-[#0B1F33] text-[#F97316] group-hover:border-[#F97316] group-hover:bg-[#14314B] group-hover:scale-110 transition-all duration-300">
-                            <Icon className="h-5 w-5 stroke-[2.2]" />
+                          {/* Prominent Icon Tile */}
+                          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border-2 border-white/20 bg-white/[0.08] text-white shadow-inner backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:border-white/40 group-hover:bg-white/[0.16]">
+                            <Icon className="h-8 w-8 stroke-[2.2]" />
                           </div>
                         </div>
 
                         {/* Title */}
-                        <h3 className="mt-6 text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
+                        <h3 className="mt-7 text-[22px] font-black text-white transition-colors leading-snug">
                           {step.title}
                         </h3>
 
@@ -222,13 +230,13 @@ export default function HowItWorksPage() {
                       </div>
 
                       {/* Card Footer Indicator */}
-                      <div className="mt-8 pt-5 border-t border-[#24445F]/60 flex items-center justify-between">
+                      <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between">
                         <span className="text-[12px] font-black tracking-wider text-slate-400 uppercase">
-                          Step <strong className="text-[#FDBA74] group-hover:text-[#F97316] transition-colors">{step.number}</strong> of 06
+                          Step <strong className="text-white">{step.number}</strong> of 06
                         </span>
-                        <div className="flex items-center gap-1.5 text-[13px] font-black text-[#F97316] group-hover:text-[#FDBA74] transition-colors">
+                        <div className="flex items-center gap-1.5 text-[13px] font-black text-white">
                           <span>Verified Process</span>
-                          <CheckCircle2 className="h-4 w-4" />
+                          <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                         </div>
                       </div>
                     </div>
@@ -239,16 +247,16 @@ export default function HowItWorksPage() {
               /* ── INTERACTIVE SLIDER VIEW ── */
               <div className="space-y-8">
                 {/* Active Spotlight Step Card */}
-                <div className="relative overflow-hidden rounded-[24px] border border-[#F97316] bg-gradient-to-b from-[#14314B] via-[#102941] to-[#0B1F33] p-8 md:p-12 shadow-2xl transition-all duration-700">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316]" />
+                <div className="relative overflow-hidden rounded-[24px] border border-white/20 bg-gradient-to-b from-[#14314B] via-[#102941] to-[#0B1F33] p-8 md:p-12 shadow-2xl transition-all duration-700">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="space-y-4">
                       <div className="flex items-center gap-4">
-                        <span className="flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-[#F97316] bg-[#0B1F33] text-[20px] font-black text-[#F97316] shadow-[0_0_20px_rgba(249,115,22,0.35)]">
+                        <span className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-white/20 bg-white/[0.08] text-[26px] font-black text-white shadow-xl backdrop-blur-md">
                           {steps[currentStepIndex].number}
                         </span>
-                        <span className="rounded-full border border-[#F97316]/40 bg-[#0B1F33] px-4 py-1 text-[12px] font-black text-[#FDBA74]">
+                        <span className="rounded-full border border-white/15 bg-white/[0.05] px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.16em] text-slate-300">
                           STEP {currentStepIndex + 1} OF 6 • {steps[currentStepIndex].tag}
                         </span>
                       </div>
@@ -261,10 +269,10 @@ export default function HowItWorksPage() {
                       </p>
                     </div>
 
-                    <div className="hidden md:flex h-28 w-28 shrink-0 items-center justify-center rounded-3xl border border-[#F97316]/40 bg-[#0B1F33] text-[#FDBA74] shadow-xl">
+                    <div className="hidden md:flex h-28 w-28 shrink-0 items-center justify-center rounded-3xl border-2 border-white/20 bg-white/[0.08] text-white shadow-2xl backdrop-blur-md">
                       {(() => {
                         const Icon = steps[currentStepIndex].icon;
-                        return <Icon className="h-12 w-12 text-[#F97316]" />;
+                        return <Icon className="h-14 w-14 stroke-[2.2] text-white" />;
                       })()}
                     </div>
                   </div>
@@ -313,12 +321,12 @@ export default function HowItWorksPage() {
             </RevealEyebrow>
             <RevealHeading>
               <h2 className="mt-3 text-[32px] font-black uppercase tracking-tight text-white md:text-[46px]">
-                Watch Our Buying Process
+                WATCH HOW AGTP WORKS
               </h2>
             </RevealHeading>
             <RevealText delay={120}>
               <p className="mx-auto mt-4 max-w-2xl text-[16px] font-semibold text-slate-300">
-                Learn how our global sourcing and export process works directly from our multilingual specialists.
+                See how we handle your vehicle or spare parts order, from quotation and confirmation to shipping, and delivery.
               </p>
             </RevealText>
           </div>
@@ -361,13 +369,13 @@ export default function HowItWorksPage() {
               <div className="p-8 space-y-4">
                 <div className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74]">
                   <Video className="h-4 w-4 text-[#F97316]" />
-                  <span>Vídeo Explicativo</span>
+                  <span>VÍDEO DE ORIENTAÇÃO</span>
                 </div>
                 <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
-                  Como Funciona a Compra e Exportação de Dubai
+                  Guia de Exportação de Veículos e Peças de Reposição de Dubai
                 </h3>
                 <p className="text-[15px] font-medium leading-relaxed text-slate-300">
-                  Nosso especialista falante de português detalha passo a passo o processo de cotação, verificação de peças, pagamento seguro e envio internacional para Angola, Moçambique e outros mercados.
+                  Nossa equipe orienta você sobre o processo de encomenda de veículos e peças de reposição de Dubai, incluindo cotações, confirmação de pedido, envio e entrega internacional.
                 </p>
               </div>
             </div>
@@ -409,13 +417,13 @@ export default function HowItWorksPage() {
               <div className="p-8 space-y-4">
                 <div className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74]">
                   <Video className="h-4 w-4 text-[#F97316]" />
-                  <span>Walkthrough Video</span>
+                  <span>WALKTHROUGH VIDEO</span>
                 </div>
                 <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
-                  Dubai Sourcing & Worldwide Export Guide
+                  Dubai Vehicle & Spare Parts Export Guide
                 </h3>
                 <p className="text-[15px] font-medium leading-relaxed text-slate-300">
-                  Our English-speaking trade specialist walks you through supplier sourcing, rigorous pre-shipment inspections, international freight coordination, and customs documentation.
+                  Our team walks you through ordering vehicles and spare parts from Dubai, including quotations, order confirmation, shipping, and international delivery.
                 </p>
               </div>
             </div>

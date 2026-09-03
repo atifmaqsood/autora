@@ -25,77 +25,77 @@ interface FaqItem {
 
 const faqList: FaqItem[] = [
   {
-    question: "1. What does AGTP Group do?",
+    question: "What does AGTP Group do?",
     answer: "AGTP Group is a Dubai-based automotive trading company supplying vehicles and automotive spare parts for local and international customers.",
     category: "Vehicles"
   },
   {
-    question: "2. What products does AGTP Group supply?",
+    question: "What products does AGTP Group supply?",
     answer: "We supply new and pre-owned vehicles, automotive spare parts, engines, tyres, body parts, and other automotive components.",
     category: "Vehicles"
   },
   {
-    question: "3. Do you export vehicles internationally?",
+    question: "Do you export vehicles internationally?",
     answer: "Yes. We arrange vehicle exports from the UAE to customers and markets worldwide.",
     category: "Shipping & Export"
   },
   {
-    question: "4. Do you supply automotive spare parts internationally?",
+    question: "Do you supply automotive spare parts internationally?",
     answer: "Yes. We supply automotive spare parts for various vehicle brands and arrange international delivery.",
     category: "Spare Parts"
   },
   {
-    question: "5. Which vehicle brands do you supply?",
+    question: "Which vehicle brands do you supply?",
     answer: "We supply vehicles from a wide range of major international brands, subject to availability.",
     category: "Vehicles"
   },
   {
-    question: "6. Which vehicle brands do you supply spare parts for?",
+    question: "Which vehicle brands do you supply spare parts for?",
     answer: "We supply spare parts for many Japanese, Korean, European, American, and other vehicle brands.",
     category: "Spare Parts"
   },
   {
-    question: "7. Can I buy a vehicle directly from AGTP Group?",
+    question: "Can I buy a vehicle directly from AGTP Group?",
     answer: "Yes. Customers can purchase available vehicles directly from AGTP Group and arrange local or international delivery.",
     category: "Vehicles"
   },
   {
-    question: "8. Can I order a specific spare part?",
+    question: "Can I order a specific spare part?",
     answer: "Yes. Send us the part name, part number, vehicle model, or a photo, and we’ll check availability and pricing.",
     category: "Spare Parts"
   },
   {
-    question: "9. How can I request a quotation?",
+    question: "How can I request a quotation?",
     answer: "Submit an inquiry through our website, WhatsApp, email, or contact form with your product requirements.",
     category: "Orders & Payments"
   },
   {
-    question: "10. What information do you need for a spare parts inquiry?",
+    question: "What information do you need for a spare parts inquiry?",
     answer: "Please provide the vehicle make, model, year, part name or part number, quantity, and destination country when available.",
     category: "Spare Parts"
   },
   {
-    question: "11. Do you provide international shipping?",
+    question: "Do you provide international shipping?",
     answer: "Yes. We arrange international shipping by sea or air, depending on the product, destination, and customer requirements.",
     category: "Shipping & Export"
   },
   {
-    question: "12. What payment methods do you accept?",
+    question: "What payment methods do you accept?",
     answer: "Payment options may include bank transfer, online payment, and other approved payment methods depending on the order.",
     category: "Orders & Payments"
   },
   {
-    question: "13. How do you ensure product quality?",
+    question: "How do you ensure product quality?",
     answer: "We verify product specifications, availability, and condition before completing orders, with inspection available where applicable.",
     category: "Orders & Payments"
   },
   {
-    question: "14. Can I cancel my order or request a refund?",
+    question: "Can I cancel my order or request a refund?",
     answer: "Refund and cancellation eligibility depends on the order status and applicable terms outlined in our Refund Policy.",
     category: "Refunds & Support"
   },
   {
-    question: "15. How do I place an order with AGTP Group?",
+    question: "How do I place an order with AGTP Group?",
     answer: "Send us your requirements, receive the quotation, confirm your order, complete payment, and we’ll proceed with fulfillment and delivery.",
     category: "Orders & Payments"
   }
@@ -218,7 +218,7 @@ export default function FaqsPage() {
                       <span className={`text-[17px] md:text-[19px] leading-snug font-sans transition-colors ${
                         isOpen ? "text-[#FDBA74]" : "text-white group-hover:text-[#FDBA74]"
                       }`}>
-                        {item.question}
+                        {item.question.replace(/^\d+[\.\)]\s*/, "")}
                       </span>
                     </div>
 

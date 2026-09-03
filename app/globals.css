@@ -395,18 +395,17 @@ footer.store-footer,
   transform: translate(-50%, -50%) scale(0.75);
 }
 
-@keyframes loaderWave {
-  0%, 100% {
-    transform: translateY(0);
+@keyframes loaderShimmer {
+  0% {
+    background-position: 220% 0;
   }
-  50% {
-    transform: translateY(-12px);
+  100% {
+    background-position: -220% 0;
   }
 }
 
-.animate-loader-wave {
-  display: inline-block;
-  animation: loaderWave 1.8s ease-in-out infinite;
+.animate-loader-shimmer {
+  animation: loaderShimmer 2.8s ease-in-out infinite;
 }
 
 @keyframes textShimmerSweep {

@@ -245,13 +245,13 @@ export default function CustomerReviewsPage() {
       <PageHero
         breadcrumbs={[
           { label: "HOME", href: "/" },
-          { label: "CUSTOMER REVIEWS" }
+          { label: "Client Trust & Testimonials" }
         ]}
         badge={{
           text: "VERIFIED BUYERS & CLIENT FEEDBACK"
         }}
         title="CUSTOMER REVIEWS"
-        subtitle="Meet customers from around the world who chose AGTP Group for their vehicles and automotive spare parts."
+        subtitle="Meet customers from around the world who choose AGTP Group for their vehicles and automotive spare parts."
         imageSrc={agtpAssets.aboutYard}
         imageAlt="AGTP Group Customer Delivery Yard"
       />

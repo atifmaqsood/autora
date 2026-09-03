@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, MapPin, MessageCircle, Phone, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Phone, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { useContent } from "@/lib/content/context";
 
@@ -9,8 +9,7 @@ const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/agtpgroup", label: "Facebook" },
   { icon: Instagram, href: "https://www.instagram.com/agtpgroup/", label: "Instagram" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/agtp-group-l-l-c/", label: "LinkedIn" },
-  { icon: MessageCircle, href: "https://wa.me/971585855729", label: "WhatsApp" },
-  { icon: Mail, href: "mailto:inquiries@agtpgroup.com", label: "Email" }
+  { icon: Youtube, href: "https://www.youtube.com/channel/UCZuq0-wBtWNFOUCATF_tkOw", label: "YouTube" }
 ];
 
 export function StoreFooter() {
@@ -33,7 +32,7 @@ export function StoreFooter() {
           <div className="space-y-6 lg:col-span-1">
             <Logo />
             <p className="text-[15px] font-medium leading-[1.6] text-slate-400">
-              {brandName} is a premier trading and export powerhouse delivering commercial and private vehicles, automotive spare parts, and specialized heavy machinery worldwide.
+              Dubai-based exporter of quality vehicles and spare parts, with trusted shipping to 45+ countries worldwide.
             </p>
             <div className="flex flex-wrap gap-2 pt-2">
               {socialLinks.map((item) => (
