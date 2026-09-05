@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronLeft, ChevronRight, Filter, Quote, Star, UserCheck } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Filter, Quote, Star, UserCheck, Volume2, VolumeX } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { agtpAssets } from "@/src/assets";
@@ -203,6 +203,78 @@ const reviewStats = [
 
 const countries = ["ALL", "Angola", "Congo", "Ghana"];
 
+function ReviewVideoPlayer({
+  src,
+  poster,
+  alt
+}: {
+  src: string;
+  poster?: string;
+  alt: string;
+}) {
+  const [showControls, setShowControls] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleVoice = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      const nextMuted = !videoRef.current.muted;
+      videoRef.current.muted = nextMuted;
+      setIsMuted(nextMuted);
+    }
+  };
+
+  return (
+    <div
+      className="group/video relative h-full w-full"
+      onMouseEnter={() => setShowControls(true)}
+      onMouseLeave={() => setShowControls(false)}
+    >
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted={isMuted}
+        playsInline
+        preload="auto"
+        poster={poster}
+        controls={showControls}
+        onVolumeChange={(e) => {
+          setIsMuted((e.target as HTMLVideoElement).muted);
+        }}
+        className="h-full w-full object-cover object-center"
+        aria-label={alt}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+
+      {/* Voice / Audio Toggle Button on Hover */}
+      <button
+        type="button"
+        onClick={toggleVoice}
+        className={`absolute right-4 top-14 z-20 flex items-center gap-1.5 rounded-full border border-white/25 bg-[#0B1F33]/90 px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#F97316] ${
+          showControls ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        title={isMuted ? "Unmute Voice" : "Mute Voice"}
+        aria-label={isMuted ? "Unmute voice audio" : "Mute voice audio"}
+      >
+        {isMuted ? (
+          <>
+            <VolumeX className="h-3.5 w-3.5 text-[#FDBA74]" />
+            <span>Voice Off</span>
+          </>
+        ) : (
+          <>
+            <Volume2 className="h-3.5 w-3.5 text-emerald-400" />
+            <span>Voice On</span>
+          </>
+        )}
+      </button>
+    </div>
+  );
+}
+
 export default function CustomerReviewsPage() {
   const [selectedCountry, setSelectedCountry] = useState("ALL");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -367,18 +439,11 @@ export default function CustomerReviewsPage() {
                     {(rev.video || rev.image) && (
                       <div className="relative h-[460px] w-full shrink-0 overflow-hidden bg-[#06101C]">
                         {rev.video ? (
-                          <video
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            preload="auto"
+                          <ReviewVideoPlayer
+                            src={rev.video}
                             poster={typeof rev.image === "string" ? rev.image : rev.image?.src}
-                            className="h-full w-full object-cover object-center"
-                            aria-label={`${rev.name} customer video story`}
-                          >
-                            <source src={rev.video} type="video/mp4" />
-                          </video>
+                            alt={`${rev.name} customer video story`}
+                          />
                         ) : (
                           <Image
                             src={rev.image}
@@ -403,7 +468,7 @@ export default function CustomerReviewsPage() {
                         </span>
 
                         {/* Tag Badge */}
-                        <span className="absolute bottom-4 left-4 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3 py-1 text-[11px] font-black text-[#FDBA74] z-10">
+                        <span className={`absolute bottom-4 left-4 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3 py-1 text-[11px] font-black text-[#FDBA74] z-10 pointer-events-none transition-opacity duration-300 ${rev.video ? "group-hover:opacity-0" : ""}`}>
                           {rev.tag}
                         </span>
                       </div>
@@ -465,18 +530,11 @@ export default function CustomerReviewsPage() {
                   {(filteredReviews[currentSlide].video || filteredReviews[currentSlide].image) && (
                     <div className="relative h-[460px] md:h-[500px] w-full overflow-hidden rounded-2xl border border-[#315671] bg-[#06101C] md:col-span-5">
                       {filteredReviews[currentSlide].video ? (
-                        <video
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          preload="auto"
+                        <ReviewVideoPlayer
+                          src={filteredReviews[currentSlide].video}
                           poster={typeof filteredReviews[currentSlide].image === "string" ? filteredReviews[currentSlide].image : filteredReviews[currentSlide].image?.src}
-                          className="h-full w-full object-cover object-center"
-                          aria-label={`${filteredReviews[currentSlide].name} customer video story`}
-                        >
-                          <source src={filteredReviews[currentSlide].video} type="video/mp4" />
-                        </video>
+                          alt={`${filteredReviews[currentSlide].name} customer video story`}
+                        />
                       ) : (
                         <Image
                           src={filteredReviews[currentSlide].image}
@@ -487,7 +545,7 @@ export default function CustomerReviewsPage() {
                         />
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
-                      <span className="absolute bottom-4 left-4 rounded-full bg-[#0B1F33]/90 backdrop-blur-sm border border-[#F97316]/60 px-3.5 py-1 text-[12px] font-black text-[#FDBA74] z-10">
+                      <span className={`absolute bottom-4 left-4 rounded-full bg-[#0B1F33]/90 backdrop-blur-sm border border-[#F97316]/60 px-3.5 py-1 text-[12px] font-black text-[#FDBA74] z-10 pointer-events-none transition-opacity duration-300 ${filteredReviews[currentSlide].video ? "group-hover:opacity-0" : ""}`}>
                         {filteredReviews[currentSlide].tag}
                       </span>
                       <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10">

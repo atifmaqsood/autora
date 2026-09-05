@@ -453,7 +453,7 @@ export default function HowItWorksPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  START YOUR SOURCING
+                  START YOUR ORDER 
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>

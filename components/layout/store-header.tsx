@@ -50,18 +50,24 @@ export function StoreHeader() {
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-50">
+      <div
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "shadow-2xl backdrop-blur-xl"
+            : ""
+        }`}
+        style={{
+          borderBottom: "1px solid #fff0"
+        }}
+      >
         <div
-          className={`hidden h-[46px] border-b px-4 text-[14px] font-extrabold text-white transition-all duration-500 xl:block ${
-            scrolled ? "shadow-md backdrop-blur-xl" : "backdrop-blur-sm"
+          className={`hidden h-[46px] px-4 text-[14px] font-extrabold text-white transition-all duration-300 xl:block ${
+            scrolled ? "" : "backdrop-blur-sm"
           }`}
           style={{
             backgroundColor: scrolled
-              ? "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 70%, transparent)"
-              : "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 25%, transparent)",
-            borderColor: scrolled
-              ? "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 75%, white 15%)"
-              : "rgba(255, 255, 255, 0.08)"
+              ? "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 65%, transparent)"
+              : "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 25%, transparent)"
           }}
         >
           <div className="mx-auto flex h-full max-w-[1300px] items-center justify-end gap-7">
@@ -87,19 +93,12 @@ export function StoreHeader() {
         </div>
 
         <header
-          className={`transition-all duration-500 ${
-            scrolled
-              ? "border-b shadow-2xl backdrop-blur-xl"
-              : "border-b border-transparent bg-transparent"
-          }`}
-          style={
-            scrolled
-              ? {
-                  backgroundColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 65%, transparent)",
-                  borderColor: "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 70%, white 18%)"
-                }
-              : undefined
-          }
+          className="w-full transition-all duration-300"
+          style={{
+            backgroundColor: scrolled
+              ? "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 65%, transparent)"
+              : "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 0%, transparent)"
+          }}
         >
           <div className="mx-auto max-w-[1735px] px-6 xl:px-[96px]">
             <div className="flex h-[82px] items-center justify-between xl:h-[98px]">

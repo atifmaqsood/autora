@@ -15,6 +15,8 @@ import {
   Search,
   Ship,
   Truck,
+  Volume2,
+  VolumeX,
   Wrench
 } from "lucide-react";
 
@@ -940,6 +942,78 @@ function CustomerStoriesSection() {
   );
 }
 
+function HomepageVideoPlayer({
+  src,
+  poster,
+  alt
+}: {
+  src: string;
+  poster?: string;
+  alt: string;
+}) {
+  const [showControls, setShowControls] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleVoice = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      const nextMuted = !videoRef.current.muted;
+      videoRef.current.muted = nextMuted;
+      setIsMuted(nextMuted);
+    }
+  };
+
+  return (
+    <div
+      className="group/video relative h-full w-full"
+      onMouseEnter={() => setShowControls(true)}
+      onMouseLeave={() => setShowControls(false)}
+    >
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted={isMuted}
+        playsInline
+        preload="auto"
+        poster={poster}
+        controls={showControls}
+        onVolumeChange={(e) => {
+          setIsMuted((e.target as HTMLVideoElement).muted);
+        }}
+        className="h-full w-full object-cover object-center"
+        aria-label={alt}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+
+      {/* Voice / Audio Toggle Button on Hover */}
+      <button
+        type="button"
+        onClick={toggleVoice}
+        className={`absolute right-5 top-5 z-20 flex items-center gap-1.5 rounded-full border border-white/25 bg-[#0B1F33]/90 px-3.5 py-1.5 text-[11px] font-black uppercase tracking-wider text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#F97316] ${
+          showControls ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        title={isMuted ? "Unmute Voice" : "Mute Voice"}
+        aria-label={isMuted ? "Unmute voice audio" : "Mute voice audio"}
+      >
+        {isMuted ? (
+          <>
+            <VolumeX className="h-3.5 w-3.5 text-[#FDBA74]" />
+            <span>Voice Off</span>
+          </>
+        ) : (
+          <>
+            <Volume2 className="h-3.5 w-3.5 text-emerald-400" />
+            <span>Voice On</span>
+          </>
+        )}
+      </button>
+    </div>
+  );
+}
+
 function TestimonialCard({
   story,
   active
@@ -951,18 +1025,11 @@ function TestimonialCard({
     <>
       <div className="relative h-[460px] w-full shrink-0 overflow-hidden bg-[#06101C]">
         {story.video ? (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
+          <HomepageVideoPlayer
+            src={story.video}
             poster={typeof story.image === "string" ? story.image : story.image?.src}
-            className="h-full w-full object-cover object-center"
-            aria-label={`${story.name} customer video story`}
-          >
-            <source src={story.video} type="video/mp4" />
-          </video>
+            alt={`${story.name} customer video story`}
+          />
         ) : (
           <Image
             src={story.image}
@@ -974,7 +1041,7 @@ function TestimonialCard({
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
-        <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10">
+        <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10 pointer-events-none">
           {story.video && <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />}
           {story.video ? "Video Story" : "Customer Story"}
         </span>
