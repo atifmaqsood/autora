@@ -145,8 +145,6 @@ export default function PaymentPage() {
         }}
         title="SECURE PAYMENT & BANKING"
         subtitle="Verified international banking channels, transparent compliance protocols, and payment policies for AGTP Group L.L.C-FZ."
-        imageSrc={agtpAssets.contactHero}
-        imageSrc={agtpAssets.bank}
         imageAlt="AGTP Group Corporate Banking & Finance Desk"
       />
 
