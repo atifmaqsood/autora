@@ -12,6 +12,7 @@ import {
   FileCheck,
   Globe2,
   Package,
+  Play,
   Search,
   Ship,
   Truck,
@@ -952,8 +953,21 @@ function HomepageVideoPlayer({
   alt: string;
 }) {
   const [showControls, setShowControls] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const togglePlay = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play().catch(() => {});
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
 
   const toggleVoice = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -966,19 +980,22 @@ function HomepageVideoPlayer({
 
   return (
     <div
-      className="group/video relative h-full w-full"
+      className="group/video relative h-full w-full cursor-pointer overflow-hidden bg-black"
       onMouseEnter={() => setShowControls(true)}
       onMouseLeave={() => setShowControls(false)}
+      onClick={togglePlay}
     >
       <video
         ref={videoRef}
-        autoPlay
         loop
         muted={isMuted}
         playsInline
-        preload="auto"
+        preload="metadata"
         poster={poster}
-        controls={showControls}
+        controls={showControls && isPlaying}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => setIsPlaying(false)}
         onVolumeChange={(e) => {
           setIsMuted((e.target as HTMLVideoElement).muted);
         }}
@@ -988,11 +1005,32 @@ function HomepageVideoPlayer({
         <source src={src} type="video/mp4" />
       </video>
 
+      {/* Center Play Video Icon / Button Overlay */}
+      <div
+        className={`absolute inset-0 z-20 flex flex-col items-center justify-center transition-all duration-300 ${
+          isPlaying ? "opacity-0 pointer-events-none scale-90" : "opacity-100 bg-black/35 backdrop-blur-[2px]"
+        }`}
+      >
+        <button
+          type="button"
+          onClick={togglePlay}
+          className="group/btn relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/60 bg-[#0B1F33]/85 text-white shadow-[0_10px_35px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#F97316] hover:bg-[#F97316] hover:shadow-[0_0_35px_rgba(249,115,22,0.8)] active:scale-95 cursor-pointer"
+          title="Play Video"
+          aria-label="Play video review"
+        >
+          <span className="absolute -inset-1 rounded-full border border-[#F97316]/60 opacity-75 animate-ping pointer-events-none" />
+          <Play className="h-7 w-7 fill-white text-white translate-x-0.5 transition-transform duration-200 group-hover/btn:scale-110" />
+        </button>
+        <span className="mt-3 rounded-full bg-[#0B1F33]/90 px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-[#FDBA74] shadow-lg border border-white/15 backdrop-blur-md pointer-events-none">
+          Click to Play
+        </span>
+      </div>
+
       {/* Voice / Audio Toggle Button on Hover */}
       <button
         type="button"
         onClick={toggleVoice}
-        className={`absolute right-5 top-5 z-20 flex items-center gap-1.5 rounded-full border border-white/25 bg-[#0B1F33]/90 px-3.5 py-1.5 text-[11px] font-black uppercase tracking-wider text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#F97316] ${
+        className={`absolute right-5 top-5 z-30 flex items-center gap-1.5 rounded-full border border-white/25 bg-[#0B1F33]/90 px-3.5 py-1.5 text-[11px] font-black uppercase tracking-wider text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#F97316] ${
           showControls ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         title={isMuted ? "Unmute Voice" : "Mute Voice"}

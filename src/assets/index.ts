@@ -5,6 +5,7 @@ import careersHero from "./milele/careers/hero.jpg";
 import contactHero from "./milele/contact/hero.jpg";
 import inventoryHero from "./milele/inventory/hero.jpg";
 import sparePartsHero from "./milele/spare-parts/hero.jpg";
+import bank from "./bank.png";
 
 import bmw760ArmoredCard from "./milele/home/bmw-760-armored-card.jpg";
 import bmw760Card from "./milele/home/bmw-760-card.jpg";
@@ -36,6 +37,7 @@ export const agtpAssets = {
   contactHero,
   inventoryHero,
   sparePartsHero,
+  bank,
   bmw760ArmoredCard,
   bmw760Card,
   bmwX2Card,
