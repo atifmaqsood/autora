@@ -3,7 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Compass, Eye, ShieldCheck } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Eye,
+  FileCheck,
+  Globe2,
+  ShieldCheck,
+  Ship,
+  Target,
+  Truck
+} from "lucide-react";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
@@ -22,60 +32,93 @@ export default function AboutPage() {
 
   return (
     <div className="space-y-0 pb-20 bg-[#060709] text-white">
-      {/* ── 1. Hero Header Banner matching new design ── */}
+      {/* ── 1. Hero Header Banner ── */}
       <PageHero
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "ABOUT US" }
         ]}
-        title="ABOUT AGTP GROUP"
-        subtitle="AGTP Group has built a global reputation for reliability, quality, and exceptional service as a leading automotive and spare parts exporter for over two decades."
+        badge={{
+          text: "ABOUT US — OUR STORY"
+        }}
+        title={
+          <>
+            <span className="block text-[18px] sm:text-[24px] md:text-[28px] font-black uppercase tracking-[0.25em] text-[#FDBA74] mb-1">
+              THE STORY BEHIND
+            </span>
+            AGTP GROUP
+          </>
+        }
+        subtitle={
+          <div className="space-y-3.5">
+            <p className="text-[17px] sm:text-[19px] md:text-[21px] font-bold text-white leading-snug">
+              A Dubai-based automotive trading company built on trust, quality, and global ambition.
+            </p>
+            <p className="text-[14px] sm:text-[15px] md:text-[16px] font-normal text-slate-300 leading-relaxed max-w-2xl">
+              AGTP Group supplies quality vehicles and automotive spare parts to customers worldwide, combining competitive pricing, professional service, and reliable international delivery.
+            </p>
+            <div className="pt-1">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/85 px-4 py-1.5 text-[12px] sm:text-[13px] font-bold text-[#FDBA74] backdrop-blur-md shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-[#F97316]" />
+                From Dubai to the world — automotive trade made simple.
+              </span>
+            </div>
+          </div>
+        }
         imageSrc={agtpAssets.aboutHero}
         imageAlt="AGTP Group Showroom & Headquarters"
       />
 
-      {/* ── 2. ABOUT AGTP GROUP — Reliable Suppliers of Auto Spare Parts in the UAE ── */}
+      {/* ── 2. OUR STORY — From Dubai to the World ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Map Graphic */}
+          {/* Left Graphic */}
           <div className="lg:col-span-6 relative">
             <Reveal duration={700}>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-800 bg-[#102941] shadow-2xl">
                 <Image
                   src={agtpAssets.aboutYard}
-                  alt="Historical Map"
+                  alt="AGTP Group Global Export Yard"
                   fill
                   className="object-cover opacity-60"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
-                  <span className="text-sm font-black text-white block">35+ Countries</span>
-                  <span className="text-[10px] text-slate-400 font-medium">served worldwide</span>
+                  <span className="text-sm font-black text-white block tracking-wide">45+ COUNTRIES</span>
+                  <span className="text-[11px] text-slate-300 font-medium">Trusted across borders</span>
                 </div>
               </div>
             </Reveal>
           </div>
           <div className="lg:col-span-6 space-y-6">
             <RevealEyebrow>
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#FDBA74] uppercase tracking-widest">
                 <span className="w-6 h-[1.5px] bg-[#F97316]" />
-                ABOUT AGTP GROUP
+                OUR STORY
               </div>
             </RevealEyebrow>
 
             <RevealHeading>
-              <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight font-sans">
-                Reliable Suppliers of Auto Spare Parts in the UAE
-              </h2>
+              <div>
+                <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight font-sans">
+                  From Dubai to the World
+                </h2>
+                <p className="mt-2 text-xl sm:text-2xl font-black text-[#F97316] tracking-wide">
+                  Driven by Trust
+                </p>
+              </div>
             </RevealHeading>
 
             <RevealText delay={120}>
-              <div className="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <div className="space-y-4 text-sm sm:text-base text-slate-300 leading-relaxed">
                 <p>
-                  AGTP Group specializes in supplying spare parts for all types of vehicles, including trucks, buses, and heavy equipment. Customers rely on the company for genuine car spare parts in the UAE and dependable re-export support.
+                  AGTP Group began with a clear vision: make buying and exporting vehicles and automotive spare parts easier, more transparent, and more reliable. From Dubai, one of the world’s leading automotive and trade hubs, we serve customers across international markets with quality products and professional support.
                 </p>
                 <p>
-                  Leveraging a strong network of trusted suppliers, AGTP GROUP procures top-quality spare parts at competitive prices. The team ensures that every product offered adheres to high industry standards and supports long-lasting relationships across global markets.
+                  What started as a focused automotive trading business continues to grow into a global export operation. Today, AGTP Group supplies vehicles and genuine automotive spare parts to customers, dealers, businesses, and organisations across more than 45 countries worldwide.
+                </p>
+                <p>
+                  Driven by Trust is more than our slogan — it reflects how we do business. As AGTP Group continues to grow globally, our commitment remains the same: provide quality automotive products, keep our promises, and build lasting relationships with customers around the world.
                 </p>
               </div>
             </RevealText>
@@ -83,19 +126,46 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 3. WHY CUSTOMERS CHOOSE AGTP GROUP? — Punctuality, pricing & range ────────────── */}
+      {/* ── 3. Statistics Bar (Rolling Numbers) ── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+        <RevealStagger staggerDelay={100} className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          {[
+            { icon: Ship, value: 10000, suffix: "+", label: "Exports" },
+            { icon: Globe2, value: 45, suffix: "+", label: "Countries Served" },
+            { icon: FileCheck, value: 11, suffix: "+", label: "Years in Trade" },
+            { icon: Truck, value: 94, suffix: "%", label: "On-Time Delivery" }
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="bg-[#102941] border border-slate-800 p-7 sm:p-8 rounded-3xl space-y-3 shadow-xl hover:border-[#F97316]/60 transition-all duration-300 group"
+            >
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-[#F97316]/10 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <item.icon className="w-6 h-6" />
+              </div>
+              <div className="text-3xl sm:text-5xl font-black text-white font-sans tracking-tight">
+                <RevealCounter end={item.value} suffix={item.suffix} />
+              </div>
+              <span className="text-xs sm:text-sm text-slate-400 font-semibold block uppercase tracking-wider">
+                {item.label}
+              </span>
+            </div>
+          ))}
+        </RevealStagger>
+      </section>
+
+      {/* ── 4. WHAT DRIVES US — Mission, Vision & Values ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
         <div className="text-center max-w-xl mx-auto space-y-3 mb-14">
           <RevealEyebrow>
-            <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+            <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#FDBA74] uppercase tracking-widest">
               <span className="w-6 h-[1.5px] bg-[#F97316]" />
-              WHY CUSTOMERS CHOOSE AGTP GROUP?
+              WHAT DRIVES US
             </div>
           </RevealEyebrow>
 
           <RevealHeading>
             <h2 className="text-3xl sm:text-5xl font-black text-white font-sans">
-              Punctuality, pricing & range
+              Mission, Vision &amp; Values
             </h2>
           </RevealHeading>
         </div>
@@ -103,39 +173,39 @@ export default function AboutPage() {
         <RevealStagger staggerDelay={100} className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
-              icon: Compass,
-              title: "Punctuality",
-              desc: "We consistently adhere to promised delivery times, ensuring we meet and exceed customer expectations."
+              icon: Target,
+              title: "Our Mission",
+              desc: "To make buying and exporting vehicles and automotive spare parts simple, transparent, and reliable, with professional support from inquiry to delivery."
             },
             {
               icon: Eye,
-              title: "Competitive Pricing",
-              desc: "Our prices are exceptionally competitive, offering strong value compared to others in the industry."
+              title: "Our Vision",
+              desc: "To become a globally trusted name in automotive trade and export from the UAE, recognized for quality, value, and dependable service."
             },
             {
               icon: ShieldCheck,
-              title: "Diverse Range",
-              desc: "We provide an extensive range of brands, models, and products to suit customer needs."
+              title: "Our Values",
+              desc: "Driven by Trust. We stand for integrity, transparency, accountability, and customer care, building lasting relationships through every transaction."
             }
           ].map((item) => (
-            <div key={item.title} className="bg-[#102941] border border-slate-800 rounded-3xl p-8 space-y-4 hover:border-[#F97316] transition-all duration-300 shadow-xl">
+            <div key={item.title} className="bg-[#102941] border border-slate-800 rounded-3xl p-8 space-y-4 hover:border-[#F97316] transition-all duration-300 shadow-xl flex flex-col justify-start">
               <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center">
                 <item.icon className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white">{item.title}</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+              <p className="text-sm text-slate-300 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </RevealStagger>
       </section>
 
-      {/* ── 4. THE DIFFERENCE — What makes AGTP GROUP different ──────────── */}
+      {/* ── 5. THE DIFFERENCE — What makes AGTP Group Different ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Differentiators List */}
           <div className="lg:col-span-7 space-y-6">
             <RevealEyebrow>
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#FDBA74] uppercase tracking-widest">
                 <span className="w-6 h-[1.5px] bg-[#F97316]" />
                 THE DIFFERENCE
               </div>
@@ -143,30 +213,31 @@ export default function AboutPage() {
 
             <RevealHeading>
               <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight font-sans">
-                What makes AGTP GROUP different
+                What Makes AGTP Group{" "}
+                <span className="text-[#F97316] sm:block">Different</span>
               </h2>
             </RevealHeading>
 
             <RevealText delay={120}>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                We sincerely thank and appreciate all our customers and suppliers for their continued support over the years. We remain committed to delivering our best services at all times.
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                We focus on making every purchase clear, reliable, and built on trust — from your first inquiry to final delivery.
               </p>
             </RevealText>
 
             <RevealStagger staggerDelay={80} className="space-y-4 pt-2">
               {[
-                { title: "Genuine OEM and replacement parts", desc: "AGTP GROUP supplies reliable auto spare parts across multiple brands and product categories." },
-                { title: "Professional suppliers of auto spare parts", desc: "A skilled team supports product sourcing, quotation, documentation, and fulfilment." },
-                { title: "Export coordination through a global network", desc: "The company supports re-export requirements through supplier and logistics coordination." },
-                { title: "Reliable sourcing with competitive pricing", desc: "AGTP GROUP uses its trusted supplier network to procure quality parts at strong value." },
-                { title: "Customer satisfaction is our top priority", desc: "Dedicated support and service remain central to every enquiry and order." },
-                { title: "Expanded range of products", desc: "The ability to import parts globally and re-export to new markets gives AGTP GROUP a clear edge." }
+                { title: "Vehicles & spare parts under one roof", desc: "We supply quality vehicles and automotive spare parts for customers worldwide." },
+                { title: "Global automotive reach", desc: "We serve customers across 45+ countries, connecting Dubai’s automotive market with destinations around the world." },
+                { title: "Competitive pricing", desc: "Our strong market relationships and trading experience help us offer competitive prices and genuine value." },
+                { title: "Reliable export support", desc: "We handle export documentation, shipping coordination, and delivery arrangements for international orders." },
+                { title: "Clear communication", desc: "We keep customers informed with straightforward product details, pricing, order updates, and shipping information." },
+                { title: "Driven by Trust", desc: "Integrity, transparency, and customer care guide every transaction — because trust is at the heart of everything we do." }
               ].map((point) => (
-                <div key={point.title} className="flex items-start gap-3 bg-[#102941] border border-slate-800/60 p-4 rounded-2xl">
+                <div key={point.title} className="flex items-start gap-3 bg-[#102941] border border-slate-800/60 p-4 rounded-2xl hover:border-[#F97316]/50 transition-colors">
                   <CheckCircle2 className="w-5 h-5 text-[#F97316] shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-xs sm:text-sm font-bold text-white block">{point.title}</strong>
-                    <span className="text-[11px] sm:text-xs text-slate-400 leading-relaxed block mt-0.5">{point.desc}</span>
+                    <span className="text-[11px] sm:text-xs text-slate-300 leading-relaxed block mt-0.5">{point.desc}</span>
                   </div>
                 </div>
               ))}
@@ -200,40 +271,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 5. Statistics Bar ────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
-        <RevealStagger staggerDelay={100} className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-          <div className="bg-[#102941] border border-slate-800 p-8 rounded-3xl space-y-1 shadow-xl">
-            <div className="text-3xl sm:text-5xl font-black text-white font-sans">
-              <RevealCounter end={35} suffix="+" />
-            </div>
-            <span className="text-xs text-slate-400 font-semibold block">Number of countries we serve</span>
-          </div>
-
-          <div className="bg-[#102941] border border-slate-800 p-8 rounded-3xl space-y-1 shadow-xl">
-            <div className="text-3xl sm:text-5xl font-black text-[#F97316] font-sans">
-              <RevealCounter end={110} suffix="M+" />
-            </div>
-            <span className="text-xs text-slate-400 font-semibold block">Sales Volume AED Overall</span>
-          </div>
-
-          <div className="bg-[#102941] border border-slate-800 p-8 rounded-3xl space-y-1 shadow-xl">
-            <div className="text-3xl sm:text-5xl font-black text-white font-sans">
-              <RevealCounter end={100} suffix="K+" />
-            </div>
-            <span className="text-xs text-slate-400 font-semibold block">Number of Orders Fulfiled</span>
-          </div>
-
-          <div className="bg-[#102941] border border-slate-800 p-8 rounded-3xl space-y-1 shadow-xl">
-            <div className="text-3xl sm:text-5xl font-black text-emerald-400 font-sans">
-              <RevealCounter end={40} suffix="+" />
-            </div>
-            <span className="text-xs text-slate-400 font-semibold block">Countries with long-lasting relationships</span>
-          </div>
-        </RevealStagger>
-      </section>
-
-      {/* ── 6. LEADERSHIP — The people steering AGTP GROUP ───────────────── */}
+      {/* ── 6. LEADERSHIP — The people steering AGTP GROUP ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
         <div className="text-center max-w-xl mx-auto space-y-3 mb-14">
           <RevealEyebrow>
@@ -305,28 +343,37 @@ export default function AboutPage() {
         </RevealStagger>
       </section>
 
-      {/* ── 7. GET RELIABLE AND GENUINE CAR SPARE PARTS IN UAE CTA Banner ────────────────────────────── */}
+      {/* ── 7. READY TO GET STARTED? CTA Banner ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
         <Reveal duration={700}>
           <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl">
+            {/* Ambient glows */}
+            <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#F97316]/5 blur-3xl pointer-events-none" />
+            <div className="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-[#315671]/20 blur-3xl pointer-events-none" />
+
             <div className="relative z-10 max-w-3xl mx-auto space-y-6">
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight font-sans">
-                GET RELIABLE AND GENUINE CAR SPARE PARTS IN UAE
+                READY TO GET STARTED?
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
-                We sincerely thank and appreciate all our customers and suppliers for their continued support over the years. AGTP GROUP remains committed to delivering its best services at all times.
+              <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                Whether you&apos;re looking for a vehicle or automotive spare parts, AGTP Group is ready to help. Tell us what you need, where it&apos;s going, and your preferred specifications. We&apos;ll guide you through availability, pricing, payment, documentation, and reliable shipping options.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                 <button
+                  type="button"
                   onClick={() => setInquiryModalOpen(true)}
-                  className="bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-8 py-3.5 rounded-full shadow-lg transition-all inline-flex items-center gap-2"
+                  className="bg-[#F97316] hover:bg-[#EA580C] text-white font-extrabold text-sm px-8 py-3.5 rounded-full shadow-lg transition-all inline-flex items-center gap-2 hover:gap-3"
                 >
-                  <span>Click here</span>
+                  <span>GET A QUOTE</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
-                <Link href="/brands">
-                  <button className="border border-slate-700 hover:bg-slate-800 text-white font-bold text-xs px-8 py-3.5 rounded-full transition-all">
-                    Brands
+                <Link href="/vehicles">
+                  <button
+                    type="button"
+                    className="border border-slate-700 hover:border-white/40 hover:bg-slate-800 text-white font-extrabold text-sm px-8 py-3.5 rounded-full transition-all inline-flex items-center gap-2 hover:gap-3"
+                  >
+                    <span>EXPLORE VEHICLES</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
               </div>

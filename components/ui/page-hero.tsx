@@ -11,8 +11,8 @@ export interface BreadcrumbItem {
 }
 
 export interface PageHeroProps {
-  title: string;
-  subtitle?: string;
+  title: string | React.ReactNode;
+  subtitle?: string | React.ReactNode;
   breadcrumbs?: BreadcrumbItem[];
   imageSrc: string | StaticImageData;
   imageAlt?: string;
@@ -111,9 +111,9 @@ export function PageHero({
           {/* Subtitle / Description */}
           {subtitle && (
             <RevealText delay={140}>
-              <p className="mt-2 max-w-2xl text-[15px] font-medium leading-relaxed text-slate-200 drop-shadow sm:text-[17px] md:text-[18px]">
+              <div className="mt-2 max-w-3xl text-[15px] font-medium leading-relaxed text-slate-200 drop-shadow sm:text-[17px] md:text-[18px]">
                 {subtitle}
-              </p>
+              </div>
             </RevealText>
           )}
 

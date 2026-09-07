@@ -10,8 +10,8 @@ interface UseInViewOptions {
 }
 
 export function useInView({
-  threshold = 0.05,
-  rootMargin = "0px 0px 80px 0px",
+  threshold = 0.1,
+  rootMargin = "0px 0px -40px 0px",
   triggerOnce = true
 }: UseInViewOptions = {}) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -27,9 +27,9 @@ export function useInView({
         return;
       }
 
-      // If already in or above viewport on mount, make visible immediately
+      // If user already scrolled past this element before hydration:
       const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
+      if (rect.bottom < 0 && window.scrollY > 0) {
         setIsInView(true);
         if (triggerOnce) return;
       }
@@ -51,7 +51,6 @@ export function useInView({
           setIsInView(false);
         }
       },
-      { threshold: Math.min(threshold, 0.05), rootMargin }
     );
 
     observer.observe(el);
@@ -372,21 +371,70 @@ interface RevealCounterProps {
   suffix?: string;
   decimals?: number;
   className?: string;
+  mode?: "roll" | "count";
+}
+
+function RollingDigit({
+  targetDigit,
+  isRolling,
+  delay = 0,
+  duration = 1600
+}: {
+  targetDigit: number;
+  isRolling: boolean;
+  delay?: number;
+  duration?: number;
+}) {
+  const numbers = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+  ];
+  const targetIndex = 10 + targetDigit;
+  const targetPercent = (targetIndex / numbers.length) * 100;
+
+  return (
+    <span className="relative inline-block h-[1.12em] overflow-hidden leading-[1.12em] align-top tabular-nums">
+      <span
+        className="inline-flex flex-col select-none"
+        style={{
+          transform: isRolling ? `translateY(-${targetPercent}%)` : "translateY(0%)",
+          transitionProperty: "transform",
+          transitionDuration: `${duration}ms`,
+          transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+          transitionDelay: `${delay}ms`,
+          willChange: "transform"
+        }}
+      >
+        {numbers.map((n, i) => (
+          <span key={i} className="h-[1.12em] leading-[1.12em] flex items-center justify-center font-black">
+            {n}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
 }
 
 export function RevealCounter({
   end,
-  duration = 1500,
+  duration = 1600,
   prefix = "",
   suffix = "",
   decimals = 0,
-  className
+  className,
+  mode = "roll"
 }: RevealCounterProps) {
-  const { ref, isInView } = useInView({ triggerOnce: true });
+  const { ref, isInView } = useInView({ threshold: 0.15, rootMargin: "0px 0px -30px 0px", triggerOnce: true });
+  const [mounted, setMounted] = useState(false);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!isInView) return;
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isInView || mode !== "count") return;
 
     let startTimestamp: number | null = null;
     let animationFrameId: number;
@@ -394,7 +442,6 @@ export function RevealCounter({
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      // Ease-out cubic calculation
       const easeOut = 1 - Math.pow(1 - progress, 3);
       setCount(easeOut * end);
 
@@ -408,15 +455,61 @@ export function RevealCounter({
     return () => {
       if (animationFrameId) window.cancelAnimationFrame(animationFrameId);
     };
-  }, [isInView, end, duration]);
+  }, [isInView, end, duration, mode]);
 
-  const formatted = decimals > 0 ? count.toFixed(decimals) : Math.floor(count).toLocaleString();
+  const formattedTarget = decimals > 0 ? end.toFixed(decimals) : end.toLocaleString();
+
+  // SSR or before mount: render full target number
+  if (!mounted) {
+    return (
+      <span ref={ref as any} className={cn("inline-flex items-center tabular-nums font-black", className)}>
+        {prefix}
+        {formattedTarget}
+        {suffix}
+      </span>
+    );
+  }
+
+  if (mode === "count") {
+    const formattedCount = decimals > 0 ? count.toFixed(decimals) : Math.floor(count).toLocaleString();
+    return (
+      <span ref={ref as any} className={cn("inline-flex items-center tabular-nums font-black", className)}>
+        {prefix}
+        {formattedCount}
+        {suffix}
+      </span>
+    );
+  }
+
+  // mode === "roll": Rolling odometer reels for each digit
+  const chars = formattedTarget.split("");
+  let digitIndex = 0;
 
   return (
-    <span ref={ref} className={className}>
-      {prefix}
-      {formatted}
-      {suffix}
+    <span ref={ref as any} className={cn("inline-flex items-center tabular-nums font-black tracking-tight", className)}>
+      {prefix && <span>{prefix}</span>}
+      {chars.map((char, idx) => {
+        const isDigit = !isNaN(parseInt(char, 10)) && char !== " ";
+        if (!isDigit) {
+          return (
+            <span key={idx} className="inline-block">
+              {char}
+            </span>
+          );
+        }
+        const currentDigitDelay = Math.min(digitIndex * 75, 400);
+        digitIndex++;
+        return (
+          <RollingDigit
+            key={idx}
+            targetDigit={parseInt(char, 10)}
+            isRolling={isInView}
+            delay={currentDigitDelay}
+            duration={duration}
+          />
+        );
+      })}
+      {suffix && <span>{suffix}</span>}
     </span>
   );
 }
