@@ -103,7 +103,7 @@ export function StoreFooter() {
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-emerald-400"
                 >
-                  WhatsApp: {supportPhone}
+                 {supportPhone}
                 </a>
               </li>
               <li className="flex items-center gap-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, HelpCircle, Mail, MessageCircle, Phone, Search } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
@@ -20,13 +20,14 @@ const categories = [
 interface FaqItem {
   question: string;
   answer: string;
+  answerNode?: ReactNode;
   category: "Vehicles" | "Spare Parts" | "Orders & Payments" | "Shipping & Export" | "Refunds & Support";
 }
 
 const faqList: FaqItem[] = [
   {
     question: "What does AGTP Group do?",
-    answer: "AGTP Group is a Dubai-based automotive trading company supplying vehicles and automotive spare parts for local and international customers.",
+    answer: "AGTP Group is a Dubai-based automotive trading company supplying vehicles and automotive spare parts for international customers.",
     category: "Vehicles"
   },
   {
@@ -92,6 +93,18 @@ const faqList: FaqItem[] = [
   {
     question: "Can I cancel my order or request a refund?",
     answer: "Refund and cancellation eligibility depends on the order status and applicable terms outlined in our Refund Policy.",
+    answerNode: (
+      <>
+        Refund and cancellation eligibility depends on the order status and applicable terms outlined in our{" "}
+        <Link
+          href="/refund-policy"
+          className="font-bold text-[#FDBA74] underline decoration-[#F97316] underline-offset-4 hover:text-white transition-colors"
+        >
+          Refund Policy
+        </Link>
+        .
+      </>
+    ),
     category: "Refunds & Support"
   },
   {
@@ -234,7 +247,7 @@ export default function FaqsPage() {
                   {isOpen && (
                     <div className="border-t border-[#24445F]/60 px-6 pb-6 pt-4 md:px-7 md:pb-7">
                       <p className="text-[15px] font-medium leading-relaxed text-slate-200">
-                        {item.answer}
+                        {item.answerNode || item.answer}
                       </p>
                     </div>
                   )}

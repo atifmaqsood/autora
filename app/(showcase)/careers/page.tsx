@@ -183,13 +183,13 @@ function JobApplicationModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200 overflow-y-auto">
-      <div className="bg-[#0b1329] border border-[#1e2b45] rounded-3xl max-w-2xl w-full p-7 sm:p-10 shadow-2xl relative text-white my-8 max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-200 overflow-y-auto">
+      <div className="bg-[#0b1329] border border-[#1e2b45] rounded-3xl max-w-2xl w-full p-6 sm:p-8 md:p-9 shadow-2xl relative text-white my-auto overflow-visible">
         {/* Close Circular Button */}
         <button
           type="button"
           onClick={handleResetAndClose}
-          className="absolute top-6 right-6 w-9 h-9 rounded-full border border-slate-700/80 bg-[#060c1c]/80 text-slate-300 hover:text-white hover:border-slate-500 hover:bg-slate-800 flex items-center justify-center transition-colors z-20"
+          className="absolute top-5 right-5 sm:top-6 sm:right-6 w-9 h-9 rounded-full border border-slate-700/80 bg-[#060c1c]/80 text-slate-300 hover:text-white hover:border-slate-500 hover:bg-slate-800 flex items-center justify-center transition-colors z-20"
           aria-label="Close modal"
         >
           <X className="w-4 h-4" />
@@ -197,20 +197,20 @@ function JobApplicationModal({
 
         {submitted ? (
           /* Submission Confirmation Screen */
-          <div className="text-center py-10 space-y-5 animate-in zoom-in-95 duration-200">
-            <div className="w-20 h-20 bg-[#4361EE]/15 border border-[#4361EE]/30 text-[#5b7bf7] rounded-full flex items-center justify-center mx-auto shadow-lg shadow-blue-500/20">
-              <CheckCircle2 className="w-10 h-10" />
+          <div className="text-center py-6 sm:py-8 space-y-4 animate-in zoom-in-95 duration-200">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#4361EE]/15 border border-[#4361EE]/30 text-[#5b7bf7] rounded-full flex items-center justify-center mx-auto shadow-lg shadow-blue-500/20">
+              <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <h3 className="text-2xl sm:text-3xl font-black text-white">
                 Application Submitted!
               </h3>
-              <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
                 Thank you for applying for the <strong className="text-white">{role.title}</strong> position at AGTP Group.
               </p>
             </div>
 
-            <div className="bg-[#060c1c] border border-[#1e2b45] p-5 rounded-2xl text-left max-w-md mx-auto space-y-2.5 text-xs text-slate-300">
+            <div className="bg-[#060c1c] border border-[#1e2b45] p-4 sm:p-5 rounded-2xl text-left max-w-md mx-auto space-y-2 text-xs text-slate-300">
               <div className="flex justify-between pb-2 border-b border-slate-800">
                 <span className="text-slate-400">Application Reference:</span>
                 <strong className="text-[#5b7bf7] font-mono text-sm">{confirmationId}</strong>
@@ -239,10 +239,10 @@ function JobApplicationModal({
               Our Talent Acquisition team will review your qualifications and reach out to you shortly.
             </p>
 
-            <div className="pt-3">
+            <div className="pt-2">
               <button
                 type="button"
-                className="w-full max-w-md font-bold bg-[#4361EE] hover:bg-[#3651D4] text-white py-3 rounded-full uppercase tracking-wider transition-colors"
+                className="w-full max-w-md font-bold bg-[#4361EE] hover:bg-[#3651D4] text-white py-3 rounded-full uppercase tracking-wider transition-colors mx-auto block"
                 onClick={handleResetAndClose}
               >
                 Done
@@ -250,7 +250,7 @@ function JobApplicationModal({
             </div>
           </div>
         ) : (
-          <div className="overflow-y-auto flex-1 pr-1 custom-scrollbar">
+          <div className="w-full">
             {/* Eyebrow Label */}
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-[#5b7bf7]">
               <span className="w-5 h-[2px] bg-[#4361EE] inline-block" />
@@ -258,14 +258,14 @@ function JobApplicationModal({
             </div>
 
             {/* Main Heading */}
-            <h2 className="mt-3 text-2xl sm:text-4xl font-black text-white tracking-tight">
+            <h2 className="mt-2 sm:mt-3 text-2xl sm:text-3xl font-black text-white tracking-tight">
               Apply for {role.title}
             </h2>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+            <form onSubmit={handleSubmit} className="mt-5 sm:mt-6 space-y-4 sm:space-y-4.5">
               {/* Row 1: Name and Email */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                 <div>
                   <label htmlFor="app-name" className="block text-xs font-bold text-slate-200">
                     Name *
@@ -277,7 +277,7 @@ function JobApplicationModal({
                     placeholder="Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1.5 h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -292,13 +292,13 @@ function JobApplicationModal({
                     placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="mt-1.5 h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
                   />
                 </div>
               </div>
 
               {/* Row 2: Phone and Resume */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                 <div>
                   <label htmlFor="app-phone" className="block text-xs font-bold text-slate-200">
                     Phone *
@@ -310,7 +310,7 @@ function JobApplicationModal({
                     placeholder="+971 50 123 4567"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="mt-1.5 h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -325,7 +325,7 @@ function JobApplicationModal({
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <div className="mt-1.5 h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-2.5 flex items-center gap-3">
+                  <div className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-2.5 flex items-center gap-3">
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
@@ -337,7 +337,7 @@ function JobApplicationModal({
                       {selectedFile ? selectedFile.name : "No file chosen"}
                     </span>
                   </div>
-                  <p className="mt-1.5 text-[11px] text-slate-400">
+                  <p className="mt-1 text-[11px] text-slate-400">
                     Allowed: PDF, DOC, DOCX, RTF, TXT, JPG and PNG. Maximum 10 MB.
                   </p>
                 </div>
@@ -350,20 +350,21 @@ function JobApplicationModal({
                 </label>
                 <textarea
                   id="app-cover"
-                  rows={6}
+                  rows={4}
                   required
                   placeholder="Write your cover letter here..."
                   value={formData.coverLetter}
                   onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
-                  className="mt-1.5 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] p-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none resize-none transition-colors"
+                  className="mt-1.5 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] p-3 sm:p-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none resize-none transition-colors"
                 />
               </div>
 
+              {/* Row 4: Submit Button - No hover scale to prevent scrollbar trigger */}
               {/* Row 4: Submit Button */}
-              <div className="pt-2 flex items-center justify-end">
+              <div className="pt-2 pb-1 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#4361EE] hover:bg-[#3651D4] px-8 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#4361EE] hover:bg-[#3651D4] px-8 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 active:scale-[0.98] transition-all"
                 >
                   <span>Submit application</span>
                   <ArrowRight className="w-4 h-4" />

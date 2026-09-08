@@ -28,6 +28,8 @@ import {
   RevealStagger,
   RevealText
 } from "@/components/ui/scroll-reveal";
+import { PhoneCountryInput } from "@/components/ui/phone-country-input";
+import { CountrySelect } from "@/components/ui/country-select";
 
 const serviceCategories = [
   "Vehicle Sourcing",
@@ -37,20 +39,134 @@ const serviceCategories = [
   "General Inquiry"
 ];
 
-const commercialHubs = [
+const agtpLocations = [
   {
-    hub: "Dubai Hub",
-    name: "Vehicle Sales & Export",
-    location: "Meydan Grandstand, Dubai, UAE",
-    desc: "Vehicle sales and export support for new and pre-owned vehicles worldwide.",
-    timing: "Mon - Sat: 9:00AM - 8:00PM"
+    id: "meydan-grandstand",
+    tabLabel: "Meydan Grandstand",
+    title: "Meydan Grandstand",
+    subtitle: "Head Office — Dubai, UAE",
+    lines: [
+      "Meydan Grandstand, 6th Floor",
+      "Meydan Road, Nad Al Sheba",
+      "Dubai, U.A.E."
+    ],
+    fullAddress: "Meydan Grandstand, 6th Floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E.",
+    phone: "+971 58 58 55729",
+    whatsapp: "+971 58 58 55729",
+    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
+    mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai,+United+Arab+Emirates"
   },
   {
-    hub: "Sharjah Hub",
-    name: "Spare Parts & Components",
-    location: "Sharjah Media City, Sharjah, UAE",
-    desc: "Automotive spare parts, components, and replacement parts for various vehicle brands.",
-    timing: "Mon - Sat: 9:00AM - 8:00PM"
+    id: "vehicle-sales",
+    tabLabel: "Vehicle Sales Hub",
+    title: "Vehicle Sales & Export",
+    subtitle: "Commercial Operations Desk",
+    lines: [
+      "Meydan Grandstand Commercial Complex",
+      "Meydan Road, Nad Al Sheba",
+      "Dubai, U.A.E."
+    ],
+    fullAddress: "Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates",
+    phone: "+971 58 58 55729",
+    whatsapp: "+971 58 58 55729",
+    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
+    mapQuery: "Meydan+Grandstand,+Nad+Al+Sheba,+Dubai"
+  },
+  {
+    id: "spare-parts",
+    tabLabel: "Spare Parts Hub",
+    title: "Spare Parts Division",
+    subtitle: "Genuine Parts & Components",
+    lines: [
+      "AGTP Spare Parts Distribution Hub",
+      "Industrial Area / Meydan Logistics",
+      "Dubai, U.A.E."
+    ],
+    fullAddress: "Meydan Grandstand Logistics Desk, Dubai, United Arab Emirates",
+    phone: "+971 58 58 55729",
+    whatsapp: "+971 58 58 55729",
+    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
+    mapQuery: "Meydan+Grandstand,+Dubai,+United+Arab+Emirates"
+  },
+  {
+    id: "jebel-ali",
+    tabLabel: "Jebel Ali Export Yard",
+    title: "Jebel Ali Port Yard",
+    subtitle: "Global Container & Ro-Ro Shipping",
+    lines: [
+      "Jebel Ali Port / Free Zone Area",
+      "International Vehicle & Cargo Staging",
+      "Dubai, U.A.E."
+    ],
+    fullAddress: "Jebel Ali Port Trade Staging, Dubai, United Arab Emirates",
+    phone: "+971 58 58 55729",
+    whatsapp: "+971 58 58 55729",
+    timing: "Mon - Sat: 8:30 AM - 7:30 PM",
+    mapQuery: "Jebel+Ali+Port,+Dubai,+United+Arab+Emirates"
+  },
+  {
+    id: "trade-documentation",
+    tabLabel: "Export Documentation",
+    title: "Trade & Customs Desk",
+    subtitle: "Inspection, COC & Export Clearance",
+    lines: [
+      "Meydan Grandstand, Executive Floor",
+      "Customs & Export Documentation",
+      "Dubai, U.A.E."
+    ],
+    fullAddress: "Meydan Grandstand, Meydan Road, Nad Al Sheba, Dubai, U.A.E.",
+    phone: "+971 58 58 55729",
+    whatsapp: "+971 58 58 55729",
+    timing: "Mon - Sat: 9:00 AM - 7:00 PM",
+    mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai"
+  },
+  {
+    id: "commercial-logistics",
+    tabLabel: "Commercial Logistics",
+    title: "Global Logistics Desk",
+    subtitle: "Freight Forwarding & Shipping Operations",
+    lines: [
+      "Meydan Grandstand, Trade Office",
+      "Air, Sea & Land Logistics Coordination",
+      "Dubai, U.A.E."
+    ],
+    fullAddress: "Meydan Grandstand, Nad Al Sheba, Dubai, U.A.E.",
+    phone: "+971 58 58 55729",
+    whatsapp: "+971 58 58 55729",
+    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
+    mapQuery: "Meydan+Grandstand,+Dubai"
+  },
+  {
+    id: "customer-support",
+    tabLabel: "Customer Support",
+    title: "Dedicated Client Desk",
+    subtitle: "Order Tracking & Post-Sale Assistance",
+    lines: [
+      "Online Support & Executive Offices",
+      "Meydan Grandstand, 6th Floor",
+      "Dubai, U.A.E."
+    ],
+    fullAddress: "Meydan Grandstand, Nad Al Sheba, Dubai, UAE",
+    phone: "+971 58 58 55729",
+    whatsapp: "+971 58 58 55729",
+    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
+    mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai"
+  },
+  {
+    id: "global-inquiries",
+    tabLabel: "Global Inquiries Desk",
+    title: "International Trade Desk",
+    subtitle: "Serving 45+ Countries Worldwide",
+    lines: [
+      "Meydan Grandstand, 6th Floor",
+      "Meydan Road, Nad Al Sheba",
+      "Dubai, U.A.E."
+    ],
+    fullAddress: "Meydan Grandstand, Meydan Road, Nad Al Sheba, Dubai, U.A.E.",
+    phone: "+971 58 58 55729",
+    whatsapp: "+971 58 58 55729",
+    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
+    mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai"
   }
 ];
 
@@ -58,13 +174,14 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Vehicle Sourcing");
+  const [selectedLocation, setSelectedLocation] = useState(agtpLocations[0]);
 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
-    destinationCountry: "",
+    phone: "+244 946 123 456",
+    destinationCountry: "Angola",
     message: ""
   });
 
@@ -344,29 +461,24 @@ export default function ContactPage() {
                           />
                         </div>
 
-                        <div>
-                          <label className="block text-[12px] font-black uppercase tracking-wider text-slate-300">Phone / WhatsApp *</label>
-                          <input
-                            type="tel"
-                            required
-                            placeholder="+244 946 123 456"
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            className="mt-2 w-full rounded-xl border border-[#315671] bg-[#14314B] px-4 py-3.5 text-[14px] font-medium text-white outline-none focus:border-[#F97316]"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-[12px] font-black uppercase tracking-wider text-slate-300">Destination Country / Target Port</label>
-                        <input
-                          type="text"
-                          placeholder="e.g. Luanda Port, Angola / Tema Port, Ghana"
-                          value={formData.destinationCountry}
-                          onChange={(e) => setFormData({ ...formData, destinationCountry: e.target.value })}
-                          className="mt-2 w-full rounded-xl border border-[#315671] bg-[#14314B] px-4 py-3.5 text-[14px] font-medium text-white outline-none focus:border-[#F97316]"
+                        <PhoneCountryInput
+                          id="contact-phone"
+                          label="Phone (with Country Code) *"
+                          required
+                          value={formData.phone}
+                          onChange={(phone) => setFormData({ ...formData, phone })}
                         />
                       </div>
+
+                      <CountrySelect
+                        id="contact-country"
+                        label="Destination Country *"
+                        required
+                        value={formData.destinationCountry}
+                        defaultValue="Angola"
+                        placeholder="Enter your country"
+                        onChange={(destinationCountry) => setFormData({ ...formData, destinationCountry })}
+                      />
 
                       <div>
                         <label className="block text-[12px] font-black uppercase tracking-wider text-slate-300">Message *</label>
@@ -396,64 +508,126 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── 3. Commercial Hubs Grid (2 Equal Cards) ── */}
+      {/* ── 3. Our Location: Interactive Map & Commercial Hubs ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-24">
         <Reveal>
-          <div className="rounded-[28px] border border-[#315671] bg-[#102941] p-8 md:p-12 shadow-2xl">
-            <div className="text-center space-y-2 mb-10">
-              <RevealEyebrow>
-                <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
-                  <span className="h-px w-8 bg-[#F97316]" />
-                  AGTP UAE Locations:
-                  <span className="h-px w-8 bg-[#F97316]" />
-                </div>
-              </RevealEyebrow>
-              <RevealHeading>
-                <h2 className="text-[32px] font-black uppercase text-white md:text-[44px]">
-                  OUR COMMERCIAL LOCATIONS
-                </h2>
-              </RevealHeading>
+          <div className="text-center space-y-3 mb-12">
+            <RevealEyebrow>
+              <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.25em] text-[#60A5FA]">
+                <span className="h-px w-8 bg-[#3B82F6]" />
+                OUR LOCATION
+                <span className="h-px w-8 bg-[#3B82F6]" />
+              </div>
+            </RevealEyebrow>
+            <RevealHeading>
+              <h2 className="text-[36px] font-black tracking-tight text-white md:text-[52px]">
+                Find AGTP Group in Dubai
+              </h2>
+            </RevealHeading>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 items-stretch">
+            {/* LEFT: Interactive Google Map */}
+            <div className="lg:col-span-6 xl:col-span-7 flex flex-col">
+              <div className="relative h-full min-h-[480px] lg:min-h-[580px] w-full overflow-hidden rounded-[28px] border border-[#1d2d44] bg-[#0c1626] shadow-2xl">
+                <iframe
+                  title="AGTP Group Location Map"
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                    selectedLocation.fullAddress
+                  )}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+                  className="h-full w-full border-0 min-h-[480px] lg:min-h-[580px]"
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
             </div>
 
-            <RevealStagger staggerDelay={80} className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 auto-rows-fr">
-              {commercialHubs.map((hub) => (
-                <div
-                  key={hub.name}
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] p-8 shadow-xl hover:border-[#F97316] transition-all duration-300"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316] opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#315671] bg-[#0B1F33] text-[#F97316] group-hover:border-[#F97316] group-hover:bg-[#14314B] group-hover:shadow-[0_0_15px_rgba(249,115,22,0.25)] transition-all duration-300">
-                        <Building2 className="h-6 w-6 text-[#F97316] stroke-[2.2] transition-transform duration-300 group-hover:scale-110" />
-                      </div>
-                      <span className="rounded-full border border-[#F97316]/40 bg-[#0B1F33] px-3.5 py-1 text-[11px] font-black text-[#FDBA74]">
-                        {hub.hub}
-                      </span>
-                    </div>
-
-                    <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors">
-                      {hub.name}
-                    </h3>
-
-                    <div className="flex items-start gap-2 text-[14px] font-bold text-slate-300">
-                      <MapPin className="h-4 w-4 text-[#F97316] shrink-0 mt-0.5" />
-                      <span>{hub.location}</span>
-                    </div>
-
-                    <p className="text-[14px] font-medium leading-relaxed text-slate-400">
-                      {hub.desc}
-                    </p>
+            {/* RIGHT: Location Selector & Active Details */}
+            <div className="lg:col-span-6 xl:col-span-5 flex flex-col">
+              <div className="flex h-full flex-col justify-between rounded-[28px] border border-[#1d2d44] bg-[#0c1626] p-6 sm:p-8 shadow-2xl">
+                <div>
+                  {/* Tab Selector Grid (2 Columns) */}
+                  <div className="grid grid-cols-2 gap-3">
+                    {agtpLocations.map((loc) => {
+                      const isSelected = selectedLocation.id === loc.id;
+                      return (
+                        <button
+                          key={loc.id}
+                          type="button"
+                          onClick={() => setSelectedLocation(loc)}
+                          className={`flex items-center rounded-xl px-4 py-3.5 text-left text-[13px] sm:text-[14px] font-bold transition-all duration-200 border ${
+                            isSelected
+                              ? "border-[#3B82F6] bg-[#173863] text-white shadow-lg shadow-blue-950/50"
+                              : "border-[#1c2e44] bg-[#0b1828] text-slate-300 hover:border-[#3B82F6]/40 hover:bg-[#0f2238] hover:text-white"
+                          }`}
+                        >
+                          <span className="truncate">{loc.tabLabel}</span>
+                        </button>
+                      );
+                    })}
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-[#24445F]/60 flex items-center justify-between text-[12px] font-bold text-[#F97316]">
-                    <span>{hub.timing}</span>
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  {/* Active Location Details Card */}
+                  <div className="mt-6 rounded-2xl border border-[#1c2e44] bg-[#081322]/90 p-6 sm:p-7 space-y-6">
+                    <div>
+                      <h3 className="text-[26px] sm:text-[28px] font-black text-white tracking-tight">
+                        {selectedLocation.title}
+                      </h3>
+                      <p className="mt-1 text-[12px] font-bold uppercase tracking-wider text-[#38BDF8]">
+                        {selectedLocation.subtitle}
+                      </p>
+                    </div>
+
+                    <div className="space-y-1 text-[15px] font-medium text-slate-300">
+                      {selectedLocation.lines.map((line, idx) => (
+                        <p key={idx} className="leading-snug text-slate-300">
+                          {line}
+                        </p>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                      <a
+                        href={`tel:${selectedLocation.phone.replace(/\s+/g, "")}`}
+                        className="inline-flex items-center justify-center gap-2 rounded-full border border-blue-500/40 bg-[#16355C] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-white shadow-md hover:bg-blue-600 transition-colors"
+                      >
+                        <Phone className="h-4 w-4 text-blue-400" />
+                        <span>Call: {selectedLocation.phone}</span>
+                      </a>
+
+                      <a
+                        href={`https://wa.me/${selectedLocation.whatsapp.replace(/[^0-9]/g, "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-[#0B3828] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-emerald-300 hover:text-white hover:bg-[#0f4d37] shadow-md transition-colors"
+                      >
+                        <MessageCircle className="h-4 w-4 text-emerald-400" />
+                        <span>WhatsApp: {selectedLocation.whatsapp}</span>
+                      </a>
+                    </div>
+
+                    <div className="pt-4 border-t border-[#1c2e44] flex items-center justify-between text-[13px]">
+                      <span className="text-slate-400 font-medium flex items-center gap-1.5">
+                        <Clock className="h-3.5 w-3.5 text-[#38BDF8]" />
+                        {selectedLocation.timing}
+                      </span>
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                          selectedLocation.fullAddress
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-bold text-[#38BDF8] hover:text-blue-300 transition-colors"
+                      >
+                        <span>Get Directions</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </a>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </RevealStagger>
+              </div>
+            </div>
           </div>
         </Reveal>
       </section>
