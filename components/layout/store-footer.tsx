@@ -76,8 +76,8 @@ export function StoreFooter() {
           <FooterColumn
             title="AREAS OF EXPERTISE"
             links={[
-              ["Automotive Vehicles", "/vehicles"],
-              ["Automotive Parts", "/spare-parts"],
+              ["Vehicles", "/vehicles"],
+              ["Parts & Accessories", "/spare-parts"],
               ["Freight & Logistics", "/freight-and-logistics"]
             ]}
           />

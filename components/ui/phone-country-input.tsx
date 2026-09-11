@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, Search } from "lucide-react";
-import { COUNTRIES, DEFAULT_COUNTRY, DEFAULT_PHONE, CountryItem } from "@/lib/countries-data";
+import { COUNTRIES, DEFAULT_COUNTRY, CountryItem } from "@/lib/countries-data";
 import { CountryFlag } from "./country-flag";
 
 interface PhoneCountryInputProps {
@@ -18,6 +18,7 @@ interface PhoneCountryInputProps {
   labelClassName?: string;
   inputContainerClassName?: string;
   buttonClassName?: string;
+  placeholder?: string;
 }
 
 export function PhoneCountryInput({
@@ -32,10 +33,11 @@ export function PhoneCountryInput({
   label = "Phone (with Country Code) *",
   labelClassName,
   inputContainerClassName,
-  buttonClassName
+  buttonClassName,
+  placeholder = "050 123 4567"
 }: PhoneCountryInputProps) {
   const [selectedCountry, setSelectedCountry] = useState<CountryItem>(defaultCountry);
-  const [internalValue, setInternalValue] = useState<string>(value ?? DEFAULT_PHONE);
+  const [internalValue, setInternalValue] = useState<string>(value ?? "");
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -72,22 +74,6 @@ export function PhoneCountryInput({
   const handleSelectCountry = (country: CountryItem) => {
     setSelectedCountry(country);
     onCountryChange?.(country);
-
-    // Update phone number: replace old dial code or prepend new dial code
-    let newPhone = internalValue;
-    if (!newPhone || newPhone === DEFAULT_PHONE) {
-      // If default or empty, set with new dial code
-      newPhone = `${country.dialCode} 946 123 456`;
-    } else if (newPhone.startsWith(selectedCountry.dialCode)) {
-      newPhone = `${country.dialCode}${newPhone.slice(selectedCountry.dialCode.length)}`;
-    } else if (/^\+\d+/.test(newPhone)) {
-      newPhone = newPhone.replace(/^\+\d+/, country.dialCode);
-    } else {
-      newPhone = `${country.dialCode} ${newPhone.trim()}`;
-    }
-
-    setInternalValue(newPhone);
-    onChange?.(newPhone);
     setIsOpen(false);
   };
 
@@ -136,7 +122,7 @@ export function PhoneCountryInput({
             "flex items-center rounded-xl border border-[#315671] bg-[#14314B] focus-within:border-[#F97316] transition-colors overflow-hidden"
           }
         >
-          {/* Country Flag Button */}
+          {/* Single Country Flag Button */}
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
@@ -148,8 +134,8 @@ export function PhoneCountryInput({
             aria-label="Select Country Code"
             aria-expanded={isOpen}
           >
-            <CountryFlag iso2={selectedCountry.iso2} className="w-6 h-4" />
-            <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-180 text-[#F97316]" : ""}`} />
+            <CountryFlag iso2={selectedCountry.iso2} className="w-5 h-3.5" />
+            <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-180 text-[#4361EE]" : ""}`} />
           </button>
 
           {/* Phone Input */}
@@ -160,7 +146,7 @@ export function PhoneCountryInput({
             required={required}
             value={internalValue}
             onChange={handleInputChange}
-            placeholder="+244 946 123 456"
+            placeholder={placeholder}
             className="w-full bg-transparent px-4 py-3.5 text-[14px] font-medium text-white placeholder-slate-400 outline-none"
           />
         </div>
@@ -178,7 +164,7 @@ export function PhoneCountryInput({
                   placeholder="Search country or code..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 outline-none focus:border-[#F97316]"
+                  className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 outline-none focus:border-[#4361EE]"
                 />
               </div>
             </div>
@@ -219,4 +205,3 @@ export function PhoneCountryInput({
     </div>
   );
 }
-

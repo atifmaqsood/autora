@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo, Suspense } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Search, ArrowRight, ChevronRight, Calendar } from "lucide-react";
+import Image from "next/image";
+import { Search, ArrowRight, ChevronRight, ChevronLeft, Calendar } from "lucide-react";
 import { VehicleCard } from "@/components/vehicles/vehicle-card";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { getAllVehicles, filterVehicles } from "@/lib/vehicles/data";
@@ -11,6 +11,8 @@ import { VehicleFilterState } from "@/lib/vehicles/types";
 import { RevealStagger, Reveal } from "@/components/ui/scroll-reveal";
 import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
+
+const PAGE_SIZE = 15;
 
 function CatalogContent() {
   const searchParams = useSearchParams();
@@ -31,12 +33,31 @@ function CatalogContent() {
 
   const [activePage, setActivePage] = useState(1);
 
+  // Reset pagination to page 1 whenever filters change
+  useEffect(() => {
+    setActivePage(1);
+  }, [filters]);
+
   const filteredVehicles = useMemo(() => {
     return filterVehicles(allVehicles, filters);
   }, [allVehicles, filters]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / PAGE_SIZE));
+
+  const paginatedVehicles = useMemo(() => {
+    const startIndex = (activePage - 1) * PAGE_SIZE;
+    return filteredVehicles.slice(startIndex, startIndex + PAGE_SIZE);
+  }, [filteredVehicles, activePage]);
+
+  const scrollToGrid = () => {
+    const gridElem = document.getElementById("vehicle-catalog-grid");
+    if (gridElem) {
+      gridElem.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#060709] text-white">
+    <div id="vehicle-catalog-grid" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#060709] text-white">
       {/* Dark Filter Bar */}
       <div className="bg-[#102941] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 w-full">
@@ -76,13 +97,13 @@ function CatalogContent() {
 
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-slate-400">
-          500 vehicles available
+          {filteredVehicles.length} vehicles available
         </span>
       </div>
 
-      {filteredVehicles.length > 0 ? (
-        <RevealStagger staggerDelay={80} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredVehicles.map((vehicle) => (
+      {paginatedVehicles.length > 0 ? (
+        <RevealStagger key={activePage} staggerDelay={80} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {paginatedVehicles.map((vehicle) => (
             <VehicleCard key={vehicle.id} vehicle={vehicle} />
           ))}
         </RevealStagger>
@@ -98,39 +119,82 @@ function CatalogContent() {
         </div>
       )}
 
-      <div className="flex items-center justify-center gap-2 pt-8">
-        {[1, 2, 3, "...", 9].map((p, idx) => (
+      {/* Pagination (15 vehicles per page) */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2 pt-8">
           <button
-            key={idx}
-            onClick={() => typeof p === "number" && setActivePage(p)}
-            className={`w-9 h-9 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
-              activePage === p
-                ? "bg-[#F97316] text-white shadow-lg"
-                : "bg-[#102941] border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"
-            }`}
+            onClick={() => {
+              setActivePage((prev) => Math.max(prev - 1, 1));
+              scrollToGrid();
+            }}
+            disabled={activePage === 1}
+            className={`px-4 h-9 rounded-full border text-xs font-bold transition-all flex items-center gap-1 ${activePage === 1 ? "border-slate-800 text-slate-600 cursor-not-allowed bg-[#0B1F33]/40" : "border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 bg-[#102941]"}`}
+            aria-label="Previous Page"
           >
-            {p}
+            <ChevronLeft className="w-3.5 h-3.5" />
+            <span>Prev</span>
           </button>
-        ))}
-        <button className="px-4 h-9 rounded-full bg-[#102941] border border-slate-800 text-slate-400 text-xs font-bold hover:text-white hover:border-slate-700 transition-all flex items-center gap-1">
-          <span>Next</span>
-          <ChevronRight className="w-3.5 h-3.5" />
-        </button>
-      </div>
 
+          {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((p) => (
+            <button
+              key={p}
+              onClick={() => {
+                setActivePage(p);
+                scrollToGrid();
+              }}
+              className={`w-9 h-9 rounded-full text-xs font-bold transition-all flex items-center justify-center ${activePage === p ? "bg-[#F97316] text-white shadow-lg" : "bg-[#102941] border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"}`}
+            >
+              {p}
+            </button>
+          ))}
+
+          <button
+            onClick={() => {
+              setActivePage((prev) => Math.min(prev + 1, totalPages));
+              scrollToGrid();
+            }}
+            disabled={activePage === totalPages}
+            className={`px-4 h-9 rounded-full border text-xs font-bold transition-all flex items-center gap-1 ${activePage === totalPages ? "border-slate-800 text-slate-600 cursor-not-allowed bg-[#0B1F33]/40" : "border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 bg-[#102941]"}`}
+            aria-label="Next Page"
+          >
+            <span>Next</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
+      {/* CAN'T FIND THE EXACT SPEC? Banner Section */}
       <Reveal duration={700}>
-        <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-14 text-center overflow-hidden shadow-2xl mt-16">
-          <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-            <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight font-sans">
-              CAN&apos;T FIND THE EXACT SPEC?
+        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#1e2b45] shadow-2xl mt-16 min-h-[380px] sm:min-h-[460px] flex items-center justify-center p-8 sm:p-14 text-center">
+          {/* Dark luxury garage background photo */}
+          <Image
+            src="/images/spec-banner-bg.jpg"
+            alt="Luxury vehicles showroom"
+            fill
+            sizes="(max-width: 1280px) 100vw, 1280px"
+            className="object-cover object-center"
+            priority={false}
+          />
+
+          {/* Atmospheric dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/60 bg-gradient-to-t from-black/85 via-black/50 to-black/70" />
+
+          {/* Top-left accent dot */}
+          <div className="absolute top-6 left-8 sm:top-8 sm:left-12 w-2 h-2 rounded-full bg-white/90 shadow-sm shadow-white/40" />
+
+          {/* Banner Content */}
+          <div className="relative z-10 w-full max-w-4xl lg:max-w-5xl mx-auto space-y-4 px-4">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-black text-white uppercase tracking-tight font-sans leading-[1.1]">
+              <span className="block">CAN&apos;T FIND THE EXACT</span>
+              <span className="block">SPEC?</span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed">
               We source to order. Tell us the make, model and destination — we&apos;ll find it and quote it.
             </p>
-            <div className="pt-2">
+            <div className="pt-3">
               <button
                 onClick={() => setInquiryModalOpen(true)}
-                className="bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-8 py-3.5 rounded-full shadow-lg transition-all inline-flex items-center gap-2"
+                className="bg-[#4361EE] hover:bg-[#3651D4] text-white font-bold text-xs sm:text-sm px-8 py-3.5 rounded-full shadow-lg shadow-blue-600/30 transition-all inline-flex items-center gap-2 transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Request a Vehicle</span>
                 <ArrowRight className="w-4 h-4" />
@@ -159,8 +223,8 @@ export default function VehiclesCatalogPage() {
         badge={{
           text: "READY FOR EXPORT — WORLDWIDE SHIPPING"
         }}
-        title="FIND YOUR VEHICLE"
-        subtitle="Search every vehicle in stock, then request a fixed, all-in quote for worldwide dispatch."
+        title="FIND YOUR NEXT VEHICLE"
+        subtitle="Explore available vehicles and receive a clear quote with worldwide export and shipping options."
         imageSrc={agtpAssets.inventoryHero}
         imageAlt="Available Vehicles Inventory"
       />

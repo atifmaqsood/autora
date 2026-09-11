@@ -1,52 +1,81 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useContent } from "@/lib/content/context";
 
-const MIN_VISIBLE_MS = 850;
-const COMPLETE_HOLD_MS = 200;
+const WORD_PAUSE_MS = 550; // Distinct pause between words so remaining words light up after first word
+const CHAR_GAP_MS = 110;   // Interval between individual characters lighting up
+const FIRST_CHAR_START = 150;
+const FIRST_CHAR_DURATION = 550;
 
 export function PageLoader() {
   const pathname = usePathname();
   const { content } = useContent();
-  const brandName = content?.site?.brandName || "AGTP GROUP";
-  const [progress, setProgress] = useState(0);
+
+  // Preserves the real brand name (e.g. "AGTP GROUP")
+  const brandName = (content?.site?.brandName || "AGTP GROUP").trim();
+
   const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
-  const startedAt = useRef(Date.now());
+  const [animationKey, setAnimationKey] = useState(0);
   const previousPath = useRef(pathname);
+
+  // Compute word and character timings dynamically:
+  // - First character of first word flies in from elsewhere
+  // - Remaining characters of first word light up sequentially
+  // - Noticeable pause before remaining words start
+  // - Remaining words light up letter by letter till the last
+  const { wordsWithTiming, totalDisplayMs } = useMemo(() => {
+    const rawWords = brandName.split(/\s+/).filter(Boolean);
+    const words = rawWords.length > 0 ? rawWords : ["AGTP", "GROUP"];
+
+    let currentTime = FIRST_CHAR_START;
+
+    const computed = words.map((word, wIdx) => {
+      const isLastWord = wIdx === words.length - 1;
+      // Append minimalist elegant dot '.' on last word like the reference design
+      const chars = (word + (isLastWord ? "." : "")).split("");
+
+      if (wIdx > 0) {
+        // Deliberate pause after first word before next word begins lighting up
+        currentTime += WORD_PAUSE_MS;
+      }
+
+      const charTimings = chars.map((char, cIdx) => {
+        let delay = currentTime;
+        const isFirstChar = wIdx === 0 && cIdx === 0;
+
+        if (isFirstChar) {
+          delay = FIRST_CHAR_START;
+          currentTime = FIRST_CHAR_START + FIRST_CHAR_DURATION;
+        } else {
+          currentTime += CHAR_GAP_MS;
+        }
+
+        return { char, delay, isFirstChar };
+      });
+
+      return { word, charTimings };
+    });
+
+    const totalMs = currentTime + 700; // Hold for 700ms after all characters finish
+    return { wordsWithTiming: computed, totalDisplayMs: totalMs };
+  }, [brandName]);
 
   useEffect(() => {
     if (!visible) return;
 
-    const interval = window.setInterval(() => {
-      setProgress((current) => {
-        if (current >= 94) return current;
-        const step = current < 50 ? 6 : current < 80 ? 4 : 2;
-        return Math.min(current + step, 94);
-      });
-    }, 50);
+    const timer = window.setTimeout(() => {
+      setExiting(true);
+      const exitTimer = window.setTimeout(() => {
+        setVisible(false);
+      }, 600);
+      return () => window.clearTimeout(exitTimer);
+    }, totalDisplayMs);
 
-    return () => window.clearInterval(interval);
-  }, [visible]);
-
-  useEffect(() => {
-    const complete = () => {
-      const elapsed = Date.now() - startedAt.current;
-      const wait = Math.max(MIN_VISIBLE_MS - elapsed, 0);
-
-      window.setTimeout(() => {
-        setProgress(100);
-        window.setTimeout(() => {
-          setExiting(true);
-          window.setTimeout(() => setVisible(false), 420);
-        }, COMPLETE_HOLD_MS);
-      }, wait);
-    };
-
-    complete();
-  }, [pathname]);
+    return () => window.clearTimeout(timer);
+  }, [visible, animationKey, totalDisplayMs]);
 
   useEffect(() => {
     if (previousPath.current === pathname) return;
@@ -75,44 +104,34 @@ export function PageLoader() {
   }, []);
 
   const completeReset = () => {
-    startedAt.current = Date.now();
-    setProgress(0);
+    setAnimationKey((prev) => prev + 1);
     setExiting(false);
     setVisible(true);
   };
 
   if (!visible) return null;
 
-  const words = brandName.split(" ");
-  let globalCharIndex = 0;
-
   return (
     <div
-      className={`fixed inset-0 z-[2147483646] flex items-center justify-center bg-[#060709] text-white transition-all duration-500 ${
-        exiting ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
+      className={`fixed inset-0 z-[2147483646] flex items-center justify-center bg-black transition-all duration-600 ease-out select-none ${
+        exiting ? "opacity-0 scale-[1.02] pointer-events-none" : "opacity-100 scale-100"
       }`}
       aria-live="polite"
-      aria-busy={progress < 100}
+      aria-busy={!exiting}
     >
-      <div className="w-[min(850px,88vw)] text-center select-none">
-        {/* Animated Pure White Brand Text with Staggered Kinetic Wave Motion */}
-        <h1 className="flex flex-wrap items-center justify-center gap-x-[0.3em] text-[54px] sm:text-[74px] md:text-[108px] font-black uppercase leading-none tracking-[0.05em] text-white drop-shadow-[0_12px_32px_rgba(0,0,0,0.85)]">
-          {words.map((word, wIdx) => (
-            <span key={`${word}-${wIdx}`} className="inline-flex whitespace-nowrap">
-              {word.split("").map((char, cIdx) => {
-                const delay = globalCharIndex++ * 90;
-                return (
-                  <span
-                    key={`${char}-${cIdx}`}
-                    className="animate-loader-wave"
-                    style={{
-                      animationDelay: `${delay}ms`
-                    }}
-                  >
-                    {char}
-                  </span>
-                );
-              })}
+      <div key={animationKey} className="flex items-center justify-center px-4">
+        <h1 className="flex flex-wrap items-center justify-center gap-x-5 sm:gap-x-7 text-[19px] sm:text-[23px] md:text-[26px] font-normal uppercase tracking-[0.4em] sm:tracking-[0.48em] antialiased">
+          {wordsWithTiming.map((item, wIdx) => (
+            <span key={`word-${wIdx}`} className="inline-flex items-center whitespace-nowrap">
+              {item.charTimings.map((c, cIdx) => (
+                <span
+                  key={`c-${wIdx}-${cIdx}`}
+                  className={c.isFirstChar ? "animate-preloader-first" : "animate-preloader-char"}
+                  style={{ animationDelay: `${c.delay}ms` }}
+                >
+                  {c.char}
+                </span>
+              ))}
             </span>
           ))}
         </h1>

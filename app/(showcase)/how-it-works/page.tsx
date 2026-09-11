@@ -1,19 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import Image from "next/image";
 import {
   ArrowRight,
-  Camera,
-  CheckCircle2,
-  ChevronLeft,
-  ChevronRight,
-  FileCheck,
-  Headphones,
   Play,
-  Search,
-  Ship,
   Video,
   Volume2
 } from "lucide-react";
@@ -32,72 +23,104 @@ import {
 const steps = [
   {
     number: "01",
-    title: "Tell Us What You Need",
-    description: "Share the vehicle or spare parts you’re looking for, along with quantity and destination.",
-    icon: Search,
-    tag: "Inquiry & Specs"
+    title: "Send Your Inquiry",
+    description: "Tell us which vehicle or spare parts you need, along with your quantity and destination.",
+    tag: "YOUR REQUIREMENT",
+    image: "/images/how-it-works/step-01.png",
+    cardBg: "from-[#0c1e40] via-[#071128] to-[#040816]",
+    borderColor: "border-[#1d4ed8]/60",
+    hoverBorder: "hover:border-[#3b82f6]",
+    badgeBg: "bg-[#0066FF]",
+    badgeShadow: "shadow-[0_0_22px_rgba(0,102,255,0.85)]",
+    barBg: "bg-[#0066FF]",
+    tagColor: "text-[#3B82F6]",
+    glowBg: "bg-blue-600/30",
+    hoverGlow: "hover:shadow-[0_20px_50px_rgba(0,102,255,0.3)]"
   },
   {
     number: "02",
-    title: "Receive Your Quote",
-    description: "Get a clear quotation with product details, pricing, and available delivery options.",
-    icon: FileCheck,
-    tag: "Clear Quotation"
+    title: "Get a Quotation",
+    description: "Receive a clear and competitive quote with product details, pricing, and available delivery options.",
+    tag: "TRANSPARENT PRICING",
+    image: "/images/how-it-works/step-02.png",
+    cardBg: "from-[#1d0e3d] via-[#100724] to-[#080414]",
+    borderColor: "border-[#7e22ce]/60",
+    hoverBorder: "hover:border-[#a855f7]",
+    badgeBg: "bg-[#7C3AED]",
+    badgeShadow: "shadow-[0_0_22px_rgba(124,58,237,0.85)]",
+    barBg: "bg-[#7C3AED]",
+    tagColor: "text-[#A855F7]",
+    glowBg: "bg-purple-600/30",
+    hoverGlow: "hover:shadow-[0_20px_50px_rgba(124,58,237,0.3)]"
   },
   {
     number: "03",
     title: "Confirm Your Order",
     description: "Approve the quotation and confirm your purchase with AGTP Group.",
-    icon: CheckCircle2,
-    tag: "Order Confirmation"
+    tag: "ORDER CONFIRMED",
+    image: "/images/how-it-works/step-03.png",
+    cardBg: "from-[#06291d] via-[#031710] to-[#020d09]",
+    borderColor: "border-[#059669]/60",
+    hoverBorder: "hover:border-[#10b981]",
+    badgeBg: "bg-[#10B981]",
+    badgeShadow: "shadow-[0_0_22px_rgba(16,185,129,0.85)]",
+    barBg: "bg-[#10B981]",
+    tagColor: "text-[#10B981]",
+    glowBg: "bg-emerald-600/30",
+    hoverGlow: "hover:shadow-[0_20px_50px_rgba(16,185,129,0.3)]"
   },
   {
     number: "04",
-    title: "Pre-Shipment Approval",
-    description: "Receive product photos and videos where applicable before your order is prepared for shipment.",
-    icon: Camera,
-    tag: "Photo & Video Check"
+    title: "Pre-Shipment Check",
+    description: "Receive photos/videos and inspection reports (where applicable) before your order is prepared for shipment.",
+    tag: "QUALITY ASSURANCE",
+    image: "/images/how-it-works/step-04.png",
+    cardBg: "from-[#2e1d06] via-[#1a1003] to-[#0d0701]",
+    borderColor: "border-[#d97706]/60",
+    hoverBorder: "hover:border-[#f59e0b]",
+    badgeBg: "bg-[#F59E0B]",
+    badgeShadow: "shadow-[0_0_22px_rgba(245,158,11,0.85)]",
+    barBg: "bg-[#F59E0B]",
+    tagColor: "text-[#F59E0B]",
+    glowBg: "bg-amber-600/30",
+    hoverGlow: "hover:shadow-[0_20px_50px_rgba(245,158,11,0.3)]"
   },
   {
     number: "05",
     title: "Export & Shipping",
-    description: "We prepare the required export documentation and arrange shipment to your destination.",
-    icon: Ship,
-    tag: "Global Logistics"
+    description: "We handle all export documentation and arrange shipping to your destination.",
+    tag: "GLOBAL LOGISTICS",
+    image: "/images/how-it-works/step-05.png",
+    cardBg: "from-[#08223d] via-[#041324] to-[#020a14]",
+    borderColor: "border-[#0284c7]/60",
+    hoverBorder: "hover:border-[#38bdf8]",
+    badgeBg: "bg-[#0284C7]",
+    badgeShadow: "shadow-[0_0_22px_rgba(2,132,199,0.85)]",
+    barBg: "bg-[#0284C7]",
+    tagColor: "text-[#38BDF8]",
+    glowBg: "bg-sky-600/30",
+    hoverGlow: "hover:shadow-[0_20px_50px_rgba(2,132,199,0.3)]"
   },
   {
     number: "06",
     title: "After-Sales Support",
-    description: "Our team remains available to assist you with your order and delivery after the purchase.",
-    icon: Headphones,
-    tag: "Dedicated Support"
+    description: "Our team remains available to assist you even after delivery.",
+    tag: "LONG-TERM SUPPORT",
+    image: "/images/how-it-works/step-06.png",
+    cardBg: "from-[#19133d] via-[#0d0a24] to-[#060414]",
+    borderColor: "border-[#4f46e5]/60",
+    hoverBorder: "hover:border-[#818cf8]",
+    badgeBg: "bg-[#6366F1]",
+    badgeShadow: "shadow-[0_0_22px_rgba(99,102,241,0.85)]",
+    barBg: "bg-[#6366F1]",
+    tagColor: "text-[#818CF8]",
+    glowBg: "bg-indigo-600/30",
+    hoverGlow: "hover:shadow-[0_20px_50px_rgba(99,102,241,0.3)]"
   }
 ];
 
 export default function HowItWorksPage() {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [viewMode, setViewMode] = useState<"slider" | "grid">("grid");
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
-
-  // Slider Autoplay
-  useEffect(() => {
-    if (!isAutoPlaying || viewMode !== "slider") return;
-    const timer = setInterval(() => {
-      setCurrentStepIndex((prev) => (prev + 1) % steps.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [isAutoPlaying, viewMode]);
-
-  const nextStep = () => {
-    setIsAutoPlaying(false);
-    setCurrentStepIndex((prev) => (prev + 1) % steps.length);
-  };
-
-  const prevStep = () => {
-    setIsAutoPlaying(false);
-    setCurrentStepIndex((prev) => (prev - 1 + steps.length) % steps.length);
-  };
 
   return (
     <div className="bg-[#060709] pb-24 text-white">
@@ -116,194 +139,143 @@ export default function HowItWorksPage() {
         imageAlt="AGTP Group Export Port Shipping"
       />
 
-      {/* ── 2. 6 Steps Process Section (Grid View by Default with High-Contrast Count on Hover) ── */}
+      {/* ── 2. 6 Steps Process Section (Matching Reference Design with 3 Cards per Row) ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-20">
         <Reveal>
-          <div className="rounded-[32px] border border-[#315671] bg-[#102941] p-8 md:p-14 shadow-2xl">
-            {/* Section Header & View Controls */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 border-b border-[#24445F] pb-8">
-              <div>
-                <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
-                  <span className="h-px w-8 bg-[#F97316]" />
-                  STEP-BY-STEP PROCESS
-                  <span className="h-px w-8 bg-[#F97316]" />
+          <div className="relative overflow-hidden rounded-[36px] border border-[#1e293b]/70 bg-gradient-to-b from-[#0a0f1d] via-[#070a13] to-[#04060b] p-8 md:p-14 shadow-2xl">
+            {/* Ambient Bottom Globe Light */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
+
+            {/* Top Bar with Brand Accents */}
+            <div className="flex items-center justify-between mb-8">
+              {/* Left: Dubai To The World */}
+              <div className="flex items-center gap-3">
+                <div className="w-[2px] h-8 bg-blue-500 rounded-full" />
+                <div className="flex flex-col text-[10px] sm:text-[11px] font-black uppercase tracking-[0.25em] text-slate-400 leading-tight">
+                  <span>DUBAI</span>
+                  <span>TO THE</span>
+                  <span>WORLD</span>
                 </div>
-                <h2 className="mt-3 text-[32px] font-black text-white md:text-[46px] uppercase tracking-tight">
-                  6 Steps to Your Order
-                </h2>
               </div>
 
-              {/* View Switcher & Slider Controls */}
-              <div className="flex items-center gap-3">
-                <div className="flex rounded-full border border-[#315671] bg-[#0B1F33] p-1">
-                  <button
-                    onClick={() => setViewMode("grid")}
-                    className={`rounded-full px-5 py-2 text-[12px] font-black transition-all ${
-                      viewMode === "grid"
-                        ? "bg-white text-slate-950 shadow-md"
-                        : "text-slate-400 hover:text-white"
-                    }`}
-                  >
-                    Grid View
-                  </button>
-                  <button
-                    onClick={() => setViewMode("slider")}
-                    className={`rounded-full px-5 py-2 text-[12px] font-black transition-all ${
-                      viewMode === "slider"
-                        ? "bg-white text-slate-950 shadow-md"
-                        : "text-slate-400 hover:text-white"
-                    }`}
-                  >
-                    Interactive Slider
-                  </button>
-                </div>
-
-                {viewMode === "slider" && (
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={prevStep}
-                      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-white transition-colors"
-                      aria-label="Previous step"
-                    >
-                      <ChevronLeft className="h-5 w-5" />
-                    </button>
-                    <button
-                      onClick={nextStep}
-                      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-white transition-colors"
-                      aria-label="Next step"
-                    >
-                      <ChevronRight className="h-5 w-5" />
-                    </button>
-                  </div>
-                )}
+              {/* Right: Driven By Trust Script */}
+              <div className="text-right">
+                <span
+                  className="italic text-[22px] sm:text-[26px] md:text-[30px] tracking-wide text-slate-200/90 select-none"
+                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                >
+                  Driven By Trust
+                </span>
               </div>
             </div>
 
-            {viewMode === "grid" ? (
-              /* ── UNIQUE 6-STEP GRID LAYOUT ── */
-              <RevealStagger staggerDelay={80} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-                {steps.map((step) => {
-                  const Icon = step.icon;
-                  return (
-                    <div
-                      key={step.number}
-                      className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-white/40 hover:shadow-2xl"
-                    >
-                      {/* Top Accent Line */}
-                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            {/* Center Section Heading */}
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <div className="inline-flex items-center gap-2 text-[11px] sm:text-[12px] font-black uppercase tracking-[0.32em] text-[#F97316] mb-3">
+                <span>SIMPLE.</span>
+                <span>TRANSPARENT.</span>
+                <span>GLOBAL.</span>
+              </div>
+              <h2 className="text-[36px] sm:text-[48px] lg:text-[56px] font-black tracking-tight text-white uppercase leading-none">
+                How It{" "}
+                <span className="bg-gradient-to-r from-[#38BDF8] via-[#60A5FA] to-[#3B82F6] bg-clip-text text-transparent">
+                  Works
+                </span>
+              </h2>
+              <p className="mt-4 text-[15px] sm:text-[17px] font-medium text-slate-400 max-w-xl mx-auto">
+                From inquiry to delivery — your vehicle, our responsibility.
+              </p>
+            </div>
 
-                      <div>
-                        {/* Header: Prominent Number Tile + Phase Tag + Prominent Icon Tile */}
-                        <div className="flex items-center justify-between gap-4">
-                          <div className="flex items-center gap-3.5">
-                            {/* Prominent Number Tile */}
-                            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border-2 border-white/20 bg-white/[0.08] shadow-inner backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:border-white/40 group-hover:bg-white/[0.16]">
-                              <span className="font-[family-name:var(--font-sora)] text-[26px] font-black tracking-tight text-white">
-                                {step.number}
-                              </span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[10px] font-black uppercase tracking-[0.22em] text-slate-400">
-                                Phase
-                              </span>
-                              <span className="text-[13px] font-black text-white">
-                                {step.tag}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Prominent Icon Tile */}
-                          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border-2 border-white/20 bg-white/[0.08] text-white shadow-inner backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:border-white/40 group-hover:bg-white/[0.16]">
-                            <Icon className="h-8 w-8 stroke-[2.2]" />
-                          </div>
-                        </div>
-
-                        {/* Title */}
-                        <h3 className="mt-7 text-[22px] font-black text-white transition-colors leading-snug">
-                          {step.title}
-                        </h3>
-
-                        {/* Description */}
-                        <p className="mt-3 text-[15px] font-medium leading-relaxed text-slate-300">
-                          {step.description}
-                        </p>
-                      </div>
-
-                      {/* Card Footer Indicator */}
-                      <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between">
-                        <span className="text-[12px] font-black tracking-wider text-slate-400 uppercase">
-                          Step <strong className="text-white">{step.number}</strong> of 06
-                        </span>
-                        <div className="flex items-center gap-1.5 text-[13px] font-black text-white">
-                          <span>Verified Process</span>
-                          <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                        </div>
+            {/* ── 6 Steps in 3-Card Rows with Centered Top-Border Badges & Prominent Images ── */}
+            <RevealStagger staggerDelay={80} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 lg:gap-x-7 gap-y-14 auto-rows-fr pt-6">
+              {steps.map((step, idx) => {
+                return (
+                  <div
+                    key={step.number}
+                    onClick={() => setInquiryModalOpen(true)}
+                    className={`group relative flex flex-col justify-between overflow-visible rounded-[26px] border ${step.borderColor} ${step.hoverBorder} ${step.hoverGlow} bg-gradient-to-b ${step.cardBg} px-6 pt-9 pb-7 lg:px-7 shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer`}
+                  >
+                    {/* Top Centered Number Badge Directly on the Top Border (Half in, half out) */}
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20">
+                      <div className={`flex h-12 w-12 items-center justify-center rounded-full ${step.badgeBg} ${step.badgeShadow} border-2 border-white/35 text-white font-black text-[16px] tracking-tight transition-transform duration-300 group-hover:scale-110`}>
+                        {step.number}
                       </div>
                     </div>
-                  );
-                })}
-              </RevealStagger>
-            ) : (
-              /* ── INTERACTIVE SLIDER VIEW ── */
-              <div className="space-y-8">
-                {/* Active Spotlight Step Card */}
-                <div className="relative overflow-hidden rounded-[24px] border border-white/20 bg-gradient-to-b from-[#14314B] via-[#102941] to-[#0B1F33] p-8 md:p-12 shadow-2xl transition-all duration-700">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-4">
-                        <span className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-white/20 bg-white/[0.08] text-[26px] font-black text-white shadow-xl backdrop-blur-md">
-                          {steps[currentStepIndex].number}
-                        </span>
-                        <span className="rounded-full border border-white/15 bg-white/[0.05] px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.16em] text-slate-300">
-                          STEP {currentStepIndex + 1} OF 6 • {steps[currentStepIndex].tag}
-                        </span>
+                    {/* Connecting Flow Arrow between cards on desktop */}
+                    {(idx === 0 || idx === 1 || idx === 3 || idx === 4) && (
+                      <div className="hidden lg:flex absolute -right-3.5 top-[45%] -translate-y-1/2 z-30 h-7 w-7 items-center justify-center rounded-full border border-white/20 bg-[#070b16] text-slate-300 shadow-md pointer-events-none">
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </div>
+                    )}
+
+                    <div>
+                      {/* Large, Prominent Illustration Area Filling Card Upper Section */}
+                      <div className="relative w-full h-[190px] sm:h-[210px] md:h-[220px] flex items-center justify-center my-2">
+                        {/* Colored Halo matching the card theme */}
+                        <div className={`absolute w-44 h-44 rounded-full ${step.glowBg} blur-3xl pointer-events-none opacity-60`} />
+
+                        {/* Large Illustration Image */}
+                        <div className="relative w-full h-full flex items-center justify-center">
+                          <Image
+                            src={step.image}
+                            alt={step.title}
+                            width={488}
+                            height={348}
+                            className="w-full h-full object-contain max-h-[210px] drop-shadow-[0_12px_30px_rgba(0,0,0,0.7)] transform group-hover:scale-105 transition-transform duration-500"
+                            priority
+                          />
+                        </div>
                       </div>
 
-                      <h3 className="text-[28px] font-black text-white md:text-[38px]">
-                        {steps[currentStepIndex].title}
+                      {/* Title */}
+                      <h3 className="text-[20px] lg:text-[22px] font-bold text-white leading-tight tracking-tight mt-4">
+                        {step.title}
                       </h3>
-                      <p className="max-w-2xl text-[16px] font-medium leading-relaxed text-slate-200 md:text-[18px]">
-                        {steps[currentStepIndex].description}
+
+                      {/* Colored Accent Underline Bar */}
+                      <div className={`h-[3px] w-8 rounded-full ${step.barBg} mt-2.5 mb-3.5 transition-all duration-300 group-hover:w-12`} />
+
+                      {/* Description */}
+                      <p className="text-[13px] sm:text-[14px] font-normal leading-relaxed text-slate-300">
+                        {step.description}
                       </p>
                     </div>
 
-                    <div className="hidden md:flex h-28 w-28 shrink-0 items-center justify-center rounded-3xl border-2 border-white/20 bg-white/[0.08] text-white shadow-2xl backdrop-blur-md">
-                      {(() => {
-                        const Icon = steps[currentStepIndex].icon;
-                        return <Icon className="h-14 w-14 stroke-[2.2] text-white" />;
-                      })()}
+                    {/* Footer Tag & Arrow */}
+                    <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between">
+                      <span className={`text-[11px] lg:text-[12px] font-bold uppercase tracking-[0.18em] ${step.tagColor}`}>
+                        {step.tag}
+                      </span>
+                      <div className={`flex items-center gap-1 ${step.tagColor}`}>
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                      </div>
                     </div>
                   </div>
-                </div>
+                );
+              })}
+            </RevealStagger>
 
-                {/* Step Selector Pills */}
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-                  {steps.map((step, idx) => (
-                    <button
-                      key={step.number}
-                      onClick={() => {
-                        setIsAutoPlaying(false);
-                        setCurrentStepIndex(idx);
-                      }}
-                      className={`flex flex-col items-center justify-center rounded-2xl border p-4 text-center transition-all ${
-                        currentStepIndex === idx
-                          ? "border-[#F97316] bg-[#14314B] text-white shadow-lg scale-105"
-                          : "border-[#315671]/60 bg-[#0B1F33]/80 text-slate-400 hover:border-slate-600 hover:text-white"
-                      }`}
-                    >
-                      <span className={`flex h-8 w-8 items-center justify-center rounded-full text-[13px] font-black mb-1.5 ${
-                        currentStepIndex === idx ? "bg-[#F97316] text-white" : "bg-[#102941] border border-[#315671] text-[#FDBA74]"
-                      }`}>
-                        {step.number}
-                      </span>
-                      <span className="truncate text-[12px] font-black max-w-full">{step.title}</span>
-                    </button>
-                  ))}
-                </div>
+            {/* Bottom Brand Bar Strip */}
+            <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 relative">
+              {/* Left: AGTP Group */}
+              <div className="flex items-center gap-3 relative z-10">
+                <span className="font-black text-[22px] tracking-tight text-white">AGTP</span>
+                <span className="text-[12px] font-black text-slate-400 tracking-[0.25em] uppercase">GROUP —</span>
               </div>
-            )}
+
+              {/* Center: Global Reach • Local Expertise */}
+              <div className="flex flex-col items-center text-center relative z-10">
+                <span className="text-[11px] font-black uppercase tracking-[0.32em] text-slate-400">GLOBAL REACH</span>
+                <span className="text-[11px] font-black uppercase tracking-[0.32em] text-slate-400">LOCAL EXPERTISE</span>
+              </div>
+
+              {/* Right: Vehicles | Spare Parts | Global Solutions */}
+              <div className="text-[11px] font-bold tracking-[0.22em] text-slate-500 uppercase relative z-10">
+                VEHICLES &nbsp;|&nbsp; SPARE PARTS &nbsp;|&nbsp; GLOBAL SOLUTIONS
+              </div>
+            </div>
           </div>
         </Reveal>
       </section>
@@ -334,7 +306,6 @@ export default function HowItWorksPage() {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {/* ── Video 1: Portuguese Speaker ── */}
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
-              {/* Video Frame */}
               <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
                 <Image
                   src={agtpAssets.heroYard}
@@ -344,13 +315,11 @@ export default function HowItWorksPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-black/40 to-black/30" />
 
-                {/* Top Badge */}
                 <div className="absolute top-5 left-5 flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3.5 py-1.5 text-[12px] font-black text-white">
                   <span>🇵🇹</span>
                   <span>Português</span>
                 </div>
 
-                {/* Play Button Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white/80 bg-[#F97316] text-white shadow-2xl shadow-orange-500/50 transition-transform duration-300 group-hover:scale-110">
                     <Play className="h-8 w-8 fill-white translate-x-0.5" />
@@ -358,14 +327,12 @@ export default function HowItWorksPage() {
                   </div>
                 </div>
 
-                {/* Duration / Audio Badge */}
                 <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-black/70 backdrop-blur-sm px-3 py-1 text-[11px] font-black text-slate-200 border border-white/10">
                   <Volume2 className="h-3.5 w-3.5 text-[#FDBA74]" />
                   <span>Áudio em Português</span>
                 </div>
               </div>
 
-              {/* Video Info Container */}
               <div className="p-8 space-y-4">
                 <div className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74]">
                   <Video className="h-4 w-4 text-[#F97316]" />
@@ -382,7 +349,6 @@ export default function HowItWorksPage() {
 
             {/* ── Video 2: English Speaker ── */}
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
-              {/* Video Frame */}
               <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
                 <Image
                   src={agtpAssets.exportPort}
@@ -392,13 +358,11 @@ export default function HowItWorksPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-black/40 to-black/30" />
 
-                {/* Top Badge */}
                 <div className="absolute top-5 left-5 flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3.5 py-1.5 text-[12px] font-black text-white">
                   <span>🇬🇧</span>
                   <span>English</span>
                 </div>
 
-                {/* Play Button Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white/80 bg-[#F97316] text-white shadow-2xl shadow-orange-500/50 transition-transform duration-300 group-hover:scale-110">
                     <Play className="h-8 w-8 fill-white translate-x-0.5" />
@@ -406,14 +370,12 @@ export default function HowItWorksPage() {
                   </div>
                 </div>
 
-                {/* Duration / Audio Badge */}
                 <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-black/70 backdrop-blur-sm px-3 py-1 text-[11px] font-black text-slate-200 border border-white/10">
                   <Volume2 className="h-3.5 w-3.5 text-[#FDBA74]" />
                   <span>English Audio</span>
                 </div>
               </div>
 
-              {/* Video Info Container */}
               <div className="p-8 space-y-4">
                 <div className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74]">
                   <Video className="h-4 w-4 text-[#F97316]" />
@@ -435,7 +397,6 @@ export default function HowItWorksPage() {
       <section className="mx-auto max-w-[1570px] px-6 pt-24">
         <Reveal>
           <div className="relative overflow-hidden rounded-[32px] border border-[#315671] shadow-2xl">
-            {/* Background Image */}
             <div className="absolute inset-0 -z-10">
               <Image
                 src={agtpAssets.inventoryHero}
@@ -444,7 +405,6 @@ export default function HowItWorksPage() {
                 className="object-cover object-center brightness-105"
                 sizes="(max-width: 1570px) 100vw, 1570px"
               />
-              {/* Lightened soft overlay */}
               <div className="absolute inset-0 bg-black/30" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/50 to-[#0B1F33]/70" />
             </div>
