@@ -78,7 +78,8 @@ export function StoreFooter() {
             links={[
               ["Vehicles", "/vehicles"],
               ["Parts & Accessories", "/spare-parts"],
-              ["Freight & Logistics", "/freight-and-logistics"]
+              ["Freight & Logistics", "/freight-and-logistics"],
+              ["Automotive Shipping", "/automotive-shipping"]
             ]}
           />
 

@@ -14,33 +14,33 @@ import {
 } from "@/components/ui/scroll-reveal";
 
 const logisticsServices = [
-  "Ocean freight and air freight solutions",
-  "Export documentation and customs support",
-  "Cargo consolidation and shipment coordination",
-  "Container shipping and freight management",
-  "Secure payment and trade support services",
-  "End-to-end logistics planning and delivery tracking"
+  "RoRo and containerized vehicle shipping",
+  "Full export documentation & UAE customs clearance",
+  "Port-to-port and door-to-port coordination",
+  "Vehicle pre-shipment inspection & securing",
+  "Express air cargo for automotive spare parts",
+  "End-to-end shipment tracking & delivery updates"
 ];
 
 const transportModes = [
   {
-    title: "Ocean Freight",
-    desc: "Full Container Load (FCL) and Less than Container Load (LCL) shipping across major international sea routes.",
+    title: "Ocean Freight (RoRo & Container)",
+    desc: "Roll-on/Roll-off (RoRo) and Full Container Load (FCL) shipping for safe, damage-free international vehicle transit.",
     icon: Ship
   },
   {
-    title: "Air Freight",
-    desc: "Express air cargo solutions for time-sensitive spare parts, electronics, and priority shipments.",
+    title: "Air Cargo Express",
+    desc: "Fast air cargo solutions for time-sensitive automotive spare parts, engines, and priority shipments.",
     icon: Plane
   },
   {
-    title: "Overland Transport",
-    desc: "Regional heavy trucking, vehicle transport trailers, and cross-border land transport solutions.",
+    title: "Overland Vehicle Transport",
+    desc: "Regional multi-car carriers, heavy trailers, and cross-border transport across GCC and neighboring corridors.",
     icon: Truck
   }
 ];
 
-export default function FreightAndLogisticsPage() {
+export default function AutomotiveShippingPage() {
   return (
     <div className="bg-[#060709] pb-24 text-white">
       {/* ── 1. Hero Header Banner matching new design ── */}
@@ -48,15 +48,16 @@ export default function FreightAndLogisticsPage() {
         breadcrumbs={[
           { label: "HOME", href: "/" },
           { label: "AREAS OF EXPERTISE" },
-          { label: "FREIGHT & LOGISTICS" }
+          { label: "AUTOMOTIVE SHIPPING" }
         ]}
         badge={{
-          text: "AREAS OF EXPERTISE — GLOBAL FREIGHT"
+          text: "AUTOMOTIVE SHIPPING — WORLDWIDE DELIVERY",
+          dotColor: "bg-emerald-400"
         }}
-        title="FREIGHT & LOGISTICS"
-        subtitle="Delivering global trade with confidence. End-to-end containerized sea freight, air cargo, and port documentation."
+        title="AUTOMOTIVE SHIPPING"
+        subtitle="From Dubai to the world. We coordinate reliable shipping for vehicles and automotive parts, from the UAE to customers worldwide."
         imageSrc={agtpAssets.exportPort}
-        imageAlt="AGTP Group Freight and Logistics Port"
+        imageAlt="AGTP Group Automotive Shipping Port"
       />
 
       {/* ── 2. Overview Intro Section ── */}
@@ -64,10 +65,10 @@ export default function FreightAndLogisticsPage() {
         <Reveal>
           <div className="rounded-[24px] border border-[#315671] bg-[#102941] p-8 md:p-12 shadow-xl space-y-6">
             <p className="text-[17px] font-medium leading-relaxed text-slate-200 md:text-[19px]">
-              At AGTP Group, we provide reliable freight and logistics solutions that keep international trade moving efficiently. From supplier locations to final destinations, we manage the transportation, coordination, and documentation required to ensure smooth cargo movement across global markets.
+              At AGTP Group, we provide reliable automotive shipping solutions that keep vehicles and spare parts moving efficiently. From Dubai and the UAE to final destinations worldwide, we manage the transportation, port coordination, and export documentation required to ensure smooth delivery across global markets.
             </p>
             <p className="text-[16px] font-medium leading-relaxed text-slate-300">
-              Based in Dubai and serving clients worldwide, whether transporting vehicles, spare parts, industrial equipment, construction materials, agricultural products, or general trading goods, we ensure every shipment is handled with professionalism and care. We help businesses move products seamlessly across Africa, the Middle East, Asia, Europe, and beyond.
+              Based in Dubai and serving clients worldwide, whether transporting individual luxury cars, commercial vehicle fleets, engines, or bulk automotive spare parts, we ensure every shipment is handled with utmost professionalism and care. We help businesses and individual buyers receive their vehicles safely across Africa, the Middle East, Asia, and international ports.
             </p>
           </div>
         </Reveal>
@@ -91,7 +92,7 @@ export default function FreightAndLogisticsPage() {
         </RevealStagger>
       </section>
 
-      {/* ── 4. Our Freight & Logistics Expertise ── */}
+      {/* ── 4. Our Automotive Shipping Expertise ── */}
       <section className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           {/* Left Text */}
@@ -99,20 +100,20 @@ export default function FreightAndLogisticsPage() {
             <RevealEyebrow>
               <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.28em] text-[#FDBA74]">
                 <span className="h-px w-8 bg-[#F97316]" />
-                LOGISTICS CAPABILITIES
+                SHIPPING CAPABILITIES
               </div>
             </RevealEyebrow>
             <RevealHeading>
               <h2 className="text-[32px] font-black text-white md:text-[44px]">
-                Our Freight & Logistics Expertise
+                Our Automotive Shipping Expertise
               </h2>
             </RevealHeading>
             <RevealText>
               <p className="text-[15px] font-medium leading-relaxed text-slate-300">
-                With extensive experience in international trade, shipping, and supply chain management, AGTP Group is equipped to handle the complexities of global cargo movement.
+                With extensive experience in international vehicle trade, shipping lines, and UAE export logistics, AGTP Group is equipped to handle the complexities of global automotive transport.
               </p>
               <p className="mt-4 text-[15px] font-medium leading-relaxed text-slate-300">
-                Our expertise spans a wide range of industries, including automotive vehicles, spare parts, construction materials, consumer goods, and general trading commodities. Through our global logistics network and trusted partners, we help businesses move products safely, efficiently, and cost-effectively across Africa, the Middle East, Asia, Europe, and international markets.
+                Our capabilities span passenger vehicles, heavy commercial units, ambulances, and genuine spare parts. Through our trusted shipping lines and port network, we deliver vehicles safely, efficiently, and cost-effectively across Africa, the Middle East, Central Asia, and overseas destinations.
               </p>
             </RevealText>
           </div>
@@ -121,7 +122,7 @@ export default function FreightAndLogisticsPage() {
           <div className="lg:col-span-7 flex flex-col justify-center">
             <Reveal>
               <div className="rounded-[24px] border border-[#315671] bg-[#102941] p-8 shadow-xl">
-                <h3 className="text-[20px] font-black text-white mb-6">Comprehensive Logistics Services</h3>
+                <h3 className="text-[20px] font-black text-white mb-6">Comprehensive Automotive Shipping Services</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {logisticsServices.map((service) => (
                     <div key={service} className="flex items-start gap-3 rounded-xl border border-[#315671]/70 bg-[#14314B] p-4 hover:border-[#F97316] transition-colors">
