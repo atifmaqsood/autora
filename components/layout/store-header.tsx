@@ -25,7 +25,6 @@ export function StoreHeader() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
   }, [pathname]);
 
   const expertiseLinks = [
