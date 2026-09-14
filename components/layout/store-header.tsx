@@ -26,6 +26,7 @@ export function StoreHeader() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  }, [pathname]);
 
   const expertiseLinks = [
     { name: "Global Sourcing", href: "/how-it-works" },
