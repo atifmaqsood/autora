@@ -65,7 +65,7 @@ export function StoreFooter() {
           <FooterColumn
             title="QUICK LINKS"
             links={[
-              ["Dubai Markets", "/dubai-markets"],
+              ["Dubai Automotive", "/dubai-markets"],
               ["Customer Reviews", "/customer-reviews"],
               ["Payment", "/payment"],
               ["Blogs & Articles", "/blogs"],

@@ -37,7 +37,7 @@ export function StoreHeader() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about-us" },
-    { name: "Dubai Markets", href: "/dubai-markets" },
+    { name: "Dubai Automotive", href: "/dubai-markets" },
     { name: "Areas Of Expertise", href: "#", children: expertiseLinks },
     { name: "Customer Reviews", href: "/customer-reviews" }
   ];
