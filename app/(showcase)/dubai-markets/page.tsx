@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowRight, Car, Cog, Package } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
+import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
+import { useState } from "react";
 import {
   Reveal,
   RevealButton,
@@ -39,6 +41,8 @@ const marketCategories = [
 ];
 
 export default function DubaiAutomotivePage() {
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+
   return (
     <div className="bg-[#060709] pb-24 text-white">
       {/* ── 1. Hero Header Banner ── */}
@@ -126,10 +130,10 @@ export default function DubaiAutomotivePage() {
           </RevealHeading>
         </div>
 
-        <RevealStagger staggerDelay={85} className="mt-[48px] text-left grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {/* LEFT COLUMN: 1 Big Card */}
+        <RevealStagger staggerDelay={85} className="mt-[48px] text-left grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Card 1: Parts & Accessories */}
           <Link href={marketCategories[0].href} className="group relative flex flex-col justify-end overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)] min-h-[360px] lg:min-h-[540px]">
-            <Image src={marketCategories[0].image} alt={marketCategories[0].title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image src={marketCategories[0].image} alt={marketCategories[0].title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 33vw" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
             <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
               <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
@@ -148,50 +152,47 @@ export default function DubaiAutomotivePage() {
             </div>
           </Link>
 
-          {/* RIGHT COLUMN: 2 Stacked Cards */}
-          <div className="flex flex-col gap-5">
-            {/* Card 2: Engines & Transmissions */}
-            <Link href={marketCategories[1].href} className="group relative flex-1 flex flex-col justify-end overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)] min-h-[250px] lg:min-h-[260px]">
-              <Image src={marketCategories[1].image} alt={marketCategories[1].title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
-              <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
-                <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
-                  Explore
-                </span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1">
-                  <ArrowRight className="h-4 w-4" />
-                </span>
+          {/* Card 2: Engines & Transmissions */}
+          <Link href={marketCategories[1].href} className="group relative flex flex-col justify-end overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)] min-h-[360px] lg:min-h-[540px]">
+            <Image src={marketCategories[1].image} alt={marketCategories[1].title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 33vw" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
+            <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
+              <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
+                Explore
+              </span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1">
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </div>
+            <div className="relative z-10 mt-auto max-w-[390px]">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/35 bg-[#F97316]/15 text-[#FDBA74]">
+                <Cog className="h-5 w-5" />
               </div>
-              <div className="relative z-10 mt-auto max-w-[390px]">
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/35 bg-[#F97316]/15 text-[#FDBA74]">
-                  <Cog className="h-5 w-5" />
-                </div>
-                <h3 className="text-[21px] font-black leading-[1.05] text-white md:text-[24px]">{marketCategories[1].title}</h3>
-                <p className="mt-2.5 text-[12px] font-bold leading-[1.45] text-slate-200">{marketCategories[1].subtitle}</p>
-              </div>
-            </Link>
+              <h3 className="text-[21px] font-black leading-[1.05] text-white md:text-[24px]">{marketCategories[1].title}</h3>
+              <p className="mt-2.5 text-[12px] font-bold leading-[1.45] text-slate-200">{marketCategories[1].subtitle}</p>
+            </div>
+          </Link>
 
-            {/* Card 3: Tyres, Rims & Body Kits */}
-            <Link href={marketCategories[2].href} className="group relative flex-1 flex flex-col justify-end overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)] min-h-[250px] lg:min-h-[260px]">
-              <Image src={marketCategories[2].image} alt={marketCategories[2].title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
-              <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
-                <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
-                  Explore
-                </span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1">
-                  <ArrowRight className="h-4 w-4" />
-                </span>
+          {/* Card 3: Tyres, Rims & Body Kits */}
+          <Link href={marketCategories[2].href} className="group relative flex flex-col justify-end overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)] min-h-[360px] lg:min-h-[540px]">
+            <Image src={marketCategories[2].image} alt={marketCategories[2].title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 33vw" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
+            <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
+              <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
+                Explore
+              </span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1">
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </div>
+            <div className="relative z-10 mt-auto max-w-[390px]">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/35 bg-[#F97316]/15 text-[#FDBA74]">
+                <Car className="h-5 w-5" />
               </div>
-              <div className="relative z-10 mt-auto max-w-[390px]">
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/35 bg-[#F97316]/15 text-[#FDBA74]">
-                  <Car className="h-5 w-5" />
-                </div>
-                <h3 className="text-[21px] font-black leading-[1.05] text-white md:text-[24px]">{marketCategories[2].title}</h3>
-                <p className="mt-2.5 text-[12px] font-bold leading-[1.45] text-slate-200">{marketCategories[2].subtitle}</p>
-              </div>
-            </Link>
-          </div>
+              <h3 className="text-[21px] font-black leading-[1.05] text-white md:text-[24px]">{marketCategories[2].title}</h3>
+              <p className="mt-2.5 text-[12px] font-bold leading-[1.45] text-slate-200">{marketCategories[2].subtitle}</p>
+            </div>
+          </Link>
         </RevealStagger>
       </section>
 
@@ -229,18 +230,25 @@ export default function DubaiAutomotivePage() {
               </RevealText>
   
               <RevealButton delay={180} className="pt-6 flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  href="/contact-us"
-                  className="inline-flex h-14 items-center gap-2 rounded-full bg-[#4F46E5] px-8 text-[15px] font-bold text-white transition-colors hover:bg-[#4338CA] shadow-lg"
+                <button
+                  onClick={() => setInquiryModalOpen(true)}
+                  className="inline-flex h-14 items-center gap-2 rounded-full bg-[#F97316] px-8 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C] hover:scale-105"
                 >
                   <span>GET STARTED</span>
                   <ArrowRight className="h-5 w-5" />
-                </Link>
+                </button>
               </RevealButton>
             </div>
           </div>
         </Reveal>
       </section>
+
+      <VehicleInquiryModal
+        isOpen={inquiryModalOpen}
+        onClose={() => setInquiryModalOpen(false)}
+        vehicleTitle="Dubai Automotive Inquiry"
+        vehicleId="dubai-automotive"
+      />
     </div>
   );
 }

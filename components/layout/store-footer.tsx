@@ -30,7 +30,7 @@ export function StoreFooter() {
       <div className="mx-auto max-w-[1570px] px-6 py-20">
         <div className="grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-5">
           <div className="space-y-6 lg:col-span-1">
-            <Logo />
+            <Logo className="-mt-6" />
             <p className="text-[15px] font-medium leading-[1.6] text-slate-400">
               Dubai-based exporter of quality vehicles and spare parts, with trusted shipping to 45+ countries worldwide.
             </p>

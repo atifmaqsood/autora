@@ -5,6 +5,8 @@ import Image from "next/image";
 import { ArrowRight, CheckCircle2, Globe2, Mail, Phone, Plane, Ship, Truck } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
+import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
+import { useState } from "react";
 import {
   Reveal,
   RevealButton,
@@ -15,6 +17,8 @@ import {
 } from "@/components/ui/scroll-reveal";
 
 export default function AutomotiveShippingPage() {
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+
   return (
     <div className="bg-[#060709] pb-24 text-white">
       {/* ── 1. Hero Header Banner matching new design ── */}
@@ -54,27 +58,7 @@ export default function AutomotiveShippingPage() {
                   </p>
                 </div>
 
-                {/* Highlights matching reference layout */}
-                <div className="space-y-3 pt-2">
-                  <div className="flex items-start gap-3">
-                    <span className="text-[#F97316] font-black text-lg leading-none mt-0.5">✓</span>
-                    <p className="text-sm sm:text-[15px] text-slate-200">
-                      <strong className="font-bold text-white">Global Network</strong> – Reliable shipping solutions across international destinations.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-[#F97316] font-black text-lg leading-none mt-0.5">✓</span>
-                    <p className="text-sm sm:text-[15px] text-slate-200">
-                      <strong className="font-bold text-white">End-to-End Solutions</strong> – Sourcing, export clearance, freight coordination, and delivery.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-[#F97316] font-black text-lg leading-none mt-0.5">✓</span>
-                    <p className="text-sm sm:text-[15px] text-slate-200">
-                      <strong className="font-bold text-white">Dedicated Support</strong> – Professional service focused on transparent and secure transit.
-                    </p>
-                  </div>
-                </div>
+
               </div>
 
               {/* Right Column: Image with Signature Curved Bottom-Right Corner */}
@@ -166,10 +150,10 @@ export default function AutomotiveShippingPage() {
                 </div>
                 
                 <div className="mt-auto">
-                  <Link href="/contact-us" className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#FDBA74] px-6 text-sm font-bold text-slate-900 transition-colors hover:bg-[#F97316] hover:text-white">
+                  <button onClick={() => setInquiryModalOpen(true)} className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#F97316] px-6 text-sm font-extrabold text-white transition-all duration-200 hover:bg-[#EA580C] shadow-lg shadow-[#F97316]/30">
                     <span>Get a Shipping Quote</span>
                     <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -219,10 +203,10 @@ export default function AutomotiveShippingPage() {
                 </div>
                 
                 <div className="mt-auto">
-                  <Link href="/contact-us" className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#FDBA74] px-6 text-sm font-bold text-slate-900 transition-colors hover:bg-[#F97316] hover:text-white">
+                  <button onClick={() => setInquiryModalOpen(true)} className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#F97316] px-6 text-sm font-extrabold text-white transition-all duration-200 hover:bg-[#EA580C] shadow-lg shadow-[#F97316]/30">
                     <span>Get a Shipping Quote</span>
                     <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -257,13 +241,13 @@ export default function AutomotiveShippingPage() {
               </RevealText>
   
               <RevealButton delay={180} className="pt-6 flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  href="/contact-us"
-                  className="inline-flex h-14 items-center gap-2 rounded-full bg-[#4F46E5] px-8 text-[15px] font-bold text-white transition-colors hover:bg-[#4338CA] shadow-lg"
+                <button
+                  onClick={() => setInquiryModalOpen(true)}
+                  className="inline-flex h-14 items-center gap-2 rounded-full bg-[#F97316] px-8 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C] hover:scale-105"
                 >
                   <span>GET A SHIPPING QUOTE</span>
                   <ArrowRight className="h-5 w-5" />
-                </Link>
+                </button>
                 <Link
                   href="/contact"
                   className="inline-flex h-14 items-center gap-2 rounded-full border border-slate-600 bg-[#ffffff10] backdrop-blur-sm px-8 text-[15px] font-bold text-white transition-colors hover:bg-slate-800 hover:border-slate-500"
@@ -276,6 +260,12 @@ export default function AutomotiveShippingPage() {
           </div>
         </Reveal>
       </section>
+
+      {/* ── 6. Modals ── */}
+      <VehicleInquiryModal
+        isOpen={inquiryModalOpen}
+        onClose={() => setInquiryModalOpen(false)}
+      />
     </div>
   );
 }

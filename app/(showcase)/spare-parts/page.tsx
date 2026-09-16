@@ -117,7 +117,7 @@ export default function SparePartsPage() {
       >
         <button
           onClick={() => setInquiryModalOpen(true)}
-          className="inline-flex items-center gap-3 rounded-full bg-[#F97316] px-8 py-4 text-sm font-black text-white shadow-2xl transition-all hover:bg-[#EA580C]"
+          className="inline-flex items-center gap-3 rounded-full bg-[#F97316] px-8 py-4 text-sm font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C] hover:scale-105"
         >
           <span>REQUEST PARTS QUOTE</span>
           <ArrowRight className="h-4 w-4" />
@@ -205,7 +205,7 @@ export default function SparePartsPage() {
           </RevealEyebrow>
           <RevealHeading>
             <h2 className="text-4xl font-black leading-tight text-white sm:text-6xl">
-              Matched, Verified, Packed, and Shipped.
+              Matched, Verified, Packed and Shipped.
             </h2>
           </RevealHeading>
           <RevealText>
@@ -359,13 +359,13 @@ export default function SparePartsPage() {
               </RevealText>
   
               <RevealButton delay={180} className="pt-6 flex flex-wrap items-center justify-center gap-4">
-                <button
-                  onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex h-14 items-center gap-2 rounded-full bg-[#4F46E5] px-8 text-[15px] font-bold text-white transition-colors hover:bg-[#4338CA] shadow-lg"
-                >
-                  <span>GET A PARTS QUOTE</span>
-                  <ArrowRight className="h-5 w-5" />
-                </button>
+                  <button
+                    onClick={() => setInquiryModalOpen(true)}
+                    className="inline-flex h-14 items-center gap-2 rounded-full bg-[#F97316] px-8 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C] hover:scale-105"
+                  >
+                    <span>GET A PARTS QUOTE</span>
+                    <ArrowRight className="h-5 w-5" />
+                  </button>
                 <Link
                   href="/contact"
                   className="inline-flex h-14 items-center gap-2 rounded-full border border-slate-600 bg-[#ffffff10] backdrop-blur-sm px-8 text-[15px] font-bold text-white transition-colors hover:bg-slate-800 hover:border-slate-500"
