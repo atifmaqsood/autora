@@ -110,7 +110,7 @@ const processSteps = [
   {
     number: "03",
     title: "Confirm Your Order",
-    body: "Approve the quotation and complete payment to proceed with your order.",
+    body: "Approve the quotation, confirm your order, and complete payment to proceed.",
     icon: CheckCircle2
   },
   {
@@ -442,19 +442,19 @@ function IndustriesSection() {
           const Icon = card.icon;
           return (
             <Reveal key={card.title} delay={index * 85} className={card.layout}>
-              <Link href={card.href} className="group relative flex h-full overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)]">
+              <Link href={card.href} className="group relative flex h-full overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--agtp-secondary)_75%,transparent)] hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)]">
                 <Image src={card.image} alt={card.title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-[#0B1F33]/15 to-transparent" />
+                <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/30 to-transparent" />
                 <div className="absolute inset-x-6 top-6 flex items-center justify-between">
                   <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
                     Explore
                   </span>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_45%,transparent)] bg-[#0B1F33]/80 text-[var(--agtp-secondary)] transition-transform duration-300 group-hover:translate-x-1">
                     <ArrowRight className="h-4 w-4" />
                   </span>
                 </div>
                 <div className="relative z-10 mt-auto max-w-[390px]">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/35 bg-[#F97316]/15 text-[#FDBA74]">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_35%,transparent)] bg-[color-mix(in_srgb,var(--agtp-secondary)_15%,transparent)] text-[var(--agtp-secondary)]">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="text-[21px] font-black leading-[1.05] text-white md:text-[24px]">{card.title}</h3>
@@ -486,22 +486,22 @@ function ProcessSection() {
             const Icon = step.icon;
             return (
               <div key={step.title} className="relative h-full px-0 xl:px-3">
-                <div className="group relative flex h-full min-h-[292px] flex-col overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] p-7 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.22)]">
+                <div className="group relative flex h-full min-h-[292px] flex-col overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] p-7 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:border-[color-mix(in_srgb,var(--agtp-secondary)_75%,transparent)] hover:shadow-[0_22px_50px_rgba(0,0,0,0.22)]">
                   <span className="absolute -right-2 -top-10 text-[112px] font-black leading-none text-white/[0.035]" aria-hidden="true">
                     {step.number}
                   </span>
                   <div className="relative z-10 flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#F97316]/35 bg-[#F97316]/10 text-[#FDBA74]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_35%,transparent)] bg-[color-mix(in_srgb,var(--agtp-secondary)_10%,transparent)] text-[var(--agtp-secondary)]">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <span className="flex h-11 min-w-11 items-center justify-center rounded-full border border-[#F97316]/50 bg-[#0B1F33] px-3 text-[14px] font-black text-[#FDBA74]">
+                    <span className="flex h-11 min-w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_50%,transparent)] bg-[#0B1F33] px-3 text-[14px] font-black text-[var(--agtp-secondary)]">
                       {step.number}
                     </span>
                   </div>
-                  <div className="relative z-10 mt-auto pt-10">
-                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[#FDBA74]">Step {step.number}</p>
+                  <div className="relative z-10 mt-auto pt-10 text-center flex flex-col items-center">
+                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[var(--agtp-secondary)]">Step {step.number}</p>
                     <h3 className="mt-2.5 text-[19px] font-black leading-[1.1] text-white">{step.title}</h3>
-                    <p className="mt-3 text-[13px] font-medium leading-[1.5] text-slate-300">{step.body}</p>
+                    <p className="mt-3 text-[13px] font-medium leading-[1.5] text-slate-300 min-h-[60px] flex items-start justify-center">{step.body}</p>
                   </div>
                 </div>
               </div>
@@ -543,16 +543,16 @@ function GlobalNetworkSection() {
                 className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-[#0B1F33]/15 to-transparent" />
+              <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/30 to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,color-mix(in_srgb,var(--agtp-secondary,#F97316)_12%,transparent),transparent_35%)]" />
               <span className="absolute -bottom-14 -right-5 text-[220px] font-black leading-none text-white/[0.04]" aria-hidden="true">
                 DXB
               </span>
-              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[#F97316]/40 bg-[#0B1F33]/80 text-[#FDBA74] backdrop-blur-md">
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_40%,transparent)] bg-[#0B1F33]/80 text-[var(--agtp-secondary)] backdrop-blur-md">
                 <Globe2 className="h-7 w-7" />
               </div>
               <div className="relative z-10 mt-auto">
-                <p className="text-[12px] font-black uppercase tracking-[0.22em] text-[#FDBA74]">Export Hub</p>
+                <p className="text-[12px] font-black uppercase tracking-[0.22em] text-[var(--agtp-secondary)]">Export Hub</p>
                 <h3 className="mt-3 text-[38px] font-black leading-none text-white md:text-[48px]">Dubai, UAE</h3>
                 <p className="mt-5 max-w-[390px] text-[16px] font-medium leading-[1.6] text-slate-200">
                   Coordinating sourcing, inspection, documentation, and shipment from one connected trade hub.
@@ -563,7 +563,7 @@ function GlobalNetworkSection() {
 
           <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {globalMarkets.map((market) => (
-              <div key={market.name} className="group relative min-h-[205px] overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#F97316]">
+              <div key={market.name} className="group relative min-h-[205px] overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[var(--agtp-secondary)]">
                 <Image
                   src={market.image}
                   alt={market.name}
@@ -571,15 +571,15 @@ function GlobalNetworkSection() {
                   className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-[#0B1F33]/10 to-transparent" />
+                <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/30 to-transparent" />
                 <span className="absolute right-5 top-4 text-[52px] font-black leading-none text-white/[0.08]" aria-hidden="true">
                   {market.code}
                 </span>
-                <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
+                <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_45%,transparent)] bg-[#0B1F33]/80 text-[var(--agtp-secondary)] backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
                   <ArrowRight className="h-4 w-4" />
                 </div>
                 <div className="relative z-10 mt-10">
-                  <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#FDBA74]">Active Market</p>
+                  <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--agtp-secondary)]">Active Market</p>
                   <h3 className="mt-2 text-[21px] font-black leading-none text-white">{market.name}</h3>
                   <p className="mt-2.5 text-[13px] font-semibold text-slate-200">{market.region}</p>
                 </div>
@@ -739,13 +739,13 @@ function AutomotivePartsSpotlight() {
                 <Link
                   key={panel.value}
                   href={panel.href}
-                  className="group flex min-h-[82px] items-center justify-between rounded-[14px] border border-[#3D6480] bg-[#0B1F33]/85 px-6 py-4 backdrop-blur-sm transition-[opacity,transform,border-color,background-color] duration-150 ease-out hover:border-[#F97316] hover:bg-[#102941]/95"
+                  className="group flex min-h-[82px] items-center justify-between rounded-[14px] border border-[#3D6480] bg-[#0B1F33]/85 px-6 py-4 backdrop-blur-sm transition-[opacity,transform,border-color,background-color] duration-150 ease-out hover:border-[var(--agtp-secondary)] hover:bg-[#102941]/95"
                   style={panelStyle}
                 >
                   <span className="text-[13px] font-medium text-slate-300">{panel.label}</span>
                   <span className="flex items-center gap-2 text-right text-[18px] font-black text-white lg:text-[20px] xl:gap-3 xl:text-[23px]">
                     {panel.value}
-                    <ArrowRight className="h-5 w-5 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="h-5 w-5 text-[var(--agtp-secondary)] transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                 </Link>
               );
@@ -816,7 +816,7 @@ function BrandMarquee({ brands }: { brands: string[] }) {
           return (
             <div
               key={`${brand}-${index}`}
-              className="group relative flex h-[140px] w-[210px] shrink-0 items-center justify-center rounded-[22px] border border-[#315671] bg-[#14314B] p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-[#F97316] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]"
+              className="group relative flex h-[140px] w-[210px] shrink-0 items-center justify-center rounded-[22px] border border-[#315671] bg-[#14314B] p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-[var(--agtp-secondary)] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]"
             >
               <div className="absolute inset-0 rounded-[22px] bg-gradient-to-b from-white/[0.08] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <span className="relative z-10 flex h-20 w-36 items-center justify-center transition-transform duration-300 group-hover:scale-110">
@@ -913,27 +913,29 @@ function CustomerStoriesSection() {
         <button
           type="button"
           onClick={() => selectStory(activeStory - 1)}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#3D6480] text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#3D6480] text-white transition-colors hover:border-[var(--agtp-secondary)] hover:bg-[var(--agtp-secondary)]"
           aria-label="Show previous customer story"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
         <div className="flex items-center gap-2" aria-label="Customer story selection">
-          {customerStories.map((story, index) => (
+          {customerStories.map((_, index) => (
             <button
-              key={story.name}
+              key={index}
               type="button"
               onClick={() => selectStory(index)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${index === activeStory ? "w-8 bg-[#F97316]" : "w-2.5 bg-[#3D6480] hover:bg-slate-300"}`}
-              aria-label={`Show ${story.name}'s customer story`}
-              aria-current={index === activeStory ? "true" : undefined}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                activeStory === index ? "w-8 bg-[var(--agtp-secondary)]" : "w-2.5 bg-[#3D6480] hover:bg-[#3D6480]/80"
+              }`}
+              aria-label={`Select customer story ${index + 1}`}
+              aria-current={activeStory === index}
             />
           ))}
         </div>
         <button
           type="button"
           onClick={() => selectStory(activeStory + 1)}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#3D6480] text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#3D6480] text-white transition-colors hover:border-[var(--agtp-secondary)] hover:bg-[var(--agtp-secondary)]"
           aria-label="Show next customer story"
         >
           <ChevronRight className="h-5 w-5" />
@@ -1014,14 +1016,14 @@ function HomepageVideoPlayer({
         <button
           type="button"
           onClick={togglePlay}
-          className="group/btn relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/60 bg-[#0B1F33]/85 text-white shadow-[0_10px_35px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#F97316] hover:bg-[#F97316] hover:shadow-[0_0_35px_rgba(249,115,22,0.8)] active:scale-95 cursor-pointer"
+          className="group/btn relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/60 bg-[#0B1F33]/85 text-white shadow-[0_10px_35px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[var(--agtp-secondary)] hover:bg-[var(--agtp-secondary)] hover:shadow-[0_0_35px_color-mix(in_srgb,var(--agtp-secondary)_80%,transparent)] active:scale-95 cursor-pointer"
           title="Play Video"
           aria-label="Play video review"
         >
-          <span className="absolute -inset-1 rounded-full border border-[#F97316]/60 opacity-75 animate-ping pointer-events-none" />
+          <span className="absolute -inset-1 rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_60%,transparent)] opacity-75 animate-ping pointer-events-none" />
           <Play className="h-7 w-7 fill-white text-white translate-x-0.5 transition-transform duration-200 group-hover/btn:scale-110" />
         </button>
-        <span className="mt-3 rounded-full bg-[#0B1F33]/90 px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-[#FDBA74] shadow-lg border border-white/15 backdrop-blur-md pointer-events-none">
+        <span className="mt-3 rounded-full bg-[#0B1F33]/90 px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-[var(--agtp-secondary)] shadow-lg border border-white/15 backdrop-blur-md pointer-events-none">
           Click to Play
         </span>
       </div>
