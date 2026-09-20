@@ -298,7 +298,6 @@ export default function HomePage() {
         <Reveal>
           <div className="relative min-h-[560px] overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B]">
             <Image src={agtpAssets.exportPort} alt="Shipping containers at an export port" fill className="object-cover" sizes="1570px" />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.50)_0%,rgba(6,16,28,0.22)_55%,rgba(6,16,28,0.05)_100%)]" />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.85)_0%,rgba(6,16,28,0.65)_50%,rgba(6,16,28,0.15)_100%)]" />
             <div className="relative z-10 flex min-h-[560px] max-w-[840px] flex-col justify-center px-8 py-12 text-left md:px-14 lg:px-20">
               <SectionEyebrow>GET A QUOTE</SectionEyebrow>
