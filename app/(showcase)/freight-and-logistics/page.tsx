@@ -81,7 +81,7 @@ export default function AutomotiveShippingPage() {
       {/* ── 3. Stats Section ── */}
       <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="rounded-[24px] border border-[#315671] bg-[#0A1624] overflow-hidden shadow-2xl">
+          <div className="rounded-[24px] border border-[#315671] bg-[#0B1F33] overflow-hidden shadow-2xl">
             <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-slate-800/80">
               {[
                 { value: "11", suffix: "+", label: "Years in Trade" },
@@ -108,7 +108,7 @@ export default function AutomotiveShippingPage() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Card 1: Ocean Shipping */}
           <Reveal delay={100}>
-            <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-[#0A1624] shadow-2xl group flex flex-col justify-between h-full min-h-[500px]">
+            <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-[#0B1F33] shadow-2xl group flex flex-col justify-between h-full min-h-[500px]">
               <div className="absolute inset-0 z-0">
                 <Image
                   src={agtpAssets.exportPort}
@@ -116,7 +116,7 @@ export default function AutomotiveShippingPage() {
                   fill
                   className="object-cover object-right opacity-40 transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#060709] via-[#060709]/90 to-transparent" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 90%, transparent) 50%, transparent 100%)" }} />
               </div>
               
               <div className="relative z-10 p-8 sm:p-10 flex flex-col h-full">
@@ -161,7 +161,7 @@ export default function AutomotiveShippingPage() {
 
           {/* Card 2: Air Shipping */}
           <Reveal delay={200}>
-            <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-[#0A1624] shadow-2xl group flex flex-col justify-between h-full min-h-[500px]">
+            <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-[#0B1F33] shadow-2xl group flex flex-col justify-between h-full min-h-[500px]">
               <div className="absolute inset-0 z-0">
                 <Image
                   src={agtpAssets.sparePartsHero}
@@ -169,7 +169,7 @@ export default function AutomotiveShippingPage() {
                   fill
                   className="object-cover object-right opacity-40 transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#060709] via-[#060709]/90 to-transparent" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 90%, transparent) 50%, transparent 100%)" }} />
               </div>
               
               <div className="relative z-10 p-8 sm:p-10 flex flex-col h-full">
@@ -217,7 +217,7 @@ export default function AutomotiveShippingPage() {
       {/* ── 5. READY TO SHIP? CTA Banner ── */}
       <section className="mx-auto max-w-7xl px-4 pt-20 pb-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#060709] p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
+          <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
             <div className="absolute inset-0 z-0">
                <Image
                  src={agtpAssets.inventoryHero}
@@ -225,7 +225,7 @@ export default function AutomotiveShippingPage() {
                  fill
                  className="object-cover opacity-20"
                />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/80 to-transparent" />
+               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 50%, transparent 100%)" }} />
             </div>
             
             <div className="relative z-10 max-w-2xl mx-auto space-y-6">
@@ -250,7 +250,7 @@ export default function AutomotiveShippingPage() {
                 </button>
                 <Link
                   href="/contact"
-                  className="inline-flex h-14 items-center gap-2 rounded-full border border-slate-600 bg-[#ffffff10] backdrop-blur-sm px-8 text-[15px] font-bold text-white transition-colors hover:bg-slate-800 hover:border-slate-500"
+                  className="inline-flex h-14 items-center gap-2 rounded-full border border-white/20 bg-[#ffffff10] backdrop-blur-sm px-8 text-[15px] font-bold text-white transition-colors hover:bg-white/20 hover:border-white/40"
                 >
                   <span>CONTACT AGTP</span>
                   <ArrowRight className="h-5 w-5" />

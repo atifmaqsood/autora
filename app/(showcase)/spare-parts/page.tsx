@@ -124,7 +124,7 @@ export default function SparePartsPage() {
         </button>
         <a
           href="#parts-catalog"
-          className="ml-4 inline-flex items-center rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-slate-900"
+          className="ml-4 inline-flex items-center rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-white/10"
         >
           VIEW CATEGORIES
         </a>
@@ -314,7 +314,7 @@ export default function SparePartsPage() {
               <div className="pt-2">
                 <Link
                   href="/dubai-markets"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-slate-900"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-white/10"
                 >
                   <span>EXPLORE DUBAI AUTOMOTIVE</span>
                   <ArrowRight className="h-4 w-4" />
@@ -328,7 +328,7 @@ export default function SparePartsPage() {
       {/* ── 7. CTA Banner ── */}
       <section className="mx-auto max-w-7xl px-4 pt-28 pb-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#060709] p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
+          <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
             <div className="absolute inset-0 z-0">
                <Image
                  src={agtpAssets.sparePartsHero}
@@ -336,7 +336,7 @@ export default function SparePartsPage() {
                  fill
                  className="object-cover opacity-20"
                />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/80 to-transparent" />
+               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 50%, transparent 100%)" }} />
             </div>
             
             <div className="relative z-10 max-w-2xl mx-auto space-y-6">
@@ -368,7 +368,7 @@ export default function SparePartsPage() {
                   </button>
                 <Link
                   href="/contact"
-                  className="inline-flex h-14 items-center gap-2 rounded-full border border-slate-600 bg-[#ffffff10] backdrop-blur-sm px-8 text-[15px] font-bold text-white transition-colors hover:bg-slate-800 hover:border-slate-500"
+                  className="inline-flex h-14 items-center gap-2 rounded-full border border-white/20 bg-[#ffffff10] backdrop-blur-sm px-8 text-[15px] font-bold text-white transition-colors hover:bg-white/20 hover:border-white/40"
                 >
                   <span>CONTACT TEAM</span>
                   <ArrowRight className="h-5 w-5" />

@@ -184,12 +184,12 @@ function JobApplicationModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-200 overflow-y-auto">
-      <div className="bg-[#0b1329] border border-[#1e2b45] rounded-3xl max-w-2xl w-full p-6 sm:p-8 md:p-9 shadow-2xl relative text-white my-auto overflow-visible">
+      <div className="bg-[#0B1F33] border border-white/10 rounded-3xl max-w-2xl w-full p-6 sm:p-8 md:p-9 shadow-2xl relative text-white my-auto overflow-visible">
         {/* Close Circular Button */}
         <button
           type="button"
           onClick={handleResetAndClose}
-          className="absolute top-5 right-5 sm:top-6 sm:right-6 w-9 h-9 rounded-full border border-slate-700/80 bg-[#060c1c]/80 text-slate-300 hover:text-white hover:border-slate-500 hover:bg-slate-800 flex items-center justify-center transition-colors z-20"
+          className="absolute top-5 right-5 sm:top-6 sm:right-6 w-9 h-9 rounded-full border border-white/20 bg-black/20 text-white/70 hover:text-white hover:border-white/40 hover:bg-black/40 flex items-center justify-center transition-colors z-20"
           aria-label="Close modal"
         >
           <X className="w-4 h-4" />
@@ -198,7 +198,7 @@ function JobApplicationModal({
         {submitted ? (
           /* Submission Confirmation Screen */
           <div className="text-center py-6 sm:py-8 space-y-4 animate-in zoom-in-95 duration-200">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#4361EE]/15 border border-[#4361EE]/30 text-[#5b7bf7] rounded-full flex items-center justify-center mx-auto shadow-lg shadow-blue-500/20">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-green-500/15 border border-green-500/30 text-green-400 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-green-500/20">
               <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
             </div>
             <div className="space-y-1.5">
@@ -210,10 +210,10 @@ function JobApplicationModal({
               </p>
             </div>
 
-            <div className="bg-[#060c1c] border border-[#1e2b45] p-4 sm:p-5 rounded-2xl text-left max-w-md mx-auto space-y-2 text-xs text-slate-300">
-              <div className="flex justify-between pb-2 border-b border-slate-800">
+            <div className="bg-black/20 border border-white/10 p-4 sm:p-5 rounded-2xl text-left max-w-md mx-auto space-y-2 text-xs text-slate-300">
+              <div className="flex justify-between pb-2 border-b border-white/10">
                 <span className="text-slate-400">Application Reference:</span>
-                <strong className="text-[#5b7bf7] font-mono text-sm">{confirmationId}</strong>
+                <strong className="text-white font-mono text-sm">{confirmationId}</strong>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">Position:</span>
@@ -242,7 +242,7 @@ function JobApplicationModal({
             <div className="pt-2">
               <button
                 type="button"
-                className="w-full max-w-md font-bold bg-[#4361EE] hover:bg-[#3651D4] text-white py-3 rounded-full uppercase tracking-wider transition-colors mx-auto block"
+                className="w-full max-w-md font-bold bg-[#F97316] hover:bg-[#EA580C] text-white py-3 rounded-full uppercase tracking-wider transition-colors mx-auto block border border-[#F97316]"
                 onClick={handleResetAndClose}
               >
                 Done
@@ -252,8 +252,8 @@ function JobApplicationModal({
         ) : (
           <div className="w-full">
             {/* Eyebrow Label */}
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-[#5b7bf7]">
-              <span className="w-5 h-[2px] bg-[#4361EE] inline-block" />
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-white/70">
+              <span className="w-5 h-[2px] bg-white/40 inline-block" />
               <span>CAREER APPLICATION</span>
             </div>
 
@@ -277,7 +277,7 @@ function JobApplicationModal({
                     placeholder="Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-white/50 focus:border-white/30 focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -292,7 +292,7 @@ function JobApplicationModal({
                     placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-white/50 focus:border-white/30 focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -310,7 +310,7 @@ function JobApplicationModal({
                     placeholder="+971 50 123 4567"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-white/50 focus:border-white/30 focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -325,11 +325,11 @@ function JobApplicationModal({
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <div className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-2.5 flex items-center gap-3">
+                  <div className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-2.5 flex items-center gap-3">
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="rounded-lg bg-[#4361EE] hover:bg-[#3651D4] px-4 py-1.5 text-xs font-bold text-white transition-colors shrink-0"
+                      className="rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-1.5 text-xs font-bold text-white transition-colors shrink-0"
                     >
                       Choose file
                     </button>
@@ -355,16 +355,15 @@ function JobApplicationModal({
                   placeholder="Write your cover letter here..."
                   value={formData.coverLetter}
                   onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
-                  className="mt-1.5 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] p-3 sm:p-4 text-sm text-white placeholder:text-slate-500 focus:border-[#4361EE] focus:outline-none resize-none transition-colors"
+                  className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/20 p-3 sm:p-4 text-sm text-white placeholder:text-white/50 focus:border-white/30 focus:outline-none resize-none transition-colors"
                 />
               </div>
 
-              {/* Row 4: Submit Button - No hover scale to prevent scrollbar trigger */}
               {/* Row 4: Submit Button */}
               <div className="pt-2 pb-1 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#4361EE] hover:bg-[#3651D4] px-8 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 active:scale-[0.98] transition-all"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#F97316] hover:bg-[#EA580C] border border-[#F97316] hover:border-[#EA580C] px-8 py-3 text-sm font-bold text-white shadow-lg shadow-[#F97316]/30 active:scale-[0.98] transition-all"
                 >
                   <span>Submit application</span>
                   <ArrowRight className="w-4 h-4" />
@@ -498,7 +497,7 @@ export default function CareersPage() {
               className="bg-[#102941] border border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl hover:border-[#315671] transition-all duration-200"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-slate-900 text-[#4361EE] flex items-center justify-center border border-slate-800 shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-black/20 text-white flex items-center justify-center border border-white/10 shrink-0">
                   <role.icon className="w-5 h-5" />
                 </div>
                 <div>
@@ -516,7 +515,7 @@ export default function CareersPage() {
                 <button
                   type="button"
                   onClick={() => handleOpenRoleModal(role)}
-                  className="rounded-full bg-[#4361EE] hover:bg-[#3651D4] text-white font-bold text-xs px-5 py-2.5 transition-all flex items-center gap-1.5 shadow-md shadow-blue-600/25 hover:scale-105"
+                  className="rounded-full bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs px-5 py-2.5 transition-all flex items-center gap-1.5 shadow-md shadow-[#F97316]/25 hover:scale-105 border border-[#F97316]"
                 >
                   <span>View role</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -524,10 +523,10 @@ export default function CareersPage() {
 
                 <a
                   href={`mailto:careers@agtpgroup.com?subject=Application%20for%20${role.subject}`}
-                  className="rounded-full border border-slate-700 hover:border-slate-500 hover:bg-slate-800/80 text-slate-300 hover:text-white font-bold text-xs px-4 py-2.5 transition-all flex items-center gap-1.5"
+                  className="rounded-full border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-bold text-xs px-4 py-2.5 transition-all flex items-center gap-1.5"
                   title="Apply via email"
                 >
-                  <Mail className="w-3.5 h-3.5 text-slate-400" />
+                  <Mail className="w-3.5 h-3.5 text-white" />
                   <span>Email</span>
                 </a>
               </div>
@@ -572,7 +571,7 @@ export default function CareersPage() {
                 </a>
                 <Link
                   href="/contact"
-                  className="border border-slate-700 hover:border-slate-500 hover:bg-slate-800 text-white font-black text-xs px-8 py-3.5 rounded-full transition-all inline-flex items-center gap-2"
+                  className="border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-black text-xs px-8 py-3.5 rounded-full transition-all inline-flex items-center gap-2"
                 >
                   <span>Contact Us</span>
                   <ArrowRight className="w-4 h-4" />

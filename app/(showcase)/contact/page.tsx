@@ -529,7 +529,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 items-stretch">
             {/* LEFT: Interactive Google Map */}
             <div className="lg:col-span-6 xl:col-span-7 flex flex-col">
-              <div className="relative h-full min-h-[480px] lg:min-h-[580px] w-full overflow-hidden rounded-[28px] border border-[#1d2d44] bg-[#0c1626] shadow-2xl">
+              <div className="relative h-full min-h-[480px] lg:min-h-[580px] w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#0B1F33] shadow-2xl">
                 <iframe
                   title="AGTP Group Location Map"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(
@@ -545,7 +545,7 @@ export default function ContactPage() {
 
             {/* RIGHT: Location Selector & Active Details */}
             <div className="lg:col-span-6 xl:col-span-5 flex flex-col">
-              <div className="flex h-full flex-col justify-between rounded-[28px] border border-[#1d2d44] bg-[#0c1626] p-6 sm:p-8 shadow-2xl">
+              <div className="flex h-full flex-col justify-between rounded-[28px] border border-white/10 bg-[#0B1F33] p-6 sm:p-8 shadow-2xl">
                 <div>
                   {/* Tab Selector Grid (2 Columns) */}
                   <div className="grid grid-cols-2 gap-3">
@@ -558,8 +558,8 @@ export default function ContactPage() {
                           onClick={() => setSelectedLocation(loc)}
                           className={`flex items-center rounded-xl px-4 py-3.5 text-left text-[13px] sm:text-[14px] font-bold transition-all duration-200 border ${
                             isSelected
-                              ? "border-[#3B82F6] bg-[#173863] text-white shadow-lg shadow-blue-950/50"
-                              : "border-[#1c2e44] bg-[#0b1828] text-slate-300 hover:border-[#3B82F6]/40 hover:bg-[#0f2238] hover:text-white"
+                              ? "border-[#F97316] bg-[#F97316] text-white shadow-xl shadow-[#F97316]/30"
+                              : "border-white/10 bg-black/20 text-slate-300 hover:border-white/30 hover:bg-black/10 hover:text-white"
                           }`}
                         >
                           <span className="truncate">{loc.tabLabel}</span>
@@ -569,7 +569,7 @@ export default function ContactPage() {
                   </div>
 
                   {/* Active Location Details Card */}
-                  <div className="mt-6 rounded-2xl border border-[#1c2e44] bg-[#081322]/90 p-6 sm:p-7 space-y-6">
+                  <div className="mt-6 rounded-2xl border border-white/10 bg-black/30 p-6 sm:p-7 space-y-6">
                     <div>
                       <h3 className="text-[26px] sm:text-[28px] font-black text-white tracking-tight">
                         {selectedLocation.title}
@@ -590,9 +590,9 @@ export default function ContactPage() {
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                       <a
                         href={`tel:${selectedLocation.phone.replace(/\s+/g, "")}`}
-                        className="inline-flex items-center justify-center gap-2 rounded-full border border-blue-500/40 bg-[#16355C] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-white shadow-md hover:bg-blue-600 transition-colors"
+                        className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F97316] bg-[#F97316] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-white shadow-xl shadow-[#F97316]/30 hover:bg-[#EA580C] hover:border-[#EA580C] transition-colors"
                       >
-                        <Phone className="h-4 w-4 text-blue-400" />
+                        <Phone className="h-4 w-4 text-white" />
                         <span>Call: {selectedLocation.phone}</span>
                       </a>
 

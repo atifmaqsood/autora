@@ -142,7 +142,10 @@ export default function HowItWorksPage() {
       {/* ── 2. 6 Steps Process Section (Matching Reference Design with 3 Cards per Row) ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-20">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[36px] border border-[#1e293b]/70 bg-gradient-to-b from-[#0a0f1d] via-[#070a13] to-[#04060b] p-8 md:p-14 shadow-2xl">
+          <div 
+            className="relative overflow-hidden rounded-[36px] border border-white/10 bg-[#0B1F33] p-8 md:p-14 shadow-2xl"
+            style={{ background: "linear-gradient(to bottom, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 30%, black) 100%)" }}
+          >
             {/* Ambient Bottom Globe Light */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
 
@@ -406,7 +409,7 @@ export default function HowItWorksPage() {
                 sizes="(max-width: 1570px) 100vw, 1570px"
               />
               <div className="absolute inset-0 bg-black/30" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/50 to-[#0B1F33]/70" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 50%, transparent) 50%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 70%, transparent) 100%)" }} />
             </div>
 
             <div className="relative z-10 px-8 py-16 text-center sm:px-12 md:py-24 lg:py-28">

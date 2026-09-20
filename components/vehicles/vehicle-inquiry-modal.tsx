@@ -106,12 +106,15 @@ export function VehicleInquiryModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 sm:p-6 animate-in fade-in duration-200 overflow-y-auto">
-      <div className="bg-[#0b1329] border border-[#1e2b45] rounded-3xl max-w-4xl w-full p-6 sm:p-8 md:p-10 shadow-2xl relative text-white my-auto overflow-visible">
+      <div 
+        className="bg-[#0b1329] border border-white/10 rounded-3xl max-w-4xl w-full p-6 sm:p-8 md:p-10 shadow-2xl relative text-white my-auto overflow-visible"
+        style={{ backgroundColor: "var(--agtp-primary, #0b1329)" }}
+      >
         {/* Close Circular Button */}
         <button
           type="button"
           onClick={handleResetAndClose}
-          className="absolute top-5 right-5 sm:top-7 sm:right-7 w-9 h-9 rounded-full border border-slate-700/80 bg-[#060c1c]/80 text-slate-300 hover:text-white hover:border-slate-500 hover:bg-slate-800 flex items-center justify-center transition-colors z-20"
+          className="absolute top-5 right-5 sm:top-7 sm:right-7 w-9 h-9 rounded-full border border-slate-700/80 bg-black/20 text-slate-300 hover:text-white hover:border-slate-500 hover:bg-black/40 flex items-center justify-center transition-colors z-20"
           aria-label="Close modal"
         >
           <X className="w-4 h-4" />
@@ -133,7 +136,7 @@ export function VehicleInquiryModal({
               </p>
             </div>
 
-            <div className="bg-[#060c1c] border border-[#1e2b45] p-4 sm:p-5 rounded-2xl text-left max-w-lg mx-auto space-y-2.5 text-xs text-slate-300">
+            <div className="bg-black/20 border border-white/10 p-4 sm:p-5 rounded-2xl text-left max-w-lg mx-auto space-y-2.5 text-xs text-slate-300">
               <div className="flex justify-between pb-2 border-b border-slate-800">
                 <span className="text-slate-400">Request Reference:</span>
                 <strong className="text-[#FDBA74] font-mono text-sm">{confirmationId}</strong>
@@ -209,7 +212,7 @@ export function VehicleInquiryModal({
                     placeholder="Full Name"
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -227,7 +230,7 @@ export function VehicleInquiryModal({
                       placeholder="Email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] pl-10 pr-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none transition-colors"
+                      className="h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 pl-10 pr-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -238,8 +241,8 @@ export function VehicleInquiryModal({
                     id="inq-phone"
                     label="Phone (with Country Code) *"
                     labelClassName="block text-xs font-bold text-slate-200"
-                    inputContainerClassName="mt-1.5 flex items-center h-11 sm:h-12 rounded-xl border border-[#1e2b45] bg-[#060c1c] focus-within:border-[#F97316] transition-colors overflow-hidden"
-                    buttonClassName="flex items-center h-full gap-1.5 px-3 bg-[#0a1428] hover:bg-[#111e38] transition-colors border-r border-[#1e2b45] shrink-0 text-white select-none"
+                    inputContainerClassName="mt-1.5 flex items-center h-11 sm:h-12 rounded-xl border border-white/10 bg-black/20 focus-within:border-[#F97316] transition-colors overflow-hidden"
+                    buttonClassName="flex items-center h-full gap-1.5 px-3 bg-black/20 hover:bg-black/40 transition-colors border-r border-white/10 shrink-0 text-white select-none"
                     required
                     placeholder="050 123 4567"
                     defaultCountry={DEFAULT_COUNTRY}
@@ -261,7 +264,7 @@ export function VehicleInquiryModal({
                     placeholder="e.g., Toyota"
                     value={formData.make}
                     onChange={(e) => setFormData({ ...formData, make: e.target.value })}
-                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -277,7 +280,7 @@ export function VehicleInquiryModal({
                     placeholder="e.g., Hilux, Corolla"
                     value={formData.model}
                     onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none transition-colors"
+                    className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -287,7 +290,7 @@ export function VehicleInquiryModal({
                     id="inq-country"
                     label="Destination Country *"
                     labelClassName="block text-xs font-bold text-slate-200"
-                    buttonClassName="mt-1.5 w-full h-11 sm:h-12 flex items-center justify-between rounded-xl border border-[#1e2b45] bg-[#060c1c] px-4 text-left text-sm font-medium text-white transition-colors focus:border-[#F97316] outline-none"
+                    buttonClassName="mt-1.5 w-full h-11 sm:h-12 flex items-center justify-between rounded-xl border border-white/10 bg-black/20 px-4 text-left text-sm font-medium text-white transition-colors focus:border-[#F97316] outline-none"
                     required
                     value={formData.destinationCountry}
                     defaultValue="Angola"
@@ -307,7 +310,7 @@ export function VehicleInquiryModal({
                     placeholder="e.g. I need a Toyota Land Cruiser 300, 2026 model. What is the export price including shipping to Luanda, Angola?"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="mt-1.5 w-full rounded-xl border border-[#1e2b45] bg-[#060c1c] p-3 sm:p-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none resize-none transition-colors"
+                    className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/20 p-3 sm:p-4 text-sm text-white placeholder:text-slate-500 focus:border-[#F97316] focus:outline-none resize-none transition-colors"
                   />
                 </div>
               </div>

@@ -199,7 +199,7 @@ export default function DubaiAutomotivePage() {
       {/* ── 4. CTA Banner ── */}
       <section className="mx-auto max-w-7xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#060709] p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
+          <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
             <div className="absolute inset-0 z-0">
                <Image
                  src={agtpAssets.inventoryHero}
@@ -207,7 +207,7 @@ export default function DubaiAutomotivePage() {
                  fill
                  className="object-cover opacity-20"
                />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/80 to-transparent" />
+               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 50%, transparent 100%)" }} />
             </div>
             
             <div className="relative z-10 max-w-3xl mx-auto space-y-6">
