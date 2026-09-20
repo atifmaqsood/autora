@@ -447,9 +447,13 @@ footer.store-footer,
 @keyframes marquee {
   0% {
     transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0) rotate(0.001deg);
   }
   100% {
     transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0) rotate(0.001deg);
   }
 }
 
@@ -457,6 +461,12 @@ footer.store-footer,
   display: flex;
   width: max-content;
   animation: marquee 25s linear infinite;
+  animation: marquee 75s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .animate-marquee:hover {
@@ -466,9 +476,13 @@ footer.store-footer,
 @keyframes marquee-reverse {
   0% {
     transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0) rotate(0.001deg);
   }
   100% {
     transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0) rotate(0.001deg);
   }
 }
 
@@ -476,6 +490,12 @@ footer.store-footer,
   display: flex;
   width: max-content;
   animation: marquee-reverse 25s linear infinite;
+  animation: marquee-reverse 75s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .animate-marquee-reverse:hover {

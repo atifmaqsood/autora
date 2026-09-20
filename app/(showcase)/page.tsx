@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -298,6 +299,7 @@ export default function HomePage() {
           <div className="relative min-h-[560px] overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B]">
             <Image src={agtpAssets.exportPort} alt="Shipping containers at an export port" fill className="object-cover" sizes="1570px" />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.50)_0%,rgba(6,16,28,0.22)_55%,rgba(6,16,28,0.05)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.85)_0%,rgba(6,16,28,0.65)_50%,rgba(6,16,28,0.15)_100%)]" />
             <div className="relative z-10 flex min-h-[560px] max-w-[840px] flex-col justify-center px-8 py-12 text-left md:px-14 lg:px-20">
               <SectionEyebrow>GET A QUOTE</SectionEyebrow>
               <RevealHeading>
@@ -542,6 +544,7 @@ function GlobalNetworkSection() {
                 fill
                 className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 40vw"
+                unoptimized
               />
               <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/30 to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,color-mix(in_srgb,var(--agtp-secondary,#F97316)_12%,transparent),transparent_35%)]" />
@@ -805,35 +808,50 @@ function WhyAgtpGroupSection() {
 }
 
 function BrandMarquee({ brands }: { brands: string[] }) {
-  const repeatedBrands = [...brands, ...brands, ...brands];
+  // Duplicate brands to ensure one set is wide enough for 4K screens (4680px)
+  const displayBrands = [...brands, ...brands];
+
+  const BrandCard = ({ brand, index }: { brand: string; index: number }) => {
+    const logoSrc = brandLogoSrc[brand];
+    return (
+      <div
+        className="group relative flex h-[140px] w-[210px] shrink-0 items-center justify-center rounded-[22px] border border-white/10 bg-[#0B1F33] p-6 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:border-[var(--agtp-secondary)] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]"
+      >
+        <div className="absolute inset-0 rounded-[22px] bg-gradient-to-b from-white/[0.08] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <span className="relative z-10 flex h-20 w-36 items-center justify-center transition-transform duration-300 group-hover:scale-110">
+          {logoSrc ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={logoSrc}
+              alt={`${brand} logo`}
+              className="h-[72px] w-auto max-w-[170px] max-h-[72px] object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+            />
+          ) : (
+            <Car className="h-12 w-12 text-[#FDBA74]" aria-hidden="true" />
+          )}
+        </span>
+      </div>
+    );
+  };
 
   return (
-    <div className="flex overflow-hidden py-4 motion-reduce:overflow-x-auto">
-      <div className="animate-marquee flex w-max shrink-0 gap-6 px-4 motion-reduce:animate-none">
-        {repeatedBrands.map((brand, index) => {
-          const logoSrc = brandLogoSrc[brand];
+    <div className="flex overflow-hidden py-4 px-4 motion-reduce:overflow-x-auto">
+      <div className="animate-marquee flex w-max shrink-0 motion-reduce:animate-none">
+        
+        {/* Set 1 */}
+        <div className="flex shrink-0 gap-6 pr-6">
+          {displayBrands.map((brand, index) => (
+            <BrandCard key={`set1-${brand}-${index}`} brand={brand} index={index} />
+          ))}
+        </div>
 
-          return (
-            <div
-              key={`${brand}-${index}`}
-              className="group relative flex h-[140px] w-[210px] shrink-0 items-center justify-center rounded-[22px] border border-[#315671] bg-[#14314B] p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-[var(--agtp-secondary)] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]"
-            >
-              <div className="absolute inset-0 rounded-[22px] bg-gradient-to-b from-white/[0.08] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="relative z-10 flex h-20 w-36 items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                {logoSrc ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={logoSrc}
-                    alt={`${brand} logo`}
-                    className="h-[72px] w-auto max-w-[170px] max-h-[72px] object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
-                  />
-                ) : (
-                  <Car className="h-12 w-12 text-[#FDBA74]" aria-hidden="true" />
-                )}
-              </span>
-            </div>
-          );
-        })}
+        {/* Set 2 (Identical duplicate for seamless looping) */}
+        <div className="flex shrink-0 gap-6 pr-6" aria-hidden="true">
+          {displayBrands.map((brand, index) => (
+            <BrandCard key={`set2-${brand}-${index}`} brand={brand} index={index} />
+          ))}
+        </div>
+
       </div>
     </div>
   );
@@ -867,7 +885,27 @@ function CustomerStoriesSection() {
         </h2>
       </RevealHeading>
 
-      <Reveal className="mt-[48px]">
+      <Reveal className="mt-[48px] relative group/slider">
+        {/* Left Arrow */}
+        <button
+          type="button"
+          onClick={() => selectStory(activeStory - 1)}
+          className="absolute left-2 sm:left-4 xl:left-8 top-1/2 z-50 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#0B1F33]/85 text-white backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[var(--agtp-secondary)] hover:bg-[var(--agtp-secondary)] shadow-xl"
+          aria-label="Show previous customer story"
+        >
+          <ChevronLeft className="h-7 w-7" />
+        </button>
+
+        {/* Right Arrow */}
+        <button
+          type="button"
+          onClick={() => selectStory(activeStory + 1)}
+          className="absolute right-2 sm:right-4 xl:right-8 top-1/2 z-50 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#0B1F33]/85 text-white backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[var(--agtp-secondary)] hover:bg-[var(--agtp-secondary)] shadow-xl"
+          aria-label="Show next customer story"
+        >
+          <ChevronRight className="h-7 w-7" />
+        </button>
+
         <div
           className="relative overflow-hidden py-4 xl:h-[660px]"
           onMouseEnter={() => setIsPaused(true)}
@@ -909,38 +947,6 @@ function CustomerStoriesSection() {
         </div>
       </Reveal>
 
-      <div className="mt-8 flex items-center justify-center gap-4">
-        <button
-          type="button"
-          onClick={() => selectStory(activeStory - 1)}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#3D6480] text-white transition-colors hover:border-[var(--agtp-secondary)] hover:bg-[var(--agtp-secondary)]"
-          aria-label="Show previous customer story"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <div className="flex items-center gap-2" aria-label="Customer story selection">
-          {customerStories.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => selectStory(index)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                activeStory === index ? "w-8 bg-[var(--agtp-secondary)]" : "w-2.5 bg-[#3D6480] hover:bg-[#3D6480]/80"
-              }`}
-              aria-label={`Select customer story ${index + 1}`}
-              aria-current={activeStory === index}
-            />
-          ))}
-        </div>
-        <button
-          type="button"
-          onClick={() => selectStory(activeStory + 1)}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#3D6480] text-white transition-colors hover:border-[var(--agtp-secondary)] hover:bg-[var(--agtp-secondary)]"
-          aria-label="Show next customer story"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      </div>
     </section>
   );
 }
@@ -1078,6 +1084,7 @@ function TestimonialCard({
             className="object-cover object-center"
             sizes="420px"
             priority
+            unoptimized
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
@@ -1110,11 +1117,12 @@ function PromiseRevealSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeCount, setActiveCount] = useState(0);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const words =
-    "Our promise is simple: transparency in every step, reliability in every delivery, and value in every partnership.".split(
-      " "
-    );
-  const blueStartIndex = Math.floor(words.length / 2);
+  
+  // Breaking the sentence into exactly 7 lines for desktop
+  const sentence = "Our promise is | simple: transparency | in every step, | reliability in | every delivery, | and value in | every partnership.";
+  const words = sentence.split(" ");
+  const actualWordsLength = words.filter(w => w !== "|").length;
+  const secondaryStartIndex = Math.floor(actualWordsLength / 2);
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -1155,20 +1163,28 @@ function PromiseRevealSection() {
   }, [prefersReducedMotion, words.length]);
 
   return (
-    <section ref={sectionRef} className="relative border-y border-[#111827] py-[82px]">
+    <section ref={sectionRef} className="relative border-y border-white/10 py-[82px] bg-[var(--agtp-primary)]">
       <div className="mx-auto w-full max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20">
         <SectionEyebrow>OUR PROMISE</SectionEyebrow>
-        <h2 className="mt-7 max-w-[700px] font-[family-name:var(--font-sora)] text-[26px] font-extrabold leading-[1.24] tracking-normal text-[#EEF1FA] md:text-[36px] lg:text-[46px]">
-          {words.map((word, index) => (
-            <span
-              key={`${word}-${index}`}
-              className={`mr-[0.23em] inline-block transition-colors duration-300 ${
-                index < activeCount ? (index >= blueStartIndex ? "text-[#F97316]" : "text-[#EEF1FA]") : "text-[#27445D]"
-              }`}
-            >
-              {word}
-            </span>
-          ))}
+        <h2 className="mt-7 font-[family-name:var(--font-sora)] text-[32px] font-extrabold leading-[1.15] tracking-normal text-white md:text-[45px] lg:text-[57px]">
+          {words.map((word, index) => {
+            if (word === "|") return <br key={`br-${index}`} className="hidden md:block" />;
+            
+            const wordIndexWithoutBreaks = words.slice(0, index).filter(w => w !== "|").length;
+            
+            return (
+              <span
+                key={`${word}-${index}`}
+                className={`mr-[0.23em] inline-block transition-all duration-300 ${
+                  index < activeCount 
+                    ? (wordIndexWithoutBreaks >= secondaryStartIndex ? "text-[var(--agtp-secondary)] opacity-100" : "text-white opacity-100") 
+                    : "text-white opacity-25"
+                }`}
+              >
+                {word}
+              </span>
+            );
+          })}
         </h2>
       </div>
     </section>
@@ -1180,27 +1196,53 @@ function PromiseRevealSection() {
 type MarqueeItem = string | { label: string; href: string };
 
 function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boolean }) {
-  const content = [...items, ...items, ...items, ...items];
+  // Increased sets to 4 to ensure we have plenty of buffer when shifting an extra -40vw
+  const displayItems = [...items, ...items, ...items, ...items];
+
+  const MarqueeItemNode = ({ item }: { item: MarqueeItem }) => {
+    const label = typeof item === "string" ? item : item.label;
+    const href = typeof item === "string" ? undefined : item.href;
+    return (
+      <span className="flex items-center gap-14">
+        {href ? (
+          <Link href={href} className="text-white transition-colors duration-200 hover:text-[var(--agtp-secondary)] no-underline">
+            {label}
+          </Link>
+        ) : (
+          <span>{label}</span>
+        )}
+        <span className="text-[var(--agtp-secondary)]">*</span>
+      </span>
+    );
+  };
+
   return (
-    <div className={`${muted ? "mt-[75px] border-y border-[#24445F] bg-[#102941] py-12" : "border-y border-[#24445F] bg-[#102941] py-9"} overflow-hidden group`}>
-      <div className={`${muted ? "text-[36px] text-transparent opacity-50 marquee-outline" : "text-[40px] text-white"} animate-marquee group-hover:[animation-play-state:paused] flex items-center gap-12 whitespace-nowrap font-black uppercase leading-none tracking-normal`}>
-        {content.map((item, index) => {
-          const label = typeof item === "string" ? item : item.label;
-          const href = typeof item === "string" ? undefined : item.href;
-          return (
-            <span key={`${label}-${index}`} className="flex items-center gap-14">
-              {href ? (
-                <Link href={href} className="text-white transition-colors duration-200 hover:text-[#F97316] no-underline">
-                  {label}
-                </Link>
-              ) : (
-                <span>{label}</span>
-              )}
-              <span className="text-[#F97316]">*</span>
-            </span>
-          );
-        })}
-      </div>
+    <div className={`${muted ? "mt-[75px] border-y border-white/10 bg-[#102941] py-12" : "border-y border-white/10 bg-[#102941] py-9"} overflow-hidden group`}>
+      <motion.div
+        initial={{ x: "0vw" }}
+        whileInView={{ x: "-40vw" }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1] }}
+        className="flex w-max"
+      >
+        <div className={`${muted ? "text-[36px] text-transparent opacity-50 marquee-outline" : "text-[40px] text-white"} animate-marquee flex w-max shrink-0 group-hover:[animation-play-state:paused] whitespace-nowrap font-black uppercase leading-none tracking-normal`}>
+          
+          {/* Set 1 */}
+          <div className="flex shrink-0 items-center gap-14 pr-14">
+            {displayItems.map((item, index) => (
+              <MarqueeItemNode key={`set1-${index}`} item={item} />
+            ))}
+          </div>
+
+          {/* Set 2 (Identical duplicate for seamless looping) */}
+          <div className="flex shrink-0 items-center gap-14 pr-14" aria-hidden="true">
+            {displayItems.map((item, index) => (
+              <MarqueeItemNode key={`set2-${index}`} item={item} />
+            ))}
+          </div>
+
+        </div>
+      </motion.div>
     </div>
   );
 }
