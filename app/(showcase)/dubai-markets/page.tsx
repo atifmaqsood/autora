@@ -224,7 +224,7 @@ export default function DubaiAutomotivePage() {
                 </h2>
               </RevealHeading>
               <RevealText delay={120}>
-                <p className="text-[15px] sm:text-[17px] font-medium text-slate-300 leading-relaxed">
+                <p className="text-[17px] sm:text-[19px] font-medium text-slate-300 leading-relaxed">
                   Tell us what automotive products you need and your destination. We’ll guide you through availability, pricing, export, and shipping.
                 </p>
               </RevealText>
@@ -252,4 +252,5 @@ export default function DubaiAutomotivePage() {
     </div>
   );
 }
+
 

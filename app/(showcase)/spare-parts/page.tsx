@@ -248,7 +248,7 @@ export default function SparePartsPage() {
               </RevealEyebrow>
               
               <RevealText delay={120}>
-                <p className="mt-6 text-[15px] sm:text-[17px] font-medium leading-relaxed text-slate-300 max-w-4xl">
+                <p className="mt-6 text-[17px] sm:text-[19px] font-medium leading-relaxed text-slate-300 max-w-4xl">
                   Before your order is shipped, we share photos or videos of your parts for your review and approval, where applicable — so you can buy with confidence.
                 </p>
               </RevealText>
@@ -353,7 +353,7 @@ export default function SparePartsPage() {
                 </h2>
               </RevealHeading>
               <RevealText delay={120}>
-                <p className="text-[15px] sm:text-[17px] font-medium text-slate-300 leading-relaxed">
+                <p className="text-[17px] sm:text-[19px] font-medium text-slate-300 leading-relaxed">
                   Tell us the part number, vehicle details, or what you need. We’ll confirm availability, pricing, and shipping options for your destination.
                 </p>
               </RevealText>
@@ -388,4 +388,5 @@ export default function SparePartsPage() {
     </div>
   );
 }
+
 

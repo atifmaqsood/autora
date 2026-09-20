@@ -60,7 +60,7 @@ export default function BusinessSolutionsPage() {
                   {solution.title}
                 </h3>
 
-                <p className="mt-4 text-[15px] font-medium leading-relaxed text-slate-300">
+                <p className="mt-4 text-[17px] font-medium leading-relaxed text-slate-300">
                   {solution.body}
                 </p>
 
@@ -91,3 +91,4 @@ export default function BusinessSolutionsPage() {
     </div>
   );
 }
+

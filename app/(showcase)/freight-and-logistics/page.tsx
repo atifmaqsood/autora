@@ -49,7 +49,7 @@ export default function AutomotiveShippingPage() {
                   Shipping With Confidence
                 </h2>
 
-                <div className="space-y-4 text-[15px] sm:text-[16px] font-normal leading-relaxed text-slate-200">
+                <div className="space-y-4 text-[17px] sm:text-[18px] font-normal leading-relaxed text-slate-200">
                   <p>
                     At AGTP Group, we provide reliable shipping solutions for vehicles and automotive spare parts from the UAE to destinations worldwide. Whether you are purchasing a vehicle or ordering spare parts, we coordinate the shipping process according to your destination and requirements.
                   </p>
@@ -130,7 +130,7 @@ export default function AutomotiveShippingPage() {
                 <h3 className="text-2xl sm:text-[28px] font-black text-white leading-tight mb-4">
                   Reliable Vehicle &<br />Parts Shipping
                 </h3>
-                <p className="text-sm sm:text-[15px] font-medium leading-relaxed text-slate-300 mb-8 max-w-sm">
+                <p className="text-sm sm:text-[17px] font-medium leading-relaxed text-slate-300 mb-8 max-w-sm">
                   We arrange containerized and RoRo shipping for vehicles, along with sea freight solutions for larger automotive spare-parts orders.
                 </p>
                 
@@ -183,7 +183,7 @@ export default function AutomotiveShippingPage() {
                 <h3 className="text-2xl sm:text-[28px] font-black text-white leading-tight mb-4">
                   Fast Delivery for<br />Spare Parts
                 </h3>
-                <p className="text-sm sm:text-[15px] font-medium leading-relaxed text-slate-300 mb-8 max-w-sm">
+                <p className="text-sm sm:text-[17px] font-medium leading-relaxed text-slate-300 mb-8 max-w-sm">
                   Express air cargo solutions for urgent automotive spare parts and time-sensitive shipments to destinations worldwide.
                 </p>
                 
@@ -235,7 +235,7 @@ export default function AutomotiveShippingPage() {
                 </h2>
               </RevealHeading>
               <RevealText delay={120}>
-                <p className="text-[15px] sm:text-[17px] font-medium text-slate-300 leading-relaxed">
+                <p className="text-[17px] sm:text-[19px] font-medium text-slate-300 leading-relaxed">
                   Tell us what you’re shipping, your destination, and your preferred shipping requirements. Our team will provide suitable shipping options, pricing, and export support.
                 </p>
               </RevealText>
@@ -269,4 +269,5 @@ export default function AutomotiveShippingPage() {
     </div>
   );
 }
+
 

@@ -12,7 +12,7 @@ interface UseInViewOptions {
 export function useInView({
   threshold = 0.1,
   rootMargin = "0px 0px -40px 0px",
-  triggerOnce = true
+  triggerOnce = false
 }: UseInViewOptions = {}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isInView, setIsInView] = useState(false);
@@ -78,10 +78,10 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  duration = 820,
-  distance = 42,
+  duration = 1500,
+  distance = 120,
   direction = "up",
-  once = true,
+  once = false,
   as: Component = "div",
   style,
   ...props
@@ -109,7 +109,7 @@ export function Reveal({
   return (
     <Component
       ref={ref}
-      className={cn("transition-all duration-700 ease-out", className)}
+      className={cn("transition-all duration-[1500ms] ease-out", className)}
       style={{
         opacity: isInView ? 1 : 0,
         transform: getTransform(),
@@ -129,7 +129,7 @@ export function RevealEyebrow({
   children,
   className,
   delay = 0,
-  duration = 760,
+  duration = 1500,
   ...props
 }: RevealProps) {
   return (
@@ -150,7 +150,7 @@ export function RevealHeading({
   children,
   className,
   delay = 80,
-  duration = 840,
+  duration = 1500,
   ...props
 }: RevealProps) {
   return (
@@ -171,7 +171,7 @@ export function RevealText({
   children,
   className,
   delay = 140,
-  duration = 820,
+  duration = 1500,
   ...props
 }: RevealProps) {
   return (
@@ -192,7 +192,7 @@ export function RevealButton({
   children,
   className,
   delay = 220,
-  duration = 760,
+  duration = 1500,
   ...props
 }: RevealProps) {
   return (
@@ -221,12 +221,12 @@ export function RevealImage({
   children,
   className,
   delay = 0,
-  duration = 800,
+  duration = 1500,
   initialScale = 1.03,
   style,
   ...props
 }: RevealImageProps) {
-  const { ref, isInView } = useInView({ triggerOnce: true });
+  const { ref, isInView } = useInView({ triggerOnce: false });
 
   return (
     <div
@@ -261,7 +261,7 @@ export function RevealStagger({
   baseDelay = 0,
   ...props
 }: RevealStaggerProps) {
-  const { ref, isInView } = useInView({ threshold: 0.01, rootMargin: "0px 0px 80px 0px", triggerOnce: true });
+  const { ref, isInView } = useInView({ threshold: 0.01, rootMargin: "0px 0px 80px 0px", triggerOnce: false });
 
   return (
     <div ref={ref} className={className} {...props}>
@@ -272,10 +272,10 @@ export function RevealStagger({
 
         return (
           <div
-            className="transition-all duration-600 ease-out"
+            className="transition-all duration-[1500ms] ease-out"
             style={{
               opacity: isInView ? 1 : 0,
-              transform: isInView ? "translateY(0px)" : "translateY(20px)",
+              transform: isInView ? "translateY(0px)" : "translateY(100px)",
               transitionDelay: `${itemDelay}ms`,
               willChange: "opacity, transform"
             }}
@@ -309,7 +309,7 @@ export function RevealLines({
   lineClassName,
   ...props
 }: RevealLinesProps) {
-  const { ref, isInView } = useInView({ triggerOnce: true });
+  const { ref, isInView } = useInView({ triggerOnce: false });
 
   let textLines: string[] = [];
   if (lines && lines.length > 0) {
@@ -324,7 +324,7 @@ export function RevealLines({
         {textLines.map((line, idx) => (
           <div key={idx} className="overflow-hidden">
             <div
-              className={cn("transition-all duration-700 ease-out", lineClassName)}
+              className={cn("transition-all duration-[1500ms] ease-out", lineClassName)}
               style={{
                 opacity: isInView ? 1 : 0,
                 transform: isInView ? "translateY(0%)" : "translateY(100%)",
@@ -347,7 +347,7 @@ export function RevealLines({
         return (
           <div className="overflow-hidden">
             <div
-              className={cn("transition-all duration-700 ease-out", lineClassName)}
+              className={cn("transition-all duration-[1500ms] ease-out", lineClassName)}
               style={{
                 opacity: isInView ? 1 : 0,
                 transform: isInView ? "translateY(0%)" : "translateY(100%)",
@@ -378,7 +378,7 @@ function RollingDigit({
   targetDigit,
   isRolling,
   delay = 0,
-  duration = 1600
+  duration = 15000
 }: {
   targetDigit: number;
   isRolling: boolean;
@@ -418,14 +418,14 @@ function RollingDigit({
 
 export function RevealCounter({
   end,
-  duration = 1600,
+  duration = 15000,
   prefix = "",
   suffix = "",
   decimals = 0,
   className,
   mode = "roll"
 }: RevealCounterProps) {
-  const { ref, isInView } = useInView({ threshold: 0.15, rootMargin: "0px 0px -30px 0px", triggerOnce: true });
+  const { ref, isInView } = useInView({ threshold: 0.15, rootMargin: "0px 0px -30px 0px", triggerOnce: false });
   const [mounted, setMounted] = useState(false);
   const [count, setCount] = useState(0);
 

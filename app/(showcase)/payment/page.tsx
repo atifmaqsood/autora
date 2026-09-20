@@ -165,7 +165,7 @@ export default function PaymentPage() {
                   Payment & Banking Policy
                 </h2>
               </RevealHeading>
-              <p className="mt-2 text-[15px] font-medium text-slate-300 max-w-2xl">
+              <p className="mt-2 text-[17px] font-medium text-slate-300 max-w-2xl">
                 Standard international trade protocols ensuring complete transparency, funds security, and smooth transaction settlement.
               </p>
             </div>
@@ -431,7 +431,7 @@ export default function PaymentPage() {
             <AlertTriangle className="h-10 w-10 text-amber-400 shrink-0" />
             <div>
               <h3 className="text-[18px] font-black text-amber-300">Official Banking Notice</h3>
-              <p className="mt-1 text-[14px] font-medium leading-relaxed text-amber-200/90">
+              <p className="mt-1 text-[16px] font-medium leading-relaxed text-amber-200/90">
                 The accounts listed above are the ONLY official bank accounts of AGTP Group L.L.C-FZ. Always verify wire transfer details directly on this official page or with your dedicated account manager before initiating payments.
               </p>
             </div>
@@ -441,3 +441,4 @@ export default function PaymentPage() {
     </div>
   );
 }
+

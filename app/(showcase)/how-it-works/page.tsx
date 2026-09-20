@@ -185,7 +185,7 @@ export default function HowItWorksPage() {
                   Works
                 </span>
               </h2>
-              <p className="mt-4 text-[15px] sm:text-[17px] font-medium text-slate-400 max-w-xl mx-auto">
+              <p className="mt-4 text-[17px] sm:text-[19px] font-medium text-slate-400 max-w-xl mx-auto">
                 From inquiry to delivery — your vehicle, our responsibility.
               </p>
             </div>
@@ -241,7 +241,7 @@ export default function HowItWorksPage() {
                       <div className={`h-[3px] w-8 rounded-full ${step.barBg} mt-2.5 mb-3.5 transition-all duration-300 group-hover:w-12`} />
 
                       {/* Description */}
-                      <p className="text-[13px] sm:text-[14px] font-normal leading-relaxed text-slate-300">
+                      <p className="text-[15px] sm:text-[16px] font-normal leading-relaxed text-slate-300">
                         {step.description}
                       </p>
                     </div>
@@ -344,7 +344,7 @@ export default function HowItWorksPage() {
                 <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
                   Guia de Exportação de Veículos e Peças de Reposição de Dubai
                 </h3>
-                <p className="text-[15px] font-medium leading-relaxed text-slate-300">
+                <p className="text-[17px] font-medium leading-relaxed text-slate-300">
                   Nossa equipe orienta você sobre o processo de encomenda de veículos e peças de reposição de Dubai, incluindo cotações, confirmação de pedido, envio e entrega internacional.
                 </p>
               </div>
@@ -387,7 +387,7 @@ export default function HowItWorksPage() {
                 <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
                   Dubai Vehicle & Spare Parts Export Guide
                 </h3>
-                <p className="text-[15px] font-medium leading-relaxed text-slate-300">
+                <p className="text-[17px] font-medium leading-relaxed text-slate-300">
                   Our team walks you through ordering vehicles and spare parts from Dubai, including quotations, order confirmation, shipping, and international delivery.
                 </p>
               </div>
@@ -455,3 +455,4 @@ export default function HowItWorksPage() {
     </div>
   );
 }
+

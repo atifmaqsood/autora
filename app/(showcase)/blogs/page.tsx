@@ -319,7 +319,7 @@ export default function BlogsPage() {
                     {post.title}
                   </h3>
 
-                  <p className="text-[14px] font-medium text-slate-300 leading-relaxed line-clamp-3">
+                  <p className="text-[16px] font-medium text-slate-300 leading-relaxed line-clamp-3">
                     {post.excerpt}
                   </p>
                 </div>
@@ -413,3 +413,4 @@ export default function BlogsPage() {
     </div>
   );
 }
+

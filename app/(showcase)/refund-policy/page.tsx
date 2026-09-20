@@ -145,7 +145,7 @@ export default function RefundPolicyPage() {
                 <h4 className="text-[17px] font-black uppercase text-white">
                   IMPORTANT NOTICE REGARDING REFUND ELIGIBILITY
                 </h4>
-                <p className="mt-1 text-[14px] leading-relaxed text-slate-300">
+                <p className="mt-1 text-[16px] leading-relaxed text-slate-300">
                   Not all orders or payments are eligible for a refund. Refund requests are reviewed according to the terms and conditions of this Refund Policy.
                 </p>
               </div>
@@ -156,3 +156,4 @@ export default function RefundPolicyPage() {
     </div>
   );
 }
+

@@ -246,7 +246,7 @@ export default function FaqsPage() {
 
                   {isOpen && (
                     <div className="border-t border-[#24445F]/60 px-6 pb-6 pt-4 md:px-7 md:pb-7">
-                      <p className="text-[15px] font-medium leading-relaxed text-slate-200">
+                      <p className="text-[17px] font-medium leading-relaxed text-slate-200">
                         {item.answerNode || item.answer}
                       </p>
                     </div>
@@ -307,3 +307,4 @@ export default function FaqsPage() {
     </div>
   );
 }
+

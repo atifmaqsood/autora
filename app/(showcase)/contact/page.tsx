@@ -379,7 +379,7 @@ export default function ContactPage() {
                     </RevealHeading>
 
                     <RevealText delay={100}>
-                      <p className="text-[14px] font-medium leading-relaxed text-slate-300">
+                      <p className="text-[16px] font-medium leading-relaxed text-slate-300">
                         Share a few details about the product you need, and our team will get back to you with availability and pricing.
                       </p>
                     </RevealText>
@@ -412,7 +412,7 @@ export default function ContactPage() {
                         <CheckCircle2 className="h-10 w-10" />
                       </div>
                       <h3 className="text-[28px] font-black text-white">Inquiry Received!</h3>
-                      <p className="mx-auto max-w-md text-[15px] font-medium text-slate-300">
+                      <p className="mx-auto max-w-md text-[17px] font-medium text-slate-300">
                         Thank you, {formData.firstName}! Our trade team will review your inquiry for <strong className="text-[#FDBA74]">{selectedCategory}</strong> and contact you via Email / WhatsApp within 24 hours.
                       </p>
                       <button
@@ -634,3 +634,4 @@ export default function ContactPage() {
     </div>
   );
 }
+

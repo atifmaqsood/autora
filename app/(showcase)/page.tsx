@@ -309,7 +309,7 @@ export default function HomePage() {
                 </h2>
               </RevealHeading>
               <RevealText>
-                <p className="mt-5 max-w-[670px] text-[15px] font-medium leading-[1.6] text-slate-200 md:text-[17px]">
+                <p className="mt-5 max-w-[720px] text-[17px] font-medium leading-[1.7] text-slate-200 md:text-[19px]">
                   Share your requirements and receive a clear quotation with reliable supply, export coordination, and delivery support.
                 </p>
               </RevealText>
@@ -405,18 +405,18 @@ function VehicleShowcaseSection({
 
 function HeroStatsSection() {
   return (
-    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[72px]">
-      <RevealStagger staggerDelay={70} className="grid overflow-hidden rounded-[14px] border border-[#315671] bg-[#102941] shadow-lg md:grid-cols-2 xl:grid-cols-4">
+    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[20px]">
+      <RevealStagger staggerDelay={70} className="grid overflow-hidden rounded-[20px] border border-[#315671] bg-[#102941] shadow-2xl md:grid-cols-2 xl:grid-cols-4">
         {heroStats.map((stat) => {
           const Icon = stat.icon;
           return (
-            <div key={stat.label} className="flex min-h-[112px] items-center justify-center gap-4 border-b border-[#315671] px-5 py-6 md:border-r xl:border-b-0">
-              <Icon className="h-7 w-7 shrink-0 text-[#FDBA74]" />
+            <div key={stat.label} className="flex min-h-[140px] items-center justify-center gap-6 border-b border-[#315671] px-8 py-8 md:border-r xl:border-b-0">
+              <Icon className="h-10 w-10 shrink-0 text-[#FDBA74]" />
               <div>
-                <div className="text-[28px] font-black leading-none text-white md:text-[36px]">
+                <div className="text-[36px] font-black leading-none text-white md:text-[46px]">
                   <RevealCounter end={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="mt-1.5 text-[12px] font-semibold text-slate-400">{stat.label}</div>
+                <div className="mt-2 text-[14px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</div>
               </div>
             </div>
           );
@@ -556,8 +556,8 @@ function GlobalNetworkSection() {
               <div className="relative z-10 mt-auto">
                 <p className="text-[12px] font-black uppercase tracking-[0.22em] text-[var(--agtp-secondary)]">Export Hub</p>
                 <h3 className="mt-3 text-[38px] font-black leading-none text-white md:text-[48px]">Dubai, UAE</h3>
-                <p className="mt-5 max-w-[390px] text-[16px] font-medium leading-[1.6] text-slate-200">
-                  Coordinating sourcing, inspection, documentation, and shipment from one connected trade hub.
+                <p className="mt-5 max-w-[390px] text-[17px] font-medium leading-[1.7] text-slate-200">
+                  Supplying vehicles and automotive spare parts with export coordination and worldwide delivery. 
                 </p>
               </div>
             </div>
@@ -596,7 +596,7 @@ function GlobalNetworkSection() {
 
 function DubaiMarketsSection() {
   return (
-    <section id="dubai-markets" className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px]">
+    <section id="dubai-markets" className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] pb-[82px]">
       <div className="text-center">
         <SectionEyebrow center>DUBAI MARKETS</SectionEyebrow>
         <RevealHeading>
@@ -725,7 +725,7 @@ function AutomotivePartsSpotlight() {
             <h2 className="mt-4 max-w-[480px] text-[32px] font-black leading-[0.96] text-white sm:text-[44px] xl:max-w-[700px] xl:text-[clamp(42px,4.5vw,78px)]">
               Parts That Keep The World Moving
             </h2>
-            <p className="mt-5 max-w-[510px] text-[14px] font-semibold leading-[1.6] text-slate-200 md:text-[15px]">
+            <p className="mt-5 max-w-[560px] text-[15px] font-semibold leading-[1.7] text-slate-200 md:text-[17px]">
               Source genuine components, performance upgrades, and essential vehicle parts through one dependable partner.
             </p>
           </div>
@@ -786,10 +786,10 @@ function LeadingBrandsSection() {
 
 function WhyAgtpGroupSection() {
   return (
-    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 py-[95px] text-center">
+    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[95px] pb-[30px] text-center">
       <SectionEyebrow center>WHY AGTP GROUP</SectionEyebrow>
       <RevealHeading>
-        <h2 className="mx-auto mt-6 max-w-[900px] text-[32px] font-black leading-[1.1] tracking-normal text-white md:text-[50px]">
+        <h2 className="mx-auto mt-6 max-w-[1100px] text-[36px] font-black leading-[1.1] tracking-normal text-white md:text-[67px]">
           11 Years of Exports.
           <br />
           One Partner. Zero
@@ -798,7 +798,7 @@ function WhyAgtpGroupSection() {
         </h2>
       </RevealHeading>
       <RevealText>
-        <p className="mx-auto mt-6 max-w-[680px] text-[15px] font-medium leading-[1.6] text-slate-300 md:text-[17px]">
+        <p className="mx-auto mt-6 max-w-[720px] text-[17px] font-medium leading-[1.7] text-slate-300 md:text-[19px]">
           We simplify international trade with reliable supply, transparent communication &amp; dependable delivery from Dubai to the world.
         </p>
       </RevealText>

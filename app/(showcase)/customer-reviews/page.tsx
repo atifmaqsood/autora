@@ -537,7 +537,7 @@ export default function CustomerReviewsPage() {
 
                       <Quote className="h-7 w-7 text-[#F97316]/40 group-hover:text-[#F97316] transition-colors" />
 
-                      <p className="text-[14px] sm:text-[15px] font-medium leading-relaxed text-slate-200">
+                      <p className="text-[16px] sm:text-[17px] font-medium leading-relaxed text-slate-200">
                         &ldquo;{rev.quote}&rdquo;
                       </p>
                     </div>
@@ -714,3 +714,4 @@ export default function CustomerReviewsPage() {
     </div>
   );
 }
+

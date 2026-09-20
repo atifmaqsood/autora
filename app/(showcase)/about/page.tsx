@@ -54,7 +54,7 @@ export default function AboutPage() {
             <p className="text-[17px] sm:text-[19px] md:text-[21px] font-bold text-white leading-snug">
               A Dubai-based automotive trading company built on trust, quality, and global ambition.
             </p>
-            <p className="text-[14px] sm:text-[15px] md:text-[16px] font-normal text-slate-300 leading-relaxed max-w-2xl">
+            <p className="text-[16px] sm:text-[17px] md:text-[18px] font-normal text-slate-300 leading-relaxed max-w-2xl">
               AGTP Group supplies quality vehicles and automotive spare parts to customers worldwide, combining competitive pricing, professional service, and reliable international delivery.
             </p>
             <div className="pt-1">
@@ -389,3 +389,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+

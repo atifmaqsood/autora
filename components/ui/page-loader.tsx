@@ -246,7 +246,7 @@ export function PageLoader() {
         aria-busy={!exiting}
       >
         <div key={animationKey} className="flex items-center justify-center px-4">
-          <h1 className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 text-[18px] sm:text-[23px] md:text-[27px] font-normal uppercase tracking-[0.42em] sm:tracking-[0.52em] antialiased text-[#A1A1AA]">
+          <h1 className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 text-[24px] sm:text-[36px] md:text-[48px] font-normal uppercase tracking-[0.35em] sm:tracking-[0.4em] antialiased text-[#A1A1AA]">
             {wordsWithTiming.map((item, wIdx) => (
               <span key={`word-${wIdx}`} className="inline-flex items-center whitespace-nowrap">
                 {item.charTimings.map((c, cIdx) => (
