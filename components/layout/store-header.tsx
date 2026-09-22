@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, ChevronDown, Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { Logo } from "./logo";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { useContent } from "@/lib/content/context";
 
 export function StoreHeader() {
@@ -89,6 +90,8 @@ export function StoreHeader() {
               <MapPin className="h-4 w-4 text-[#FDBA74]" />
               <span>Head Office: {defaultLocation}</span>
             </div>
+            <div className="h-4 w-px bg-white/20" />
+            <LanguageSwitcher variant="desktop" />
           </div>
         </div>
 
@@ -217,6 +220,9 @@ export function StoreHeader() {
                     )}
                   </div>
                 ))}
+              </div>
+              <div className="border-t border-white/10 pt-3">
+                <LanguageSwitcher variant="mobile" />
               </div>
             </div>
           )}

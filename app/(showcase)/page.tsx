@@ -787,7 +787,7 @@ function LeadingBrandsSection() {
 function WhyAgtpGroupSection() {
   return (
     <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[95px] pb-[30px] text-center">
-      <SectionEyebrow center>WHY AGTP GROUP</SectionEyebrow>
+      <SectionEyebrow center>WHY <span className="notranslate" translate="no">AGTP GROUP</span></SectionEyebrow>
       <RevealHeading>
         <h2 className="mx-auto mt-6 max-w-[1100px] text-[36px] font-black leading-[1.1] tracking-normal text-white md:text-[67px]">
           11 Years of Exports.
@@ -939,7 +939,10 @@ function CustomerStoriesSection() {
           </div>
 
           <div className={prefersReducedMotion ? "" : "xl:hidden"}>
-            <article className="mx-auto flex h-[630px] max-w-[420px] flex-col overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] text-left shadow-2xl">
+            <article
+              key={customerStories[activeStory].name}
+              className="mx-auto flex h-[630px] max-w-[420px] flex-col overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] text-left shadow-2xl"
+            >
               <TestimonialCard story={customerStories[activeStory]} active />
             </article>
           </div>
@@ -1087,10 +1090,16 @@ function TestimonialCard({
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
-        <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10 pointer-events-none">
-          {story.video && <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />}
-          {story.video ? "Video Story" : "Customer Story"}
-        </span>
+        <div className="absolute left-5 top-5 z-10 flex items-center gap-1.5 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md pointer-events-none">
+          {story.video ? (
+            <>
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Video Story</span>
+            </>
+          ) : (
+            <span>Customer Story</span>
+          )}
+        </div>
       </div>
       <div className="relative flex flex-1 flex-col justify-between p-5 sm:p-6 bg-[#14314B]">
         <div>
@@ -1102,7 +1111,7 @@ function TestimonialCard({
             </div>
           </div>
           <p className="mt-3 text-[13px] font-medium leading-[1.5] text-slate-200 line-clamp-3">
-            &ldquo;{story.story}&rdquo;
+            <span>&ldquo;{story.story}&rdquo;</span>
           </p>
         </div>
       </div>

@@ -117,13 +117,16 @@ export function StoreFooter() {
         </div>
 
         <div className="pointer-events-none mt-20 select-none overflow-hidden text-center">
-          <span className="inline-block text-[12.5vw] font-black uppercase leading-none tracking-normal text-transparent opacity-80 footer-watermark">
+          <span
+            className="inline-block text-[12.5vw] font-black uppercase leading-none tracking-normal text-transparent opacity-80 footer-watermark notranslate"
+            translate="no"
+          >
             {brandName}
           </span>
         </div>
 
         <div className="mt-8 flex flex-col gap-4 border-t border-[#24445F] pt-8 text-[15px] font-semibold text-slate-300 md:flex-row md:items-center md:justify-between">
-          <span>{brandName} LLC | All rights reserved</span>
+          <span><span className="notranslate" translate="no">{brandName}</span> LLC | All rights reserved</span>
           <div className="flex flex-wrap gap-4">
             <Link href="/privacy-policy" className="transition-colors hover:text-white">
               Privacy Policy

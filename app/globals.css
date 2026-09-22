@@ -795,3 +795,33 @@ footer.store-footer,
   animation: charLightUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity, filter;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Google Translate — Hide default UI & prevent layout shifts
+   ───────────────────────────────────────────────────────────── */
+.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.skiptranslate {
+  display: none !important;
+}
+
+/* Prevent Google Translate from shifting the body down */
+html.translated-ltr body,
+html.translated-rtl body {
+  top: 0 !important;
+}

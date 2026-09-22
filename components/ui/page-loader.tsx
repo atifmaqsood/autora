@@ -239,14 +239,18 @@ export function PageLoader() {
       />
 
       <div
-        className={`fixed inset-0 z-[2147483646] flex items-center justify-center bg-black transition-opacity duration-400 ease-out select-none ${
+        className={`fixed inset-0 z-[2147483646] flex items-center justify-center bg-black transition-opacity duration-400 ease-out select-none notranslate ${
           exiting ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         aria-live="polite"
         aria-busy={!exiting}
+        translate="no"
       >
-        <div key={animationKey} className="flex items-center justify-center px-4">
-          <h1 className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 text-[24px] sm:text-[36px] md:text-[48px] font-normal uppercase tracking-[0.35em] sm:tracking-[0.4em] antialiased text-[#A1A1AA]">
+        <div key={animationKey} className="flex items-center justify-center px-4 notranslate" translate="no">
+          <h1
+            className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 text-[24px] sm:text-[36px] md:text-[48px] font-normal uppercase tracking-[0.35em] sm:tracking-[0.4em] antialiased text-[#A1A1AA] notranslate"
+            translate="no"
+          >
             {wordsWithTiming.map((item, wIdx) => (
               <span key={`word-${wIdx}`} className="inline-flex items-center whitespace-nowrap">
                 {item.charTimings.map((c, cIdx) => (
