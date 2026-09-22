@@ -13,7 +13,8 @@ import {
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
-  RevealText
+  RevealText,
+  RevealCounter
 } from "@/components/ui/scroll-reveal";
 
 export default function AutomotiveShippingPage() {
@@ -84,14 +85,19 @@ export default function AutomotiveShippingPage() {
           <div className="rounded-[24px] border border-[#315671] bg-[#0B1F33] overflow-hidden shadow-2xl">
             <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-slate-800/80">
               {[
-                { value: "11", suffix: "+", label: "Years in Trade" },
-                { value: "25", suffix: "+", label: "Countries Served" },
-                { value: "93", suffix: "%", label: "On-Time Delivery" },
-                { value: "100", suffix: "%", label: "Verified Port Delivery" }
+                { value: 11, suffix: "+", label: "Years in Trade" },
+                { value: 25, suffix: "+", label: "Countries Served" },
+                { value: 93, suffix: "%", label: "On-Time Delivery" },
+                { value: 100, suffix: "%", label: "Verified Port Delivery" }
               ].map((stat, i) => (
                 <div key={i} className="p-8 md:p-10 flex flex-col justify-center">
                   <div className="text-4xl md:text-5xl font-black text-white tracking-tight flex items-baseline justify-center lg:justify-start">
-                    {stat.value}<span className="text-blue-500 text-3xl ml-1">{stat.suffix}</span>
+                    <RevealCounter
+                      end={stat.value}
+                      suffix={stat.suffix}
+                      suffixClassName="text-3xl ml-1 font-black"
+                      suffixStyle={{ color: "var(--agtp-secondary)" }}
+                    />
                   </div>
                   <div className="mt-3 text-[13px] font-semibold text-slate-400 uppercase tracking-wider text-center lg:text-left">
                     {stat.label}
@@ -121,7 +127,13 @@ export default function AutomotiveShippingPage() {
               
               <div className="relative z-10 p-8 sm:p-10 flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600/20 text-blue-500">
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-lg"
+                    style={{
+                      backgroundColor: "color-mix(in srgb, var(--agtp-secondary) 18%, transparent)",
+                      color: "var(--agtp-secondary)"
+                    }}
+                  >
                     <Ship className="h-5 w-5" />
                   </div>
                   <span className="text-xs font-bold uppercase tracking-widest text-slate-300">Ocean Shipping</span>
@@ -174,7 +186,13 @@ export default function AutomotiveShippingPage() {
               
               <div className="relative z-10 p-8 sm:p-10 flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600/20 text-blue-500">
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-lg"
+                    style={{
+                      backgroundColor: "color-mix(in srgb, var(--agtp-secondary) 18%, transparent)",
+                      color: "var(--agtp-secondary)"
+                    }}
+                  >
                     <Plane className="h-5 w-5" />
                   </div>
                   <span className="text-xs font-bold uppercase tracking-widest text-slate-300">Air Shipping</span>

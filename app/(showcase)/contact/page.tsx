@@ -20,6 +20,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
+import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { agtpAssets } from "@/src/assets";
 import {
   Reveal,
@@ -39,142 +40,25 @@ const serviceCategories = [
   "General Inquiry"
 ];
 
-const agtpLocations = [
-  {
-    id: "meydan-grandstand",
-    tabLabel: "Meydan Grandstand",
-    title: "Meydan Grandstand",
-    subtitle: "Head Office — Dubai, UAE",
-    lines: [
-      "Meydan Grandstand, 6th Floor",
-      "Meydan Road, Nad Al Sheba",
-      "Dubai, U.A.E."
-    ],
-    fullAddress: "Meydan Grandstand, 6th Floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E.",
-    phone: "+971 58 58 55729",
-    whatsapp: "+971 58 58 55729",
-    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
-    mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai,+United+Arab+Emirates"
-  },
-  {
-    id: "vehicle-sales",
-    tabLabel: "Vehicle Sales Hub",
-    title: "Vehicle Sales & Export",
-    subtitle: "Commercial Operations Desk",
-    lines: [
-      "Meydan Grandstand Commercial Complex",
-      "Meydan Road, Nad Al Sheba",
-      "Dubai, U.A.E."
-    ],
-    fullAddress: "Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates",
-    phone: "+971 58 58 55729",
-    whatsapp: "+971 58 58 55729",
-    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
-    mapQuery: "Meydan+Grandstand,+Nad+Al+Sheba,+Dubai"
-  },
-  {
-    id: "spare-parts",
-    tabLabel: "Spare Parts Hub",
-    title: "Spare Parts Division",
-    subtitle: "Genuine Parts & Components",
-    lines: [
-      "AGTP Spare Parts Distribution Hub",
-      "Industrial Area / Meydan Logistics",
-      "Dubai, U.A.E."
-    ],
-    fullAddress: "Meydan Grandstand Logistics Desk, Dubai, United Arab Emirates",
-    phone: "+971 58 58 55729",
-    whatsapp: "+971 58 58 55729",
-    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
-    mapQuery: "Meydan+Grandstand,+Dubai,+United+Arab+Emirates"
-  },
-  {
-    id: "jebel-ali",
-    tabLabel: "Jebel Ali Export Yard",
-    title: "Jebel Ali Port Yard",
-    subtitle: "Global Container & Ro-Ro Shipping",
-    lines: [
-      "Jebel Ali Port / Free Zone Area",
-      "International Vehicle & Cargo Staging",
-      "Dubai, U.A.E."
-    ],
-    fullAddress: "Jebel Ali Port Trade Staging, Dubai, United Arab Emirates",
-    phone: "+971 58 58 55729",
-    whatsapp: "+971 58 58 55729",
-    timing: "Mon - Sat: 8:30 AM - 7:30 PM",
-    mapQuery: "Jebel+Ali+Port,+Dubai,+United+Arab+Emirates"
-  },
-  {
-    id: "trade-documentation",
-    tabLabel: "Export Documentation",
-    title: "Trade & Customs Desk",
-    subtitle: "Inspection, COC & Export Clearance",
-    lines: [
-      "Meydan Grandstand, Executive Floor",
-      "Customs & Export Documentation",
-      "Dubai, U.A.E."
-    ],
-    fullAddress: "Meydan Grandstand, Meydan Road, Nad Al Sheba, Dubai, U.A.E.",
-    phone: "+971 58 58 55729",
-    whatsapp: "+971 58 58 55729",
-    timing: "Mon - Sat: 9:00 AM - 7:00 PM",
-    mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai"
-  },
-  {
-    id: "commercial-logistics",
-    tabLabel: "Commercial Logistics",
-    title: "Global Logistics Desk",
-    subtitle: "Freight Forwarding & Shipping Operations",
-    lines: [
-      "Meydan Grandstand, Trade Office",
-      "Air, Sea & Land Logistics Coordination",
-      "Dubai, U.A.E."
-    ],
-    fullAddress: "Meydan Grandstand, Nad Al Sheba, Dubai, U.A.E.",
-    phone: "+971 58 58 55729",
-    whatsapp: "+971 58 58 55729",
-    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
-    mapQuery: "Meydan+Grandstand,+Dubai"
-  },
-  {
-    id: "customer-support",
-    tabLabel: "Customer Support",
-    title: "Dedicated Client Desk",
-    subtitle: "Order Tracking & Post-Sale Assistance",
-    lines: [
-      "Online Support & Executive Offices",
-      "Meydan Grandstand, 6th Floor",
-      "Dubai, U.A.E."
-    ],
-    fullAddress: "Meydan Grandstand, Nad Al Sheba, Dubai, UAE",
-    phone: "+971 58 58 55729",
-    whatsapp: "+971 58 58 55729",
-    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
-    mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai"
-  },
-  {
-    id: "global-inquiries",
-    tabLabel: "Global Inquiries Desk",
-    title: "International Trade Desk",
-    subtitle: "Serving 45+ Countries Worldwide",
-    lines: [
-      "Meydan Grandstand, 6th Floor",
-      "Meydan Road, Nad Al Sheba",
-      "Dubai, U.A.E."
-    ],
-    fullAddress: "Meydan Grandstand, Meydan Road, Nad Al Sheba, Dubai, U.A.E.",
-    phone: "+971 58 58 55729",
-    whatsapp: "+971 58 58 55729",
-    timing: "Mon - Sat: 9:00 AM - 8:00 PM",
-    mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai"
-  }
-];
+const officeLocation = {
+  title: "Meydan Grandstand",
+  subtitle: "Head Office — Dubai, UAE",
+  lines: [
+    "Meydan Grandstand, 6th Floor",
+    "Meydan Road, Nad Al Sheba",
+    "Dubai, United Arab Emirates"
+  ],
+  fullAddress: "Meydan Grandstand, 6th Floor, Meydan Road, Nad Al Sheba, Dubai, U.A.E.",
+  phone: "+971 58 5855729",
+  whatsapp: "+971 58 5855729",
+  timing: "Mon - Sat: 9:00 AM - 8:00 PM",
+  mapQuery: "Meydan+Grandstand,+Meydan+Road,+Nad+Al+Sheba,+Dubai,+United+Arab+Emirates"
+};
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Vehicle Sourcing");
-  const [selectedLocation, setSelectedLocation] = useState(agtpLocations[0]);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -233,11 +117,11 @@ export default function ContactPage() {
                   </div>
 
                   {/* 1. Instant WhatsApp Card */}
-                  <div className="group/item relative overflow-hidden rounded-2xl border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-5 shadow-lg transition-all duration-300 hover:border-[#F97316]">
+                  <div className="group/item relative overflow-hidden rounded-2xl border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-5 shadow-lg transition-all duration-300 hover:border-[#25D366]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3.5">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-500/40 bg-emerald-950/40 text-emerald-400 shadow-md">
-                          <MessageCircle className="h-6 w-6" />
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#25D366]/30 bg-[#25D366]/10 shadow-md">
+                          <WhatsAppIcon className="h-7 w-7" />
                         </div>
                         <div>
                           <span className="block text-[11px] font-black uppercase text-slate-400">Instant WhatsApp</span>
@@ -248,7 +132,7 @@ export default function ContactPage() {
                         href="https://wa.me/971585855729"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex h-9 items-center gap-1.5 rounded-full border border-emerald-500/50 bg-emerald-950/60 px-4 text-[12px] font-black text-emerald-400 hover:bg-emerald-600 hover:text-white transition-all"
+                        className="flex h-9 items-center gap-1.5 rounded-full border border-[#25D366]/40 bg-[#25D366]/15 px-4 text-[12px] font-black text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all shadow-sm"
                       >
                         <span>Chat Now</span>
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -337,11 +221,11 @@ export default function ContactPage() {
                       href="https://wa.me/971585855729"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-[#F97316] transition-colors"
+                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#315671] bg-[#14314B] text-[#25D366] hover:border-[#25D366] hover:bg-[#25D366]/15 hover:shadow-[0_0_12px_rgba(37,211,102,0.3)] transition-all"
                       title="WhatsApp"
                       aria-label="WhatsApp"
                     >
-                      <MessageCircle className="h-4 w-4" />
+                      <WhatsAppIcon className="h-4 w-4" />
                     </a>
                     <a
                       href="mailto:inquiries@agtpgroup.com"
@@ -527,13 +411,13 @@ export default function ContactPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 items-stretch">
-            {/* LEFT: Interactive Google Map */}
-            <div className="lg:col-span-6 xl:col-span-7 flex flex-col">
+            {/* LEFT: Interactive Google Map (reduced width) */}
+            <div className="lg:col-span-5 xl:col-span-5 flex flex-col">
               <div className="relative h-full min-h-[480px] lg:min-h-[580px] w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#0B1F33] shadow-2xl">
                 <iframe
                   title="AGTP Group Location Map"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(
-                    selectedLocation.fullAddress
+                    officeLocation.fullAddress
                   )}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
                   className="h-full w-full border-0 min-h-[480px] lg:min-h-[580px]"
                   allowFullScreen
@@ -543,88 +427,69 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* RIGHT: Location Selector & Active Details */}
-            <div className="lg:col-span-6 xl:col-span-5 flex flex-col">
+            {/* RIGHT: Headquarters Location Details */}
+            <div className="lg:col-span-7 xl:col-span-7 flex flex-col">
               <div className="flex h-full flex-col justify-between rounded-[28px] border border-white/10 bg-[#0B1F33] p-6 sm:p-8 shadow-2xl">
-                <div>
-                  {/* Tab Selector Grid (2 Columns) */}
-                  <div className="grid grid-cols-2 gap-3">
-                    {agtpLocations.map((loc) => {
-                      const isSelected = selectedLocation.id === loc.id;
-                      return (
-                        <button
-                          key={loc.id}
-                          type="button"
-                          onClick={() => setSelectedLocation(loc)}
-                          className={`flex items-center rounded-xl px-4 py-3.5 text-left text-[13px] sm:text-[14px] font-bold transition-all duration-200 border ${
-                            isSelected
-                              ? "border-[#F97316] bg-[#F97316] text-white shadow-xl shadow-[#F97316]/30"
-                              : "border-white/10 bg-black/20 text-slate-300 hover:border-white/30 hover:bg-black/10 hover:text-white"
-                          }`}
-                        >
-                          <span className="truncate">{loc.tabLabel}</span>
-                        </button>
-                      );
-                    })}
+                <div className="space-y-6">
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-950/40 px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-[#38BDF8] mb-4">
+                      <MapPin className="h-3.5 w-3.5" />
+                      <span>Global Headquarters</span>
+                    </div>
+                    <h3 className="text-[28px] sm:text-[34px] font-black text-white tracking-tight">
+                      {officeLocation.title}
+                    </h3>
+                    <p className="mt-1 text-[13px] font-bold uppercase tracking-wider text-[#38BDF8]">
+                      {officeLocation.subtitle}
+                    </p>
                   </div>
 
-                  {/* Active Location Details Card */}
-                  <div className="mt-6 rounded-2xl border border-white/10 bg-black/30 p-6 sm:p-7 space-y-6">
-                    <div>
-                      <h3 className="text-[26px] sm:text-[28px] font-black text-white tracking-tight">
-                        {selectedLocation.title}
-                      </h3>
-                      <p className="mt-1 text-[12px] font-bold uppercase tracking-wider text-[#38BDF8]">
-                        {selectedLocation.subtitle}
+                  <div className="space-y-2 text-[15px] sm:text-[16px] font-medium text-slate-300 border-y border-[#1c2e44] py-5">
+                    {officeLocation.lines.map((line, idx) => (
+                      <p key={idx} className="leading-relaxed text-slate-200">
+                        {line}
                       </p>
-                    </div>
-
-                    <div className="space-y-1 text-[15px] font-medium text-slate-300">
-                      {selectedLocation.lines.map((line, idx) => (
-                        <p key={idx} className="leading-snug text-slate-300">
-                          {line}
-                        </p>
-                      ))}
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-                      <a
-                        href={`tel:${selectedLocation.phone.replace(/\s+/g, "")}`}
-                        className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F97316] bg-[#F97316] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-white shadow-xl shadow-[#F97316]/30 hover:bg-[#EA580C] hover:border-[#EA580C] transition-colors"
-                      >
-                        <Phone className="h-4 w-4 text-white" />
-                        <span>Call: {selectedLocation.phone}</span>
-                      </a>
-
-                      <a
-                        href={`https://wa.me/${selectedLocation.whatsapp.replace(/[^0-9]/g, "")}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-[#0B3828] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-emerald-300 hover:text-white hover:bg-[#0f4d37] shadow-md transition-colors"
-                      >
-                        <MessageCircle className="h-4 w-4 text-emerald-400" />
-                        <span>WhatsApp: {selectedLocation.whatsapp}</span>
-                      </a>
-                    </div>
-
-                    <div className="pt-4 border-t border-[#1c2e44] flex items-center justify-between text-[13px]">
-                      <span className="text-slate-400 font-medium flex items-center gap-1.5">
-                        <Clock className="h-3.5 w-3.5 text-[#38BDF8]" />
-                        {selectedLocation.timing}
-                      </span>
-                      <a
-                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                          selectedLocation.fullAddress
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-bold text-[#38BDF8] hover:text-blue-300 transition-colors"
-                      >
-                        <span>Get Directions</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </a>
-                    </div>
+                    ))}
                   </div>
+
+                  {/* Both buttons in one line, old design, numbers on single line */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                    <a
+                      href={`tel:${officeLocation.phone.replace(/\s+/g, "")}`}
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F97316] bg-[#F97316] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-white shadow-xl shadow-[#F97316]/30 hover:bg-[#EA580C] hover:border-[#EA580C] transition-colors whitespace-nowrap shrink-0"
+                    >
+                      <Phone className="h-4 w-4 text-white shrink-0" />
+                      <span className="whitespace-nowrap">Call: {officeLocation.phone}</span>
+                    </a>
+
+                    <a
+                      href={`https://wa.me/${officeLocation.whatsapp.replace(/[^0-9]/g, "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-[#0B3828] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-emerald-300 hover:text-white hover:bg-[#0f4d37] shadow-md transition-colors whitespace-nowrap shrink-0"
+                    >
+                      <WhatsAppIcon className="h-4 w-4 shrink-0" />
+                      <span className="whitespace-nowrap">WhatsApp: {officeLocation.whatsapp}</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-[#1c2e44] flex items-center justify-between text-[13px] mt-6">
+                  <span className="text-slate-400 font-medium flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5 text-[#38BDF8]" />
+                    {officeLocation.timing}
+                  </span>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      officeLocation.fullAddress
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 font-bold text-[#38BDF8] hover:text-blue-300 transition-colors"
+                  >
+                    <span>Get Directions</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </a>
                 </div>
               </div>
             </div>

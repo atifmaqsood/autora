@@ -13,7 +13,8 @@ import {
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
-  RevealText
+  RevealText,
+  RevealCounter
 } from "@/components/ui/scroll-reveal";
 
 interface CustomerReview {
@@ -195,10 +196,10 @@ const reviews: CustomerReview[] = [
 ];
 
 const reviewStats = [
-  { value: "11+", label: "Years in Trade" },
-  { value: "10,000+", label: "Vehicles & Parts Exported" },
-  { value: "25+", label: "Countries Served Worldwide" },
-  { value: "100%", label: "Verified Port Delivery" }
+  { value: 11, suffix: "+", label: "Years in Trade" },
+  { value: 10000, suffix: "+", label: "Vehicles & Parts Exported" },
+  { value: 25, suffix: "+", label: "Countries Served Worldwide" },
+  { value: 100, suffix: "%", label: "Verified Port Delivery" }
 ];
 
 const countries = ["ALL", "Angola", "Congo", "Ghana"];
@@ -318,15 +319,26 @@ export default function CustomerReviewsPage() {
   const [viewMode, setViewMode] = useState<"slider" | "grid">("grid");
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const REVIEWS_PER_PAGE = 15;
 
   const filteredReviews = useMemo(() => {
     if (selectedCountry === "ALL") return reviews;
     return reviews.filter((r) => r.country.toLowerCase() === selectedCountry.toLowerCase());
   }, [selectedCountry]);
 
-  // Reset slide index on country change
+  const totalPages = Math.ceil(filteredReviews.length / REVIEWS_PER_PAGE);
+
+  const paginatedReviews = useMemo(() => {
+    const startIndex = (currentPage - 1) * REVIEWS_PER_PAGE;
+    return filteredReviews.slice(startIndex, startIndex + REVIEWS_PER_PAGE);
+  }, [filteredReviews, currentPage]);
+
+  // Reset slide index & page on country change
   useEffect(() => {
     setCurrentSlide(0);
+    setCurrentPage(1);
   }, [selectedCountry]);
 
   // Autoplay Slider
@@ -371,7 +383,14 @@ export default function CustomerReviewsPage() {
           <div className="grid grid-cols-2 gap-5 rounded-[20px] border border-[#315671] bg-[#102941] p-8 shadow-lg md:grid-cols-4">
             {reviewStats.map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-[36px] font-black text-[#FDBA74] md:text-[46px]">{stat.value}</div>
+                <div className="text-[36px] font-black text-white md:text-[46px] flex items-baseline justify-center">
+                  <RevealCounter
+                    end={stat.value}
+                    suffix={stat.suffix}
+                    suffixClassName="text-2xl md:text-3xl ml-1 font-black"
+                    suffixStyle={{ color: "var(--agtp-secondary)" }}
+                  />
+                </div>
                 <div className="mt-1 text-[13px] font-semibold text-slate-300">{stat.label}</div>
               </div>
             ))}
@@ -386,7 +405,7 @@ export default function CustomerReviewsPage() {
             {/* Country Filters */}
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74] mr-2">
-                <Filter className="h-4 w-4 text-[#F97316]" />
+                <Filter className="h-4 w-4" style={{ color: "var(--agtp-secondary)" }} />
                 Filter By Destination:
               </span>
               {countries.map((c) => (
@@ -395,9 +414,14 @@ export default function CustomerReviewsPage() {
                   onClick={() => setSelectedCountry(c)}
                   className={`rounded-full px-4 py-2 text-[12px] font-black transition-all ${
                     selectedCountry.toLowerCase() === c.toLowerCase()
-                      ? "bg-[#F97316] text-white shadow-md"
+                      ? "text-white shadow-md"
                       : "border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-white"
                   }`}
+                  style={
+                    selectedCountry.toLowerCase() === c.toLowerCase()
+                      ? { backgroundColor: "var(--agtp-secondary)" }
+                      : undefined
+                  }
                 >
                   {c}
                 </button>
@@ -411,9 +435,14 @@ export default function CustomerReviewsPage() {
                   onClick={() => setViewMode("grid")}
                   className={`rounded-full px-4 py-1.5 transition-all ${
                     viewMode === "grid"
-                      ? "bg-[#F97316] text-white shadow-sm"
+                      ? "text-white shadow-sm"
                       : "text-slate-400 hover:text-white"
                   }`}
+                  style={
+                    viewMode === "grid"
+                      ? { backgroundColor: "var(--agtp-secondary)" }
+                      : undefined
+                  }
                 >
                   Grid Gallery
                 </button>
@@ -421,9 +450,14 @@ export default function CustomerReviewsPage() {
                   onClick={() => setViewMode("slider")}
                   className={`rounded-full px-4 py-1.5 transition-all ${
                     viewMode === "slider"
-                      ? "bg-[#F97316] text-white shadow-sm"
+                      ? "text-white shadow-sm"
                       : "text-slate-400 hover:text-white"
                   }`}
+                  style={
+                    viewMode === "slider"
+                      ? { backgroundColor: "var(--agtp-secondary)" }
+                      : undefined
+                  }
                 >
                   Slider Spotlight
                 </button>
@@ -453,18 +487,24 @@ export default function CustomerReviewsPage() {
       </section>
 
       {/* ── 4. Reviews Content (Full Vertical Image matching Home Page Customer Stories) ── */}
-      <section className="mx-auto max-w-[1570px] px-6 pt-10">
+      <section id="reviews-grid-section" className="mx-auto max-w-[1570px] px-6 pt-10">
         {viewMode === "grid" ? (
           /* Grid View Mode */
           <div>
             <div className="mb-6 flex items-center justify-between">
               <span className="text-[13px] font-semibold text-slate-400">
-                Showing <strong className="text-white">{filteredReviews.length}</strong> verified customer stories
+                Showing <strong className="text-white">{paginatedReviews.length}</strong> of{" "}
+                <strong className="text-white">{filteredReviews.length}</strong> verified customer stories
+                {totalPages > 1 && (
+                  <span className="ml-2 text-slate-400 font-normal">
+                    (Page {currentPage} of {totalPages})
+                  </span>
+                )}
               </span>
             </div>
 
             <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-              {filteredReviews.map((rev) => (
+              {paginatedReviews.map((rev) => (
                 <div
                   key={`${rev.id}-${rev.name}`}
                   className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#F97316] hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
@@ -555,6 +595,59 @@ export default function CustomerReviewsPage() {
                 </div>
               ))}
             </RevealStagger>
+
+            {totalPages > 1 && (
+              <div className="mt-12 flex items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentPage((prev) => Math.max(prev - 1, 1));
+                    document.getElementById("reviews-grid-section")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  disabled={currentPage === 1}
+                  className="flex h-10 items-center gap-1.5 rounded-xl border border-[#315671] bg-[#14314B] px-4 text-xs font-bold text-slate-300 transition-all hover:border-[#F97316] hover:text-white disabled:opacity-30 disabled:pointer-events-none"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  <span>Previous</span>
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                  <button
+                    key={pageNum}
+                    type="button"
+                    onClick={() => {
+                      setCurrentPage(pageNum);
+                      document.getElementById("reviews-grid-section")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className={`flex h-10 w-10 items-center justify-center rounded-xl text-xs font-black transition-all ${
+                      currentPage === pageNum
+                        ? "text-white shadow-md"
+                        : "border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-white"
+                    }`}
+                    style={
+                      currentPage === pageNum
+                        ? { backgroundColor: "var(--agtp-secondary)" }
+                        : undefined
+                    }
+                  >
+                    {pageNum}
+                  </button>
+                ))}
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+                    document.getElementById("reviews-grid-section")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  disabled={currentPage === totalPages}
+                  className="flex h-10 items-center gap-1.5 rounded-xl border border-[#315671] bg-[#14314B] px-4 text-xs font-bold text-slate-300 transition-all hover:border-[#F97316] hover:text-white disabled:opacity-30 disabled:pointer-events-none"
+                >
+                  <span>Next</span>
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           /* Slider Spotlight View Mode */
@@ -636,8 +729,13 @@ export default function CustomerReviewsPage() {
                       setCurrentSlide(idx);
                     }}
                     className={`h-2.5 rounded-full transition-all ${
-                      currentSlide === idx ? "w-8 bg-[#F97316]" : "w-2.5 bg-[#315671]"
+                      currentSlide === idx ? "w-8" : "w-2.5 bg-[#315671]"
                     }`}
+                    style={
+                      currentSlide === idx
+                        ? { backgroundColor: "var(--agtp-secondary)" }
+                        : undefined
+                    }
                     aria-label={`Go to slide ${idx + 1}`}
                   />
                 ))}
@@ -690,7 +788,8 @@ export default function CustomerReviewsPage() {
                 <button
                   type="button"
                   onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex h-[56px] items-center gap-3 rounded-full bg-[#F97316] px-10 text-[16px] font-black text-white transition-all duration-300 hover:bg-[#EA580C] shadow-xl hover:scale-105"
+                  className="inline-flex h-[56px] items-center gap-3 rounded-full px-10 text-[16px] font-black text-white transition-all duration-300 shadow-xl hover:scale-105"
+                  style={{ backgroundColor: "var(--agtp-secondary)" }}
                 >
                   <span>Get A Quote</span>
                   <ArrowRight className="h-5 w-5" />

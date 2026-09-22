@@ -51,6 +51,7 @@ export function useInView({
           setIsInView(false);
         }
       },
+      { threshold, rootMargin }
     );
 
     observer.observe(el);
@@ -371,6 +372,8 @@ interface RevealCounterProps {
   suffix?: string;
   decimals?: number;
   className?: string;
+  suffixClassName?: string;
+  suffixStyle?: React.CSSProperties;
   mode?: "roll" | "count";
 }
 
@@ -378,7 +381,7 @@ function RollingDigit({
   targetDigit,
   isRolling,
   delay = 0,
-  duration = 15000
+  duration = 1600
 }: {
   targetDigit: number;
   isRolling: boolean;
@@ -393,12 +396,32 @@ function RollingDigit({
   const targetIndex = 10 + targetDigit;
   const targetPercent = (targetIndex / numbers.length) * 100;
 
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    let raf2: number;
+    if (isRolling) {
+      // Allow browser to paint the 0% position first, then trigger smooth roll
+      const raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => {
+          setHasStarted(true);
+        });
+      });
+      return () => {
+        cancelAnimationFrame(raf1);
+        if (raf2) cancelAnimationFrame(raf2);
+      };
+    } else {
+      setHasStarted(false);
+    }
+  }, [isRolling]);
+
   return (
     <span className="relative inline-block h-[1.12em] overflow-hidden leading-[1.12em] align-top tabular-nums">
       <span
         className="inline-flex flex-col select-none"
         style={{
-          transform: isRolling ? `translateY(-${targetPercent}%)` : "translateY(0%)",
+          transform: hasStarted && isRolling ? `translateY(-${targetPercent}%)` : "translateY(0%)",
           transitionProperty: "transform",
           transitionDuration: `${duration}ms`,
           transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -418,14 +441,16 @@ function RollingDigit({
 
 export function RevealCounter({
   end,
-  duration = 15000,
+  duration = 1600,
   prefix = "",
   suffix = "",
   decimals = 0,
   className,
+  suffixClassName,
+  suffixStyle,
   mode = "roll"
 }: RevealCounterProps) {
-  const { ref, isInView } = useInView({ threshold: 0.15, rootMargin: "0px 0px -30px 0px", triggerOnce: false });
+  const { ref, isInView } = useInView({ threshold: 0.1, rootMargin: "0px 0px -20px 0px", triggerOnce: false });
   const [mounted, setMounted] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -438,6 +463,7 @@ export function RevealCounter({
 
     let startTimestamp: number | null = null;
     let animationFrameId: number;
+    setCount(0);
 
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
@@ -465,7 +491,7 @@ export function RevealCounter({
       <span ref={ref as any} className={cn("inline-flex items-center tabular-nums font-black", className)}>
         {prefix}
         {formattedTarget}
-        {suffix}
+        {suffix && <span className={suffixClassName} style={suffixStyle}>{suffix}</span>}
       </span>
     );
   }
@@ -476,7 +502,7 @@ export function RevealCounter({
       <span ref={ref as any} className={cn("inline-flex items-center tabular-nums font-black", className)}>
         {prefix}
         {formattedCount}
-        {suffix}
+        {suffix && <span className={suffixClassName} style={suffixStyle}>{suffix}</span>}
       </span>
     );
   }
@@ -509,7 +535,7 @@ export function RevealCounter({
           />
         );
       })}
-      {suffix && <span>{suffix}</span>}
+      {suffix && <span className={suffixClassName} style={suffixStyle}>{suffix}</span>}
     </span>
   );
 }

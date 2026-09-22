@@ -47,7 +47,7 @@ export const defaultContent: ShowcaseContent = {
         "Genuine and aftermarket automotive spare parts supplied worldwide with AGTP trust, performance, and service.",
       image:
         "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=2000&q=80",
-      primaryCta: { label: "Click Here", href: "/spare-parts" },
+      primaryCta: { label: "Click Here", href: "/parts-accessories" },
       secondaryCta: { label: "Explore More", href: "/vehicles" },
       overlayColor: "dark",
       active: true

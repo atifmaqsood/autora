@@ -28,24 +28,22 @@ export function StoreHeader() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  const expertiseLinks = [
-    { name: "Global Sourcing", href: "/how-it-works" },
-    { name: "Automotive Vehicles", href: "/vehicles" },
-    { name: "Automotive Parts", href: "/spare-parts" },
-    { name: "Freight & Logistics", href: "/contact-us" }
-  ];
-
-  const navLinks = [
+  const navLinks: { name: string; href: string; children?: { name: string; href: string }[] }[] = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/about-us" },
-    { name: "Dubai Automotive", href: "/dubai-markets" },
-    { name: "Areas Of Expertise", href: "#", children: expertiseLinks },
-    { name: "Customer Reviews", href: "/customer-reviews" }
+    { name: "About", href: "/about-us" },
+    { name: "Vehicles", href: "/vehicles" },
+    { name: "Parts", href: "/parts-accessories" },
+    { name: "Shipping", href: "/automotive-shipping" },
+    { name: "Reviews", href: "/customer-reviews" }
   ];
 
   const isActive = (path: string) => {
     if (!path || path === "#") return false;
     if (path === "/") return pathname === "/";
+    if (path === "/about-us" && (pathname.startsWith("/about-us") || pathname.startsWith("/about"))) return true;
+    if (path === "/parts-accessories" && (pathname.startsWith("/parts-accessories") || pathname.startsWith("/spare-parts") || pathname.startsWith("/parts"))) return true;
+    if (path === "/automotive-shipping" && (pathname.startsWith("/automotive-shipping") || pathname.startsWith("/shipping") || pathname.startsWith("/freight-and-logistics"))) return true;
+    if (path === "/customer-reviews" && (pathname.startsWith("/customer-reviews") || pathname.startsWith("/reviews"))) return true;
     return pathname.startsWith(path);
   };
 

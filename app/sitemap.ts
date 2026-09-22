@@ -54,10 +54,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9
     },
     {
-      url: `${baseUrl}/spare-parts`,
+      url: `${baseUrl}/parts-accessories`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8
+    },
+    {
+      url: `${baseUrl}/parts-accessories/services-maintenance`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7
+    },
+    {
+      url: `${baseUrl}/parts-accessories/engine-mechanical`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7
+    },
+    {
+      url: `${baseUrl}/parts-accessories/tyres-wheels`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7
+    },
+    {
+      url: `${baseUrl}/parts-accessories/body-exterior`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7
+    },
+    {
+      url: `${baseUrl}/parts-accessories/accessories-modifications`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7
     },
     {
       url: `${baseUrl}/about`,

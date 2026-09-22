@@ -22,21 +22,21 @@ const marketCategories = [
     subtitle: "Genuine, OEM, Aftermarket & More",
     image: agtpAssets.sparePartsHero,
     icon: Package,
-    href: "/spare-parts"
+    href: "/parts-accessories"
   },
   {
     title: "Engines & Transmissions",
     subtitle: "Diesel, Petrol, Hybrid & More",
     image: agtpAssets.mercedesCclassCard,
     icon: Cog,
-    href: "/spare-parts"
+    href: "/parts-accessories"
   },
   {
     title: "Tyres, Rims & Body Kits",
     subtitle: "Performance, Styling & Protection",
     image: agtpAssets.bmwX2Card,
     icon: Car,
-    href: "/spare-parts"
+    href: "/parts-accessories"
   }
 ];
 

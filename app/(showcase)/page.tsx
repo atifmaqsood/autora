@@ -82,7 +82,7 @@ const industryCards = [
     subtitle: "Engines, gearboxes, and custom upgrades",
     image: agtpAssets.mercedesCclassCard,
     icon: Package,
-    href: "/spare-parts",
+    href: "/parts-accessories",
     layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]"
   },
   {
@@ -90,7 +90,7 @@ const industryCards = [
     subtitle: "OEM, genuine, and aftermarket supply",
     image: agtpAssets.sparePartsHero,
     icon: Wrench,
-    href: "/spare-parts",
+    href: "/parts-accessories",
     layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]"
   }
 ];
@@ -257,8 +257,8 @@ export default function HomePage() {
     { label: "Pickups & trucks", href: "/vehicles?category=Pickup" },
     { label: "Vans & buses", href: "/vehicles?search=van" },
     { label: "Fire Apparatus & Ambulance", href: "/vehicles?search=ambulance" },
-    { label: "Parts & accessories", href: "/spare-parts" },
-    { label: "Engines & Gears", href: "/spare-parts" },
+    { label: "Parts & accessories", href: "/parts-accessories" },
+    { label: "Engines & Gears", href: "/parts-accessories" },
     { label: "Modifications", href: "/contact-us" }
   ];
 
@@ -414,7 +414,11 @@ function HeroStatsSection() {
               <Icon className="h-10 w-10 shrink-0 text-[#FDBA74]" />
               <div>
                 <div className="text-[36px] font-black leading-none text-white md:text-[46px]">
-                  <RevealCounter end={stat.value} suffix={stat.suffix} />
+                  <RevealCounter
+                    end={stat.value}
+                    suffix={stat.suffix}
+                    suffixStyle={{ color: "var(--agtp-secondary, #F97316)" }}
+                  />
                 </div>
                 <div className="mt-2 text-[14px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</div>
               </div>
@@ -648,10 +652,10 @@ function DubaiMarketsSection() {
 
 
 const automotivePartsPanels = [
-  { label: "Category", value: "Spare Parts", href: "/spare-parts" },
-  { label: "Component", value: "Engines", href: "/spare-parts" },
-  { label: "Upgrade", value: "Body Kits", href: "/spare-parts" },
-  { label: "Performance", value: "Tyres", href: "/spare-parts" }
+  { label: "Category", value: "Spare Parts", href: "/parts-accessories" },
+  { label: "Component", value: "Engines", href: "/parts-accessories" },
+  { label: "Upgrade", value: "Body Kits", href: "/parts-accessories" },
+  { label: "Performance", value: "Tyres", href: "/parts-accessories" }
 ];
 
 function AutomotivePartsSpotlight() {

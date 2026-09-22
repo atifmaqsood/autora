@@ -131,7 +131,6 @@ export function LanguageSwitcher({ variant = "desktop" }: { variant?: "desktop" 
   const [gtReady, setGtReady] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Initialize active language from cookie if set
   // Initialize active language from cookie if set & protect brand names
   useEffect(() => {
     protectBrandNames();

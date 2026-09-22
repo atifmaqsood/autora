@@ -16,6 +16,20 @@ const nextConfig: NextConfig = {
         hostname: "images.pexels.com"
       }
     ]
+  },
+  async redirects() {
+    return [
+      {
+        source: "/spare-parts",
+        destination: "/parts-accessories",
+        permanent: true
+      },
+      {
+        source: "/parts",
+        destination: "/parts-accessories",
+        permanent: true
+      }
+    ];
   }
 };
 

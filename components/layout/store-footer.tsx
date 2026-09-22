@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, MapPin, MessageCircle, Phone, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Mail, MapPin, Phone, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { Logo } from "@/components/layout/logo";
 import { useContent } from "@/lib/content/context";
 
@@ -9,7 +10,8 @@ const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/agtpgroup", label: "Facebook" },
   { icon: Instagram, href: "https://www.instagram.com/agtpgroup/", label: "Instagram" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/agtp-group-l-l-c/", label: "LinkedIn" },
-  { icon: Youtube, href: "https://www.youtube.com/channel/UCZuq0-wBtWNFOUCATF_tkOw", label: "YouTube" }
+  { icon: Youtube, href: "https://www.youtube.com/channel/UCZuq0-wBtWNFOUCATF_tkOw", label: "YouTube" },
+  { icon: WhatsAppIcon, href: "https://wa.me/971585855729", label: "WhatsApp", isWhatsApp: true }
 ];
 
 export function StoreFooter() {
@@ -27,8 +29,8 @@ export function StoreFooter() {
       className="store-footer border-t border-[#24445F] text-slate-300 transition-colors duration-300"
       style={{ backgroundColor: "var(--agtp-footer, #071626)" }}
     >
-      <div className="mx-auto max-w-[1570px] px-6 py-20">
-        <div className="grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-5">
+      <div className="mx-auto max-w-[1570px] px-6 pt-20 pb-4">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-6 lg:col-span-1">
             <Logo className="-mt-6" />
             <p className="text-[15px] font-medium leading-[1.6] text-slate-400">
@@ -41,11 +43,15 @@ export function StoreFooter() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-[12px] border border-[#315671] text-white transition-colors hover:border-[#F97316] hover:bg-[#F97316]"
+                  className={`flex h-11 w-11 items-center justify-center rounded-[12px] border border-[#315671] text-white transition-all duration-200 ${
+                    (item as any).isWhatsApp
+                      ? "hover:border-[#25D366] hover:bg-[#25D366]/15 hover:shadow-[0_0_15px_rgba(37,211,102,0.35)]"
+                      : "hover:border-[#F97316] hover:bg-[#F97316]"
+                  }`}
                   aria-label={item.label}
                   title={item.label}
                 >
-                  <item.icon className="h-5 w-5" />
+                  <item.icon className="h-5 w-5" style={(item as any).isWhatsApp ? { color: "#25D366" } : undefined} />
                 </a>
               ))}
             </div>
@@ -73,15 +79,6 @@ export function StoreFooter() {
             ]}
           />
 
-          <FooterColumn
-            title="AREAS OF EXPERTISE"
-            links={[
-              ["Vehicles", "/vehicles"],
-              ["Parts & Accessories", "/spare-parts"],
-              ["Automotive Shipping", "/automotive-shipping"]
-            ]}
-          />
-
           <div className="space-y-6">
             <h4 className="text-[14px] font-black tracking-[0.24em] text-slate-500">GET IN TOUCH</h4>
             <ul className="space-y-4 text-[16px] font-medium leading-[1.45]">
@@ -96,14 +93,14 @@ export function StoreFooter() {
                 </a>
               </li>
               <li className="flex items-center gap-4">
-                <MessageCircle className="h-5 w-5 shrink-0 text-emerald-400" />
+                <WhatsAppIcon className="h-5 w-5 shrink-0" style={{ color: "#25D366" }} />
                 <a
                   href={`https://wa.me/${supportPhone.replace(/[^0-9]/g, "") || "971585855729"}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-emerald-400"
+                  className="transition-colors hover:text-[#25D366] font-semibold"
                 >
-                 {supportPhone}
+                  {supportPhone}
                 </a>
               </li>
               <li className="flex items-center gap-4">
