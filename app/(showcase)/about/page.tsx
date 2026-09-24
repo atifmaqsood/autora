@@ -1,5 +1,6 @@
 "use client";
 
+import { StatsCounter } from "@/components/ui/stats-counter";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,12 +8,8 @@ import {
   ArrowRight,
   CheckCircle2,
   Eye,
-  FileCheck,
-  Globe2,
   ShieldCheck,
-  Ship,
-  Target,
-  Truck
+  Target
 } from "lucide-react";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { PageHero } from "@/components/ui/page-hero";
@@ -23,8 +20,7 @@ import {
   RevealHeading,
   RevealText,
   RevealButton,
-  RevealStagger,
-  RevealCounter
+  RevealStagger
 } from "@/components/ui/scroll-reveal";
 
 export default function AboutPage() {
@@ -128,29 +124,14 @@ export default function AboutPage() {
 
       {/* ── 3. Statistics Bar (Rolling Numbers) ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <RevealStagger staggerDelay={100} className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-          {[
-            { icon: Ship, value: 10000, suffix: "+", label: "Exports" },
-            { icon: Globe2, value: 45, suffix: "+", label: "Countries Served" },
-            { icon: FileCheck, value: 11, suffix: "+", label: "Years in Trade" },
-            { icon: Truck, value: 94, suffix: "%", label: "On-Time Delivery" }
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="bg-[#102941] border border-slate-800 p-7 sm:p-8 rounded-3xl space-y-3 shadow-xl hover:border-[#F97316]/60 transition-all duration-300 group"
-            >
-              <div className="w-12 h-12 mx-auto rounded-2xl bg-[#F97316]/10 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <item.icon className="w-6 h-6" />
-              </div>
-              <div className="text-3xl sm:text-5xl font-black text-white font-sans tracking-tight">
-                <RevealCounter end={item.value} suffix={item.suffix} />
-              </div>
-              <span className="text-xs sm:text-sm text-slate-400 font-semibold block uppercase tracking-wider">
-                {item.label}
-              </span>
-            </div>
-          ))}
-        </RevealStagger>
+        <StatsCounter
+          stats={[
+            { value: 10000, suffix: "+", label: "Exports" },
+            { value: 45, suffix: "+", label: "Countries Served" },
+            { value: 11, suffix: "+", label: "Years in Trade" },
+            { value: 94, suffix: "%", label: "On-Time Delivery" }
+          ]}
+        />
       </section>
 
       {/* ── 4. WHAT DRIVES US — Mission, Vision & Values ── */}
@@ -271,85 +252,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 6. LEADERSHIP — The people steering AGTP GROUP ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
-        <div className="text-center max-w-xl mx-auto space-y-3 mb-14">
-          <RevealEyebrow>
-            <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
-              <span className="w-6 h-[1.5px] bg-[#F97316]" />
-              LEADERSHIP
-            </div>
-          </RevealEyebrow>
-
-          <RevealHeading>
-            <h2 className="text-3xl sm:text-5xl font-black text-white font-sans">
-              The people steering AGTP GROUP
-            </h2>
-          </RevealHeading>
-
-          <RevealText delay={120}>
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-              Decades of combined experience in automotive trade, international logistics, customer service, and compliance.
-            </p>
-          </RevealText>
-        </div>
-
-        <RevealStagger staggerDelay={100} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            {
-              name: "FAISAL RIAZ",
-              title: "Chairman",
-              desc: "A strategic leader with extensive international business and automotive experience, Faisal provides the long-term vision behind AGTP GROUP's continued global growth.",
-              image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-              name: "FAHAD RIAZ",
-              title: "Deputy Chairman & Group CEO",
-              desc: "Fahad leads AGTP GROUP's operations with a strong focus on customer service, responsible growth, and long-term partnerships across international markets.",
-              image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-              name: "FEROZ RIAZ",
-              title: "Non-Executive Director",
-              desc: "Feroz supports the company's global strategy and diversification, bringing valuable insight into international trade and business development.",
-              image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80"
-            },
-            {
-              name: "ABDUL AZEEM LIAQAT",
-              title: "CEO of AGTP GROUP",
-              desc: "Abdul Azeem leads the automotive division with a focus on operational excellence, team development, and premium customer experiences.",
-              image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80"
-            }
-          ].map((leader) => (
-            <div key={leader.name} className="bg-[#102941] border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between shadow-xl group hover:border-[#F97316] transition-all duration-300">
-              <div className="relative aspect-[3/4] w-full bg-slate-900 overflow-hidden">
-                <Image
-                  src={leader.image}
-                  alt={leader.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                />
-              </div>
-              <div className="p-6 space-y-2">
-                <h3 className="text-base font-black text-white uppercase tracking-tight">{leader.name}</h3>
-                <span className="text-xs font-bold text-[#F97316] block">{leader.title}</span>
-                <p className="text-[11px] text-slate-400 leading-relaxed pt-2">
-                  {leader.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </RevealStagger>
-      </section>
 
       {/* ── 7. READY TO GET STARTED? CTA Banner ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
         <Reveal duration={700}>
           <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl">
-            {/* Ambient glows */}
-            <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#F97316]/5 blur-3xl pointer-events-none" />
-            <div className="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-[#315671]/20 blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 z-0">
+              <Image
+                src={agtpAssets.inventoryHero}
+                alt="AGTP Group vehicle inventory"
+                fill
+                sizes="(max-width: 1280px) 100vw, 1280px"
+                className="object-cover object-center opacity-[0.42]"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to top, color-mix(in srgb, var(--agtp-primary, #0B1F33) 65%, transparent) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 38%, transparent) 52%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 28%, transparent) 100%)"
+                }}
+              />
+            </div>
 
             <div className="relative z-10 max-w-3xl mx-auto space-y-6">
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight font-sans">
@@ -389,5 +312,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
-

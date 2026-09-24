@@ -1,5 +1,6 @@
 "use client";
 
+import { StatsCounter } from "@/components/ui/stats-counter";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, CheckCircle2, Globe2, Mail, Phone, Plane, Ship, Truck } from "lucide-react";
@@ -13,8 +14,7 @@ import {
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
-  RevealText,
-  RevealCounter
+  RevealText
 } from "@/components/ui/scroll-reveal";
 
 export default function AutomotiveShippingPage() {
@@ -81,32 +81,14 @@ export default function AutomotiveShippingPage() {
 
       {/* ── 3. Stats Section ── */}
       <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
-        <Reveal>
-          <div className="rounded-[24px] border border-[#315671] bg-[#0B1F33] overflow-hidden shadow-2xl">
-            <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-slate-800/80">
-              {[
-                { value: 11, suffix: "+", label: "Years in Trade" },
-                { value: 25, suffix: "+", label: "Countries Served" },
-                { value: 93, suffix: "%", label: "On-Time Delivery" },
-                { value: 100, suffix: "%", label: "Verified Port Delivery" }
-              ].map((stat, i) => (
-                <div key={i} className="p-8 md:p-10 flex flex-col justify-center">
-                  <div className="text-4xl md:text-5xl font-black text-white tracking-tight flex items-baseline justify-center lg:justify-start">
-                    <RevealCounter
-                      end={stat.value}
-                      suffix={stat.suffix}
-                      suffixClassName="text-3xl ml-1 font-black"
-                      suffixStyle={{ color: "var(--agtp-secondary)" }}
-                    />
-                  </div>
-                  <div className="mt-3 text-[13px] font-semibold text-slate-400 uppercase tracking-wider text-center lg:text-left">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
+        <StatsCounter
+          stats={[
+            { value: 11, suffix: "+", label: "Years in Trade" },
+            { value: 25, suffix: "+", label: "Countries Served" },
+            { value: 93, suffix: "%", label: "On-Time Delivery" },
+            { value: 100, suffix: "%", label: "Verified Port Delivery" }
+          ]}
+        />
       </section>
 
       {/* ── 4. Ocean & Air Shipping Cards ── */}

@@ -22,21 +22,21 @@ const marketCategories = [
     subtitle: "Genuine, OEM, Aftermarket & More",
     image: agtpAssets.sparePartsHero,
     icon: Package,
-    href: "/parts-accessories"
+    href: "/dubai-automotive/parts-accessories"
   },
   {
     title: "Engines & Transmissions",
     subtitle: "Diesel, Petrol, Hybrid & More",
     image: agtpAssets.mercedesCclassCard,
     icon: Cog,
-    href: "/parts-accessories"
+    href: "/dubai-automotive/engines-transmissions"
   },
   {
     title: "Tyres, Rims & Body Kits",
     subtitle: "Performance, Styling & Protection",
     image: agtpAssets.bmwX2Card,
     icon: Car,
-    href: "/parts-accessories"
+    href: "/dubai-automotive/tyres-rims-body-kits"
   }
 ];
 

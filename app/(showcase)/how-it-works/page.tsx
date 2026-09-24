@@ -142,13 +142,7 @@ export default function HowItWorksPage() {
       {/* ── 2. 6 Steps Process Section (Matching Reference Design with 3 Cards per Row) ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-20">
         <Reveal>
-          <div 
-            className="relative overflow-hidden rounded-[36px] border border-white/10 bg-[#0B1F33] p-8 md:p-14 shadow-2xl"
-            style={{ background: "linear-gradient(to bottom, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 30%, black) 100%)" }}
-          >
-            {/* Ambient Bottom Globe Light */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
-
+          <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-[var(--agtp-primary)] p-8 shadow-2xl md:p-14">
             {/* Top Bar with Brand Accents */}
             <div className="flex items-center justify-between mb-8">
               {/* Left: Dubai To The World */}
@@ -260,25 +254,6 @@ export default function HowItWorksPage() {
               })}
             </RevealStagger>
 
-            {/* Bottom Brand Bar Strip */}
-            <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 relative">
-              {/* Left: AGTP Group */}
-              <div className="flex items-center gap-3 relative z-10">
-                <span className="font-black text-[22px] tracking-tight text-white">AGTP</span>
-                <span className="text-[12px] font-black text-slate-400 tracking-[0.25em] uppercase">GROUP —</span>
-              </div>
-
-              {/* Center: Global Reach • Local Expertise */}
-              <div className="flex flex-col items-center text-center relative z-10">
-                <span className="text-[11px] font-black uppercase tracking-[0.32em] text-slate-400">GLOBAL REACH</span>
-                <span className="text-[11px] font-black uppercase tracking-[0.32em] text-slate-400">LOCAL EXPERTISE</span>
-              </div>
-
-              {/* Right: Vehicles | Spare Parts | Global Solutions */}
-              <div className="text-[11px] font-bold tracking-[0.22em] text-slate-500 uppercase relative z-10">
-                VEHICLES &nbsp;|&nbsp; SPARE PARTS &nbsp;|&nbsp; GLOBAL SOLUTIONS
-              </div>
-            </div>
           </div>
         </Reveal>
       </section>

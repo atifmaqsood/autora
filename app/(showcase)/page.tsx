@@ -1,5 +1,6 @@
 "use client";
 
+import { StatsCounter } from "@/components/ui/stats-counter";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -30,7 +31,6 @@ import type { Vehicle } from "@/lib/vehicles/types";
 import {
   Reveal,
   RevealButton,
-  RevealCounter,
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
@@ -46,10 +46,10 @@ import { agtpAssets } from "@/src/assets";
 
 
 const heroStats = [
-  { icon: Ship, value: 10000, suffix: "+", label: "Exports" },
-  { icon: Globe2, value: 25, suffix: "+", label: "Countries Served" },
-  { icon: FileCheck, value: 11, suffix: "+", label: "Years in Trade" },
-  { icon: Truck, value: 94, suffix: "%", label: "On-Time Delivery" }
+  { value: 10000, suffix: "+", label: "Exports" },
+  { value: 25, suffix: "+", label: "Countries Served" },
+  { value: 11, suffix: "+", label: "Years in Trade" },
+  { value: 94, suffix: "%", label: "On-Time Delivery" }
 ];
 
 const industryCards = [
@@ -406,26 +406,7 @@ function VehicleShowcaseSection({
 function HeroStatsSection() {
   return (
     <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[20px]">
-      <RevealStagger staggerDelay={70} className="grid overflow-hidden rounded-[20px] border border-[#315671] bg-[#102941] shadow-2xl md:grid-cols-2 xl:grid-cols-4">
-        {heroStats.map((stat) => {
-          const Icon = stat.icon;
-          return (
-            <div key={stat.label} className="flex min-h-[140px] items-center justify-center gap-6 border-b border-[#315671] px-8 py-8 md:border-r xl:border-b-0">
-              <Icon className="h-10 w-10 shrink-0 text-[#FDBA74]" />
-              <div>
-                <div className="text-[36px] font-black leading-none text-white md:text-[46px]">
-                  <RevealCounter
-                    end={stat.value}
-                    suffix={stat.suffix}
-                    suffixStyle={{ color: "var(--agtp-secondary, #F97316)" }}
-                  />
-                </div>
-                <div className="mt-2 text-[14px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</div>
-              </div>
-            </div>
-          );
-        })}
-      </RevealStagger>
+      <StatsCounter stats={heroStats} />
     </section>
   );
 }

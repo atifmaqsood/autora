@@ -1,4 +1,5 @@
 import { agtpAssets } from "@/src/assets";
+import type { StaticImageData } from "next/image";
 import { Settings, Wrench, Disc, Car, Package, LucideIcon } from "lucide-react";
 
 export interface PartsCategory {
@@ -7,9 +8,34 @@ export interface PartsCategory {
   title: string;
   subtitle: string;
   icon: LucideIcon;
-  image: any;
+  image: string | StaticImageData;
+  gallery?: (string | StaticImageData)[];
+  brochureUrl?: string;
   layout?: string;
   products: string[];
+}
+
+// Temporary demo galleries. Replace each category's gallery with its own photos.
+const demoImages = [
+  agtpAssets.sparePartsHero,
+  agtpAssets.mercedesCclassCard,
+  agtpAssets.cadillacEscaladeCard,
+  agtpAssets.bmwX2Card,
+  agtpAssets.bydDestroyerCard,
+  agtpAssets.bmw760Card,
+  agtpAssets.bmw760ArmoredCard,
+  agtpAssets.pickups,
+  agtpAssets.sedans,
+  agtpAssets.suvs,
+  agtpAssets.vans,
+  agtpAssets.spotlightFerrari,
+  agtpAssets.exportPort,
+  agtpAssets.aboutYard,
+  agtpAssets.heroYard
+];
+
+function demoGallery(cover: StaticImageData) {
+  return [cover, ...demoImages.filter((image) => image.src !== cover.src)].slice(0, 15);
 }
 
 export const partsCategories: PartsCategory[] = [
@@ -20,6 +46,7 @@ export const partsCategories: PartsCategory[] = [
     subtitle: "Filters, brakes, fluids, batteries & scheduled maintenance essentials",
     icon: Settings,
     image: agtpAssets.sparePartsHero,
+    gallery: demoGallery(agtpAssets.sparePartsHero),
     layout: "min-h-[360px] xl:col-span-5 xl:row-span-2 xl:min-h-[540px]",
     products: [
       "Oil Filters",
@@ -46,6 +73,7 @@ export const partsCategories: PartsCategory[] = [
     subtitle: "Engines, transmissions & mechanical components",
     icon: Wrench,
     image: agtpAssets.mercedesCclassCard,
+    gallery: demoGallery(agtpAssets.mercedesCclassCard),
     layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]",
     products: [
       "Engines",
@@ -72,6 +100,7 @@ export const partsCategories: PartsCategory[] = [
     subtitle: "Tyres, rims & related wheel components",
     icon: Disc,
     image: agtpAssets.cadillacEscaladeCard,
+    gallery: demoGallery(agtpAssets.cadillacEscaladeCard),
     layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]",
     products: [
       "Passenger Car Tyres",
@@ -98,6 +127,7 @@ export const partsCategories: PartsCategory[] = [
     subtitle: "Bumpers, lamps, panels & exterior components",
     icon: Car,
     image: agtpAssets.bmwX2Card,
+    gallery: demoGallery(agtpAssets.bmwX2Card),
     layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]",
     products: [
       "Front Bumpers",
@@ -124,6 +154,7 @@ export const partsCategories: PartsCategory[] = [
     subtitle: "Interior, exterior, off-road & upgrade products",
     icon: Package,
     image: agtpAssets.bydDestroyerCard,
+    gallery: demoGallery(agtpAssets.bydDestroyerCard),
     layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]",
     products: [
       "Floor Mats",

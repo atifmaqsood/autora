@@ -54,6 +54,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9
     },
     {
+      url: `${baseUrl}/dubai-automotive`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7
+    },
+    ...["parts-accessories", "engines-transmissions", "tyres-rims-body-kits"].map((category) => ({
+      url: `${baseUrl}/dubai-automotive/${category}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6
+    })),
+    {
       url: `${baseUrl}/parts-accessories`,
       lastModified: new Date(),
       changeFrequency: "weekly",
@@ -118,5 +130,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...vehicleUrls
   ];
 }
-
 

@@ -147,11 +147,13 @@ export default function PaymentPage() {
         subtitle="Verified international banking channels, transparent compliance protocols, and payment policies for AGTP Group L.L.C-FZ."
         imageSrc={agtpAssets.bank}
         imageAlt="AGTP Group Corporate Banking & Finance Desk"
+        imagePosition="top"
+        imageFit="default"
       />
 
       {/* ── 2. Payment & Banking Policy Guidelines (Elevated & Highly Readable Design) ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-16">
-        <div className="rounded-[28px] border border-[#315671] bg-[#102941] p-8 md:p-14 shadow-2xl">
+        <div className="rounded-[28px] border border-[#315671] bg-[var(--agtp-footer)] p-8 md:p-14 shadow-2xl">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-12 border-b border-[#24445F] pb-8">
             <div>
               <RevealEyebrow>
@@ -165,9 +167,6 @@ export default function PaymentPage() {
                   Payment & Banking Policy
                 </h2>
               </RevealHeading>
-              <p className="mt-2 text-[17px] font-medium text-slate-300 max-w-2xl">
-                Standard international trade protocols ensuring complete transparency, funds security, and smooth transaction settlement.
-              </p>
             </div>
 
             {/* View Switcher Controls */}
@@ -284,7 +283,7 @@ export default function PaymentPage() {
                         <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#315671] bg-[#0B1F33] text-[#F97316] group-hover:border-[#F97316] group-hover:bg-[#14314B] group-hover:shadow-[0_0_15px_rgba(249,115,22,0.25)] transition-all duration-300">
                           <Icon className="h-6 w-6 text-[#F97316] stroke-[2.2] transition-transform duration-300 group-hover:scale-110" />
                         </div>
-                        <span className="flex h-8 items-center rounded-full border border-[#315671] bg-[#0B1F33] px-3.5 text-[11px] font-black tracking-wider text-[#FDBA74] group-hover:border-[#F97316] transition-colors">
+                        <span className="flex h-8 items-center rounded-full border border-transparent bg-[var(--agtp-secondary)] px-3.5 text-[11px] font-black tracking-wider text-white transition-opacity group-hover:opacity-90">
                           PROTOCOL {policy.number}
                         </span>
                       </div>
@@ -385,7 +384,7 @@ export default function PaymentPage() {
 
               <div className="flex items-center justify-between border-b border-[#24445F] pb-3">
                 <h3 className="text-[17px] font-black text-white">{acc.currency}</h3>
-                <span className="rounded-full border border-[#F97316]/50 bg-[#0B1F33] px-3 py-0.5 text-[12px] font-black text-[#FDBA74]">
+                <span className="rounded-full border border-transparent bg-[var(--agtp-secondary)] px-3 py-0.5 text-[12px] font-black text-white">
                   {acc.code}
                 </span>
               </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { StatsCounter } from "@/components/ui/stats-counter";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,8 +20,7 @@ import {
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
-  RevealText,
-  RevealCounter
+  RevealText
 } from "@/components/ui/scroll-reveal";
 import { agtpAssets } from "@/src/assets";
 import { getAllPartsCategories } from "@/lib/parts/data";
@@ -91,25 +91,9 @@ export default function PartsAccessoriesPage() {
         </a>
       </PageHero>
 
-      {/* ── 2. Live Stats / Counter Section (Matching Reviews Page Design & Size) ── */}
+      {/* ── 2. Live Stats / Counter Section ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-16">
-        <Reveal>
-          <div className="grid grid-cols-2 gap-5 rounded-[20px] border border-[#315671] bg-[#102941] p-8 shadow-lg md:grid-cols-4">
-            {partsStats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-[36px] font-black text-white md:text-[46px] flex items-baseline justify-center">
-                  <RevealCounter
-                    end={stat.value}
-                    suffix={stat.suffix}
-                    suffixClassName="text-2xl md:text-3xl ml-1 font-black"
-                    suffixStyle={{ color: "var(--agtp-secondary)" }}
-                  />
-                </div>
-                <div className="mt-1 text-[13px] font-semibold text-slate-300">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+        <StatsCounter stats={partsStats} />
       </section>
 
       {/* ── 3. Parts Catalog (Clicking Category opens direct Product Page) ── */}
@@ -296,7 +280,7 @@ export default function PartsAccessoriesPage() {
             <RevealButton delay={180}>
               <div className="pt-2">
                 <Link
-                  href="/dubai-markets"
+                  href="/dubai-automotive"
                   className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-white/10"
                 >
                   <span>EXPLORE DUBAI AUTOMOTIVE</span>
@@ -377,4 +361,3 @@ export default function PartsAccessoriesPage() {
     </div>
   );
 }
-

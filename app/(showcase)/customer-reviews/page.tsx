@@ -1,5 +1,6 @@
 "use client";
 
+import { StatsCounter } from "@/components/ui/stats-counter";
 import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,8 +14,7 @@ import {
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
-  RevealText,
-  RevealCounter
+  RevealText
 } from "@/components/ui/scroll-reveal";
 
 interface CustomerReview {
@@ -379,23 +379,7 @@ export default function CustomerReviewsPage() {
 
       {/* ── 2. Live Stats Section ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-16">
-        <Reveal>
-          <div className="grid grid-cols-2 gap-5 rounded-[20px] border border-[#315671] bg-[#102941] p-8 shadow-lg md:grid-cols-4">
-            {reviewStats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-[36px] font-black text-white md:text-[46px] flex items-baseline justify-center">
-                  <RevealCounter
-                    end={stat.value}
-                    suffix={stat.suffix}
-                    suffixClassName="text-2xl md:text-3xl ml-1 font-black"
-                    suffixStyle={{ color: "var(--agtp-secondary)" }}
-                  />
-                </div>
-                <div className="mt-1 text-[13px] font-semibold text-slate-300">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+        <StatsCounter stats={reviewStats} />
       </section>
 
       {/* ── 3. Filters & View Mode Selector ── */}

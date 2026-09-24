@@ -455,7 +455,7 @@ export default function CareersPage() {
                 <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 border border-[#F97316]/20 text-[#F97316] flex items-center justify-center">
                   <item.icon className="w-6 h-6" />
                 </div>
-                <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 border border-slate-700/60 rounded-full px-3 py-1">
+                <span className="rounded-full border border-transparent bg-[var(--agtp-primary)] px-3 py-1 text-[11px] font-black uppercase tracking-wider text-white">
                   {item.tag}
                 </span>
               </div>

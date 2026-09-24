@@ -23,6 +23,8 @@ export interface PageHeroProps {
   children?: React.ReactNode;
   className?: string;
   align?: "left" | "center";
+  imagePosition?: "center" | "top";
+  imageFit?: "cover" | "default";
 }
 
 export function PageHero({
@@ -34,7 +36,9 @@ export function PageHero({
   badge,
   children,
   className,
-  align = "left"
+  align = "left",
+  imagePosition = "center",
+  imageFit = "cover"
 }: PageHeroProps) {
   return (
     <section
@@ -50,7 +54,7 @@ export function PageHero({
           alt={imageAlt}
           fill
           priority
-          className="object-cover object-center brightness-90"
+          className={cn(imageFit === "cover" && "object-cover", "brightness-90", imagePosition === "top" ? "object-top" : "object-center")}
           sizes="100vw"
         />
         {/* Layered Overlays for Contrast & Atmosphere */}

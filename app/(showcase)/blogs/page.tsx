@@ -228,9 +228,11 @@ const allBlogPosts: BlogPost[] = [
 ];
 
 const categories = ["ALL", "AGTP Insights", "Business", "Exterior", "Body Kit", "Accessories", "Sound"];
+const POSTS_PER_PAGE = 15;
 
 export default function BlogsPage() {
   const [activeCategory, setActiveCategory] = useState("ALL");
+  const [currentPage, setCurrentPage] = useState(1);
   const [subscribed, setSubscribed] = useState(false);
   const [email, setEmail] = useState("");
 
@@ -238,6 +240,8 @@ export default function BlogsPage() {
     if (activeCategory === "ALL") return allBlogPosts;
     return allBlogPosts.filter((post) => post.category.toLowerCase() === activeCategory.toLowerCase());
   }, [activeCategory]);
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
+  const visiblePosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 
   return (
     <div className="bg-[#060709] pb-24 text-white">
@@ -267,7 +271,10 @@ export default function BlogsPage() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  setCurrentPage(1);
+                }}
                 className={`rounded-full px-4 py-2 text-[12px] font-black transition-all ${
                   activeCategory.toLowerCase() === cat.toLowerCase()
                     ? "bg-[#F97316] text-white shadow-md"
@@ -285,12 +292,12 @@ export default function BlogsPage() {
       <section className="mx-auto max-w-[1570px] px-6 pt-12">
         <div className="mb-6 flex items-center justify-between">
           <span className="text-[13px] font-semibold text-slate-400">
-            Showing <strong className="text-white">{filteredPosts.length}</strong> articles
+            Showing <strong className="text-white">{visiblePosts.length}</strong> of {filteredPosts.length} articles
           </span>
         </div>
 
-        <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredPosts.map((post) => (
+        <RevealStagger key={`${activeCategory}-${currentPage}`} staggerDelay={70} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {visiblePosts.map((post) => (
             <div
               key={post.id}
               className="group flex flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-[#F97316]"
@@ -334,6 +341,21 @@ export default function BlogsPage() {
             </div>
           ))}
         </RevealStagger>
+        {totalPages > 1 && (
+          <nav aria-label="Blog pagination" className="mt-10 flex justify-center gap-2">
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+              <button
+                key={page}
+                type="button"
+                aria-current={currentPage === page ? "page" : undefined}
+                onClick={() => setCurrentPage(page)}
+                className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-black transition-colors ${currentPage === page ? "border-transparent bg-[var(--agtp-secondary)] text-white" : "border-[#315671] bg-[var(--agtp-primary)] text-slate-300 hover:border-[var(--agtp-secondary)] hover:text-white"}`}
+              >
+                {page}
+              </button>
+            ))}
+          </nav>
+        )}
       </section>
 
       {/* ── 4. Immersive Hero-Style Newsletter Banner matching design reference ── */}
