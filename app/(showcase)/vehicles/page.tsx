@@ -163,7 +163,7 @@ function CatalogContent() {
         </div>
       )}
 
-      {/* CAN'T FIND THE EXACT SPEC? Banner Section */}
+      {/* Vehicle request banner */}
       <Reveal duration={700}>
         <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#1e2b45] shadow-2xl mt-16 min-h-[380px] sm:min-h-[460px] flex items-center justify-center p-8 sm:p-14 text-center">
           {/* Dark luxury garage background photo */}
@@ -185,11 +185,10 @@ function CatalogContent() {
           {/* Banner Content */}
           <div className="relative z-10 w-full max-w-4xl lg:max-w-5xl mx-auto space-y-4 px-4">
             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-black text-white uppercase tracking-tight font-sans leading-[1.1]">
-              <span className="block">CAN&apos;T FIND THE EXACT</span>
-              <span className="block">SPEC?</span>
+              CAN&apos;T FIND THE RIGHT VEHICLE?
             </h2>
             <p className="text-xs sm:text-sm md:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed">
-              We source to order. Tell us the make, model and destination — we&apos;ll find it and quote it.
+              Tell us what you&apos;re looking for — share the make, model, specifications, and destination, and we&apos;ll check availability and provide a clear quotation.
             </p>
             <div className="pt-3">
               <button

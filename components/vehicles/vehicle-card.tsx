@@ -20,12 +20,12 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
   return (
     <article className="group overflow-hidden rounded-[22px] border border-[#24445F] bg-[#14314B] shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3D6480]">
       <Link href={`/vehicles/${vehicle.slug}`} className="block">
-        <div className="relative aspect-[1024/575] overflow-hidden bg-white">
+        <div className={`relative aspect-[1024/575] overflow-hidden ${vehicle.imageNote ? "bg-[var(--agtp-primary)]" : "bg-white"}`}>
           <Image
             src={vehicle.images[0] || agtpAssets.bmw760Card}
             alt={`${vehicle.make} ${vehicle.model}`}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+            className={`${vehicle.imageNote ? "object-contain p-14" : "object-cover"} transition-transform duration-500 group-hover:scale-[1.025]`}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <span className="absolute right-4 top-5 rounded-full bg-[#242733]/95 px-5 py-2.5 text-[12px] font-black uppercase tracking-wider text-white shadow-xl">

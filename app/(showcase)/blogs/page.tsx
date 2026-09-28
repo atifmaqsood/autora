@@ -11,7 +11,6 @@ import {
   RevealText,
   RevealButton,
   RevealEyebrow,
-  RevealStagger,
   Reveal
 } from "@/components/ui/scroll-reveal";
 
@@ -296,51 +295,58 @@ export default function BlogsPage() {
           </span>
         </div>
 
-        <RevealStagger key={`${activeCategory}-${currentPage}`} staggerDelay={70} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div key={`${activeCategory}-${currentPage}`} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {visiblePosts.map((post) => (
-            <div
-              key={post.id}
-              className="group flex flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-[#F97316]"
-            >
-              <div>
-                <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute left-4 top-4 rounded-full bg-[#0B1F33]/85 px-3 py-1 text-[11px] font-black text-[#FDBA74] backdrop-blur border border-[#F97316]/30">
-                    {post.category}
+            <Reveal key={post.id} distance={45} duration={750} className="h-full">
+              <div className="group flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-[#F97316]">
+                <div>
+                  <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute left-4 top-4 rounded-full bg-[#0B1F33]/85 px-3 py-1 text-[11px] font-black text-[#FDBA74] backdrop-blur border border-[#F97316]/30">
+                      {post.category}
+                    </div>
+                  </div>
+
+                  <div className="p-7 space-y-3">
+                    <Reveal distance={12} duration={650}>
+                      <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                        <Calendar className="h-3.5 w-3.5 text-[#F97316]" />
+                        <span>{post.date}</span>
+                      </div>
+                    </Reveal>
+
+                    <Reveal distance={14} duration={700} delay={60}>
+                      <h3 className="text-[20px] font-black leading-snug text-white transition-colors group-hover:text-[#FDBA74] line-clamp-2">
+                        {post.title}
+                      </h3>
+                    </Reveal>
+
+                    <Reveal distance={14} duration={700} delay={120}>
+                      <p className="text-[16px] font-medium text-slate-300 leading-relaxed line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                    </Reveal>
                   </div>
                 </div>
 
-                <div className="p-7 space-y-3">
-                  <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
-                    <Calendar className="h-3.5 w-3.5 text-[#F97316]" />
-                    <span>{post.date}</span>
-                  </div>
-
-                  <h3 className="text-[20px] font-black leading-snug text-white transition-colors group-hover:text-[#FDBA74] line-clamp-2">
-                    {post.title}
-                  </h3>
-
-                  <p className="text-[16px] font-medium text-slate-300 leading-relaxed line-clamp-3">
-                    {post.excerpt}
-                  </p>
+                <div className="px-7 pb-7 pt-2 border-t border-[#24445F]/60">
+                  <Reveal distance={12} duration={650} delay={180}>
+                    <span className="inline-flex items-center gap-2 text-[13px] font-black text-[#F97316] group-hover:text-[#FDBA74] transition-colors">
+                      <span>Read full article</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </Reveal>
                 </div>
               </div>
-
-              <div className="px-7 pb-7 pt-2 border-t border-[#24445F]/60">
-                <span className="inline-flex items-center gap-2 text-[13px] font-black text-[#F97316] group-hover:text-[#FDBA74] transition-colors">
-                  <span>Read full article</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </div>
+            </Reveal>
           ))}
-        </RevealStagger>
+        </div>
         {totalPages > 1 && (
           <nav aria-label="Blog pagination" className="mt-10 flex justify-center gap-2">
             {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (

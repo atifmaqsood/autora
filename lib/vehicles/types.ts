@@ -26,6 +26,7 @@ export interface Vehicle {
   make: string;
   model: string;
   variant: string;
+  displayTitle?: string;
   year: number;
   category: VehicleCategory;
   bodyType: string;
@@ -46,6 +47,10 @@ export interface Vehicle {
   doors: number;
   exteriorColor: string;
   interiorColor: string;
+  steering?: "LHD" | "RHD";
+  variantCode?: string;
+  descriptionSections?: { title: string; body: string }[];
+  imageNote?: string;
   description: string;
   images: string[];
   features: string[];
@@ -53,7 +58,7 @@ export interface Vehicle {
   location: string;
   isFeatured: boolean;
   isNew: boolean;
-  status: "Available" | "Reserved" | "Upcoming";
+  status: "Available" | "Reserved" | "Upcoming" | "On Request";
 }
 
 export interface VehicleFilterState {

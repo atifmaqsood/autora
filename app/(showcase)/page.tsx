@@ -501,7 +501,7 @@ function ProcessSection() {
 
 function GlobalNetworkSection() {
   return (
-    <section className="mt-[82px] border-y border-[#24445F] bg-[#081A2B] py-[82px]">
+    <section className="mt-[82px] border-y border-[#24445F] py-[82px]" style={{ backgroundColor: "var(--agtp-footer, #071626)" }}>
       <div className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
@@ -752,7 +752,7 @@ function AutomotivePartsSpotlight() {
 
 function LeadingBrandsSection() {
   return (
-    <section className="overflow-hidden border-y border-[#24445F] bg-[#081A2B] py-[82px]">
+    <section className="overflow-hidden border-y border-[#24445F] py-[82px]" style={{ backgroundColor: "var(--agtp-footer, #071626)" }}>
       <div className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 text-center">
         <SectionEyebrow center>LEADING CAR BRANDS</SectionEyebrow>
         <RevealHeading>
@@ -1156,7 +1156,7 @@ function PromiseRevealSection() {
   }, [prefersReducedMotion, words.length]);
 
   return (
-    <section ref={sectionRef} className="relative border-y border-white/10 py-[82px] bg-[var(--agtp-primary)]">
+    <section ref={sectionRef} className="relative border-y border-white/10 py-[82px]" style={{ backgroundColor: "var(--agtp-bg, #060709)" }}>
       <div className="mx-auto w-full max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20">
         <SectionEyebrow>OUR PROMISE</SectionEyebrow>
         <h2 className="mt-7 font-[family-name:var(--font-sora)] text-[32px] font-extrabold leading-[1.15] tracking-normal text-white md:text-[45px] lg:text-[57px]">
@@ -1239,6 +1239,5 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
     </div>
   );
 }
-
 
 

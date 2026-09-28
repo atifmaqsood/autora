@@ -166,7 +166,7 @@ export default function AdminVehiclesPage() {
                     <td className="font-bold text-slate-700">{v.year}</td>
 
                     <td className="text-slate-600 font-medium">
-                      <div>{v.horsepower} HP • {v.fuelType}</div>
+                      <div>{v.horsepower ? `${v.horsepower} HP` : "Power on request"} • {v.fuelType}</div>
                       <div className="text-[10px] text-slate-400">{v.transmission}</div>
                     </td>
 

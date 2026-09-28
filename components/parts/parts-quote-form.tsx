@@ -9,7 +9,7 @@ import { DEFAULT_COUNTRY } from "@/lib/countries-data";
 const inputClass = "mt-1.5 h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-slate-500 focus:border-[var(--agtp-secondary)] focus:outline-none";
 const labelClass = "block text-xs font-bold text-slate-200";
 
-export function PartsQuoteForm({ category, slug }: { category: string; slug: string }) {
+export function PartsQuoteForm({ category, slug, vehicle }: { category: string; slug: string; vehicle?: { id: string; make: string; model: string } }) {
   const [phone, setPhone] = useState("");
   const [phoneCountry, setPhoneCountry] = useState(DEFAULT_COUNTRY);
   const [destination, setDestination] = useState(DEFAULT_COUNTRY.name);
@@ -34,7 +34,7 @@ export function PartsQuoteForm({ category, slug }: { category: string; slug: str
       if (!Array.isArray(existing)) throw new Error("Invalid inquiry data");
       localStorage.setItem("agtp_inquiries", JSON.stringify([{
         id,
-        vehicleId: `parts-${slug}`,
+        vehicleId: vehicle?.id ?? `parts-${slug}`,
         vehicleName: category,
         name: fullName,
         fullName,
@@ -56,7 +56,7 @@ export function PartsQuoteForm({ category, slug }: { category: string; slug: str
   return (
     <section id="request-quote" tabIndex={-1} aria-labelledby="quote-heading" className="scroll-mt-44 rounded-3xl border border-white/10 bg-[#0B1F33] p-6 outline-none sm:p-8 md:p-10">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--agtp-secondary)]">Request a quote</p>
-      <h2 id="quote-heading" className="mt-3 text-2xl font-black tracking-tight sm:text-4xl">Send Your Parts Inquiry</h2>
+      <h2 id="quote-heading" className="mt-3 text-2xl font-black tracking-tight sm:text-4xl">Send Your {vehicle ? "Vehicle" : "Parts"} Inquiry</h2>
       <p className="mt-3 text-sm text-slate-400">{category} — tell us what you need and where it needs to go.</p>
       {reference ? (
         <div role="status" className="mt-8 space-y-4 rounded-2xl border border-white/10 bg-black/20 p-6">
@@ -83,16 +83,16 @@ export function PartsQuoteForm({ category, slug }: { category: string; slug: str
             />
             <div>
               <label htmlFor="parts-make" className={labelClass}>Vehicle Make *</label>
-              <input id="parts-make" name="make" required placeholder="e.g., Toyota" className={inputClass} />
+              <input id="parts-make" name="make" required defaultValue={vehicle?.make} placeholder="e.g., Toyota" className={inputClass} />
             </div>
             <div>
               <label htmlFor="parts-model" className={labelClass}>Vehicle Model *</label>
-              <input id="parts-model" name="model" required placeholder="e.g., Hilux, Corolla" className={inputClass} />
+              <input id="parts-model" name="model" required defaultValue={vehicle?.model} placeholder="e.g., Hilux, Corolla" className={inputClass} />
             </div>
             <CountrySelect id="parts-country" label="Destination Country *" required value={destination} onChange={setDestination} labelClassName={labelClass} buttonClassName={`${inputClass} flex items-center justify-between text-left`} />
             <div className="md:col-span-3">
               <label htmlFor="parts-requirements" className={labelClass}>Specific Questions or Requirements</label>
-              <textarea id="parts-requirements" name="message" rows={4} placeholder="Part numbers, quantities, vehicle year, or any other requirements…" className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/20 p-4 text-sm text-white placeholder:text-slate-500 focus:border-[var(--agtp-secondary)] focus:outline-none" />
+              <textarea id="parts-requirements" name="message" rows={4} placeholder={vehicle ? "Destination, quantity, preferred specifications, or any other requirements…" : "Part numbers, quantities, vehicle year, or any other requirements…"} className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/20 p-4 text-sm text-white placeholder:text-slate-500 focus:border-[var(--agtp-secondary)] focus:outline-none" />
             </div>
           </div>
           {error && <p role="alert" className="text-sm text-red-300">{error}</p>}

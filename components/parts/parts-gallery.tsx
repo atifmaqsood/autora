@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export function PartsGallery({ images, title }: { images: (string | StaticImageData)[]; title: string }) {
+export function PartsGallery({ images, title, contain = false }: { images: (string | StaticImageData)[]; title: string; contain?: boolean }) {
   const [selected, setSelected] = useState(0);
   const thumbnails = useRef<HTMLDivElement>(null);
 
@@ -39,7 +39,7 @@ export function PartsGallery({ images, title }: { images: (string | StaticImageD
           fill
           priority
           sizes="(max-width: 1280px) 100vw, 1216px"
-          className="object-cover"
+          className={contain ? "object-contain p-16 sm:p-28" : "object-cover"}
         />
         {images.length > 1 && (
           <>
@@ -66,7 +66,7 @@ export function PartsGallery({ images, title }: { images: (string | StaticImageD
             aria-pressed={selected === index}
             className={`relative h-16 w-24 shrink-0 snap-start overflow-hidden rounded-md border-2 transition-opacity sm:h-24 sm:w-36 ${selected === index ? "border-[var(--agtp-secondary)] opacity-100" : "border-transparent opacity-50 hover:opacity-100"}`}
           >
-            <Image src={src} alt="" fill sizes="144px" className="object-cover" />
+            <Image src={src} alt="" fill sizes="144px" className={contain ? "object-contain p-3" : "object-cover"} />
           </button>
         ))}
         </div>

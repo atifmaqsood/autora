@@ -236,7 +236,7 @@ export default function AdminDashboardPage() {
                     {vehicle.model}
                   </h4>
                   <div className="text-[10px] text-slate-500 truncate">
-                    {vehicle.horsepower} HP • {vehicle.transmission}
+                    {vehicle.horsepower ? `${vehicle.horsepower} HP` : "Power on request"} • {vehicle.transmission}
                   </div>
                 </div>
 
