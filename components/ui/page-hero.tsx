@@ -97,12 +97,12 @@ export function PageHero({
 
           {/* Optional Badge */}
           {badge && (
-            <div className={cn("flex items-center", align === "center" && "justify-center")}>
+            <RevealEyebrow delay={40} className={cn("flex items-center", align === "center" && "justify-center")}>
               <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-950/60 px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-emerald-400 backdrop-blur-md">
                 <span className={cn("h-2 w-2 rounded-full animate-pulse", badge.dotColor || "bg-emerald-400")} />
                 {badge.text}
               </span>
-            </div>
+            </RevealEyebrow>
           )}
 
           {/* Main Hero Title */}
@@ -123,9 +123,9 @@ export function PageHero({
 
           {/* Extra Children / Search / Action slots */}
           {children && (
-            <div className="pt-4">
+            <RevealText delay={200} className="pt-4">
               {children}
-            </div>
+            </RevealText>
           )}
         </div>
       </div>

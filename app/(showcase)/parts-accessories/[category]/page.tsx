@@ -7,6 +7,7 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { BrochureViewer } from "@/components/parts/brochure-viewer";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
+import { Reveal } from "@/components/ui/scroll-reveal";
 import { getPartsCategoryBySlug, type PartsCategory } from "@/lib/parts/data";
 
 export default function CategoryProductPage({ params }: { params: Promise<{ category: string }> }) {
@@ -40,9 +41,11 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
           <span aria-current="page" className="text-white">{category.title}</span>
         </nav>
 
-        <PartsGallery images={images} title={category.title} />
+        <Reveal distance={40} duration={800}>
+          <PartsGallery images={images} title={category.title} />
+        </Reveal>
 
-        <div className="mt-10 sm:mt-12">
+        <Reveal distance={24} duration={750} className="mt-10 sm:mt-12">
           <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">Parts & Accessories</p>
           <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">{category.title}</h1>
           <div className="mt-7 flex flex-wrap items-center gap-5">
@@ -51,8 +54,9 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
               Request a Quote <ArrowRight className="h-4 w-4" />
             </a>
           </div>
-        </div>
+        </Reveal>
 
+        <Reveal distance={32} duration={800}>
         <section aria-label="Category details" className="mt-10 rounded-3xl border border-white/10 bg-[var(--agtp-primary)] p-5 shadow-2xl sm:mt-12 sm:p-8 lg:p-10">
           <div role="tablist" aria-label="Product information" className="flex flex-wrap gap-3 border-b border-white/15 pb-5">
             {(["features", "description"] as const).map((tab) => (
@@ -76,12 +80,13 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
             <p>AGTP Group supplies {category.title.toLowerCase()} from the UAE for customers worldwide. Send us your part numbers, vehicle details, and quantities so our team can confirm compatibility, availability, pricing, and shipping options for your destination.</p>
           </div>
         </section>
-        <div className="pt-8">
+        </Reveal>
+        <Reveal distance={20} duration={700} className="pt-8">
           <BrochureViewer url={category.brochureUrl ?? `/api/parts/${category.slug}/brochure`} title={category.title} />
-        </div>
-        <div className="pt-8">
+        </Reveal>
+        <Reveal distance={24} duration={800} className="pt-8">
           <PartsQuoteForm category={category.title} slug={category.slug} />
-        </div>
+        </Reveal>
       </div>
     </div>
   );

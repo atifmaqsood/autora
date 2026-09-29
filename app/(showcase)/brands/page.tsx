@@ -71,11 +71,11 @@ export default function BrandsPage() {
           ))}
         </RevealStagger>
 
-        <div className="mt-12">
+        <Reveal className="mt-12">
           <Link href="/contact-us" className="inline-flex items-center gap-3 rounded-full bg-[#F97316] px-8 py-4 text-sm font-black text-white hover:bg-[#EA580C] transition-colors">
             Contact Us <ArrowRight className="h-4 w-4" />
           </Link>
-        </div>
+        </Reveal>
       </section>
     </div>
   );

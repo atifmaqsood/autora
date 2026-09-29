@@ -289,11 +289,11 @@ export default function BlogsPage() {
 
       {/* ── 3. Blog Posts Grid ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-12">
-        <div className="mb-6 flex items-center justify-between">
+        <Reveal distance={15} duration={700} className="mb-6 flex items-center justify-between">
           <span className="text-[13px] font-semibold text-slate-400">
             Showing <strong className="text-white">{visiblePosts.length}</strong> of {filteredPosts.length} articles
           </span>
-        </div>
+        </Reveal>
 
         <div key={`${activeCategory}-${currentPage}`} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {visiblePosts.map((post) => (

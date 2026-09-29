@@ -170,7 +170,7 @@ export default function PaymentPage() {
             </div>
 
             {/* View Switcher Controls */}
-            <div className="flex items-center gap-3 self-end md:self-center">
+            <Reveal distance={15} duration={700} className="flex items-center gap-3 self-end md:self-center">
               <div className="flex rounded-full border border-[#315671] bg-[#0B1F33] p-1">
                 <button
                   onClick={() => setViewMode("grid")}
@@ -212,7 +212,7 @@ export default function PaymentPage() {
                   </button>
                 </div>
               )}
-            </div>
+            </Reveal>
           </div>
 
           {viewMode === "slider" ? (

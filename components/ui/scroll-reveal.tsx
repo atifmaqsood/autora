@@ -262,27 +262,17 @@ export function RevealStagger({
   baseDelay = 0,
   ...props
 }: RevealStaggerProps) {
-  const { ref, isInView } = useInView({ threshold: 0.01, rootMargin: "0px 0px 80px 0px", triggerOnce: false });
-
   return (
-    <div ref={ref} className={className} {...props}>
+    <div className={className} {...props}>
       {React.Children.map(children, (child, idx) => {
         if (!React.isValidElement(child)) return child;
         // Stagger per row (max 300ms) so items far down don't wait seconds
         const itemDelay = baseDelay + Math.min((idx % 6) * staggerDelay, 300);
 
         return (
-          <div
-            className="transition-all duration-[1500ms] ease-out"
-            style={{
-              opacity: isInView ? 1 : 0,
-              transform: isInView ? "translateY(0px)" : "translateY(100px)",
-              transitionDelay: `${itemDelay}ms`,
-              willChange: "opacity, transform"
-            }}
-          >
+          <Reveal distance={55} duration={850} delay={itemDelay}>
             {child}
-          </div>
+          </Reveal>
         );
       })}
     </div>

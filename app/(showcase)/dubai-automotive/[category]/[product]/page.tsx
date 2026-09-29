@@ -6,6 +6,7 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
+import { Reveal } from "@/components/ui/scroll-reveal";
 import { dubaiAutomotiveFeatures, getDubaiAutomotiveProduct } from "@/lib/dubai-automotive/data";
 
 export default function DubaiAutomotiveProductPage({ params }: { params: Promise<{ category: string; product: string }> }) {
@@ -34,16 +35,19 @@ export default function DubaiAutomotiveProductPage({ params }: { params: Promise
           <span aria-current="page" className="text-white">{product.title}</span>
         </nav>
 
-        <PartsGallery images={[...product.gallery]} title={product.title} />
-        <div className="mt-10 sm:mt-12">
+        <Reveal distance={40} duration={800}>
+          <PartsGallery images={[...product.gallery]} title={product.title} />
+        </Reveal>
+        <Reveal distance={24} duration={750} className="mt-10 sm:mt-12">
           <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">Dubai Automotive</p>
           <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">{product.title}</h1>
           <div className="mt-7 flex flex-wrap items-center gap-5">
             <span className="text-xl font-bold">On Request</span>
             <a href="#request-quote" onClick={() => document.getElementById("request-quote")?.focus({ preventScroll: true })} className="inline-flex items-center gap-3 rounded-full bg-[var(--agtp-secondary)] px-6 py-3.5 text-sm font-bold text-white transition-opacity hover:opacity-90">Request a Quote <ArrowRight className="h-4 w-4" /></a>
           </div>
-        </div>
+        </Reveal>
 
+        <Reveal distance={32} duration={800}>
         <section aria-label="Product details" className="mt-10 rounded-3xl border border-white/10 bg-[var(--agtp-primary)] p-5 shadow-2xl sm:mt-12 sm:p-8 lg:p-10">
           <div role="tablist" aria-label="Product information" className="flex flex-wrap gap-3 border-b border-white/15 pb-5">
             {(["features", "description"] as const).map((tab) => (
@@ -66,8 +70,9 @@ export default function DubaiAutomotiveProductPage({ params }: { params: Promise
             <p>{category.subtitle}</p>
           </div>
         </section>
+        </Reveal>
 
-        <div className="pt-8"><PartsQuoteForm category={product.title} slug={`dubai-automotive-${category.slug}-${product.slug}`} /></div>
+        <Reveal distance={24} duration={800} className="pt-8"><PartsQuoteForm category={product.title} slug={`dubai-automotive-${category.slug}-${product.slug}`} /></Reveal>
       </main>
     </div>
   );

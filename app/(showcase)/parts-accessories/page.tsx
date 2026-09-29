@@ -110,9 +110,11 @@ export default function PartsAccessoriesPage() {
               Your Vehicle. Our Parts.
             </h2>
           </RevealHeading>
-          <p className="mt-3 text-[15px] sm:text-[16px] text-slate-400 max-w-2xl">
-            Select any category below to view our comprehensive product line and export catalog.
-          </p>
+          <RevealText>
+            <p className="mt-3 text-[15px] sm:text-[16px] text-slate-400 max-w-2xl">
+              Select any category below to view our comprehensive product line and export catalog.
+            </p>
+          </RevealText>
         </div>
 
         <div className="mt-[48px] text-left grid auto-rows-[minmax(250px,auto)] grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-12">

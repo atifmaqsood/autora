@@ -142,7 +142,7 @@ export default function HowItWorksPage() {
       {/* ── 2. 6 Steps Process Section (Matching Reference Design with 3 Cards per Row) ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-20">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-[var(--agtp-primary)] p-8 shadow-2xl md:p-14">
+          <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-[var(--agtp-footer)] p-8 shadow-2xl md:p-14">
             {/* Top Bar with Brand Accents */}
             <div className="flex items-center justify-between mb-8">
               {/* Left: Dubai To The World */}

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/layout/page-hero";
 import { VehicleGrid } from "@/components/vehicles/vehicle-grid";
+import { Reveal } from "@/components/ui/scroll-reveal";
 import {
   CATEGORIES_LIST,
   getAllVehicles
@@ -59,11 +60,11 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex items-center justify-between">
+        <Reveal distance={24} duration={700} className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex items-center justify-between">
           <span className="text-sm font-semibold text-slate-700">
             Showing <strong className="text-slate-900">{categoryVehicles.length}</strong> {category.name} models in showcase catalog
           </span>
-        </div>
+        </Reveal>
 
         <VehicleGrid vehicles={categoryVehicles} />
       </div>

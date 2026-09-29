@@ -475,7 +475,7 @@ export default function CustomerReviewsPage() {
         {viewMode === "grid" ? (
           /* Grid View Mode */
           <div>
-            <div className="mb-6 flex items-center justify-between">
+            <Reveal distance={15} duration={700} className="mb-6 flex items-center justify-between">
               <span className="text-[13px] font-semibold text-slate-400">
                 Showing <strong className="text-white">{paginatedReviews.length}</strong> of{" "}
                 <strong className="text-white">{filteredReviews.length}</strong> verified customer stories
@@ -485,7 +485,7 @@ export default function CustomerReviewsPage() {
                   </span>
                 )}
               </span>
-            </div>
+            </Reveal>
 
             <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
               {paginatedReviews.map((rev) => (
@@ -797,4 +797,3 @@ export default function CustomerReviewsPage() {
     </div>
   );
 }
-

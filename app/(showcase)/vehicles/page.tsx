@@ -59,7 +59,7 @@ function CatalogContent() {
   return (
     <div id="vehicle-catalog-grid" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#060709] text-white">
       {/* Dark Filter Bar */}
-      <div className="bg-[#102941] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4">
+      <Reveal distance={30} duration={800} className="bg-[#102941] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 w-full">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <input
@@ -93,13 +93,13 @@ function CatalogContent() {
           <span>Search</span>
           <Search className="w-3.5 h-3.5" />
         </button>
-      </div>
+      </Reveal>
 
-      <div className="flex items-center justify-between">
+      <Reveal distance={15} duration={700} className="flex items-center justify-between">
         <span className="text-xs font-semibold text-slate-400">
           {filteredVehicles.length} vehicles available
         </span>
-      </div>
+      </Reveal>
 
       {paginatedVehicles.length > 0 ? (
         <RevealStagger key={activePage} staggerDelay={80} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

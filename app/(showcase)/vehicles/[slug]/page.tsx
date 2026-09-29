@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/utils";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
 import { VehicleDetailInfo } from "@/components/vehicles/vehicle-detail-info";
+import { Reveal } from "@/components/ui/scroll-reveal";
 
 interface VehiclePageProps {
   params: Promise<{ slug: string }>;
@@ -42,10 +43,12 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
           <span aria-current="page" className="text-white">{vehicle.make} {vehicle.model}</span>
         </nav>
 
-        <PartsGallery key={`gallery-${vehicle.slug}`} images={vehicle.images} title={title} contain={Boolean(vehicle.imageNote)} />
+        <Reveal key={`gallery-${vehicle.slug}`} distance={40} duration={800}>
+          <PartsGallery images={vehicle.images} title={title} contain={Boolean(vehicle.imageNote)} />
+        </Reveal>
         {vehicle.imageNote && <p className="mt-2 text-xs text-slate-400">{vehicle.imageNote}</p>}
 
-        <div className="mt-10 sm:mt-12">
+        <Reveal distance={24} duration={750} className="mt-10 sm:mt-12">
           <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">{vehicle.category}</p>
           <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">{title}</h1>
           <div className="mt-7 flex flex-wrap items-center gap-5">
@@ -54,13 +57,15 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
               Request a Quote <ArrowRight className="h-4 w-4" />
             </a>
           </div>
-        </div>
+        </Reveal>
 
-        <VehicleDetailInfo key={`details-${vehicle.slug}`} vehicle={vehicle} />
+        <Reveal key={`details-${vehicle.slug}`} distance={32} duration={800}>
+          <VehicleDetailInfo vehicle={vehicle} />
+        </Reveal>
 
-        <div className="pt-8">
+        <Reveal distance={24} duration={800} className="pt-8">
           <PartsQuoteForm key={`quote-${vehicle.slug}`} category={title} slug={vehicle.slug} vehicle={{ id: vehicle.id, make: vehicle.make, model: vehicle.model }} />
-        </div>
+        </Reveal>
       </main>
     </div>
   );

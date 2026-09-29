@@ -38,17 +38,23 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
             <span className="text-[#F97316]">{solution.title.toUpperCase()}</span>
           </div>
 
-          <div className="inline-flex items-center rounded-full border border-[#F97316]/40 bg-[#0B1F33]/80 px-4 py-1.5 text-[12px] font-black uppercase text-[#FDBA74]">
-            {solution.eyebrow}
-          </div>
+          <RevealEyebrow>
+            <div className="inline-flex items-center rounded-full border border-[#F97316]/40 bg-[#0B1F33]/80 px-4 py-1.5 text-[12px] font-black uppercase text-[#FDBA74]">
+              {solution.eyebrow}
+            </div>
+          </RevealEyebrow>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-5xl leading-none drop-shadow-lg">
-            {solution.heading}
-          </h1>
+          <RevealHeading>
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-sans max-w-5xl leading-none drop-shadow-lg">
+              {solution.heading}
+            </h1>
+          </RevealHeading>
 
-          <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
-            {solution.body}
-          </p>
+          <RevealText>
+            <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed drop-shadow-md">
+              {solution.body}
+            </p>
+          </RevealText>
         </div>
       </section>
 
@@ -56,7 +62,7 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
       <section className="mx-auto max-w-[1570px] px-6 pt-20">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           {/* Left Summary Box */}
-          <div className="lg:col-span-5">
+          <Reveal distance={35} duration={800} className="lg:col-span-5">
             <div className="rounded-[24px] border border-[#315671] bg-[#102941] p-8 md:p-12 shadow-xl space-y-6">
               <span className="rounded-full bg-[#F97316]/15 border border-[#F97316]/40 px-4 py-1.5 text-[12px] font-black text-[#FDBA74]">
                 CATEGORY SUMMARY
@@ -76,7 +82,7 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
                 </button>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Right Highlights Cards */}
           <div className="lg:col-span-7">

@@ -244,13 +244,6 @@ const brandLogoSrc: Record<string, string> = {
 export default function HomePage() {
   const allVehicles = getAllVehicles();
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const filteredVehicles = searchQuery.trim()
-    ? allVehicles.filter((vehicle) =>
-        `${vehicle.make} ${vehicle.model} ${vehicle.variant} ${vehicle.year}`.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : allVehicles;
 
   const categoryMarqueeItems = [
     { label: "Sedans & SUVs", href: "/vehicles" },
@@ -268,11 +261,7 @@ export default function HomePage() {
 
       <Marquee items={categoryMarqueeItems} />
 
-      <VehicleShowcaseSection
-        vehicles={filteredVehicles}
-        searchQuery={searchQuery}
-        onSearchQueryChange={setSearchQuery}
-      />
+      <VehicleShowcaseSection vehicles={allVehicles} />
 
       <IndustriesSection />
 
@@ -349,43 +338,16 @@ function SectionEyebrow({ children, center = false }: { children: React.ReactNod
 }
 
 
-function VehicleShowcaseSection({
-  vehicles,
-  searchQuery,
-  onSearchQueryChange
-}: {
-  vehicles: Vehicle[];
-  searchQuery: string;
-  onSearchQueryChange: (value: string) => void;
-}) {
+function VehicleShowcaseSection({ vehicles }: { vehicles: Vehicle[] }) {
   return (
     <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[92px]">
-      <div className="mb-10 flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mb-10">
         <div>
           <SectionEyebrow>FEATURED INVENTORY</SectionEyebrow>
           <RevealHeading>
             <h2 className="mt-2 text-[26px] font-black leading-none tracking-normal md:text-[34px]">Automotive Vehicles</h2>
           </RevealHeading>
         </div>
-
-        <RevealButton>
-          <div className="flex w-full max-w-none items-center rounded-full border border-[#315671] bg-[#0B1F33] p-1.5 sm:p-2 lg:max-w-[500px]">
-            <input
-              type="text"
-              placeholder="Search make, model, name..."
-              value={searchQuery}
-              onChange={(event) => onSearchQueryChange(event.target.value)}
-              className="min-w-0 flex-1 bg-transparent px-4 text-[15px] font-medium text-white outline-none placeholder:text-slate-500 sm:px-6 sm:text-[16px]"
-            />
-            <Link
-              href={`/vehicles?search=${encodeURIComponent(searchQuery)}`}
-              className="flex h-[50px] shrink-0 items-center gap-2 rounded-full bg-[#F97316] px-5 text-[14px] font-extrabold text-white transition-colors hover:bg-[#EA580C] sm:h-[56px] sm:gap-3 sm:px-8 sm:text-[17px]"
-            >
-              <span>Search</span>
-              <Search className="h-4 w-4 sm:h-5 sm:w-5" />
-            </Link>
-          </div>
-        </RevealButton>
       </div>
 
       <RevealStagger staggerDelay={70} className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
@@ -1239,5 +1201,4 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
     </div>
   );
 }
-
 
