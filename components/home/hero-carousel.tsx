@@ -67,7 +67,7 @@ export function HeroCarousel() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-transparent to-black/30" />
 
         {/* Bottom Section Controls Bar */}
-        <div className="absolute inset-x-0 bottom-12 z-20 mx-auto flex max-w-[1720px] items-end justify-between px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="absolute inset-x-0 bottom-8 z-20 mx-auto flex max-w-[1720px] items-end justify-between px-4 sm:bottom-12 sm:px-10 lg:px-16 xl:px-20">
           {/* Bottom Center / Left Scroll Indicator */}
           <div className="hidden flex-col items-center gap-2 md:flex">
             <span className="text-[10px] font-black uppercase tracking-[0.35em] text-white/70">
@@ -77,12 +77,12 @@ export function HeroCarousel() {
           </div>
 
           {/* Bottom Right Action Buttons */}
-          <div className="ml-auto flex flex-wrap items-center gap-4">
+          <div className="flex w-full max-w-[320px] flex-col gap-3 sm:ml-auto sm:w-auto sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <button
               type="button"
               onClick={() => setInquiryModalOpen(true)}
               style={{ backgroundColor: "var(--agtp-secondary, #4361EE)" }}
-              className="group flex h-[52px] items-center gap-2.5 rounded-full px-8 text-[15px] font-extrabold text-white shadow-2xl transition-all duration-300 hover:brightness-110 hover:scale-105"
+              className="group flex h-[52px] w-full items-center justify-center gap-2.5 rounded-full px-6 text-[15px] font-extrabold text-white shadow-2xl transition-all duration-300 hover:brightness-110 hover:scale-105 sm:w-auto sm:px-8"
             >
               <span>Get a Free Quote</span>
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -90,7 +90,7 @@ export function HeroCarousel() {
 
             <Link
               href="/vehicles"
-              className="group flex h-[52px] items-center gap-2.5 rounded-full border border-white/25 bg-black/40 px-8 text-[15px] font-extrabold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white/20 hover:scale-105 shadow-xl"
+              className="group flex h-[52px] w-full items-center justify-center gap-2.5 rounded-full border border-white/25 bg-black/40 px-6 text-[15px] font-extrabold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white/20 hover:scale-105 shadow-xl sm:w-auto sm:px-8"
             >
               <span>Browse Inventory</span>
             </Link>

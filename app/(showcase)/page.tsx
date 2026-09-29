@@ -283,15 +283,15 @@ export default function HomePage() {
 
       <LeadingBrandsSection />
 
-      <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[80px]">
+      <section className="mx-auto max-w-[1570px] px-4 pt-[80px] sm:px-12 lg:px-16 xl:px-20">
         <Reveal>
           <div className="relative min-h-[560px] overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B]">
             <Image src={agtpAssets.exportPort} alt="Shipping containers at an export port" fill className="object-cover" sizes="1570px" />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.85)_0%,rgba(6,16,28,0.65)_50%,rgba(6,16,28,0.15)_100%)]" />
-            <div className="relative z-10 flex min-h-[560px] max-w-[840px] flex-col justify-center px-8 py-12 text-left md:px-14 lg:px-20">
+            <div className="relative z-10 flex min-h-[560px] max-w-[840px] flex-col justify-center px-6 py-12 text-left sm:px-8 md:px-14 lg:px-20">
               <SectionEyebrow>GET A QUOTE</SectionEyebrow>
               <RevealHeading>
-                <h2 className="mt-6 max-w-[760px] text-[32px] font-black leading-[1.08] tracking-normal md:text-[48px]">
+                <h2 className="mt-6 max-w-[760px] text-[30px] font-black leading-[1.08] tracking-normal sm:text-[32px] md:text-[48px]">
                   Tell Us What You Need.
                   <br />
                   We’ll Take It From There.
@@ -303,15 +303,15 @@ export default function HomePage() {
                 </p>
               </RevealText>
               <RevealButton>
-                <div className="mt-10 flex flex-wrap items-center gap-4">
+                <div className="mt-8 flex w-full max-w-[320px] flex-col gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                   <button
                     onClick={() => setInquiryModalOpen(true)}
-                    className="flex h-[58px] items-center gap-3 rounded-full bg-[#F97316] px-8 text-[16px] font-extrabold text-white transition-colors hover:bg-[#EA580C]"
+                    className="flex h-[52px] w-full items-center justify-center gap-3 rounded-full bg-[#F97316] px-6 text-[15px] font-extrabold text-white transition-colors hover:bg-[#EA580C] sm:h-[58px] sm:w-auto sm:px-8 sm:text-[16px]"
                   >
                     <span>Get a Quote</span>
                     <ArrowRight className="h-5 w-5" />
                   </button>
-                  <Link href="/vehicles" className="flex h-[58px] items-center rounded-full border border-white/30 px-8 text-[16px] font-extrabold text-white transition-colors hover:bg-white/10">
+                  <Link href="/vehicles" className="flex h-[52px] w-full items-center justify-center rounded-full border border-white/30 px-6 text-[15px] font-extrabold text-white transition-colors hover:bg-white/10 sm:h-[58px] sm:w-auto sm:px-8 sm:text-[16px]">
                     Browse Inventory
                   </Link>
                 </div>
@@ -340,7 +340,7 @@ function SectionEyebrow({ children, center = false }: { children: React.ReactNod
 
 function VehicleShowcaseSection({ vehicles }: { vehicles: Vehicle[] }) {
   return (
-    <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[92px]">
+    <section className="mx-auto max-w-[1570px] px-4 pt-[72px] sm:px-12 sm:pt-[92px] lg:px-16 xl:px-20">
       <div className="mb-10">
         <div>
           <SectionEyebrow>FEATURED INVENTORY</SectionEyebrow>
@@ -350,7 +350,7 @@ function VehicleShowcaseSection({ vehicles }: { vehicles: Vehicle[] }) {
         </div>
       </div>
 
-      <RevealStagger staggerDelay={70} className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
+      <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {vehicles.slice(0, 6).map((vehicle, index) => (
           <div key={vehicle.id} className={index >= 4 ? "hidden lg:block" : undefined}>
             <VehicleCard vehicle={vehicle} />
@@ -359,7 +359,7 @@ function VehicleShowcaseSection({ vehicles }: { vehicles: Vehicle[] }) {
       </RevealStagger>
 
       {vehicles.length === 0 && (
-        <p className="py-10 text-center text-[15px] font-semibold text-slate-400">No vehicles match your search.</p>
+        <p className="py-10 text-center text-[15px] font-semibold text-slate-400">No vehicles available.</p>
       )}
     </section>
   );
@@ -1201,4 +1201,3 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
     </div>
   );
 }
-

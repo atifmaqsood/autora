@@ -101,9 +101,9 @@ export function StoreHeader() {
               : "color-mix(in srgb, var(--agtp-navbar, #0B1F33) 0%, transparent)"
           }}
         >
-          <div className="mx-auto max-w-[1735px] px-6 xl:px-[96px]">
-            <div className="flex h-[82px] items-center justify-between xl:h-[98px]">
-              <Logo />
+          <div className="mx-auto max-w-[1735px] px-4 sm:px-6 xl:px-[96px]">
+            <div className="flex h-[72px] items-center justify-between gap-2 sm:h-[82px] xl:h-[98px]">
+              <Logo className="h-[64px] w-[150px] min-[390px]:w-[184px] sm:h-[78px] sm:w-[214px]" />
 
               <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 xl:flex">
                 {navLinks.map((link) => {
@@ -162,16 +162,16 @@ export function StoreHeader() {
                 </button>
               </div>
 
-              <div className="flex items-center gap-3 xl:hidden">
+              <div className="flex shrink-0 items-center gap-2 sm:gap-3 xl:hidden">
                 <button
                   onClick={() => setInquiryModalOpen(true)}
-                  className="rounded-full bg-[#F97316] px-4 py-2 text-xs font-bold text-white"
+                  className="flex h-10 items-center justify-center rounded-full bg-[#F97316] px-4 text-xs font-bold text-white"
                 >
                   Quote
                 </button>
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="p-1 text-slate-200 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center text-slate-200 hover:text-white"
                   aria-label="Toggle menu"
                 >
                   {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

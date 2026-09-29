@@ -36,7 +36,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
 
       <div className="flex min-h-[250px] flex-col p-5">
         <Link href={`/vehicles/${vehicle.slug}`}>
-          <h3 className="h-[57px] overflow-hidden text-[17px] font-black uppercase leading-[1.12] tracking-normal text-white transition-colors group-hover:text-[#FDBA74]">
+          <h3 className="min-h-[57px] line-clamp-3 text-[17px] font-black uppercase leading-[1.12] tracking-normal text-white transition-colors group-hover:text-[#FDBA74] sm:line-clamp-2">
             {fullTitle}
           </h3>
         </Link>
