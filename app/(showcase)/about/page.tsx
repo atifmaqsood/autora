@@ -256,7 +256,7 @@ export default function AboutPage() {
       {/* ── 7. READY TO GET STARTED? CTA Banner ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
         <Reveal duration={700}>
-          <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl">
+          <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-6 sm:p-16 text-center overflow-hidden shadow-2xl">
             <div className="absolute inset-0 z-0">
               <Image
                 src={agtpAssets.inventoryHero}
@@ -281,19 +281,19 @@ export default function AboutPage() {
               <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
                 Whether you&apos;re looking for a vehicle or automotive spare parts, AGTP Group is ready to help. Tell us what you need, where it&apos;s going, and your preferred specifications. We&apos;ll guide you through availability, pricing, payment, documentation, and reliable shipping options.
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+              <div className="mx-auto flex w-full max-w-[320px] flex-col gap-3 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
                 <button
                   type="button"
                   onClick={() => setInquiryModalOpen(true)}
-                  className="bg-[#F97316] hover:bg-[#EA580C] text-white font-extrabold text-sm px-8 py-3.5 rounded-full shadow-lg transition-all inline-flex items-center gap-2 hover:gap-3"
+                  className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#F97316] px-6 text-sm font-extrabold text-white shadow-lg transition-all hover:bg-[#EA580C] hover:gap-3 sm:h-auto sm:w-auto sm:px-8 sm:py-3.5"
                 >
                   <span>GET A QUOTE</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
-                <Link href="/vehicles">
+                <Link href="/vehicles" className="w-full sm:w-auto">
                   <button
                     type="button"
-                    className="border border-slate-700 hover:border-white/40 hover:bg-slate-800 text-white font-extrabold text-sm px-8 py-3.5 rounded-full transition-all inline-flex items-center gap-2 hover:gap-3"
+                    className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full border border-slate-700 px-6 text-sm font-extrabold text-white transition-all hover:gap-3 hover:border-white/40 hover:bg-slate-800 sm:h-auto sm:w-auto sm:px-8 sm:py-3.5"
                   >
                     <span>EXPLORE VEHICLES</span>
                     <ArrowRight className="w-4 h-4" />

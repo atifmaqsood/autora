@@ -14,12 +14,12 @@ export function StatsCounter({ stats }: { stats: readonly CounterStat[] }) {
       <div className="rounded-[24px] border border-[#315671] bg-[#0B1F33] overflow-hidden shadow-2xl">
         <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-slate-800/80">
           {stats.map((stat) => (
-            <div key={stat.label} className="p-8 md:p-10 flex flex-col justify-center">
-              <div className="text-4xl md:text-5xl font-black text-white tracking-tight flex items-baseline justify-center lg:justify-start">
+            <div key={stat.label} className="flex flex-col justify-center p-4 sm:p-8 md:p-10">
+              <div className="flex items-baseline justify-center text-3xl font-black tracking-tight text-white sm:text-4xl md:text-5xl lg:justify-start">
                 <RevealCounter
                   end={stat.value}
                   suffix={stat.suffix}
-                  suffixClassName="text-3xl ml-1 font-black"
+                  suffixClassName="ml-1 text-2xl font-black sm:text-3xl"
                   suffixStyle={{ color: "var(--agtp-secondary)" }}
                 />
               </div>

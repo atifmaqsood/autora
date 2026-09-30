@@ -537,7 +537,7 @@ export default function CareersPage() {
 
       {/* ── 4. DIDN'T FIND THE RIGHT FIT? Banner ─────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
-        <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl">
+        <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-6 sm:p-16 text-center overflow-hidden shadow-2xl">
           <ParallaxImage
             src={agtpAssets.careersHero}
             alt="Office Environment"
@@ -561,17 +561,17 @@ export default function CareersPage() {
             </RevealText>
 
             <RevealButton delay={180}>
-              <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+              <div className="mx-auto flex w-full max-w-[320px] flex-col gap-3 pt-2 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
                 <a
                   href="mailto:careers@agtpgroup.com?subject=General%20Application%20-%20CV%20Submission"
-                  className="bg-[#F97316] hover:bg-[#EA580C] text-white font-black text-xs px-8 py-3.5 rounded-full shadow-lg transition-all inline-flex items-center gap-2 hover:scale-105"
+                  className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#F97316] px-6 text-xs font-black text-white shadow-lg transition-all hover:scale-105 hover:bg-[#EA580C] sm:h-auto sm:w-auto sm:px-8 sm:py-3.5"
                 >
                   <span>Send Your CV</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <Link
                   href="/contact"
-                  className="border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-black text-xs px-8 py-3.5 rounded-full transition-all inline-flex items-center gap-2"
+                  className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full border border-white/20 px-6 text-xs font-black text-white transition-all hover:border-white/40 hover:bg-white/10 sm:h-auto sm:w-auto sm:px-8 sm:py-3.5"
                 >
                   <span>Contact Us</span>
                   <ArrowRight className="w-4 h-4" />

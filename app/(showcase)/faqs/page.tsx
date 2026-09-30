@@ -261,7 +261,7 @@ export default function FaqsPage() {
       {/* ── 4. Bottom Support CTA Banner ── */}
       <section className="mx-auto max-w-5xl px-4 pt-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-br from-[#14314B] to-[#0B1F33] p-10 md:p-14 text-center shadow-2xl space-y-6">
+          <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-gradient-to-br from-[#14314B] to-[#0B1F33] p-6 sm:p-10 md:p-14 text-center shadow-2xl space-y-6">
             <RevealHeading>
               <h2 className="text-[30px] font-black uppercase text-white md:text-[42px]">
                 HAVE MORE QUESTIONS?
@@ -286,11 +286,11 @@ export default function FaqsPage() {
               </a>
             </div>
 
-            <RevealButton delay={180} className="pt-4 flex justify-center">
+            <RevealButton delay={180} className="flex justify-center pt-4">
               <button
                 type="button"
                 onClick={() => setInquiryModalOpen(true)}
-                className="inline-flex h-[56px] items-center gap-3 rounded-full bg-[#F97316] px-9 text-[16px] font-black text-white transition-colors hover:bg-[#EA580C] shadow-lg hover:shadow-orange-500/20"
+                className="inline-flex h-[52px] w-full max-w-[320px] items-center justify-center gap-3 rounded-full bg-[#F97316] px-6 text-[15px] font-black text-white shadow-lg transition-colors hover:bg-[#EA580C] hover:shadow-orange-500/20 sm:h-[56px] sm:w-auto sm:px-9 sm:text-[16px]"
               >
                 <span>Get a Quote</span>
                 <ArrowRight className="h-5 w-5" />

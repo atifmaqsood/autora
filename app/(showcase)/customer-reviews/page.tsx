@@ -747,7 +747,7 @@ export default function CustomerReviewsPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-transparent to-[#0B1F33]/60" />
             </div>
 
-            <div className="relative z-10 px-8 py-16 text-center sm:px-12 md:py-24 lg:py-28">
+            <div className="relative z-10 px-5 py-12 text-center sm:px-12 sm:py-16 md:py-24 lg:py-28">
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
@@ -768,11 +768,11 @@ export default function CustomerReviewsPage() {
                 </p>
               </RevealText>
 
-              <RevealButton delay={180} className="mt-10 flex flex-wrap justify-center gap-4">
+              <RevealButton delay={180} className="mx-auto mt-10 flex w-full max-w-[320px] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
                 <button
                   type="button"
                   onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex h-[56px] items-center gap-3 rounded-full px-10 text-[16px] font-black text-white transition-all duration-300 shadow-xl hover:scale-105"
+                  className="inline-flex h-[52px] w-full items-center justify-center gap-3 rounded-full px-6 text-[15px] font-black text-white shadow-xl transition-all duration-300 hover:scale-105 sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                   style={{ backgroundColor: "var(--agtp-secondary)" }}
                 >
                   <span>Get A Quote</span>
@@ -780,7 +780,7 @@ export default function CustomerReviewsPage() {
                 </button>
                 <Link
                   href="/vehicles"
-                  className="inline-flex h-[56px] items-center rounded-full border border-[#315671] bg-[#102941]/90 backdrop-blur-md px-10 text-[16px] font-black text-white transition-all duration-300 hover:border-[#F97316] hover:bg-[#F97316] hover:text-white hover:scale-105 shadow-xl"
+                  className="inline-flex h-[52px] w-full items-center justify-center rounded-full border border-[#315671] bg-[#102941]/90 px-6 text-[15px] font-black text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-[#F97316] hover:bg-[#F97316] hover:text-white sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                 >
                   Explore Vehicles
                 </Link>

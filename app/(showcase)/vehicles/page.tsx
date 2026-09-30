@@ -165,7 +165,7 @@ function CatalogContent() {
 
       {/* Vehicle request banner */}
       <Reveal duration={700}>
-        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#1e2b45] shadow-2xl mt-16 min-h-[380px] sm:min-h-[460px] flex items-center justify-center p-8 sm:p-14 text-center">
+        <div className="relative mt-16 flex min-h-[380px] items-center justify-center overflow-hidden rounded-2xl border border-[#1e2b45] p-5 text-center shadow-2xl sm:min-h-[460px] sm:rounded-3xl sm:p-14">
           {/* Dark luxury garage background photo */}
           <Image
             src="/images/spec-banner-bg.jpg"
@@ -193,7 +193,7 @@ function CatalogContent() {
             <div className="pt-3">
               <button
                 onClick={() => setInquiryModalOpen(true)}
-                className="bg-[#4361EE] hover:bg-[#3651D4] text-white font-bold text-xs sm:text-sm px-8 py-3.5 rounded-full shadow-lg shadow-blue-600/30 transition-all inline-flex items-center gap-2 transform hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex h-[52px] w-full max-w-[320px] transform items-center justify-center gap-2 rounded-full bg-[#4361EE] px-6 text-xs font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] hover:bg-[#3651D4] active:scale-[0.98] sm:h-auto sm:w-auto sm:px-8 sm:py-3.5 sm:text-sm"
               >
                 <span>Request a Vehicle</span>
                 <ArrowRight className="w-4 h-4" />

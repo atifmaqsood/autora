@@ -62,7 +62,7 @@ export default function BrandsPage() {
           </RevealText>
         </div>
 
-        <RevealStagger staggerDelay={35} className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+        <RevealStagger staggerDelay={35} className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
           {agtpProductGroups.map((product) => (
             <div key={product} className="flex items-center gap-3 rounded-2xl border border-[#315671] bg-[#102941] p-4 text-sm font-bold text-slate-200">
               <BadgeCheck className="h-4 w-4 shrink-0 text-[#FDBA74]" />

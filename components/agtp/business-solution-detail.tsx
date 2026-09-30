@@ -63,7 +63,7 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           {/* Left Summary Box */}
           <Reveal distance={35} duration={800} className="lg:col-span-5">
-            <div className="rounded-[24px] border border-[#315671] bg-[#102941] p-8 md:p-12 shadow-xl space-y-6">
+            <div className="rounded-[24px] border border-[#315671] bg-[#102941] p-6 shadow-xl space-y-6 sm:p-8 md:p-12">
               <span className="rounded-full bg-[#F97316]/15 border border-[#F97316]/40 px-4 py-1.5 text-[12px] font-black text-[#FDBA74]">
                 CATEGORY SUMMARY
               </span>
@@ -75,7 +75,7 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
                 <button
                   type="button"
                   onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex h-[52px] items-center gap-3 rounded-full bg-[#F97316] px-8 text-[15px] font-black text-white transition-colors hover:bg-[#EA580C]"
+                  className="inline-flex h-[52px] w-full max-w-[320px] items-center justify-center gap-3 rounded-full bg-[#F97316] px-6 text-[15px] font-black text-white transition-colors hover:bg-[#EA580C] sm:w-auto sm:px-8"
                 >
                   <span>Request Quotation</span>
                   <ArrowRight className="h-4 w-4" />

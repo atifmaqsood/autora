@@ -387,7 +387,7 @@ export default function HowItWorksPage() {
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 50%, transparent) 50%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 70%, transparent) 100%)" }} />
             </div>
 
-            <div className="relative z-10 px-8 py-16 text-center sm:px-12 md:py-24 lg:py-28">
+            <div className="relative z-10 px-5 py-12 text-center sm:px-12 sm:py-16 md:py-24 lg:py-28">
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
@@ -412,7 +412,7 @@ export default function HowItWorksPage() {
                 <button
                   type="button"
                   onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex h-[56px] items-center gap-3 rounded-full bg-[#F97316] px-10 text-[16px] font-black text-white transition-all duration-300 hover:bg-[#EA580C] shadow-xl hover:scale-105"
+                  className="inline-flex h-[52px] w-full max-w-[320px] items-center justify-center gap-3 rounded-full bg-[#F97316] px-6 text-[15px] font-black text-white shadow-xl transition-all duration-300 hover:scale-105 hover:bg-[#EA580C] sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                 >
                   <span>Get A Quote</span>
                   <ArrowRight className="h-5 w-5" />

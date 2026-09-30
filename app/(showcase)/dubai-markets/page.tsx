@@ -199,7 +199,7 @@ export default function DubaiAutomotivePage() {
       {/* ── 4. CTA Banner ── */}
       <section className="mx-auto max-w-7xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
+          <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-6 sm:p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
             <div className="absolute inset-0 z-0">
                <Image
                  src={agtpAssets.inventoryHero}
@@ -232,7 +232,7 @@ export default function DubaiAutomotivePage() {
               <RevealButton delay={180} className="pt-6 flex flex-wrap items-center justify-center gap-4">
                 <button
                   onClick={() => setInquiryModalOpen(true)}
-                  className="inline-flex h-14 items-center gap-2 rounded-full bg-[#F97316] px-8 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C] hover:scale-105"
+                  className="inline-flex h-[52px] w-full max-w-[320px] items-center justify-center gap-2 rounded-full bg-[#F97316] px-6 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:scale-105 hover:bg-[#EA580C] sm:h-14 sm:w-auto sm:px-8"
                 >
                   <span>GET STARTED</span>
                   <ArrowRight className="h-5 w-5" />
