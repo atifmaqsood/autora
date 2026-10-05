@@ -99,13 +99,13 @@ export default function ContactPage() {
       />
 
       {/* ── 2. Split Layout: Interactive Communication Hub & Form Portal ── */}
-      <section className="mx-auto max-w-[1570px] px-6 pt-16">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 auto-rows-fr items-stretch">
+      <section className="mx-auto max-w-[1570px] px-4 pt-12 sm:px-6 sm:pt-16">
+        <div className="grid grid-cols-1 items-stretch gap-6 lg:auto-rows-fr lg:grid-cols-12 lg:gap-8">
           
           {/* LEFT COLUMN: Executive Contact Desk Cards */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+          <div className="min-w-0 lg:col-span-5">
             <Reveal className="h-full">
-              <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[28px] border border-[#315671] bg-[#102941] p-8 md:p-10 shadow-2xl space-y-8">
+              <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[28px] border border-[#315671] bg-[#102941] p-5 shadow-2xl space-y-8 sm:p-8 md:p-10">
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316]" />
 
                 <div className="space-y-6">
@@ -117,22 +117,22 @@ export default function ContactPage() {
                   </div>
 
                   {/* 1. Instant WhatsApp Card */}
-                  <div className="group/item relative overflow-hidden rounded-2xl border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-5 shadow-lg transition-all duration-300 hover:border-[#25D366]">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3.5">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#25D366]/30 bg-[#25D366]/10 shadow-md">
+                  <div className="group/item relative overflow-hidden rounded-2xl border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-4 shadow-lg transition-all duration-300 hover:border-[#25D366] sm:p-5">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex min-w-0 items-center gap-3.5">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#25D366]/30 bg-[#25D366]/10 shadow-md">
                           <WhatsAppIcon className="h-7 w-7" />
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <span className="block text-[11px] font-black uppercase text-slate-400">Instant WhatsApp</span>
-                          <span className="text-[17px] font-black text-white">+971 58 5855729</span>
+                          <span className="block break-words text-[15px] font-black text-white sm:text-[17px]">+971 58 5855729</span>
                         </div>
                       </div>
                       <a
                         href="https://wa.me/971585855729"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex h-9 items-center gap-1.5 rounded-full border border-[#25D366]/40 bg-[#25D366]/15 px-4 text-[12px] font-black text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all shadow-sm"
+                        className="flex h-10 w-full shrink-0 items-center justify-center gap-1.5 rounded-full border border-[#25D366]/40 bg-[#25D366]/15 px-4 text-[12px] font-black text-[#25D366] shadow-sm transition-all hover:bg-[#25D366] hover:text-white sm:h-9 sm:w-auto"
                       >
                         <span>Chat Now</span>
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -141,7 +141,7 @@ export default function ContactPage() {
                   </div>
 
                   {/* 2. Official Email Card */}
-                  <div className="group/item relative overflow-hidden rounded-2xl border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-5 shadow-lg transition-all duration-300 hover:border-[#F97316]">
+                  <div className="group/item relative overflow-hidden rounded-2xl border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-4 shadow-lg transition-all duration-300 hover:border-[#F97316] sm:p-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3.5 min-w-0 pr-2">
                         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#F97316]/40 bg-[#0B1F33] text-[#FDBA74] shadow-md">
@@ -149,7 +149,7 @@ export default function ContactPage() {
                         </div>
                         <div className="min-w-0">
                           <span className="block text-[11px] font-black uppercase text-slate-400">Official Email Inquiry</span>
-                          <span className="text-[16px] font-black text-[#FDBA74] truncate block">inquiries@agtpgroup.com</span>
+                          <span className="block break-all text-[14px] font-black text-[#FDBA74] sm:text-[16px]">inquiries@agtpgroup.com</span>
                         </div>
                       </div>
                       <button
@@ -163,17 +163,17 @@ export default function ContactPage() {
                   </div>
 
                   {/* 3. Commercial Operating Hours Card */}
-                  <div className="group/item relative overflow-hidden rounded-2xl border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-5 shadow-lg transition-all duration-300 hover:border-[#F97316]">
+                  <div className="group/item relative overflow-hidden rounded-2xl border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#0B1F33] p-4 shadow-lg transition-all duration-300 hover:border-[#F97316] sm:p-5">
                     <div className="flex items-start gap-3.5">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#F97316]/40 bg-[#0B1F33] text-[#FDBA74] shadow-md">
                         <Clock className="h-6 w-6 text-[#F97316]" />
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="block text-[11px] font-black uppercase text-slate-400">Commercial Timing</span>
                           <span className="rounded-full bg-green-950/60 border border-green-500/40 px-2.5 py-0.5 text-[10px] font-extrabold text-green-400">OPEN NOW</span>
                         </div>
-                        <span className="mt-1 block text-[15px] font-black text-white">Monday - Saturday: 9:00AM - 8:00PM</span>
+                        <span className="mt-1 block text-[14px] font-black text-white sm:text-[15px]">Monday - Saturday: 9:00AM - 8:00PM</span>
                         <span className="text-[12px] font-semibold text-slate-400">Sunday & Public Holidays: Closed</span>
                       </div>
                     </div>
@@ -242,9 +242,9 @@ export default function ContactPage() {
           </div>
 
           {/* RIGHT COLUMN: Modern Glassmorphic Inquiry Portal */}
-          <div className="lg:col-span-7 flex flex-col">
+          <div className="flex min-w-0 flex-col lg:col-span-7">
             <Reveal className="h-full">
-              <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[28px] border border-[#315671] bg-[#102941] p-8 md:p-12 shadow-2xl">
+              <div className="group relative flex h-full min-w-0 flex-col justify-between rounded-[28px] border border-[#315671] bg-[#102941] p-5 shadow-2xl sm:p-8 md:p-12">
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316]" />
 
                 <div>
@@ -393,7 +393,7 @@ export default function ContactPage() {
       </section>
 
       {/* ── 3. Our Location: Interactive Map & Commercial Hubs ── */}
-      <section className="mx-auto max-w-[1570px] px-6 pt-24">
+      <section className="mx-auto max-w-[1570px] px-4 pt-20 sm:px-6 sm:pt-24">
         <Reveal>
           <div className="text-center space-y-3 mb-12">
             <RevealEyebrow>
@@ -413,13 +413,13 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 items-stretch">
             {/* LEFT: Interactive Google Map (reduced width) */}
             <div className="lg:col-span-5 xl:col-span-5 flex flex-col">
-              <div className="relative h-full min-h-[480px] lg:min-h-[580px] w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#0B1F33] shadow-2xl">
+              <div className="relative h-full min-h-[320px] w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#0B1F33] shadow-2xl sm:min-h-[480px] lg:min-h-[580px]">
                 <iframe
                   title="AGTP Group Location Map"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(
                     officeLocation.fullAddress
                   )}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
-                  className="h-full w-full border-0 min-h-[480px] lg:min-h-[580px]"
+                  className="h-full min-h-[320px] w-full border-0 sm:min-h-[480px] lg:min-h-[580px]"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -429,7 +429,7 @@ export default function ContactPage() {
 
             {/* RIGHT: Headquarters Location Details */}
             <div className="lg:col-span-7 xl:col-span-7 flex flex-col">
-              <div className="flex h-full flex-col justify-between rounded-[28px] border border-white/10 bg-[#0B1F33] p-6 sm:p-8 shadow-2xl">
+              <div className="flex h-full min-w-0 flex-col justify-between rounded-[28px] border border-white/10 bg-[#0B1F33] p-5 shadow-2xl sm:p-8">
                 <div className="space-y-6">
                   <div>
                     <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-950/40 px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-[#38BDF8] mb-4">
@@ -456,25 +456,25 @@ export default function ContactPage() {
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                     <a
                       href={`tel:${officeLocation.phone.replace(/\s+/g, "")}`}
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F97316] bg-[#F97316] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-white shadow-xl shadow-[#F97316]/30 hover:bg-[#EA580C] hover:border-[#EA580C] transition-colors whitespace-nowrap shrink-0"
+                      className="inline-flex min-h-[48px] min-w-0 items-center justify-center gap-2 rounded-full border border-[#F97316] bg-[#F97316] px-3 py-3 text-[12px] font-bold text-white shadow-xl shadow-[#F97316]/30 transition-colors hover:border-[#EA580C] hover:bg-[#EA580C] sm:shrink-0 sm:px-5 sm:text-[15px]"
                     >
                       <Phone className="h-4 w-4 text-white shrink-0" />
-                      <span className="whitespace-nowrap">Call: {officeLocation.phone}</span>
+                      <span className="break-words text-center sm:whitespace-nowrap">Call: {officeLocation.phone}</span>
                     </a>
 
                     <a
                       href={`https://wa.me/${officeLocation.whatsapp.replace(/[^0-9]/g, "")}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-[#0B3828] px-5 py-3 text-[14px] sm:text-[15px] font-bold text-emerald-300 hover:text-white hover:bg-[#0f4d37] shadow-md transition-colors whitespace-nowrap shrink-0"
+                      className="inline-flex min-h-[48px] min-w-0 items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-[#0B3828] px-3 py-3 text-[12px] font-bold text-emerald-300 shadow-md transition-colors hover:bg-[#0f4d37] hover:text-white sm:shrink-0 sm:px-5 sm:text-[15px]"
                     >
                       <WhatsAppIcon className="h-4 w-4 shrink-0" />
-                      <span className="whitespace-nowrap">WhatsApp: {officeLocation.whatsapp}</span>
+                      <span className="break-words text-center sm:whitespace-nowrap">WhatsApp: {officeLocation.whatsapp}</span>
                     </a>
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-[#1c2e44] flex items-center justify-between text-[13px] mt-6">
+                <div className="mt-6 flex flex-col gap-3 border-t border-[#1c2e44] pt-6 text-[13px] sm:flex-row sm:items-center sm:justify-between">
                   <span className="text-slate-400 font-medium flex items-center gap-1.5">
                     <Clock className="h-3.5 w-3.5 text-[#38BDF8]" />
                     {officeLocation.timing}
@@ -496,6 +496,17 @@ export default function ContactPage() {
           </div>
         </Reveal>
       </section>
+      <a
+        href={`https://wa.me/${officeLocation.whatsapp.replace(/[^0-9]/g, "")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with AGTP Group on WhatsApp"
+        title="Chat on WhatsApp"
+        className="fixed right-4 z-[60] flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#25D366] bg-white shadow-[0_8px_28px_rgba(0,0,0,0.35)] transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] sm:right-6"
+        style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
+      >
+        <WhatsAppIcon className="h-8 w-8" />
+      </a>
     </div>
   );
 }

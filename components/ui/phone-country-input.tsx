@@ -147,13 +147,13 @@ export function PhoneCountryInput({
             value={internalValue}
             onChange={handleInputChange}
             placeholder={placeholder}
-            className="w-full bg-transparent px-4 py-3.5 text-[14px] font-medium text-white placeholder-slate-400 outline-none"
+            className="min-w-0 flex-1 bg-transparent px-4 py-3.5 text-[14px] font-medium text-white placeholder-slate-400 outline-none"
           />
         </div>
 
         {/* Dropdown Menu matching Milele screenshot */}
         {isOpen && (
-          <div className="absolute left-0 top-full mt-2 z-50 w-80 max-w-[95vw] rounded-xl border border-slate-200 bg-white text-slate-900 shadow-2xl overflow-hidden animate-in fade-in-50 zoom-in-95 duration-150">
+          <div className="absolute left-0 top-full mt-2 z-50 w-full rounded-xl border border-slate-200 bg-white text-slate-900 shadow-2xl overflow-hidden animate-in fade-in-50 zoom-in-95 duration-150 sm:w-80 sm:max-w-[95vw]">
             {/* Search filter inside dropdown */}
             <div className="p-2 border-b border-slate-100 bg-slate-50 sticky top-0 z-10">
               <div className="relative">
