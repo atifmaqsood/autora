@@ -1,5 +1,6 @@
 import { StoreHeader } from "@/components/layout/store-header";
 import { StoreFooter } from "@/components/layout/store-footer";
+import { FloatingWhatsApp } from "@/components/layout/floating-whatsapp";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 
 export default function ShowcaseLayout({
@@ -12,6 +13,7 @@ export default function ShowcaseLayout({
       <StoreHeader />
       <main className="flex-1">{children}</main>
       <StoreFooter />
+      <FloatingWhatsApp />
       <CustomCursor />
     </div>
   );
