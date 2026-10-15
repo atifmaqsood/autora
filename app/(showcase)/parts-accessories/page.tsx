@@ -1,7 +1,7 @@
 "use client";
 
 import { StatsCounter } from "@/components/ui/stats-counter";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,8 +9,9 @@ import {
   CheckCircle2,
   ClipboardCheck,
   PackageCheck,
+  Package,
   Search,
-  Truck
+  Truck,
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
@@ -20,44 +21,119 @@ import {
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
-  RevealText
+  RevealText,
 } from "@/components/ui/scroll-reveal";
 import { agtpAssets } from "@/src/assets";
 import { getAllPartsCategories } from "@/lib/parts/data";
+import type { PartsPageSection } from "@/lib/parts-page/types";
+import type { CatalogCategory } from "@/lib/product-catalog/types";
 
 const partsStats = [
   { value: 10000, suffix: "+", label: "Parts & Accessories Exported" },
   { value: 11, suffix: "+", label: "Years in Trade" },
   { value: 25, suffix: "+", label: "Countries Served Worldwide" },
-  { value: 93, suffix: "%", label: "On-Time Delivery" }
+  { value: 93, suffix: "%", label: "On-Time Delivery" },
 ];
 
 const processSteps = [
   {
     icon: Search,
     title: "STEP 1 — IDENTIFY",
-    body: "Send the part number, vehicle make/model, model year, or photos so we can identify the required part."
+    body: "Send the part number, vehicle make/model, model year, or photos so we can identify the required part.",
   },
   {
     icon: ClipboardCheck,
     title: "STEP 2 — CONFIRM",
-    body: "We confirm availability, compatibility, condition, pricing, and estimated delivery options."
+    body: "We confirm availability, compatibility, condition, pricing, and estimated delivery options.",
   },
   {
     icon: PackageCheck,
     title: "STEP 3 — PREPARE",
-    body: "Your parts are carefully checked, documented, packed, and prepared for international shipment."
+    body: "Your parts are carefully checked, documented, packed, and prepared for international shipment.",
   },
   {
     icon: Truck,
     title: "STEP 4 — SHIP",
-    body: "We coordinate export documentation and shipping to your destination through our automotive shipping network."
-  }
+    body: "We coordinate export documentation and shipping to your destination through our automotive shipping network.",
+  },
 ];
 
 export default function PartsAccessoriesPage() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
-  const categories = getAllPartsCategories();
+  const [content, setContent] = useState<PartsPageSection[]>([]);
+  const [managedCategories, setManagedCategories] = useState<CatalogCategory[]>(
+    [],
+  );
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/parts/sections", { cache: "no-store" })
+      .then(async (response) => (response.ok ? response.json() : []))
+      .then((items: PartsPageSection[]) => {
+        if (active) setContent(items);
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    void fetch("/api/product-catalog/parts", { cache: "no-store" })
+      .then(async (response) =>
+        response.ok ? ((await response.json()) as CatalogCategory[]) : [],
+      )
+      .then(setManagedCategories)
+      .catch(() => undefined);
+  }, []);
+
+  const sectionMap = useMemo(
+    () => new Map(content.map((section) => [section.sectionKey, section])),
+    [content],
+  );
+  const staticCategories = getAllPartsCategories().map((card) => {
+    const dynamic = sectionMap.get(`category-${card.slug}`);
+    return dynamic
+      ? {
+          ...card,
+          title: dynamic.title || card.title,
+          subtitle: dynamic.body || card.subtitle,
+          image: dynamic.imageUrl.startsWith("builtin:")
+            ? card.image
+            : dynamic.imageUrl,
+        }
+      : card;
+  });
+  const managedSlugs = new Set(
+    managedCategories.map((category) => category.slug),
+  );
+  const categories = [
+    ...managedCategories.map((category) => ({
+      id: category.id,
+      slug: category.slug,
+      title: category.title,
+      subtitle: category.subtitle,
+      icon: Package,
+      image: category.imageUrl,
+      layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]",
+      gallery: [
+        category.imageUrl,
+        ...category.products.flatMap((product) => product.images),
+      ],
+      products: category.products.map((product) => product.title),
+    })),
+    ...staticCategories.filter((category) => !managedSlugs.has(category.slug)),
+  ];
+  const landscape = sectionMap.get("landscape");
+  const cta = sectionMap.get("cta");
+  const landscapeImage =
+    landscape?.imageUrl && !landscape.imageUrl.startsWith("builtin:")
+      ? landscape.imageUrl
+      : agtpAssets.exportPort;
+  const ctaImage =
+    cta?.imageUrl && !cta.imageUrl.startsWith("builtin:")
+      ? cta.imageUrl
+      : agtpAssets.sparePartsHero;
 
   return (
     <div className="bg-[#060709] pb-20 text-white">
@@ -65,11 +141,11 @@ export default function PartsAccessoriesPage() {
       <PageHero
         breadcrumbs={[
           { label: "HOME", href: "/" },
-          { label: "PARTS & ACCESSORIES" }
+          { label: "PARTS & ACCESSORIES" },
         ]}
         badge={{
           text: "OEM & AFTERMARKET — WORLDWIDE SUPPLY",
-          dotColor: "bg-emerald-400"
+          dotColor: "bg-emerald-400",
         }}
         title="PARTS & ACCESSORIES"
         subtitle="AGTP Group supplies quality automotive spare parts, accessories, and modification products from the UAE to customers worldwide, with competitive pricing and reliable export support."
@@ -99,7 +175,10 @@ export default function PartsAccessoriesPage() {
       </section>
 
       {/* ── 3. Parts Catalog (Clicking Category opens direct Product Page) ── */}
-      <section id="parts-catalog" className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-24 text-center">
+      <section
+        id="parts-catalog"
+        className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-24 text-center"
+      >
         <div className="text-center flex flex-col items-center">
           <RevealEyebrow>
             <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-[#FDBA74]">
@@ -114,7 +193,8 @@ export default function PartsAccessoriesPage() {
           </RevealHeading>
           <RevealText>
             <p className="mt-3 text-[15px] sm:text-[16px] text-slate-400 max-w-2xl">
-              Select any category below to view our comprehensive product line and export catalog.
+              Select any category below to view our comprehensive product line
+              and export catalog.
             </p>
           </RevealText>
         </div>
@@ -123,7 +203,11 @@ export default function PartsAccessoriesPage() {
           {categories.map((card, index) => {
             const Icon = card.icon;
             return (
-              <Reveal key={card.title} delay={index * 85} className={card.layout}>
+              <Reveal
+                key={card.title}
+                delay={index * 85}
+                className={card.layout}
+              >
                 <Link
                   href={`/parts-accessories/${card.slug}`}
                   className="group relative flex h-full overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)]"
@@ -178,7 +262,9 @@ export default function PartsAccessoriesPage() {
           </RevealHeading>
           <RevealText>
             <p className="text-sm font-semibold leading-relaxed text-slate-400 sm:text-base">
-              Share the part number, vehicle details, or photos. Our team confirms compatibility, availability, pricing, and shipping options before your order is prepared for delivery.
+              Share the part number, vehicle details, or photos. Our team
+              confirms compatibility, availability, pricing, and shipping
+              options before your order is prepared for delivery.
             </p>
           </RevealText>
         </div>
@@ -196,8 +282,12 @@ export default function PartsAccessoriesPage() {
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="h-4 w-4 text-[#F97316]" />
                 </div>
-                <h3 className="mt-2 text-[18px] font-black text-white">{step.title}</h3>
-                <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-400">{step.body}</p>
+                <h3 className="mt-2 text-[18px] font-black text-white">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-400">
+                  {step.body}
+                </p>
               </div>
             </div>
           ))}
@@ -220,7 +310,9 @@ export default function PartsAccessoriesPage() {
 
               <RevealText delay={120}>
                 <p className="mt-6 text-[17px] sm:text-[19px] font-medium leading-relaxed text-slate-300 max-w-4xl">
-                  Before your order is shipped, we share photos or videos of your parts for your review and approval, where applicable — so you can buy with confidence.
+                  Before your order is shipped, we share photos or videos of
+                  your parts for your review and approval, where applicable — so
+                  you can buy with confidence.
                 </p>
               </RevealText>
             </div>
@@ -236,15 +328,19 @@ export default function PartsAccessoriesPage() {
             <Reveal duration={700}>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-800 bg-[#102941] shadow-2xl">
                 <Image
-                  src={agtpAssets.exportPort}
+                  src={landscapeImage}
                   alt="Dubai Automotive Landscape"
                   fill
                   className="object-cover opacity-60"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
-                  <span className="text-sm font-black text-white block tracking-wide">DUBAI AUTO HUB</span>
-                  <span className="text-[11px] text-slate-300 font-medium">Global Trade Gateway</span>
+                  <span className="text-sm font-black text-white block tracking-wide">
+                    {landscape?.badgeTitle || "DUBAI AUTO HUB"}
+                  </span>
+                  <span className="text-[11px] text-slate-300 font-medium">
+                    {landscape?.badgeSubtitle || "Global Trade Gateway"}
+                  </span>
                 </div>
               </div>
             </Reveal>
@@ -255,39 +351,43 @@ export default function PartsAccessoriesPage() {
             <RevealEyebrow>
               <div className="flex items-center gap-2 text-xs font-bold text-[#FDBA74] uppercase tracking-widest">
                 <span className="w-6 h-[1.5px] bg-[#F97316]" />
-                DUBAI AUTOMOTIVE LANDSCAPE
+                {landscape?.eyebrow || "DUBAI AUTOMOTIVE LANDSCAPE"}
               </div>
             </RevealEyebrow>
 
             <RevealHeading>
               <div>
                 <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight font-sans">
-                  Where Automotive Trade Comes Together
+                  {landscape?.title || "Where Automotive Trade Comes Together"}
                 </h2>
                 <p className="mt-2 text-xl sm:text-2xl font-black text-[#4361EE] tracking-wide">
-                  From Dubai to the World
+                  {landscape?.accentTitle || "From Dubai to the World"}
                 </p>
               </div>
             </RevealHeading>
 
             <RevealText delay={120}>
               <div className="space-y-4 text-sm sm:text-base text-slate-300 leading-relaxed">
-                <p>
-                  Dubai is one of the world’s leading hubs for automotive trade, connecting vehicles, spare parts, tyres, accessories, and international markets. Its established automotive infrastructure creates a dynamic environment for global trade.
-                </p>
-                <p>
-                  Explore the Dubai automotive landscape through our visual showcase — from vehicle facilities and parts warehouses to the wider trade environment that supports automotive commerce from the UAE to destinations worldwide.
-                </p>
+                {(
+                  landscape?.body ||
+                  "Dubai is one of the world’s leading hubs for automotive trade, connecting vehicles, spare parts, tyres, accessories, and international markets. Its established automotive infrastructure creates a dynamic environment for global trade.\n\nExplore the Dubai automotive landscape through our visual showcase — from vehicle facilities and parts warehouses to the wider trade environment that supports automotive commerce from the UAE to destinations worldwide."
+                )
+                  .split(/\n\s*\n/)
+                  .map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
               </div>
             </RevealText>
 
             <RevealButton delay={180}>
               <div className="pt-2">
                 <Link
-                  href="/dubai-automotive"
+                  href={landscape?.primaryButtonHref || "/dubai-automotive"}
                   className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-white/10"
                 >
-                  <span>EXPLORE DUBAI AUTOMOTIVE</span>
+                  <span>
+                    {landscape?.primaryButtonText || "EXPLORE DUBAI AUTOMOTIVE"}
+                  </span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -302,7 +402,7 @@ export default function PartsAccessoriesPage() {
           <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-6 sm:p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
             <div className="absolute inset-0 z-0">
               <Image
-                src={agtpAssets.sparePartsHero}
+                src={ctaImage}
                 alt="Ready to order"
                 fill
                 className="object-cover opacity-20"
@@ -311,7 +411,7 @@ export default function PartsAccessoriesPage() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(to top, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 50%, transparent 100%)"
+                    "linear-gradient(to top, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 50%, transparent 100%)",
                 }}
               />
             </div>
@@ -320,34 +420,38 @@ export default function PartsAccessoriesPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.28em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  READY TO ORDER
+                  {cta?.eyebrow || "READY TO ORDER"}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
               <RevealHeading>
                 <h2 className="text-[36px] font-black text-white md:text-[54px] tracking-tight">
-                  THE PART YOU NEED, RIGHT HERE.
+                  {cta?.title || "THE PART YOU NEED, RIGHT HERE."}
                 </h2>
               </RevealHeading>
               <RevealText delay={120}>
                 <p className="text-[17px] sm:text-[19px] font-medium text-slate-300 leading-relaxed">
-                  Tell us the part number, vehicle details, or what you need. We’ll confirm availability, pricing, and shipping options for your destination.
+                  {cta?.body ||
+                    "Tell us the part number, vehicle details, or what you need. We’ll confirm availability, pricing, and shipping options for your destination."}
                 </p>
               </RevealText>
 
-              <RevealButton delay={180} className="mx-auto flex w-full max-w-[320px] flex-col gap-3 pt-6 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
+              <RevealButton
+                delay={180}
+                className="mx-auto flex w-full max-w-[320px] flex-col gap-3 pt-6 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4"
+              >
                 <button
                   onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#F97316] px-6 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C] hover:scale-105 sm:h-14 sm:w-auto sm:px-8"
                 >
-                  <span>GET A PARTS QUOTE</span>
+                  <span>{cta?.primaryButtonText || "GET A PARTS QUOTE"}</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
                 <Link
-                  href="/contact"
+                  href={cta?.secondaryButtonHref || "/contact"}
                   className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-[#ffffff10] px-6 text-[15px] font-bold text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/20 sm:h-14 sm:w-auto sm:px-8"
                 >
-                  <span>CONTACT TEAM</span>
+                  <span>{cta?.secondaryButtonText || "CONTACT TEAM"}</span>
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </RevealButton>

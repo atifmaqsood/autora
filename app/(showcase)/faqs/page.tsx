@@ -1,12 +1,13 @@
 "use client";
 
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, HelpCircle, Mail, MessageCircle, Phone, Search } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { Reveal, RevealButton, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from "@/components/ui/scroll-reveal";
 import { agtpAssets } from "@/src/assets";
+import type { Faq as ManagedFaq } from "@/lib/faqs/types";
 
 const categories = [
   "All Questions",
@@ -18,13 +19,16 @@ const categories = [
 ];
 
 interface FaqItem {
+  id?: string;
   question: string;
   answer: string;
   answerNode?: ReactNode;
+  linkText?: string | null;
+  linkUrl?: string | null;
   category: "Vehicles" | "Spare Parts" | "Orders & Payments" | "Shipping & Export" | "Refunds & Support";
 }
 
-const faqList: FaqItem[] = [
+const defaultFaqList: FaqItem[] = [
   {
     question: "What does AGTP Group do?",
     answer: "AGTP Group is a Dubai-based automotive trading company supplying vehicles and automotive spare parts for international customers.",
@@ -115,10 +119,23 @@ const faqList: FaqItem[] = [
 ];
 
 export default function FaqsPage() {
+  const [faqList, setFaqList] = useState<FaqItem[]>(defaultFaqList);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState("All Questions");
   const [searchQuery, setSearchQuery] = useState("");
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    void fetch("/api/faqs", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load FAQs");
+        return response.json() as Promise<ManagedFaq[]>;
+      })
+      .then((items) => active && setFaqList(items.map((item) => ({ ...item, category: item.category as FaqItem["category"] }))))
+      .catch(() => undefined);
+    return () => { active = false; };
+  }, []);
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -207,7 +224,7 @@ export default function FaqsPage() {
               const isOpen = openIndex === index;
               return (
                 <div
-                  key={item.question}
+                  key={item.id ?? item.question}
                   className={`group relative overflow-hidden rounded-[20px] border transition-all duration-300 ${
                     isOpen ? "border-[#F97316] shadow-xl" : "border-[#315671] hover:border-[#F97316]"
                   } bg-gradient-to-b from-[#14314B] to-[#102941]`}
@@ -247,7 +264,20 @@ export default function FaqsPage() {
                   {isOpen && (
                     <div className="border-t border-[#24445F]/60 px-6 pb-6 pt-4 md:px-7 md:pb-7">
                       <p className="text-[17px] font-medium leading-relaxed text-slate-200">
-                        {item.answerNode || item.answer}
+                        {item.answerNode || (
+                          <>
+                            {item.answer}
+                            {item.linkText && item.linkUrl && (
+                              <>
+                                {" "}
+                                <Link href={item.linkUrl} className="font-bold text-[#FDBA74] underline decoration-[#F97316] underline-offset-4 hover:text-white transition-colors">
+                                  {item.linkText}
+                                </Link>
+                                .
+                              </>
+                            )}
+                          </>
+                        )}
                       </p>
                     </div>
                   )}

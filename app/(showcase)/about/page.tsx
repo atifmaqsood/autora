@@ -1,7 +1,7 @@
 "use client";
 
 import { StatsCounter } from "@/components/ui/stats-counter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,6 +14,7 @@ import {
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
+import type { AboutPageSection } from "@/lib/about-page/types";
 import {
   Reveal,
   RevealEyebrow,
@@ -25,6 +26,34 @@ import {
 
 export default function AboutPage() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [managedSections, setManagedSections] = useState<AboutPageSection[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    void fetch("/api/about/sections", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load About page content");
+        return response.json() as Promise<AboutPageSection[]>;
+      })
+      .then((sections) => active && setManagedSections(sections))
+      .catch(() => undefined);
+    return () => { active = false; };
+  }, []);
+
+  const story = managedSections.find((section) => section.sectionKey === "story");
+  const difference = managedSections.find((section) => section.sectionKey === "difference");
+  const cta = managedSections.find((section) => section.sectionKey === "cta");
+  const builtinImages: Record<string, typeof agtpAssets.aboutYard> = {
+    "builtin:about-yard": agtpAssets.aboutYard,
+    "builtin:inventory-hero": agtpAssets.inventoryHero
+  };
+  const imageSource = (url: string | undefined, fallback: typeof agtpAssets.aboutYard | string) =>
+    url ? (builtinImages[url] ?? url) : fallback;
+  const storyParagraphs = story?.body?.split(/\n\s*\n/).filter(Boolean) ?? [
+    "AGTP Group began with a clear vision: make buying and exporting vehicles and automotive spare parts easier, more transparent, and more reliable. From Dubai, one of the world’s leading automotive and trade hubs, we serve customers across international markets with quality products and professional support.",
+    "What started as a focused automotive trading business continues to grow into a global export operation. Today, AGTP Group supplies vehicles and genuine automotive spare parts to customers, dealers, businesses, and organisations across more than 45 countries worldwide.",
+    "Driven by Trust is more than our slogan — it reflects how we do business. As AGTP Group continues to grow globally, our commitment remains the same: provide quality automotive products, keep our promises, and build lasting relationships with customers around the world."
+  ];
 
   return (
     <div className="space-y-0 pb-20 bg-[#060709] text-white">
@@ -73,15 +102,15 @@ export default function AboutPage() {
             <Reveal duration={700}>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-800 bg-[#102941] shadow-2xl">
                 <Image
-                  src={agtpAssets.aboutYard}
+                  src={imageSource(story?.imageUrl, agtpAssets.aboutYard)}
                   alt="AGTP Group Global Export Yard"
                   fill
                   className="object-cover opacity-60"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
-                  <span className="text-sm font-black text-white block tracking-wide">45+ COUNTRIES</span>
-                  <span className="text-[11px] text-slate-300 font-medium">Trusted across borders</span>
+                  <span className="text-sm font-black text-white block tracking-wide">{story?.badgeTitle || "45+ COUNTRIES"}</span>
+                  <span className="text-[11px] text-slate-300 font-medium">{story?.badgeSubtitle || "Trusted across borders"}</span>
                 </div>
               </div>
             </Reveal>
@@ -90,32 +119,26 @@ export default function AboutPage() {
             <RevealEyebrow>
               <div className="flex items-center gap-2 text-xs font-bold text-[#FDBA74] uppercase tracking-widest">
                 <span className="w-6 h-[1.5px] bg-[#F97316]" />
-                OUR STORY
+                {story?.eyebrow || "OUR STORY"}
               </div>
             </RevealEyebrow>
 
             <RevealHeading>
               <div>
                 <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight font-sans">
-                  From Dubai to the World
+                  {story?.title || "From Dubai to the World"}
                 </h2>
                 <p className="mt-2 text-xl sm:text-2xl font-black text-[#F97316] tracking-wide">
-                  Driven by Trust
+                  {story?.accentTitle || "Driven by Trust"}
                 </p>
               </div>
             </RevealHeading>
 
             <RevealText delay={120}>
               <div className="space-y-4 text-sm sm:text-base text-slate-300 leading-relaxed">
-                <p>
-                  AGTP Group began with a clear vision: make buying and exporting vehicles and automotive spare parts easier, more transparent, and more reliable. From Dubai, one of the world’s leading automotive and trade hubs, we serve customers across international markets with quality products and professional support.
-                </p>
-                <p>
-                  What started as a focused automotive trading business continues to grow into a global export operation. Today, AGTP Group supplies vehicles and genuine automotive spare parts to customers, dealers, businesses, and organisations across more than 45 countries worldwide.
-                </p>
-                <p>
-                  Driven by Trust is more than our slogan — it reflects how we do business. As AGTP Group continues to grow globally, our commitment remains the same: provide quality automotive products, keep our promises, and build lasting relationships with customers around the world.
-                </p>
+                {storyParagraphs.map((paragraph, index) => (
+                  <p key={`${index}-${paragraph.slice(0, 24)}`}>{paragraph}</p>
+                ))}
               </div>
             </RevealText>
           </div>
@@ -241,7 +264,7 @@ export default function AboutPage() {
             <Reveal duration={700}>
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-slate-800 bg-[#102941] shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1000&q=80"
+                  src={imageSource(difference?.imageUrl, "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1000&q=80")}
                   alt="AGTP GROUP Showroom"
                   fill
                   className="object-cover"
@@ -259,7 +282,7 @@ export default function AboutPage() {
           <div className="relative bg-[#102941] border border-slate-800 rounded-3xl p-6 sm:p-16 text-center overflow-hidden shadow-2xl">
             <div className="absolute inset-0 z-0">
               <Image
-                src={agtpAssets.inventoryHero}
+                src={imageSource(cta?.imageUrl, agtpAssets.inventoryHero)}
                 alt="AGTP Group vehicle inventory"
                 fill
                 sizes="(max-width: 1280px) 100vw, 1280px"
@@ -276,10 +299,10 @@ export default function AboutPage() {
 
             <div className="relative z-10 max-w-3xl mx-auto space-y-6">
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight font-sans">
-                READY TO GET STARTED?
+                {cta?.title || "READY TO GET STARTED?"}
               </h2>
               <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
-                Whether you&apos;re looking for a vehicle or automotive spare parts, AGTP Group is ready to help. Tell us what you need, where it&apos;s going, and your preferred specifications. We&apos;ll guide you through availability, pricing, payment, documentation, and reliable shipping options.
+                {cta?.body || "Whether you're looking for a vehicle or automotive spare parts, AGTP Group is ready to help. Tell us what you need, where it's going, and your preferred specifications. We'll guide you through availability, pricing, payment, documentation, and reliable shipping options."}
               </p>
               <div className="mx-auto flex w-full max-w-[320px] flex-col gap-3 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
                 <button

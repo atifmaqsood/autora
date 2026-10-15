@@ -4,7 +4,9 @@ import { useState, type FormEvent } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { PhoneCountryInput } from "@/components/ui/phone-country-input";
 import { CountrySelect } from "@/components/ui/country-select";
+import { HoneypotField } from "@/components/ui/honeypot-field";
 import { DEFAULT_COUNTRY } from "@/lib/countries-data";
+import { honeypotValue, submitInquiry } from "@/lib/inquiries";
 
 const inputClass = "mt-1.5 h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-slate-500 focus:border-[var(--agtp-secondary)] focus:outline-none";
 const labelClass = "block text-xs font-bold text-slate-200";
@@ -15,11 +17,13 @@ export function PartsQuoteForm({ category, slug, vehicle }: { category: string; 
   const [destination, setDestination] = useState(DEFAULT_COUNTRY.name);
   const [reference, setReference] = useState("");
   const [error, setError] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
     const fullName = String(data.get("fullName") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
     const make = String(data.get("make") ?? "").trim();
@@ -28,28 +32,30 @@ export function PartsQuoteForm({ category, slug, vehicle }: { category: string; 
       setError("Please complete all required fields.");
       return;
     }
-    const id = `INQ-${crypto.randomUUID()}`;
+    setIsSending(true);
     try {
-      const existing = JSON.parse(localStorage.getItem("agtp_inquiries") || "[]");
-      if (!Array.isArray(existing)) throw new Error("Invalid inquiry data");
-      localStorage.setItem("agtp_inquiries", JSON.stringify([{
-        id,
-        vehicleId: vehicle?.id ?? `parts-${slug}`,
-        vehicleName: category,
+      const id = await submitInquiry({
+        type: vehicle ? "vehicle" : "parts",
         name: fullName,
-        fullName,
         email,
         phone: phone.trim().startsWith("+") ? phone.trim() : `${phoneCountry.dialCode} ${phone.trim()}`,
-        make,
-        model,
-        exportCountry: destination,
+        country: destination,
+        subject: `${category} — ${make} ${model}`,
         message: String(data.get("message") ?? "").trim(),
-        createdAt: new Date().toISOString(),
-        status: "Pending"
-      }, ...existing]));
+        details: {
+          category,
+          make,
+          model,
+          ...(vehicle ? { vehicleId: vehicle.id } : { partsPage: slug }),
+          page: window.location.href
+        },
+        website: honeypotValue(form)
+      });
       setReference(id);
-    } catch {
-      setError("Your request could not be saved. Please try again or contact us on WhatsApp.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setIsSending(false);
     }
   }
 
@@ -61,12 +67,13 @@ export function PartsQuoteForm({ category, slug, vehicle }: { category: string; 
       {reference ? (
         <div role="status" className="mt-8 space-y-4 rounded-2xl border border-white/10 bg-black/20 p-6">
           <CheckCircle2 className="h-9 w-9 text-[var(--agtp-secondary)]" />
-          <h3 className="text-xl font-bold">Your quote request has been saved.</h3>
+          <h3 className="text-xl font-bold">Your quote request has been sent.</h3>
           <p className="break-all text-sm text-slate-300">Reference: {reference}</p>
           <button type="button" onClick={() => setReference("")} className="text-sm font-bold text-[var(--agtp-secondary)] underline underline-offset-4">Send another inquiry</button>
         </div>
       ) : (
-        <form onSubmit={submit} className="mt-8 space-y-6">
+        <form onSubmit={submit} className="relative mt-8 space-y-6">
+          <HoneypotField />
           <div className="grid gap-5 md:grid-cols-3">
             <div>
               <label htmlFor="parts-fullname" className={labelClass}>Full Name *</label>
@@ -96,7 +103,7 @@ export function PartsQuoteForm({ category, slug, vehicle }: { category: string; 
             </div>
           </div>
           {error && <p role="alert" className="text-sm text-red-300">{error}</p>}
-          <button type="submit" className="inline-flex h-12 w-full items-center justify-center gap-3 rounded-xl bg-[var(--agtp-secondary)] px-8 text-sm font-bold text-white transition-opacity hover:opacity-90 sm:w-auto">Submit <ArrowRight className="h-4 w-4" /></button>
+          <button type="submit" disabled={isSending} className="inline-flex h-12 w-full items-center justify-center gap-3 rounded-xl bg-[var(--agtp-secondary)] px-8 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">{isSending ? "Sending..." : "Submit"} <ArrowRight className="h-4 w-4" /></button>
         </form>
       )}
     </section>

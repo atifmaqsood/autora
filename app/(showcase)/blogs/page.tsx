@@ -1,26 +1,30 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Filter, Send } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
+import type { BlogPost as ManagedBlogPost } from "@/lib/editorial/types";
+import type { MarketingPageSection } from "@/lib/marketing-page-content/types";
 import {
   RevealHeading,
   RevealText,
   RevealButton,
   RevealEyebrow,
-  Reveal
+  Reveal,
 } from "@/components/ui/scroll-reveal";
 
 interface BlogPost {
-  id: number;
+  id: number | string;
   title: string;
   category: string;
   date: string;
   excerpt: string;
   image: any;
+  videoUrl?: string | null;
+  content?: string;
 }
 
 const allBlogPosts: BlogPost[] = [
@@ -29,218 +33,315 @@ const allBlogPosts: BlogPost[] = [
     title: "The Future of Cross-Border Trade: Opportunities for SMEs",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "How small and medium enterprises can leverage digital sourcing hubs, transparent supply chains, and Dubai's re-export ecosystem.",
-    image: agtpAssets.exportPort
+    excerpt:
+      "How small and medium enterprises can leverage digital sourcing hubs, transparent supply chains, and Dubai's re-export ecosystem.",
+    image: agtpAssets.exportPort,
   },
   {
     id: 2,
     title: "Why Supplier Verification Is Critical in Global Sourcing",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Mitigating risks in overseas procurement: Auditing stockists, factory inspections, and verifying pre-shipment compliance.",
-    image: agtpAssets.sparePartsHero
+    excerpt:
+      "Mitigating risks in overseas procurement: Auditing stockists, factory inspections, and verifying pre-shipment compliance.",
+    image: agtpAssets.sparePartsHero,
   },
   {
     id: 3,
-    title: "5 Common Challenges in International Procurement and How to Overcome Them",
+    title:
+      "5 Common Challenges in International Procurement and How to Overcome Them",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Overcoming currency fluctuations, customs bottlenecks, freight delays, and specification mismatches in global trade.",
-    image: agtpAssets.aboutHero
+    excerpt:
+      "Overcoming currency fluctuations, customs bottlenecks, freight delays, and specification mismatches in global trade.",
+    image: agtpAssets.aboutHero,
   },
   {
     id: 4,
     title: "Top Trends Shaping Global Trade and Supply Chains in 2026",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Key shifts in ocean container freight, automated trade documentation, and regional logistics hubs connecting East to West.",
-    image: agtpAssets.inventoryHero
+    excerpt:
+      "Key shifts in ocean container freight, automated trade documentation, and regional logistics hubs connecting East to West.",
+    image: agtpAssets.inventoryHero,
   },
   {
     id: 5,
     title: "How AGTP Group Simplifies International Sourcing for Businesses",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "From single-unit vehicle export to bulk spare parts supply, see how our Dubai-based logistics desk coordinates the end-to-end process.",
-    image: agtpAssets.suvs
+    excerpt:
+      "From single-unit vehicle export to bulk spare parts supply, see how our Dubai-based logistics desk coordinates the end-to-end process.",
+    image: agtpAssets.suvs,
   },
   {
     id: 6,
-    title: "Emerging Opportunities in Africa and the Middle East for Global Traders",
+    title:
+      "Emerging Opportunities in Africa and the Middle East for Global Traders",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Analyzing high-demand automotive, machinery, and construction material trade routes connecting Dubai to African port cities.",
-    image: agtpAssets.heroYard
+    excerpt:
+      "Analyzing high-demand automotive, machinery, and construction material trade routes connecting Dubai to African port cities.",
+    image: agtpAssets.heroYard,
   },
   {
     id: 7,
-    title: "Automotive Spare Parts: OEM vs Aftermarket – Which Is Right for Your Business?",
+    title:
+      "Automotive Spare Parts: OEM vs Aftermarket – Which Is Right for Your Business?",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Understanding quality tiers, price points, and compatibility for commercial fleet maintenance and retail stockists.",
-    image: agtpAssets.cadillacEscaladeCard
+    excerpt:
+      "Understanding quality tiers, price points, and compatibility for commercial fleet maintenance and retail stockists.",
+    image: agtpAssets.cadillacEscaladeCard,
   },
   {
     id: 8,
     title: "Freight & Logistics: Choosing Between Air, Sea, and Land Transport",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Comparing Ro-Ro, containerized ocean shipping, air express, and overland freight for cost-effective global delivery.",
-    image: agtpAssets.exportPort
+    excerpt:
+      "Comparing Ro-Ro, containerized ocean shipping, air express, and overland freight for cost-effective global delivery.",
+    image: agtpAssets.exportPort,
   },
   {
     id: 9,
     title: "Essential Export Documentation Every Business Should Know",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Demystifying Certificates of Origin, Bills of Lading, SWIFT MT-103 proofs, and destination customs declarations.",
-    image: agtpAssets.contactHero
+    excerpt:
+      "Demystifying Certificates of Origin, Bills of Lading, SWIFT MT-103 proofs, and destination customs declarations.",
+    image: agtpAssets.contactHero,
   },
   {
     id: 10,
     title: "The Importance of Quality Inspection in Global Supply Chains",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Why pre-shipment photo & video reports, mechanical testing, and VIN verification prevent costly import disputes.",
-    image: agtpAssets.aboutYard
+    excerpt:
+      "Why pre-shipment photo & video reports, mechanical testing, and VIN verification prevent costly import disputes.",
+    image: agtpAssets.aboutYard,
   },
   {
     id: 11,
     title: "How to Choose Reliable Suppliers for International Procurement",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Proven criteria for evaluating supplier credibility, inventory depth, warranty policies, and export track record.",
-    image: agtpAssets.bmw760Card
+    excerpt:
+      "Proven criteria for evaluating supplier credibility, inventory depth, warranty policies, and export track record.",
+    image: agtpAssets.bmw760Card,
   },
   {
     id: 12,
-    title: "Top Construction Materials Sourced Internationally for Modern Projects",
+    title:
+      "Top Construction Materials Sourced Internationally for Modern Projects",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "High-grade tiles, marble, sanitaryware, and structural hardware sourced through Middle Eastern trade channels.",
-    image: agtpAssets.vans
+    excerpt:
+      "High-grade tiles, marble, sanitaryware, and structural hardware sourced through Middle Eastern trade channels.",
+    image: agtpAssets.vans,
   },
   {
     id: 13,
     title: "A Complete Guide to Importing Automotive Vehicles from Dubai",
     category: "Business",
     date: "JUNE 16, 2026",
-    excerpt: "Step-by-step walkthrough for overseas buyers sourcing luxury SUVs, pickups, and commercial fleets from Dubai Free Zones.",
-    image: agtpAssets.suvs
+    excerpt:
+      "Step-by-step walkthrough for overseas buyers sourcing luxury SUVs, pickups, and commercial fleets from Dubai Free Zones.",
+    image: agtpAssets.suvs,
   },
   {
     id: 14,
     title: "Why Dubai Is the Ideal Hub for Global Trade and Sourcing?",
     category: "AGTP Insights",
     date: "JUNE 16, 2026",
-    excerpt: "Tax incentives, world-class port infrastructure at JAFZA, and strategic geographic proximity to emerging global markets.",
-    image: agtpAssets.sedans
+    excerpt:
+      "Tax incentives, world-class port infrastructure at JAFZA, and strategic geographic proximity to emerging global markets.",
+    image: agtpAssets.sedans,
   },
   {
     id: 15,
-    title: "How Global Sourcing Helps Businesses Reduce Costs and Increase Efficiency",
+    title:
+      "How Global Sourcing Helps Businesses Reduce Costs and Increase Efficiency",
     category: "Sound",
     date: "NOVEMBER 22, 2023",
-    excerpt: "Leveraging international supplier networks to unlock competitive unit costs without compromising on quality.",
-    image: agtpAssets.pickups
+    excerpt:
+      "Leveraging international supplier networks to unlock competitive unit costs without compromising on quality.",
+    image: agtpAssets.pickups,
   },
   {
     id: 16,
-    title: "2024 BMW ALPINA XB7 with Exclusive Details & Extraordinary Performance",
+    title:
+      "2024 BMW ALPINA XB7 with Exclusive Details & Extraordinary Performance",
     category: "Accessories",
     date: "NOVEMBER 22, 2023",
-    excerpt: "An in-depth review of the luxury performance SUV featuring bespoke interior accents, tuned V8 engine, and export options.",
-    image: agtpAssets.bmw760ArmoredCard
+    excerpt:
+      "An in-depth review of the luxury performance SUV featuring bespoke interior accents, tuned V8 engine, and export options.",
+    image: agtpAssets.bmw760ArmoredCard,
   },
   {
     id: 17,
     title: "BMW X6 M50i: Designed to Exceed Your Sportiest Expectations",
     category: "Exterior",
     date: "NOVEMBER 22, 2023",
-    excerpt: "Exploring the aggressive coupe-SUV styling, quad exhaust design, and aerodynamic enhancements of the X6 M50i.",
-    image: agtpAssets.bmwX2Card
+    excerpt:
+      "Exploring the aggressive coupe-SUV styling, quad exhaust design, and aerodynamic enhancements of the X6 M50i.",
+    image: agtpAssets.bmwX2Card,
   },
   {
     id: 18,
     title: "BMW X5 Gold 2024 Sport Review: Light on Sport, Heavy on Luxury",
     category: "Body Kit",
     date: "NOVEMBER 22, 2023",
-    excerpt: "Evaluating custom gold trim packages, widebody aerodynamic kits, and performance stance upgrades for the X5 series.",
-    image: agtpAssets.spotlightFerrari
+    excerpt:
+      "Evaluating custom gold trim packages, widebody aerodynamic kits, and performance stance upgrades for the X5 series.",
+    image: agtpAssets.spotlightFerrari,
   },
   {
     id: 19,
-    title: "2024 Kia Sorento Hybrid Review: Big Vehicle Comfort with Small-Vehicle Efficiency",
+    title:
+      "2024 Kia Sorento Hybrid Review: Big Vehicle Comfort with Small-Vehicle Efficiency",
     category: "Fuel Systems",
     date: "NOVEMBER 22, 2023",
-    excerpt: "Analyzing fuel economy, hybrid powertrain longevity, and family utility in the latest 3-row crossover.",
-    image: agtpAssets.bydDestroyerCard
+    excerpt:
+      "Analyzing fuel economy, hybrid powertrain longevity, and family utility in the latest 3-row crossover.",
+    image: agtpAssets.bydDestroyerCard,
   },
   {
     id: 20,
-    title: "2024 Audi Hybrid: Uncompromised Efficiency with Optimized Engineering",
+    title:
+      "2024 Audi Hybrid: Uncompromised Efficiency with Optimized Engineering",
     category: "Exterior",
     date: "NOVEMBER 22, 2023",
-    excerpt: "How Audi integrates plugin hybrid technology into sleek sedan designs while maintaining dynamic driving dynamics.",
-    image: agtpAssets.mercedesCclassCard
+    excerpt:
+      "How Audi integrates plugin hybrid technology into sleek sedan designs while maintaining dynamic driving dynamics.",
+    image: agtpAssets.mercedesCclassCard,
   },
   {
     id: 21,
     title: "2024 BMW X3 M Sport Seats: Available as Standalone Upgrade Options",
     category: "Body Kit",
     date: "NOVEMBER 22, 2023",
-    excerpt: "Bespoke leather ergonomics, lumbar support, and lateral bolstering options for high-performance SUV interiors.",
-    image: agtpAssets.bmwX2Card
+    excerpt:
+      "Bespoke leather ergonomics, lumbar support, and lateral bolstering options for high-performance SUV interiors.",
+    image: agtpAssets.bmwX2Card,
   },
   {
     id: 22,
-    title: "2023 Kia Carnival: Standard Blind-Spot & Collision Avoidance Technology",
+    title:
+      "2023 Kia Carnival: Standard Blind-Spot & Collision Avoidance Technology",
     category: "Sound",
     date: "SEPTEMBER 19, 2023",
-    excerpt: "Comprehensive safety package review for high-capacity multi-purpose passenger minivans.",
-    image: agtpAssets.vans
+    excerpt:
+      "Comprehensive safety package review for high-capacity multi-purpose passenger minivans.",
+    image: agtpAssets.vans,
   },
   {
     id: 23,
     title: "Golf vs Polo: A Comparison of Two Volkswagen Classics",
     category: "Oil & Filters",
     date: "SEPTEMBER 19, 2023",
-    excerpt: "Comparing maintenance costs, fuel economy, engine reliability, and resale value for VW's popular hatchbacks.",
-    image: agtpAssets.sedans
+    excerpt:
+      "Comparing maintenance costs, fuel economy, engine reliability, and resale value for VW's popular hatchbacks.",
+    image: agtpAssets.sedans,
   },
   {
     id: 24,
     title: "Battle of the SUVs: Kia Sportage vs Hyundai Tucson",
     category: "Accessories",
     date: "SEPTEMBER 19, 2023",
-    excerpt: "Head-to-head comparison between South Korea's top compact crossovers on reliability, technology, and export value.",
-    image: agtpAssets.suvs
+    excerpt:
+      "Head-to-head comparison between South Korea's top compact crossovers on reliability, technology, and export value.",
+    image: agtpAssets.suvs,
   },
   {
     id: 25,
     title: "The Best Used Cars for Affordable Insurance & Low Ownership Costs",
     category: "AGTP Insights",
     date: "SEPTEMBER 19, 2023",
-    excerpt: "Practical guide to selecting pre-owned sedans and SUVs with proven mechanical longevity and accessible spare parts.",
-    image: agtpAssets.careersHero
-  }
+    excerpt:
+      "Practical guide to selecting pre-owned sedans and SUVs with proven mechanical longevity and accessible spare parts.",
+    image: agtpAssets.careersHero,
+  },
 ];
 
-const categories = ["ALL", "AGTP Insights", "Business", "Exterior", "Body Kit", "Accessories", "Sound"];
 const POSTS_PER_PAGE = 15;
+const builtinImages: Record<string, string> = {
+  "builtin:blog-export-port": agtpAssets.exportPort.src,
+  "builtin:blog-spare-parts": agtpAssets.sparePartsHero.src,
+  "builtin:blog-about": agtpAssets.aboutHero.src,
+  "builtin:blog-newsletter": agtpAssets.exportPort.src,
+};
 
 export default function BlogsPage() {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [currentPage, setCurrentPage] = useState(1);
   const [subscribed, setSubscribed] = useState(false);
   const [email, setEmail] = useState("");
+  const [managedPosts, setManagedPosts] = useState<BlogPost[] | null>(null);
+  const [newsletter, setNewsletter] = useState<MarketingPageSection | null>(
+    null,
+  );
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+
+  useEffect(() => {
+    void fetch("/api/blogs", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Blogs unavailable");
+        return (await response.json()) as ManagedBlogPost[];
+      })
+      .then((items) =>
+        setManagedPosts(
+          items.map((post) => ({
+            id: post.id,
+            title: post.title,
+            category: post.category,
+            date: new Date(`${post.publishedDate}T00:00:00`)
+              .toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })
+              .toUpperCase(),
+            excerpt: post.excerpt,
+            content: post.content,
+            image: builtinImages[post.imageUrl] ?? post.imageUrl,
+            videoUrl: post.videoUrl,
+          })),
+        ),
+      )
+      .catch(() => undefined);
+    void fetch("/api/page-content/blogs", { cache: "no-store" })
+      .then(async (response) =>
+        response.ok ? ((await response.json()) as MarketingPageSection[]) : [],
+      )
+      .then((items) =>
+        setNewsletter(
+          items.find((item) => item.sectionKey === "newsletter") ?? null,
+        ),
+      )
+      .catch(() => undefined);
+  }, []);
+
+  const posts = managedPosts ?? allBlogPosts;
+  const categories = useMemo(
+    () => ["ALL", ...Array.from(new Set(posts.map((post) => post.category)))],
+    [posts],
+  );
 
   const filteredPosts = useMemo(() => {
-    if (activeCategory === "ALL") return allBlogPosts;
-    return allBlogPosts.filter((post) => post.category.toLowerCase() === activeCategory.toLowerCase());
-  }, [activeCategory]);
-  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
-  const visiblePosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
+    if (activeCategory === "ALL") return posts;
+    return posts.filter(
+      (post) => post.category.toLowerCase() === activeCategory.toLowerCase(),
+    );
+  }, [activeCategory, posts]);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredPosts.length / POSTS_PER_PAGE),
+  );
+  const visiblePosts = filteredPosts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE,
+  );
 
   return (
     <div className="bg-[#060709] pb-24 text-white">
@@ -248,10 +349,10 @@ export default function BlogsPage() {
       <PageHero
         breadcrumbs={[
           { label: "HOME", href: "/" },
-          { label: "BLOGS & ARTICLES" }
+          { label: "BLOGS & ARTICLES" },
         ]}
         badge={{
-          text: "AGTP INSIGHTS & TRADE NEWS"
+          text: "AGTP INSIGHTS & TRADE NEWS",
         }}
         title="AUTOMOTIVE INSIGHTS & GUIDES"
         subtitle="Practical insights on vehicles, automotive spare parts, maintenance, exports, and buying from the UAE."
@@ -289,25 +390,57 @@ export default function BlogsPage() {
 
       {/* ── 3. Blog Posts Grid ── */}
       <section className="mx-auto max-w-[1570px] px-6 pt-12">
-        <Reveal distance={15} duration={700} className="mb-6 flex items-center justify-between">
+        <Reveal
+          distance={15}
+          duration={700}
+          className="mb-6 flex items-center justify-between"
+        >
           <span className="text-[13px] font-semibold text-slate-400">
-            Showing <strong className="text-white">{visiblePosts.length}</strong> of {filteredPosts.length} articles
+            Showing{" "}
+            <strong className="text-white">{visiblePosts.length}</strong> of{" "}
+            {filteredPosts.length} articles
           </span>
         </Reveal>
 
-        <div key={`${activeCategory}-${currentPage}`} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          key={`${activeCategory}-${currentPage}`}
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+        >
           {visiblePosts.map((post) => (
-            <Reveal key={post.id} distance={45} duration={750} className="h-full">
+            <Reveal
+              key={post.id}
+              distance={45}
+              duration={750}
+              className="h-full"
+            >
               <div className="group flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-[#F97316]">
                 <div>
                   <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                    {post.videoUrl ? (
+                      <video
+                        src={post.videoUrl}
+                        poster={
+                          typeof post.image === "string"
+                            ? post.image
+                            : post.image.src
+                        }
+                        controls
+                        preload="metadata"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        unoptimized={
+                          typeof post.image === "string" &&
+                          post.image.startsWith("http://localhost:")
+                        }
+                      />
+                    )}
                     <div className="absolute left-4 top-4 rounded-full bg-[#0B1F33]/85 px-3 py-1 text-[11px] font-black text-[#FDBA74] backdrop-blur border border-[#F97316]/30">
                       {post.category}
                     </div>
@@ -337,10 +470,14 @@ export default function BlogsPage() {
 
                 <div className="px-7 pb-7 pt-2 border-t border-[#24445F]/60">
                   <Reveal distance={12} duration={650} delay={180}>
-                    <span className="inline-flex items-center gap-2 text-[13px] font-black text-[#F97316] group-hover:text-[#FDBA74] transition-colors">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPost(post)}
+                      className="inline-flex items-center gap-2 text-[13px] font-black text-[#F97316] group-hover:text-[#FDBA74] transition-colors"
+                    >
                       <span>Read full article</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </span>
+                    </button>
                   </Reveal>
                 </div>
               </div>
@@ -348,18 +485,23 @@ export default function BlogsPage() {
           ))}
         </div>
         {totalPages > 1 && (
-          <nav aria-label="Blog pagination" className="mt-10 flex justify-center gap-2">
-            {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-              <button
-                key={page}
-                type="button"
-                aria-current={currentPage === page ? "page" : undefined}
-                onClick={() => setCurrentPage(page)}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-black transition-colors ${currentPage === page ? "border-transparent bg-[var(--agtp-secondary)] text-white" : "border-[#315671] bg-[var(--agtp-primary)] text-slate-300 hover:border-[var(--agtp-secondary)] hover:text-white"}`}
-              >
-                {page}
-              </button>
-            ))}
+          <nav
+            aria-label="Blog pagination"
+            className="mt-10 flex justify-center gap-2"
+          >
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+              (page) => (
+                <button
+                  key={page}
+                  type="button"
+                  aria-current={currentPage === page ? "page" : undefined}
+                  onClick={() => setCurrentPage(page)}
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-black transition-colors ${currentPage === page ? "border-transparent bg-[var(--agtp-secondary)] text-white" : "border-[#315671] bg-[var(--agtp-primary)] text-slate-300 hover:border-[var(--agtp-secondary)] hover:text-white"}`}
+                >
+                  {page}
+                </button>
+              ),
+            )}
           </nav>
         )}
       </section>
@@ -371,7 +513,12 @@ export default function BlogsPage() {
             {/* Background Image */}
             <div className="absolute inset-0 -z-10">
               <Image
-                src={agtpAssets.exportPort}
+                src={
+                  newsletter?.imageUrl
+                    ? (builtinImages[newsletter.imageUrl] ??
+                      newsletter.imageUrl)
+                    : agtpAssets.exportPort
+                }
                 alt="AGTP Group Export Insights"
                 fill
                 className="object-cover object-center brightness-105"
@@ -386,27 +533,29 @@ export default function BlogsPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  STAY UPDATED
+                  {newsletter?.eyebrow ?? "STAY UPDATED"}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
 
               <RevealHeading>
                 <h2 className="mx-auto mt-4 max-w-4xl text-[34px] font-black uppercase leading-tight tracking-tight text-white sm:text-[46px] md:text-[56px] lg:text-[62px] drop-shadow-md">
-                  GET THE LATEST AUTOMOTIVE INSIGHTS
+                  {newsletter?.title ?? "GET THE LATEST AUTOMOTIVE INSIGHTS"}
                 </h2>
               </RevealHeading>
 
               <RevealText delay={120}>
                 <p className="mx-auto mt-6 max-w-2xl text-[16px] font-semibold leading-relaxed text-slate-100 sm:text-[18px] drop-shadow">
-                  Get useful updates on vehicles, spare parts, automotive trends, and export information from AGTP Group.
+                  {newsletter?.body ??
+                    "Get useful updates on vehicles, spare parts, automotive trends, and export information from AGTP Group."}
                 </p>
               </RevealText>
 
               <RevealButton delay={180} className="mt-10 max-w-xl mx-auto">
                 {subscribed ? (
                   <div className="rounded-full border border-emerald-500/50 bg-[#0B1F33]/90 backdrop-blur-md px-8 py-4 text-[14px] font-bold text-emerald-400 shadow-xl">
-                    ✓ Thank you for subscribing to AGTP Group Automotive Insights!
+                    ✓ Thank you for subscribing to AGTP Group Automotive
+                    Insights!
                   </div>
                 ) : (
                   <form
@@ -428,7 +577,9 @@ export default function BlogsPage() {
                       type="submit"
                       className="h-[56px] w-full sm:w-auto shrink-0 rounded-full bg-[#F97316] px-10 text-[16px] font-black text-white transition-all duration-300 hover:bg-[#EA580C] shadow-xl hover:scale-105 flex items-center justify-center gap-2"
                     >
-                      <span>Subscribe</span>
+                      <span>
+                        {newsletter?.primaryButtonText ?? "Subscribe"}
+                      </span>
                       <Send className="h-4 w-4" />
                     </button>
                   </form>
@@ -438,7 +589,37 @@ export default function BlogsPage() {
           </div>
         </Reveal>
       </section>
+      {selectedPost && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+          onClick={(event) =>
+            event.target === event.currentTarget && setSelectedPost(null)
+          }
+        >
+          <article className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-[#315671] bg-[#102941] p-7 shadow-2xl sm:p-10">
+            <div className="flex items-start justify-between gap-5">
+              <div>
+                <p className="text-xs font-black uppercase tracking-wider text-[#F97316]">
+                  {selectedPost.category} · {selectedPost.date}
+                </p>
+                <h2 className="mt-3 text-2xl font-black text-white sm:text-4xl">
+                  {selectedPost.title}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedPost(null)}
+                className="rounded-full border border-white/20 px-3 py-1.5 text-sm text-white"
+              >
+                Close
+              </button>
+            </div>
+            <div className="mt-6 whitespace-pre-line text-base leading-8 text-slate-200">
+              {selectedPost.content ?? selectedPost.excerpt}
+            </div>
+          </article>
+        </div>
+      )}
     </div>
   );
 }
-

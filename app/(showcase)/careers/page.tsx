@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   Globe,
@@ -12,17 +12,18 @@ import {
   ArrowRight,
   Mail,
   X,
-  CheckCircle2
+  CheckCircle2,
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { ParallaxImage } from "@/components/ui/parallax-image";
 import { agtpAssets } from "@/src/assets";
+import type { CareerJob } from "@/lib/editorial/types";
 import {
   RevealHeading,
   RevealText,
   RevealButton,
   RevealEyebrow,
-  RevealStagger
+  RevealStagger,
 } from "@/components/ui/scroll-reveal";
 
 export interface JobRole {
@@ -36,6 +37,7 @@ export interface JobRole {
   requirements: string[];
   subject: string;
   icon: any;
+  applicationEmail?: string;
 }
 
 const jobRoles: JobRole[] = [
@@ -53,14 +55,14 @@ const jobRoles: JobRole[] = [
       "Design vehicle showcase creatives, digital catalogs, and social media banners.",
       "Develop branding materials for automotive spare parts and freight logistics campaigns.",
       "Produce engaging social media graphics, flyers, and sales presentation decks.",
-      "Collaborate with the video and sales teams to maintain a luxury, high-conversion visual standard."
+      "Collaborate with the video and sales teams to maintain a luxury, high-conversion visual standard.",
     ],
     requirements: [
       "2+ years of graphic design experience (Adobe Photoshop, Illustrator, InDesign, Figma).",
       "Strong portfolio showcasing commercial branding, typography, and product marketing.",
       "Ability to manage multiple design deliverables with pixel-perfect attention to detail.",
-      "Experience or passion for the automotive trading industry is a strong plus."
-    ]
+      "Experience or passion for the automotive trading industry is a strong plus.",
+    ],
   },
   {
     id: "video-editor",
@@ -76,14 +78,14 @@ const jobRoles: JobRole[] = [
       "Edit dynamic vehicle review videos, yard walkthroughs, and customer testimonial stories.",
       "Perform color grading, sound design, motion graphics, and multi-language subtitle integration.",
       "Produce short-form reels for Instagram/TikTok and long-form YouTube export walkthroughs.",
-      "Maintain organized project archives and collaborate with showroom camera operators."
+      "Maintain organized project archives and collaborate with showroom camera operators.",
     ],
     requirements: [
       "Proficiency in Adobe Premiere Pro, After Effects, DaVinci Resolve, or Final Cut Pro.",
       "Strong portfolio of commercial video editing, pacing, sound design, and color grading.",
       "Ability to deliver fast-turnaround video content for social and web platforms.",
-      "A keen visual eye for luxury automotive framing and storytelling."
-    ]
+      "A keen visual eye for luxury automotive framing and storytelling.",
+    ],
   },
   {
     id: "senior-accountant",
@@ -99,22 +101,22 @@ const jobRoles: JobRole[] = [
       "Manage general ledger, accounts payable/receivable, and international wire reconciliations.",
       "Coordinate UAE VAT compliance, corporate tax records, and external audits.",
       "Prepare monthly financial statements and export trade margin analysis.",
-      "Work closely with banking partners and customs logistics coordinators."
+      "Work closely with banking partners and customs logistics coordinators.",
     ],
     requirements: [
       "Bachelor's degree in Accounting/Finance or professional qualification (ACCA/CPA/CA).",
       "4+ years of accounting experience, preferably within trading, automotive, or export sectors.",
       "Strong knowledge of UAE VAT, corporate tax, and ERP accounting systems.",
-      "High level of integrity, analytical mindset, and precision."
-    ]
-  }
+      "High level of integrity, analytical mindset, and precision.",
+    ],
+  },
 ];
 
 /* ── Embedded Job Application Modal ── */
 function JobApplicationModal({
   isOpen,
   onClose,
-  role
+  role,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -125,7 +127,7 @@ function JobApplicationModal({
     name: "",
     email: "",
     phone: "",
-    coverLetter: ""
+    coverLetter: "",
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -152,7 +154,9 @@ function JobApplicationModal({
     setConfirmationId(newAppId);
 
     try {
-      const existing = JSON.parse(localStorage.getItem("agtp_job_applications") || "[]");
+      const existing = JSON.parse(
+        localStorage.getItem("agtp_job_applications") || "[]",
+      );
       const record = {
         id: newAppId,
         roleId: role.id,
@@ -160,9 +164,12 @@ function JobApplicationModal({
         ...formData,
         fileName: selectedFile ? selectedFile.name : "Not provided",
         submittedAt: new Date().toISOString(),
-        status: "Received"
+        status: "Received",
       };
-      localStorage.setItem("agtp_job_applications", JSON.stringify([record, ...existing]));
+      localStorage.setItem(
+        "agtp_job_applications",
+        JSON.stringify([record, ...existing]),
+      );
     } catch (err) {
       console.error(err);
     }
@@ -176,7 +183,7 @@ function JobApplicationModal({
       name: "",
       email: "",
       phone: "",
-      coverLetter: ""
+      coverLetter: "",
     });
     setSelectedFile(null);
     onClose();
@@ -206,14 +213,18 @@ function JobApplicationModal({
                 Application Submitted!
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-                Thank you for applying for the <strong className="text-white">{role.title}</strong> position at AGTP Group.
+                Thank you for applying for the{" "}
+                <strong className="text-white">{role.title}</strong> position at
+                AGTP Group.
               </p>
             </div>
 
             <div className="bg-black/20 border border-white/10 p-4 sm:p-5 rounded-2xl text-left max-w-md mx-auto space-y-2 text-xs text-slate-300">
               <div className="flex justify-between pb-2 border-b border-white/10">
                 <span className="text-slate-400">Application Reference:</span>
-                <strong className="text-white font-mono text-sm">{confirmationId}</strong>
+                <strong className="text-white font-mono text-sm">
+                  {confirmationId}
+                </strong>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">Position:</span>
@@ -221,22 +232,29 @@ function JobApplicationModal({
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">Applicant Name:</span>
-                <span className="text-white font-semibold">{formData.name}</span>
+                <span className="text-white font-semibold">
+                  {formData.name}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">Contact Email:</span>
-                <span className="text-white font-semibold">{formData.email}</span>
+                <span className="text-white font-semibold">
+                  {formData.email}
+                </span>
               </div>
               {selectedFile && (
                 <div className="flex justify-between">
                   <span className="text-slate-400">Attached Resume:</span>
-                  <span className="text-emerald-400 font-semibold truncate max-w-[200px]">{selectedFile.name}</span>
+                  <span className="text-emerald-400 font-semibold truncate max-w-[200px]">
+                    {selectedFile.name}
+                  </span>
                 </div>
               )}
             </div>
 
             <p className="text-xs text-slate-400 max-w-md mx-auto">
-              Our Talent Acquisition team will review your qualifications and reach out to you shortly.
+              Our Talent Acquisition team will review your qualifications and
+              reach out to you shortly.
             </p>
 
             <div className="pt-2">
@@ -263,11 +281,17 @@ function JobApplicationModal({
             </h2>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="mt-5 sm:mt-6 space-y-4 sm:space-y-4.5">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-5 sm:mt-6 space-y-4 sm:space-y-4.5"
+            >
               {/* Row 1: Name and Email */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                 <div>
-                  <label htmlFor="app-name" className="block text-xs font-bold text-slate-200">
+                  <label
+                    htmlFor="app-name"
+                    className="block text-xs font-bold text-slate-200"
+                  >
                     Name *
                   </label>
                   <input
@@ -276,13 +300,18 @@ function JobApplicationModal({
                     type="text"
                     placeholder="Name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-white/50 focus:border-white/30 focus:outline-none transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="app-email" className="block text-xs font-bold text-slate-200">
+                  <label
+                    htmlFor="app-email"
+                    className="block text-xs font-bold text-slate-200"
+                  >
                     Email *
                   </label>
                   <input
@@ -291,7 +320,9 @@ function JobApplicationModal({
                     type="email"
                     placeholder="Email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-white/50 focus:border-white/30 focus:outline-none transition-colors"
                   />
                 </div>
@@ -300,7 +331,10 @@ function JobApplicationModal({
               {/* Row 2: Phone and Resume */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                 <div>
-                  <label htmlFor="app-phone" className="block text-xs font-bold text-slate-200">
+                  <label
+                    htmlFor="app-phone"
+                    className="block text-xs font-bold text-slate-200"
+                  >
                     Phone *
                   </label>
                   <input
@@ -309,7 +343,9 @@ function JobApplicationModal({
                     type="tel"
                     placeholder="+971 50 123 4567"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
                     className="mt-1.5 h-11 sm:h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 text-sm text-white placeholder:text-white/50 focus:border-white/30 focus:outline-none transition-colors"
                   />
                 </div>
@@ -338,14 +374,18 @@ function JobApplicationModal({
                     </span>
                   </div>
                   <p className="mt-1 text-[11px] text-slate-400">
-                    Allowed: PDF, DOC, DOCX, RTF, TXT, JPG and PNG. Maximum 10 MB.
+                    Allowed: PDF, DOC, DOCX, RTF, TXT, JPG and PNG. Maximum 10
+                    MB.
                   </p>
                 </div>
               </div>
 
               {/* Row 3: Cover letter */}
               <div>
-                <label htmlFor="app-cover" className="block text-xs font-bold text-slate-200">
+                <label
+                  htmlFor="app-cover"
+                  className="block text-xs font-bold text-slate-200"
+                >
                   Cover letter *
                 </label>
                 <textarea
@@ -354,7 +394,9 @@ function JobApplicationModal({
                   required
                   placeholder="Write your cover letter here..."
                   value={formData.coverLetter}
-                  onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, coverLetter: e.target.value })
+                  }
                   className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/20 p-3 sm:p-4 text-sm text-white placeholder:text-white/50 focus:border-white/30 focus:outline-none resize-none transition-colors"
                 />
               </div>
@@ -380,6 +422,46 @@ function JobApplicationModal({
 export default function CareersPage() {
   const [selectedRole, setSelectedRole] = useState<JobRole | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [managedRoles, setManagedRoles] = useState<JobRole[] | null>(null);
+
+  useEffect(() => {
+    void fetch("/api/careers/jobs", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Careers unavailable");
+        return (await response.json()) as CareerJob[];
+      })
+      .then((jobs) =>
+        setManagedRoles(
+          jobs.map((job) => {
+            const searchable = `${job.title} ${job.department}`.toLowerCase();
+            return {
+              id: job.id,
+              title: job.title,
+              dept: job.department,
+              location: job.location
+                .toLowerCase()
+                .includes(job.employmentType.toLowerCase())
+                ? job.location
+                : `${job.location} • ${job.employmentType}`,
+              type: job.employmentType,
+              description: job.description,
+              responsibilities: job.responsibilities,
+              requirements: job.requirements,
+              subject: encodeURIComponent(job.title),
+              applicationEmail: job.applicationEmail,
+              icon: searchable.includes("video")
+                ? Video
+                : searchable.includes("design")
+                  ? Palette
+                  : UserCheck,
+            };
+          }),
+        ),
+      )
+      .catch(() => undefined);
+  }, []);
+
+  const roles = managedRoles ?? jobRoles;
 
   const handleOpenRoleModal = (role: JobRole) => {
     setSelectedRole(role);
@@ -390,12 +472,9 @@ export default function CareersPage() {
     <div className="space-y-0 pb-20 bg-[#060709] text-white">
       {/* ── 1. Hero Header Banner matching new design ── */}
       <PageHero
-        breadcrumbs={[
-          { label: "HOME", href: "/" },
-          { label: "CAREERS" }
-        ]}
+        breadcrumbs={[{ label: "HOME", href: "/" }, { label: "CAREERS" }]}
         badge={{
-          text: "CAREERS & OPPORTUNITIES"
+          text: "CAREERS & OPPORTUNITIES",
         }}
         title="BUILD YOUR FUTURE WITH AGTP"
         subtitle="Join a growing global automotive company and build your career in vehicle exports, automotive parts, international trade, and global logistics from Dubai."
@@ -421,31 +500,36 @@ export default function CareersPage() {
 
           <RevealText delay={120}>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-              We believe strong businesses are built by strong people — with integrity, accountability, continuous learning, and a commitment to doing great work.
+              We believe strong businesses are built by strong people — with
+              integrity, accountability, continuous learning, and a commitment
+              to doing great work.
             </p>
           </RevealText>
         </div>
 
-        <RevealStagger staggerDelay={100} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <RevealStagger
+          staggerDelay={100}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
           {[
             {
               icon: Globe,
               tag: "Global Exposure",
               title: "Work Across Markets",
-              desc: "Work in an international automotive business and gain hands-on experience across vehicles, spare parts, exports, and global trade."
+              desc: "Work in an international automotive business and gain hands-on experience across vehicles, spare parts, exports, and global trade.",
             },
             {
               icon: TrendingUp,
               tag: "Real Growth",
               title: "Learn & Grow",
-              desc: "Take on meaningful responsibilities, develop new skills, and grow with a company building its international presence."
+              desc: "Take on meaningful responsibilities, develop new skills, and grow with a company building its international presence.",
             },
             {
               icon: Users,
               tag: "Team Culture",
               title: "People Who Support You",
-              desc: "Work with a team that values collaboration, professionalism, accountability, and long-term success."
-            }
+              desc: "Work with a team that values collaboration, professionalism, accountability, and long-term success.",
+            },
           ].map((item) => (
             <div
               key={item.title}
@@ -459,8 +543,12 @@ export default function CareersPage() {
                   {item.tag}
                 </span>
               </div>
-              <h3 className="text-xl font-black text-white pt-1">{item.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{item.desc}</p>
+              <h3 className="text-xl font-black text-white pt-1">
+                {item.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                {item.desc}
+              </p>
             </div>
           ))}
         </RevealStagger>
@@ -484,14 +572,15 @@ export default function CareersPage() {
 
           <RevealText delay={120}>
             <p className="text-xs sm:text-sm text-slate-400">
-              Select an open opportunity below to view the role and apply online, or send your application directly via email.
+              Select an open opportunity below to view the role and apply
+              online, or send your application directly via email.
             </p>
           </RevealText>
         </div>
 
         {/* Roles List */}
         <RevealStagger staggerDelay={80} className="space-y-4">
-          {jobRoles.map((role) => (
+          {roles.map((role) => (
             <div
               key={role.id}
               className="bg-[#102941] border border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl hover:border-[#315671] transition-all duration-200"
@@ -501,7 +590,9 @@ export default function CareersPage() {
                   <role.icon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">{role.title}</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-white">
+                    {role.title}
+                  </h3>
                   <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 font-medium mt-0.5">
                     <span>{role.dept}</span>
                     <span>•</span>
@@ -522,7 +613,7 @@ export default function CareersPage() {
                 </button>
 
                 <a
-                  href={`mailto:careers@agtpgroup.com?subject=Application%20for%20${role.subject}`}
+                  href={`mailto:${role.applicationEmail ?? "careers@agtpgroup.com"}?subject=Application%20for%20${role.subject}`}
                   className="rounded-full border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-bold text-xs px-4 py-2.5 transition-all flex items-center gap-1.5"
                   title="Apply via email"
                 >
@@ -556,7 +647,9 @@ export default function CareersPage() {
 
             <RevealText delay={120}>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                We’re always looking for talented people to join our growing team. Send us your CV and tell us how you can contribute to AGTP Group.
+                We’re always looking for talented people to join our growing
+                team. Send us your CV and tell us how you can contribute to AGTP
+                Group.
               </p>
             </RevealText>
 

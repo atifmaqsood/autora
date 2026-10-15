@@ -31,6 +31,8 @@ import {
 } from "@/components/ui/scroll-reveal";
 import { PhoneCountryInput } from "@/components/ui/phone-country-input";
 import { CountrySelect } from "@/components/ui/country-select";
+import { HoneypotField } from "@/components/ui/honeypot-field";
+import { honeypotValue, submitInquiry } from "@/lib/inquiries";
 
 const serviceCategories = [
   "Vehicle Sourcing",
@@ -57,6 +59,8 @@ const officeLocation = {
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Vehicle Sourcing");
 
@@ -75,10 +79,30 @@ export default function ContactPage() {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.firstName || !formData.email || !formData.phone) return;
-    setSubmitted(true);
+
+    setSubmitError("");
+    setIsSending(true);
+    try {
+      await submitInquiry({
+        type: "contact",
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
+        email: formData.email,
+        phone: formData.phone,
+        country: formData.destinationCountry,
+        subject: selectedCategory,
+        message: formData.message,
+        details: { category: selectedCategory },
+        website: honeypotValue(e.currentTarget)
+      });
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : String(error));
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -307,7 +331,8 @@ export default function ContactPage() {
                       </button>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="relative space-y-6">
+                      <HoneypotField />
                       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
                           <label className="block text-[12px] font-black uppercase tracking-wider text-slate-300">First Name *</label>
@@ -376,11 +401,18 @@ export default function ContactPage() {
                         />
                       </div>
 
+                      {submitError && (
+                        <p role="alert" className="rounded-xl border border-red-500/40 bg-red-950/40 px-4 py-3 text-[14px] font-semibold text-red-200">
+                          {submitError}
+                        </p>
+                      )}
+
                       <button
                         type="submit"
-                        className="inline-flex h-[56px] w-full items-center justify-center gap-3 rounded-full bg-[#F97316] text-[16px] font-extrabold text-white transition-colors hover:bg-[#EA580C] shadow-lg hover:shadow-orange-500/20"
+                        disabled={isSending}
+                        className="inline-flex h-[56px] w-full items-center justify-center gap-3 rounded-full bg-[#F97316] text-[16px] font-extrabold text-white transition-colors hover:bg-[#EA580C] shadow-lg hover:shadow-orange-500/20 disabled:cursor-not-allowed disabled:opacity-60"
                       >
-                        <span>Send Inquiry</span>
+                        <span>{isSending ? "Sending..." : "Send Inquiry"}</span>
                         <Send className="h-5 w-5" />
                       </button>
                     </form>

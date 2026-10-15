@@ -3,21 +3,62 @@
 import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Search, ArrowRight, ChevronRight, ChevronLeft, Calendar } from "lucide-react";
+import {
+  Search,
+  ArrowRight,
+  ChevronRight,
+  ChevronLeft,
+  Calendar,
+} from "lucide-react";
 import { VehicleCard } from "@/components/vehicles/vehicle-card";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { getAllVehicles, filterVehicles } from "@/lib/vehicles/data";
-import { VehicleFilterState } from "@/lib/vehicles/types";
+import { VehicleFilterState, type Vehicle } from "@/lib/vehicles/types";
 import { RevealStagger, Reveal } from "@/components/ui/scroll-reveal";
 import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
+import type { VehiclePageCta } from "@/lib/vehicle-page/types";
 
 const PAGE_SIZE = 15;
 
 function CatalogContent() {
   const searchParams = useSearchParams();
-  const allVehicles = useMemo(() => getAllVehicles(), []);
+  const staticVehicles = useMemo(() => getAllVehicles(), []);
+  const [managedVehicles, setManagedVehicles] = useState<Vehicle[]>([]);
+  const allVehicles = useMemo(() => {
+    const managedSlugs = new Set(
+      managedVehicles.map((vehicle) => vehicle.slug),
+    );
+    return [
+      ...managedVehicles,
+      ...staticVehicles.filter((vehicle) => !managedSlugs.has(vehicle.slug)),
+    ];
+  }, [managedVehicles, staticVehicles]);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [managedCta, setManagedCta] = useState<VehiclePageCta | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    void fetch("/api/vehicles/cta", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load vehicle CTA");
+        return response.json() as Promise<VehiclePageCta>;
+      })
+      .then((content) => active && setManagedCta(content))
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    void fetch("/api/vehicle-products", { cache: "no-store" })
+      .then(async (response) =>
+        response.ok ? ((await response.json()) as Vehicle[]) : [],
+      )
+      .then(setManagedVehicles)
+      .catch(() => undefined);
+  }, []);
 
   const [filters, setFilters] = useState<VehicleFilterState>({
     search: searchParams.get("search") || "",
@@ -28,7 +69,7 @@ function CatalogContent() {
     transmission: searchParams.get("transmission") || "all",
     bodyType: searchParams.get("bodyType") || "all",
     driveType: searchParams.get("driveType") || "all",
-    sortBy: (searchParams.get("sortBy") as any) || "newest"
+    sortBy: (searchParams.get("sortBy") as any) || "newest",
   });
 
   const [activePage, setActivePage] = useState(1);
@@ -42,7 +83,10 @@ function CatalogContent() {
     return filterVehicles(allVehicles, filters);
   }, [allVehicles, filters]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / PAGE_SIZE));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredVehicles.length / PAGE_SIZE),
+  );
 
   const paginatedVehicles = useMemo(() => {
     const startIndex = (activePage - 1) * PAGE_SIZE;
@@ -57,16 +101,25 @@ function CatalogContent() {
   };
 
   return (
-    <div id="vehicle-catalog-grid" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#060709] text-white">
+    <div
+      id="vehicle-catalog-grid"
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-[#060709] text-white"
+    >
       {/* Dark Filter Bar */}
-      <Reveal distance={30} duration={800} className="bg-[#102941] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4">
+      <Reveal
+        distance={30}
+        duration={800}
+        className="bg-[#102941] border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col md:flex-row items-center gap-4"
+      >
         <div className="relative flex-1 w-full">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <input
             type="text"
             placeholder="Search make, model, VIN, stock number..."
             value={filters.search}
-            onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
+            onChange={(e) =>
+              setFilters((prev) => ({ ...prev, search: e.target.value }))
+            }
             className="w-full bg-[#0B1F33] border border-slate-800 text-xs text-white placeholder-slate-500 pl-11 pr-4 py-3 rounded-xl focus:outline-none focus:border-[#F97316] font-medium"
           />
         </div>
@@ -75,7 +128,9 @@ function CatalogContent() {
           <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <select
             value={filters.year}
-            onChange={(e) => setFilters((prev) => ({ ...prev, year: e.target.value }))}
+            onChange={(e) =>
+              setFilters((prev) => ({ ...prev, year: e.target.value }))
+            }
             className="w-full bg-[#0B1F33] border border-slate-800 text-xs text-white pl-11 pr-8 py-3 rounded-xl focus:outline-none focus:border-[#F97316] font-medium appearance-none cursor-pointer"
           >
             <option value="all">Any year</option>
@@ -95,23 +150,45 @@ function CatalogContent() {
         </button>
       </Reveal>
 
-      <Reveal distance={15} duration={700} className="flex items-center justify-between">
+      <Reveal
+        distance={15}
+        duration={700}
+        className="flex items-center justify-between"
+      >
         <span className="text-xs font-semibold text-slate-400">
           {filteredVehicles.length} vehicles available
         </span>
       </Reveal>
 
       {paginatedVehicles.length > 0 ? (
-        <RevealStagger key={activePage} staggerDelay={80} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <RevealStagger
+          key={activePage}
+          staggerDelay={80}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {paginatedVehicles.map((vehicle) => (
             <VehicleCard key={vehicle.id} vehicle={vehicle} />
           ))}
         </RevealStagger>
       ) : (
         <div className="text-center py-20 bg-[#102941] border border-slate-800 rounded-2xl space-y-4">
-          <p className="text-base text-slate-300 font-bold">No vehicles found matching your criteria</p>
+          <p className="text-base text-slate-300 font-bold">
+            No vehicles found matching your criteria
+          </p>
           <button
-            onClick={() => setFilters({ search: "", category: "all", make: "all", year: "all", fuelType: "all", transmission: "all", bodyType: "all", driveType: "all", sortBy: "newest" })}
+            onClick={() =>
+              setFilters({
+                search: "",
+                category: "all",
+                make: "all",
+                year: "all",
+                fuelType: "all",
+                transmission: "all",
+                bodyType: "all",
+                driveType: "all",
+                sortBy: "newest",
+              })
+            }
             className="text-xs font-bold text-[#F97316] hover:text-[#FDBA74] underline"
           >
             Reset all filters
@@ -168,7 +245,12 @@ function CatalogContent() {
         <div className="relative mt-16 flex min-h-[380px] items-center justify-center overflow-hidden rounded-2xl border border-[#1e2b45] p-5 text-center shadow-2xl sm:min-h-[460px] sm:rounded-3xl sm:p-14">
           {/* Dark luxury garage background photo */}
           <Image
-            src="/images/spec-banner-bg.jpg"
+            src={
+              managedCta?.imageUrl === "builtin:vehicle-spec-banner" ||
+              !managedCta
+                ? "/images/spec-banner-bg.jpg"
+                : managedCta.imageUrl
+            }
             alt="Luxury vehicles showroom"
             fill
             sizes="(max-width: 1280px) 100vw, 1280px"
@@ -185,17 +267,18 @@ function CatalogContent() {
           {/* Banner Content */}
           <div className="relative z-10 w-full max-w-4xl lg:max-w-5xl mx-auto space-y-4 px-4">
             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-black text-white uppercase tracking-tight font-sans leading-[1.1]">
-              CAN&apos;T FIND THE RIGHT VEHICLE?
+              {managedCta?.title || "CAN'T FIND THE RIGHT VEHICLE?"}
             </h2>
             <p className="text-xs sm:text-sm md:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed">
-              Tell us what you&apos;re looking for — share the make, model, specifications, and destination, and we&apos;ll check availability and provide a clear quotation.
+              {managedCta?.description ||
+                "Tell us what you're looking for — share the make, model, specifications, and destination, and we'll check availability and provide a clear quotation."}
             </p>
             <div className="pt-3">
               <button
                 onClick={() => setInquiryModalOpen(true)}
                 className="inline-flex h-[52px] w-full max-w-[320px] transform items-center justify-center gap-2 rounded-full bg-[#4361EE] px-6 text-xs font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] hover:bg-[#3651D4] active:scale-[0.98] sm:h-auto sm:w-auto sm:px-8 sm:py-3.5 sm:text-sm"
               >
-                <span>Request a Vehicle</span>
+                <span>{managedCta?.buttonText || "Request a Vehicle"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -215,12 +298,9 @@ export default function VehiclesCatalogPage() {
   return (
     <div className="space-y-0 pb-20 bg-[#060709] min-h-screen text-white">
       <PageHero
-        breadcrumbs={[
-          { label: "HOME", href: "/" },
-          { label: "VEHICLES" }
-        ]}
+        breadcrumbs={[{ label: "HOME", href: "/" }, { label: "VEHICLES" }]}
         badge={{
-          text: "READY FOR EXPORT — WORLDWIDE SHIPPING"
+          text: "READY FOR EXPORT — WORLDWIDE SHIPPING",
         }}
         title="FIND YOUR NEXT VEHICLE"
         subtitle="Explore available vehicles and receive a clear quote with worldwide export and shipping options."
@@ -228,11 +308,13 @@ export default function VehiclesCatalogPage() {
         imageAlt="Available Vehicles Inventory"
       />
 
-      <Suspense fallback={
-        <div className="max-w-7xl mx-auto px-4 py-16 text-center text-slate-500">
-          Loading inventory...
-        </div>
-      }>
+      <Suspense
+        fallback={
+          <div className="max-w-7xl mx-auto px-4 py-16 text-center text-slate-500">
+            Loading inventory...
+          </div>
+        }
+      >
         <CatalogContent />
       </Suspense>
     </div>

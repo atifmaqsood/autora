@@ -4,21 +4,34 @@ import { StatsCounter } from "@/components/ui/stats-counter";
 import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronLeft, ChevronRight, Filter, Play, Quote, Star, UserCheck, Volume2, VolumeX } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Filter,
+  Play,
+  Quote,
+  Star,
+  UserCheck,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { agtpAssets } from "@/src/assets";
+import type { Review } from "@/lib/reviews/types";
+import type { MarketingPageSection } from "@/lib/marketing-page-content/types";
 import {
   Reveal,
   RevealButton,
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
-  RevealText
+  RevealText,
 } from "@/components/ui/scroll-reveal";
 
 interface CustomerReview {
-  id: number;
+  id: string | number;
   name: string;
   role: string;
   company?: string;
@@ -28,18 +41,20 @@ interface CustomerReview {
   tag: string;
   image: any;
   video?: string;
+  rating?: number;
 }
 
-const reviews: CustomerReview[] = [
+const defaultReviews: CustomerReview[] = [
   {
     id: 1,
     name: "Mr. Ringo",
     role: "Repeat Vehicle Buyer",
     country: "Congo",
     flag: "🇨🇩",
-    quote: "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group.",
+    quote:
+      "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group.",
     tag: "4th Vehicle Purchase",
-    image: agtpAssets.reviewR1
+    image: agtpAssets.reviewR1,
   },
   {
     id: 2,
@@ -47,10 +62,12 @@ const reviews: CustomerReview[] = [
     role: "Oil & Gas Professional",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola.",
+    quote:
+      "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola.",
     tag: "Repeat Oil & Gas Buyer",
     image: agtpAssets.reviewR2,
-    video: "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4"
+    video:
+      "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4",
   },
   {
     name: "Mr. Patrick Mwamba",
@@ -58,10 +75,12 @@ const reviews: CustomerReview[] = [
     role: "Corporate Fleet Importer",
     country: "Congo",
     flag: "🇨🇩",
-    quote: "Verified video walkaround and live delivery at the port in Congo. Seamless export documentation and premium vehicle quality.",
+    quote:
+      "Verified video walkaround and live delivery at the port in Congo. Seamless export documentation and premium vehicle quality.",
     tag: "Live Port Delivery",
     image: agtpAssets.reviewR1,
-    video: "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4"
+    video:
+      "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4",
   },
   {
     id: 3,
@@ -69,9 +88,10 @@ const reviews: CustomerReview[] = [
     role: "Engineer",
     country: "Ghana",
     flag: "🇬🇭",
-    quote: "Completed his vehicle purchase entirely online, with AGTP Group safely exporting and delivering the unit to Ghana.",
+    quote:
+      "Completed his vehicle purchase entirely online, with AGTP Group safely exporting and delivering the unit to Ghana.",
     tag: "100% Remote Sourcing",
-    image: agtpAssets.reviewR3
+    image: agtpAssets.reviewR3,
   },
   {
     id: 4,
@@ -79,9 +99,10 @@ const reviews: CustomerReview[] = [
     role: "Oil & Gas Professional",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Used our secure online payment process while AGTP Group managed the full export and delivery coordination.",
+    quote:
+      "Used our secure online payment process while AGTP Group managed the full export and delivery coordination.",
     tag: "Smooth 100% Online Order",
-    image: agtpAssets.reviewR4
+    image: agtpAssets.reviewR4,
   },
   {
     id: 5,
@@ -89,9 +110,10 @@ const reviews: CustomerReview[] = [
     role: "Oil & Gas Professional",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Referred by colleagues, Mr. Samuel Eplanga completed his purchase online, and we successfully delivered his vehicle to Lobito, Angola with full documentation.",
+    quote:
+      "Referred by colleagues, Mr. Samuel Eplanga completed his purchase online, and we successfully delivered his vehicle to Lobito, Angola with full documentation.",
     tag: "Lobito Delivery",
-    image: agtpAssets.reviewR2
+    image: agtpAssets.reviewR2,
   },
   {
     id: 6,
@@ -99,9 +121,10 @@ const reviews: CustomerReview[] = [
     role: "TOTAL Oil Company",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Mr. Gomes Macaia works in TOTAL Oil Company and was referred to AGTP Group by his colleagues. He completed his purchase through a secure bank transfer, and his vehicle was safely delivered to Angola.",
+    quote:
+      "Mr. Gomes Macaia works in TOTAL Oil Company and was referred to AGTP Group by his colleagues. He completed his purchase through a secure bank transfer, and his vehicle was safely delivered to Angola.",
     tag: "TOTAL Colleague Referral",
-    image: agtpAssets.reviewR4
+    image: agtpAssets.reviewR4,
   },
   {
     id: 7,
@@ -109,9 +132,10 @@ const reviews: CustomerReview[] = [
     role: "Repeat Corporate Buyer",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Mr. David Ganga was referred to AGTP Group by his colleagues and has purchased several vehicles through our secure online payment system. Every shipment has been successfully delivered.",
+    quote:
+      "Mr. David Ganga was referred to AGTP Group by his colleagues and has purchased several vehicles through our secure online payment system. Every shipment has been successfully delivered.",
     tag: "Multiple Fleet Orders",
-    image: agtpAssets.reviewR1
+    image: agtpAssets.reviewR1,
   },
   {
     id: 8,
@@ -119,9 +143,10 @@ const reviews: CustomerReview[] = [
     role: "Business Owner",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Ms. Rosa Quinga found AGTP Group online and helped her father purchase a vehicle from Dubai. After completing payment via bank transfer, we arranged full export and delivery to Angola.",
+    quote:
+      "Ms. Rosa Quinga found AGTP Group online and helped her father purchase a vehicle from Dubai. After completing payment via bank transfer, we arranged full export and delivery to Angola.",
     tag: "Family Vehicle Sourcing",
-    image: agtpAssets.reviewR2
+    image: agtpAssets.reviewR2,
   },
   {
     id: 9,
@@ -129,9 +154,10 @@ const reviews: CustomerReview[] = [
     role: "UNITEL",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Mr. Joao Pedriz who works in UNITEL has purchased multiple vehicles through AGTP Group. After several successful deliveries to Angola, he and his brother later visited us in Dubai.",
+    quote:
+      "Mr. Joao Pedriz who works in UNITEL has purchased multiple vehicles through AGTP Group. After several successful deliveries to Angola, he and his brother later visited us in Dubai.",
     tag: "UNITEL Corporate Client",
-    image: agtpAssets.reviewR3
+    image: agtpAssets.reviewR3,
   },
   {
     id: 10,
@@ -139,9 +165,10 @@ const reviews: CustomerReview[] = [
     role: "Repeat Vehicle Buyer",
     country: "Congo",
     flag: "🇨🇩",
-    quote: "Mr. Ringo purchased a fully equipped Toyota Land Cruiser Hardtop through AGTP Group without ever visiting Dubai. This was his 5th vehicle purchase with us.",
+    quote:
+      "Mr. Ringo purchased a fully equipped Toyota Land Cruiser Hardtop through AGTP Group without ever visiting Dubai. This was his 5th vehicle purchase with us.",
     tag: "Land Cruiser Hardtop",
-    image: agtpAssets.reviewR1
+    image: agtpAssets.reviewR1,
   },
   {
     id: 11,
@@ -149,9 +176,10 @@ const reviews: CustomerReview[] = [
     role: "Oil & Gas Professional",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Referred by colleagues, Mr. Simao Chicaia purchased his vehicle using our secure online payment system. AGTP Group handled sourcing, export, and shipping to Angola safely.",
+    quote:
+      "Referred by colleagues, Mr. Simao Chicaia purchased his vehicle using our secure online payment system. AGTP Group handled sourcing, export, and shipping to Angola safely.",
     tag: "Colleague Referral",
-    image: agtpAssets.reviewR2
+    image: agtpAssets.reviewR2,
   },
   {
     id: 12,
@@ -159,9 +187,10 @@ const reviews: CustomerReview[] = [
     role: "Oil & Gas Professional",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Mr. Luis Nzau has purchased several vehicles through our secure online payment system, and many of his colleagues have also become our customers. Every shipment was successfully delivered.",
+    quote:
+      "Mr. Luis Nzau has purchased several vehicles through our secure online payment system, and many of his colleagues have also become our customers. Every shipment was successfully delivered.",
     tag: "Trusted Corporate Partner",
-    image: agtpAssets.reviewR4
+    image: agtpAssets.reviewR4,
   },
   {
     id: 13,
@@ -169,9 +198,10 @@ const reviews: CustomerReview[] = [
     role: "Oil & Gas Professional",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Mr. Kennedy was referred to AGTP Group by his colleagues and completed his vehicle purchase through a secure bank transfer. We managed the entire export process to Angola.",
+    quote:
+      "Mr. Kennedy was referred to AGTP Group by his colleagues and completed his vehicle purchase through a secure bank transfer. We managed the entire export process to Angola.",
     tag: "Wire Transfer Order",
-    image: agtpAssets.reviewR3
+    image: agtpAssets.reviewR3,
   },
   {
     id: 14,
@@ -179,9 +209,10 @@ const reviews: CustomerReview[] = [
     role: "Oil & Gas Professional",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Mr. Del Palma was referred to AGTP Group by company colleagues and completed his purchase through a secure bank transfer. His vehicle was safely delivered to Angola.",
+    quote:
+      "Mr. Del Palma was referred to AGTP Group by company colleagues and completed his purchase through a secure bank transfer. His vehicle was safely delivered to Angola.",
     tag: "Company Colleague Referral",
-    image: agtpAssets.reviewR1
+    image: agtpAssets.reviewR1,
   },
   {
     id: 15,
@@ -189,25 +220,31 @@ const reviews: CustomerReview[] = [
     role: "Oil & Gas Professional",
     country: "Angola",
     flag: "🇦🇴",
-    quote: "Mr. Alvaro was referred to AGTP Group by his colleagues and completed his purchase through a secure bank transfer. We managed sourcing and international shipment to Angola.",
+    quote:
+      "Mr. Alvaro was referred to AGTP Group by his colleagues and completed his purchase through a secure bank transfer. We managed sourcing and international shipment to Angola.",
     tag: "International Port Shipment",
-    image: agtpAssets.reviewR4
-  }
+    image: agtpAssets.reviewR4,
+  },
 ];
 
 const reviewStats = [
   { value: 11, suffix: "+", label: "Years in Trade" },
   { value: 10000, suffix: "+", label: "Vehicles & Parts Exported" },
   { value: 25, suffix: "+", label: "Countries Served Worldwide" },
-  { value: 100, suffix: "%", label: "Verified Port Delivery" }
+  { value: 100, suffix: "%", label: "Verified Port Delivery" },
 ];
 
-const countries = ["ALL", "Angola", "Congo", "Ghana"];
+const reviewBuiltinImages: Record<string, (typeof agtpAssets)["reviewR1"]> = {
+  "builtin:review-r1": agtpAssets.reviewR1,
+  "builtin:review-r2": agtpAssets.reviewR2,
+  "builtin:review-r3": agtpAssets.reviewR3,
+  "builtin:review-r4": agtpAssets.reviewR4,
+};
 
 function ReviewVideoPlayer({
   src,
   poster,
-  alt
+  alt,
 }: {
   src: string;
   poster?: string;
@@ -269,7 +306,9 @@ function ReviewVideoPlayer({
       {/* Center Play Video Icon / Button Overlay */}
       <div
         className={`absolute inset-0 z-20 flex flex-col items-center justify-center transition-all duration-300 ${
-          isPlaying ? "opacity-0 pointer-events-none scale-90" : "opacity-100 bg-black/35 backdrop-blur-[2px]"
+          isPlaying
+            ? "opacity-0 pointer-events-none scale-90"
+            : "opacity-100 bg-black/35 backdrop-blur-[2px]"
         }`}
       >
         <button
@@ -314,19 +353,76 @@ function ReviewVideoPlayer({
 }
 
 export default function CustomerReviewsPage() {
+  const [reviews, setReviews] = useState<CustomerReview[]>(defaultReviews);
   const [selectedCountry, setSelectedCountry] = useState("ALL");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [viewMode, setViewMode] = useState<"slider" | "grid">("grid");
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [cta, setCta] = useState<MarketingPageSection | null>(null);
 
   const REVIEWS_PER_PAGE = 15;
 
+  useEffect(() => {
+    let active = true;
+    void fetch("/api/reviews", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load reviews");
+        return response.json() as Promise<Review[]>;
+      })
+      .then((items) => {
+        if (!active) return;
+        setReviews(
+          items.map((review) => ({
+            id: review.id,
+            name: review.name,
+            role: review.role,
+            company: review.company ?? undefined,
+            country: review.country,
+            flag: review.flag,
+            quote: review.quote,
+            tag: review.tag,
+            image: reviewBuiltinImages[review.imageUrl] ?? review.imageUrl,
+            video: review.videoUrl ?? undefined,
+            rating: review.rating,
+          })),
+        );
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    void fetch("/api/page-content/customer-reviews", { cache: "no-store" })
+      .then(async (response) => (response.ok ? response.json() : []))
+      .then((items: MarketingPageSection[]) => {
+        if (active)
+          setCta(items.find((item) => item.sectionKey === "cta") ?? null);
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const countries = useMemo(
+    () => [
+      "ALL",
+      ...Array.from(new Set(reviews.map((review) => review.country))),
+    ],
+    [reviews],
+  );
+
   const filteredReviews = useMemo(() => {
     if (selectedCountry === "ALL") return reviews;
-    return reviews.filter((r) => r.country.toLowerCase() === selectedCountry.toLowerCase());
-  }, [selectedCountry]);
+    return reviews.filter(
+      (r) => r.country.toLowerCase() === selectedCountry.toLowerCase(),
+    );
+  }, [selectedCountry, reviews]);
 
   const totalPages = Math.ceil(filteredReviews.length / REVIEWS_PER_PAGE);
 
@@ -343,7 +439,8 @@ export default function CustomerReviewsPage() {
 
   // Autoplay Slider
   useEffect(() => {
-    if (!isAutoPlaying || viewMode !== "slider" || filteredReviews.length <= 1) return;
+    if (!isAutoPlaying || viewMode !== "slider" || filteredReviews.length <= 1)
+      return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % filteredReviews.length);
     }, 5000);
@@ -357,7 +454,9 @@ export default function CustomerReviewsPage() {
 
   const prevReview = () => {
     setIsAutoPlaying(false);
-    setCurrentSlide((prev) => (prev - 1 + filteredReviews.length) % filteredReviews.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + filteredReviews.length) % filteredReviews.length,
+    );
   };
 
   return (
@@ -366,10 +465,10 @@ export default function CustomerReviewsPage() {
       <PageHero
         breadcrumbs={[
           { label: "HOME", href: "/" },
-          { label: "Client Trust & Testimonials" }
+          { label: "Client Trust & Testimonials" },
         ]}
         badge={{
-          text: "VERIFIED BUYERS & CLIENT FEEDBACK"
+          text: "VERIFIED BUYERS & CLIENT FEEDBACK",
         }}
         title="CUSTOMER REVIEWS"
         subtitle="Meet customers from around the world who choose AGTP Group for their vehicles and automotive spare parts."
@@ -389,7 +488,10 @@ export default function CustomerReviewsPage() {
             {/* Country Filters */}
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74] mr-2">
-                <Filter className="h-4 w-4" style={{ color: "var(--agtp-secondary)" }} />
+                <Filter
+                  className="h-4 w-4"
+                  style={{ color: "var(--agtp-secondary)" }}
+                />
                 Filter By Destination:
               </span>
               {countries.map((c) => (
@@ -471,14 +573,26 @@ export default function CustomerReviewsPage() {
       </section>
 
       {/* ── 4. Reviews Content (Full Vertical Image matching Home Page Customer Stories) ── */}
-      <section id="reviews-grid-section" className="mx-auto max-w-[1570px] px-6 pt-10">
+      <section
+        id="reviews-grid-section"
+        className="mx-auto max-w-[1570px] px-6 pt-10"
+      >
         {viewMode === "grid" ? (
           /* Grid View Mode */
           <div>
-            <Reveal distance={15} duration={700} className="mb-6 flex items-center justify-between">
+            <Reveal
+              distance={15}
+              duration={700}
+              className="mb-6 flex items-center justify-between"
+            >
               <span className="text-[13px] font-semibold text-slate-400">
-                Showing <strong className="text-white">{paginatedReviews.length}</strong> of{" "}
-                <strong className="text-white">{filteredReviews.length}</strong> verified customer stories
+                Showing{" "}
+                <strong className="text-white">
+                  {paginatedReviews.length}
+                </strong>{" "}
+                of{" "}
+                <strong className="text-white">{filteredReviews.length}</strong>{" "}
+                verified customer stories
                 {totalPages > 1 && (
                   <span className="ml-2 text-slate-400 font-normal">
                     (Page {currentPage} of {totalPages})
@@ -487,14 +601,15 @@ export default function CustomerReviewsPage() {
               </span>
             </Reveal>
 
-            <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+            <RevealStagger
+              staggerDelay={70}
+              className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr"
+            >
               {paginatedReviews.map((rev) => (
                 <div
                   key={`${rev.id}-${rev.name}`}
                   className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#F97316] hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316] opacity-0 group-hover:opacity-100 transition-opacity z-20" />
-
                   <div>
                     {/* Full Vertical Customer & Vehicle Delivery Photo / Video (matching home page h-[460px]) */}
                     {(rev.video || rev.image) && (
@@ -502,7 +617,11 @@ export default function CustomerReviewsPage() {
                         {rev.video ? (
                           <ReviewVideoPlayer
                             src={rev.video}
-                            poster={typeof rev.image === "string" ? rev.image : rev.image?.src}
+                            poster={
+                              typeof rev.image === "string"
+                                ? rev.image
+                                : rev.image?.src
+                            }
                             alt={`${rev.name} customer video story`}
                           />
                         ) : (
@@ -515,7 +634,7 @@ export default function CustomerReviewsPage() {
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
-                        
+
                         {/* Country Badge */}
                         <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full border border-white/20 bg-[#0B1F33]/85 backdrop-blur-md px-3.5 py-1 text-[11px] font-black text-[#FDBA74] z-10">
                           <span>{rev.country}</span>
@@ -524,12 +643,16 @@ export default function CustomerReviewsPage() {
 
                         {/* Customer Story / Tag Badge */}
                         <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10">
-                          {rev.video && <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />}
+                          {rev.video && (
+                            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                          )}
                           {rev.video ? "Video Story" : "Customer Story"}
                         </span>
 
                         {/* Tag Badge */}
-                        <span className={`absolute bottom-4 left-4 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3 py-1 text-[11px] font-black text-[#FDBA74] z-10 pointer-events-none transition-opacity duration-300 ${rev.video ? "group-hover:opacity-0" : ""}`}>
+                        <span
+                          className={`absolute bottom-4 left-4 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3 py-1 text-[11px] font-black text-[#FDBA74] z-10 pointer-events-none transition-opacity duration-300 ${rev.video ? "group-hover:opacity-0" : ""}`}
+                        >
                           {rev.tag}
                         </span>
                       </div>
@@ -538,7 +661,7 @@ export default function CustomerReviewsPage() {
                     <div className="p-6 sm:p-7 space-y-4 bg-[#14314B]">
                       <div className="flex items-center justify-between border-b border-[#24445F]/60 pb-3">
                         <div className="flex gap-1 text-[#F97316]">
-                          {[...Array(5)].map((_, i) => (
+                          {[...Array(rev.rating ?? 5)].map((_, i) => (
                             <Star key={i} className="h-4 w-4 fill-[#F97316]" />
                           ))}
                         </div>
@@ -586,7 +709,9 @@ export default function CustomerReviewsPage() {
                   type="button"
                   onClick={() => {
                     setCurrentPage((prev) => Math.max(prev - 1, 1));
-                    document.getElementById("reviews-grid-section")?.scrollIntoView({ behavior: "smooth" });
+                    document
+                      .getElementById("reviews-grid-section")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                   disabled={currentPage === 1}
                   className="flex h-10 items-center gap-1.5 rounded-xl border border-[#315671] bg-[#14314B] px-4 text-xs font-bold text-slate-300 transition-all hover:border-[#F97316] hover:text-white disabled:opacity-30 disabled:pointer-events-none"
@@ -595,34 +720,40 @@ export default function CustomerReviewsPage() {
                   <span>Previous</span>
                 </button>
 
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                  <button
-                    key={pageNum}
-                    type="button"
-                    onClick={() => {
-                      setCurrentPage(pageNum);
-                      document.getElementById("reviews-grid-section")?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className={`flex h-10 w-10 items-center justify-center rounded-xl text-xs font-black transition-all ${
-                      currentPage === pageNum
-                        ? "text-white shadow-md"
-                        : "border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-white"
-                    }`}
-                    style={
-                      currentPage === pageNum
-                        ? { backgroundColor: "var(--agtp-secondary)" }
-                        : undefined
-                    }
-                  >
-                    {pageNum}
-                  </button>
-                ))}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (pageNum) => (
+                    <button
+                      key={pageNum}
+                      type="button"
+                      onClick={() => {
+                        setCurrentPage(pageNum);
+                        document
+                          .getElementById("reviews-grid-section")
+                          ?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className={`flex h-10 w-10 items-center justify-center rounded-xl text-xs font-black transition-all ${
+                        currentPage === pageNum
+                          ? "text-white shadow-md"
+                          : "border border-[#315671] bg-[#14314B] text-slate-300 hover:border-[#F97316] hover:text-white"
+                      }`}
+                      style={
+                        currentPage === pageNum
+                          ? { backgroundColor: "var(--agtp-secondary)" }
+                          : undefined
+                      }
+                    >
+                      {pageNum}
+                    </button>
+                  ),
+                )}
 
                 <button
                   type="button"
                   onClick={() => {
                     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-                    document.getElementById("reviews-grid-section")?.scrollIntoView({ behavior: "smooth" });
+                    document
+                      .getElementById("reviews-grid-section")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                   disabled={currentPage === totalPages}
                   className="flex h-10 items-center gap-1.5 rounded-xl border border-[#315671] bg-[#14314B] px-4 text-xs font-bold text-slate-300 transition-all hover:border-[#F97316] hover:text-white disabled:opacity-30 disabled:pointer-events-none"
@@ -641,12 +772,18 @@ export default function CustomerReviewsPage() {
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#FDBA74] to-[#F97316]" />
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-12 items-center">
-                  {(filteredReviews[currentSlide].video || filteredReviews[currentSlide].image) && (
+                  {(filteredReviews[currentSlide].video ||
+                    filteredReviews[currentSlide].image) && (
                     <div className="relative h-[460px] md:h-[500px] w-full overflow-hidden rounded-2xl border border-[#315671] bg-[#06101C] md:col-span-5">
                       {filteredReviews[currentSlide].video ? (
                         <ReviewVideoPlayer
                           src={filteredReviews[currentSlide].video}
-                          poster={typeof filteredReviews[currentSlide].image === "string" ? filteredReviews[currentSlide].image : filteredReviews[currentSlide].image?.src}
+                          poster={
+                            typeof filteredReviews[currentSlide].image ===
+                            "string"
+                              ? filteredReviews[currentSlide].image
+                              : filteredReviews[currentSlide].image?.src
+                          }
                           alt={`${filteredReviews[currentSlide].name} customer video story`}
                         />
                       ) : (
@@ -659,20 +796,30 @@ export default function CustomerReviewsPage() {
                         />
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
-                      <span className={`absolute bottom-4 left-4 rounded-full bg-[#0B1F33]/90 backdrop-blur-sm border border-[#F97316]/60 px-3.5 py-1 text-[12px] font-black text-[#FDBA74] z-10 pointer-events-none transition-opacity duration-300 ${filteredReviews[currentSlide].video ? "group-hover:opacity-0" : ""}`}>
+                      <span
+                        className={`absolute bottom-4 left-4 rounded-full bg-[#0B1F33]/90 backdrop-blur-sm border border-[#F97316]/60 px-3.5 py-1 text-[12px] font-black text-[#FDBA74] z-10 pointer-events-none transition-opacity duration-300 ${filteredReviews[currentSlide].video ? "group-hover:opacity-0" : ""}`}
+                      >
                         {filteredReviews[currentSlide].tag}
                       </span>
                       <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0B1F33]/85 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md flex items-center gap-1.5 z-10">
-                        {filteredReviews[currentSlide].video && <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />}
-                        {filteredReviews[currentSlide].video ? "Video Story" : "Customer Story"}
+                        {filteredReviews[currentSlide].video && (
+                          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                        )}
+                        {filteredReviews[currentSlide].video
+                          ? "Video Story"
+                          : "Customer Story"}
                       </span>
                     </div>
                   )}
 
-                  <div className={`flex flex-col gap-5 ${filteredReviews[currentSlide].video || filteredReviews[currentSlide].image ? "md:col-span-7" : "md:col-span-12"}`}>
+                  <div
+                    className={`flex flex-col gap-5 ${filteredReviews[currentSlide].video || filteredReviews[currentSlide].image ? "md:col-span-7" : "md:col-span-12"}`}
+                  >
                     <div className="flex items-center justify-between border-b border-[#24445F]/80 pb-4">
                       <div className="flex items-center gap-2 text-[#F97316]">
-                        {[...Array(5)].map((_, i) => (
+                        {[
+                          ...Array(filteredReviews[currentSlide].rating ?? 5),
+                        ].map((_, i) => (
                           <Star key={i} className="h-5 w-5 fill-[#F97316]" />
                         ))}
                       </div>
@@ -694,7 +841,10 @@ export default function CustomerReviewsPage() {
                           {filteredReviews[currentSlide].name}
                         </h3>
                         <p className="text-[14px] font-semibold text-slate-400">
-                          {filteredReviews[currentSlide].role} • <span className="text-[#FDBA74]">{filteredReviews[currentSlide].tag}</span>
+                          {filteredReviews[currentSlide].role} •{" "}
+                          <span className="text-[#FDBA74]">
+                            {filteredReviews[currentSlide].tag}
+                          </span>
                         </p>
                       </div>
                       <UserCheck className="h-8 w-8 text-[#F97316]" />
@@ -736,7 +886,11 @@ export default function CustomerReviewsPage() {
             {/* Background Image */}
             <div className="absolute inset-0 -z-10">
               <Image
-                src={agtpAssets.inventoryHero}
+                src={
+                  cta?.imageUrl && !cta.imageUrl.startsWith("builtin:")
+                    ? cta.imageUrl
+                    : agtpAssets.inventoryHero
+                }
                 alt="AGTP Group Global Sourcing"
                 fill
                 className="object-cover object-center brightness-105"
@@ -751,38 +905,42 @@ export default function CustomerReviewsPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  TRUSTED ACROSS BORDERS
+                  {cta?.eyebrow || "TRUSTED ACROSS BORDERS"}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
 
               <RevealHeading>
                 <h2 className="mx-auto mt-4 max-w-4xl text-[34px] font-black uppercase leading-tight tracking-tight text-white sm:text-[46px] md:text-[56px] lg:text-[64px] drop-shadow-md">
-                  Buy From Dubai With Confidence
+                  {cta?.title || "Buy From Dubai With Confidence"}
                 </h2>
               </RevealHeading>
 
               <RevealText delay={120}>
                 <p className="mx-auto mt-6 max-w-3xl text-[16px] font-semibold leading-relaxed text-slate-100 sm:text-[18px] drop-shadow">
-                  Customers around the world choose AGTP Group for vehicles and automotive spare parts, with clear communication, reliable service, and support throughout the purchasing process.
+                  {cta?.body ||
+                    "Customers around the world choose AGTP Group for vehicles and automotive spare parts, with clear communication, reliable service, and support throughout the purchasing process."}
                 </p>
               </RevealText>
 
-              <RevealButton delay={180} className="mx-auto mt-10 flex w-full max-w-[320px] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
+              <RevealButton
+                delay={180}
+                className="mx-auto mt-10 flex w-full max-w-[320px] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4"
+              >
                 <button
                   type="button"
                   onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[52px] w-full items-center justify-center gap-3 rounded-full px-6 text-[15px] font-black text-white shadow-xl transition-all duration-300 hover:scale-105 sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                   style={{ backgroundColor: "var(--agtp-secondary)" }}
                 >
-                  <span>Get A Quote</span>
+                  <span>{cta?.primaryButtonText || "Get A Quote"}</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
                 <Link
-                  href="/vehicles"
+                  href={cta?.secondaryButtonHref || "/vehicles"}
                   className="inline-flex h-[52px] w-full items-center justify-center rounded-full border border-[#315671] bg-[#102941]/90 px-6 text-[15px] font-black text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-[#F97316] hover:bg-[#F97316] hover:text-white sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                 >
-                  Explore Vehicles
+                  {cta?.secondaryButtonText || "Explore Vehicles"}
                 </Link>
               </RevealButton>
             </div>

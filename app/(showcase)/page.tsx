@@ -20,7 +20,7 @@ import {
   Truck,
   Volume2,
   VolumeX,
-  Wrench
+  Wrench,
 } from "lucide-react";
 
 import { HeroCarousel } from "@/components/home/hero-carousel";
@@ -28,28 +28,25 @@ import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal
 import { VehicleCard } from "@/components/vehicles/vehicle-card";
 import { getAllVehicles } from "@/lib/vehicles/data";
 import type { Vehicle } from "@/lib/vehicles/types";
+import type { HomeIndustryCard } from "@/lib/home-industries/types";
+import type { HomePageContentItem } from "@/lib/home-page-content/types";
+import type { Review } from "@/lib/reviews/types";
 import {
   Reveal,
   RevealButton,
   RevealEyebrow,
   RevealHeading,
   RevealStagger,
-  RevealText
+  RevealText,
 } from "@/components/ui/scroll-reveal";
 import { usePrefersReducedMotion } from "@/components/ui/use-reduced-motion";
 import { agtpAssets } from "@/src/assets";
-
-
-
-
-
-
 
 const heroStats = [
   { value: 10000, suffix: "+", label: "Exports" },
   { value: 25, suffix: "+", label: "Countries Served" },
   { value: 11, suffix: "+", label: "Years in Trade" },
-  { value: 94, suffix: "%", label: "On-Time Delivery" }
+  { value: 94, suffix: "%", label: "On-Time Delivery" },
 ];
 
 const industryCards = [
@@ -59,7 +56,7 @@ const industryCards = [
     image: agtpAssets.suvs,
     icon: Car,
     href: "/vehicles",
-    layout: "min-h-[360px] xl:col-span-5 xl:row-span-2 xl:min-h-[540px]"
+    layout: "min-h-[360px] xl:col-span-5 xl:row-span-2 xl:min-h-[540px]",
   },
   {
     title: "Pickups & Ambulance",
@@ -67,7 +64,7 @@ const industryCards = [
     image: agtpAssets.pickups,
     icon: Truck,
     href: "/vehicles?category=Pickup",
-    layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]"
+    layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]",
   },
   {
     title: "Vans & buses",
@@ -75,7 +72,7 @@ const industryCards = [
     image: agtpAssets.vans,
     icon: Truck,
     href: "/vehicles?search=van",
-    layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]"
+    layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]",
   },
   {
     title: "Engines & Modifications",
@@ -83,7 +80,7 @@ const industryCards = [
     image: agtpAssets.mercedesCclassCard,
     icon: Package,
     href: "/parts-accessories",
-    layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]"
+    layout: "min-h-[250px] xl:col-span-3 xl:min-h-[260px]",
   },
   {
     title: "Parts & accessories",
@@ -91,35 +88,53 @@ const industryCards = [
     image: agtpAssets.sparePartsHero,
     icon: Wrench,
     href: "/parts-accessories",
-    layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]"
-  }
+    layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]",
+  },
 ];
+
+const industryLayouts = industryCards.map((card) => card.layout);
+const industryBuiltinImages: Record<
+  string,
+  (typeof industryCards)[number]["image"]
+> = {
+  "builtin:suvs": agtpAssets.suvs,
+  "builtin:pickups": agtpAssets.pickups,
+  "builtin:vans": agtpAssets.vans,
+  "builtin:engines": agtpAssets.mercedesCclassCard,
+  "builtin:parts": agtpAssets.sparePartsHero,
+};
+const industryIcons = {
+  car: Car,
+  truck: Truck,
+  package: Package,
+  wrench: Wrench,
+};
 
 const processSteps = [
   {
     number: "01",
     title: "Tell Us What You Need",
     body: "Share the product, specifications, quantity, and destination with our team.",
-    icon: Search
+    icon: Search,
   },
   {
     number: "02",
     title: "Receive Your Quotation",
     body: "We confirm availability, specifications, pricing, and shipping options for your order.",
-    icon: FileCheck
+    icon: FileCheck,
   },
   {
     number: "03",
     title: "Confirm Your Order",
     body: "Approve the quotation, confirm your order, and complete payment to proceed.",
-    icon: CheckCircle2
+    icon: CheckCircle2,
   },
   {
     number: "04",
     title: "We Prepare & Deliver",
     body: "We handle inspection, documentation, shipping, and delivery to your destination.",
-    icon: Ship
-  }
+    icon: Ship,
+  },
 ];
 
 const globalMarkets = [
@@ -127,50 +142,87 @@ const globalMarkets = [
     name: "Angola",
     region: "Southern Africa",
     code: "01",
-    image: "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80"
+    image:
+      "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Ghana",
     region: "West Africa",
     code: "02",
-    image: "https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?auto=format&fit=crop&w=800&q=80"
+    image:
+      "https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Congo",
     region: "Central Africa",
     code: "03",
-    image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800&q=80"
+    image:
+      "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Nigeria",
     region: "West Africa",
     code: "04",
-    image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=800&q=80"
+    image:
+      "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Togo",
     region: "West Africa",
     code: "05",
-    image: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80"
+    image:
+      "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Cameroon",
     region: "Central Africa",
     code: "06",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
-  }
+    image:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+  },
 ];
 
 const supplierCards = [
-  { title: "Automotive Body Kits Market Location 6", experience: "18+ year Experience", countries: "Serving 25+ Countries", image: agtpAssets.cadillacEscaladeCard },
-  { title: "Automotive Body Kits Market Location 5", experience: "10+ year Experience", countries: "Serving 14+ Countries", image: agtpAssets.bmw760Card },
-  { title: "Automotive Body Kits Market Location 2", experience: "10+ year Experience", countries: "Serving 25+ Countries", image: agtpAssets.mercedesCclassCard },
-  { title: "Automotive Body Kits Market Location 3", experience: "13+ year Experience", countries: "Serving 20+ Countries", image: agtpAssets.bydDestroyerCard },
-  { title: "Automotive Body Kits Market Location 4", experience: "12+ year Experience", countries: "Serving 15+ Countries", image: agtpAssets.bmwX2Card },
-  { title: "Automotive Parts Market Location 10", experience: "10+ year Experience", countries: "Serving 25+ Countries", image: agtpAssets.sparePartsHero }
+  {
+    title: "Automotive Body Kits Market Location 6",
+    experience: "18+ year Experience",
+    countries: "Serving 25+ Countries",
+    image: agtpAssets.cadillacEscaladeCard,
+  },
+  {
+    title: "Automotive Body Kits Market Location 5",
+    experience: "10+ year Experience",
+    countries: "Serving 14+ Countries",
+    image: agtpAssets.bmw760Card,
+  },
+  {
+    title: "Automotive Body Kits Market Location 2",
+    experience: "10+ year Experience",
+    countries: "Serving 25+ Countries",
+    image: agtpAssets.mercedesCclassCard,
+  },
+  {
+    title: "Automotive Body Kits Market Location 3",
+    experience: "13+ year Experience",
+    countries: "Serving 20+ Countries",
+    image: agtpAssets.bydDestroyerCard,
+  },
+  {
+    title: "Automotive Body Kits Market Location 4",
+    experience: "12+ year Experience",
+    countries: "Serving 15+ Countries",
+    image: agtpAssets.bmwX2Card,
+  },
+  {
+    title: "Automotive Parts Market Location 10",
+    experience: "10+ year Experience",
+    countries: "Serving 25+ Countries",
+    image: agtpAssets.sparePartsHero,
+  },
 ];
 
 interface CustomerStoryItem {
+  id: string;
   name: string;
   label: string;
   image: any;
@@ -180,52 +232,82 @@ interface CustomerStoryItem {
 
 const customerStories: CustomerStoryItem[] = [
   {
+    id: "fallback-ringo",
     name: "Mr. Ringo",
     label: "Repeat Vehicle Buyer",
     image: agtpAssets.reviewR1,
     story:
-      "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group."
+      "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group.",
   },
   {
+    id: "fallback-patrick",
     name: "Mr. Patrick Mwamba",
     label: "Corporate Fleet Importer",
     image: agtpAssets.reviewR2,
-    video: "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4",
+    video:
+      "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4",
     story:
-      "Verified video walkaround and live delivery at the port in Congo. Seamless export documentation and premium vehicle quality."
+      "Verified video walkaround and live delivery at the port in Congo. Seamless export documentation and premium vehicle quality.",
   },
   {
+    id: "fallback-jorge",
     name: "Mr. Jorge Goncalves",
     label: "Oil & Gas Professional",
     image: agtpAssets.reviewR2,
     story:
-      "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola."
+      "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola.",
   },
   {
+    id: "fallback-david",
     name: "Mr. David Ganga",
     label: "Mining & Logistics Buyer",
     image: agtpAssets.reviewR4,
-    video: "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4",
+    video:
+      "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4",
     story:
-      "Inspected our vehicles via live video feed before shipping to Luanda. Every vehicle arrived on schedule in showroom condition."
+      "Inspected our vehicles via live video feed before shipping to Luanda. Every vehicle arrived on schedule in showroom condition.",
   },
   {
+    id: "fallback-sumani",
     name: "Mr. Muhammad Sumani",
     label: "Engineer",
     image: agtpAssets.reviewR3,
     story:
-      "Completed his vehicle purchase entirely online, with AGTP Group safely exporting and delivering the unit to Ghana."
+      "Completed his vehicle purchase entirely online, with AGTP Group safely exporting and delivering the unit to Ghana.",
   },
   {
+    id: "fallback-eduardo",
     name: "Mr. Eduardo Conde Salamau",
     label: "Oil & Gas Professional",
     image: agtpAssets.reviewR4,
     story:
-      "Used our secure online payment process while AGTP Group managed the full export and delivery coordination."
-  }
+      "Used our secure online payment process while AGTP Group managed the full export and delivery coordination.",
+  },
 ];
 
-const leadingBrands = ["BYD", "Toyota", "Suzuki", "Mitsubishi", "Hyundai", "Kia", "Nissan", "Jetour", "Mercedes", "BMW"];
+const reviewBuiltinImages: Record<string, (typeof agtpAssets)["reviewR1"]> = {
+  "builtin:review-r1": agtpAssets.reviewR1,
+  "builtin:review-r2": agtpAssets.reviewR2,
+  "builtin:review-r3": agtpAssets.reviewR3,
+  "builtin:review-r4": agtpAssets.reviewR4,
+};
+
+function reviewImageSource(imageUrl: string) {
+  return reviewBuiltinImages[imageUrl] ?? imageUrl;
+}
+
+const leadingBrands = [
+  "BYD",
+  "Toyota",
+  "Suzuki",
+  "Mitsubishi",
+  "Hyundai",
+  "Kia",
+  "Nissan",
+  "Jetour",
+  "Mercedes",
+  "BMW",
+];
 const brandLogoSrc: Record<string, string> = {
   BYD: "/brands/byd.svg",
   Toyota: "/brands/toyota.svg",
@@ -236,10 +318,8 @@ const brandLogoSrc: Record<string, string> = {
   Nissan: "/brands/nissan.svg",
   Jetour: "/brands/jetour.svg",
   Mercedes: "/brands/mercedes.svg",
-  BMW: "/brands/bmw.svg"
+  BMW: "/brands/bmw.svg",
 };
-
-
 
 export default function HomePage() {
   const allVehicles = getAllVehicles();
@@ -252,7 +332,7 @@ export default function HomePage() {
     { label: "Fire Apparatus & Ambulance", href: "/vehicles?search=ambulance" },
     { label: "Parts & accessories", href: "/parts-accessories" },
     { label: "Engines & Gears", href: "/parts-accessories" },
-    { label: "Modifications", href: "/contact-us" }
+    { label: "Modifications", href: "/contact-us" },
   ];
 
   return (
@@ -286,7 +366,13 @@ export default function HomePage() {
       <section className="mx-auto max-w-[1570px] px-4 pt-[80px] sm:px-12 lg:px-16 xl:px-20">
         <Reveal>
           <div className="relative min-h-[560px] overflow-hidden rounded-[20px] border border-[#315671] bg-[#14314B]">
-            <Image src={agtpAssets.exportPort} alt="Shipping containers at an export port" fill className="object-cover" sizes="1570px" />
+            <Image
+              src={agtpAssets.exportPort}
+              alt="Shipping containers at an export port"
+              fill
+              className="object-cover"
+              sizes="1570px"
+            />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.85)_0%,rgba(6,16,28,0.65)_50%,rgba(6,16,28,0.15)_100%)]" />
             <div className="relative z-10 flex min-h-[560px] max-w-[840px] flex-col justify-center px-6 py-12 text-left sm:px-8 md:px-14 lg:px-20">
               <SectionEyebrow>GET A QUOTE</SectionEyebrow>
@@ -299,7 +385,8 @@ export default function HomePage() {
               </RevealHeading>
               <RevealText>
                 <p className="mt-5 max-w-[720px] text-[17px] font-medium leading-[1.7] text-slate-200 md:text-[19px]">
-                  Share your requirements and receive a clear quotation with reliable supply, export coordination, and delivery support.
+                  Share your requirements and receive a clear quotation with
+                  reliable supply, export coordination, and delivery support.
                 </p>
               </RevealText>
               <RevealButton>
@@ -311,7 +398,10 @@ export default function HomePage() {
                     <span>Get a Quote</span>
                     <ArrowRight className="h-5 w-5" />
                   </button>
-                  <Link href="/vehicles" className="flex h-[52px] w-full items-center justify-center rounded-full border border-white/30 px-6 text-[15px] font-extrabold text-white transition-colors hover:bg-white/10 sm:h-[58px] sm:w-auto sm:px-8 sm:text-[16px]">
+                  <Link
+                    href="/vehicles"
+                    className="flex h-[52px] w-full items-center justify-center rounded-full border border-white/30 px-6 text-[15px] font-extrabold text-white transition-colors hover:bg-white/10 sm:h-[58px] sm:w-auto sm:px-8 sm:text-[16px]"
+                  >
                     Browse Inventory
                   </Link>
                 </div>
@@ -321,22 +411,35 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      <VehicleInquiryModal isOpen={inquiryModalOpen} onClose={() => setInquiryModalOpen(false)} />
+      <VehicleInquiryModal
+        isOpen={inquiryModalOpen}
+        onClose={() => setInquiryModalOpen(false)}
+      />
     </div>
   );
 }
 
-function SectionEyebrow({ children, center = false }: { children: React.ReactNode; center?: boolean }) {
+function SectionEyebrow({
+  children,
+  center = false,
+}: {
+  children: React.ReactNode;
+  center?: boolean;
+}) {
   return (
     <RevealEyebrow>
-      <div className={`flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.28em] text-[#FDBA74] ${center ? "justify-center" : ""}`}>
-        <span style={{ backgroundColor: "var(--agtp-secondary)" }} className="h-px w-8" />
+      <div
+        className={`flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.28em] text-[#FDBA74] ${center ? "justify-center" : ""}`}
+      >
+        <span
+          style={{ backgroundColor: "var(--agtp-secondary)" }}
+          className="h-px w-8"
+        />
         {children}
       </div>
     </RevealEyebrow>
   );
 }
-
 
 function VehicleShowcaseSection({ vehicles }: { vehicles: Vehicle[] }) {
   return (
@@ -345,21 +448,31 @@ function VehicleShowcaseSection({ vehicles }: { vehicles: Vehicle[] }) {
         <div>
           <SectionEyebrow>FEATURED INVENTORY</SectionEyebrow>
           <RevealHeading>
-            <h2 className="mt-2 text-[26px] font-black leading-none tracking-normal md:text-[34px]">Automotive Vehicles</h2>
+            <h2 className="mt-2 text-[26px] font-black leading-none tracking-normal md:text-[34px]">
+              Automotive Vehicles
+            </h2>
           </RevealHeading>
         </div>
       </div>
 
-      <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <RevealStagger
+        staggerDelay={70}
+        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      >
         {vehicles.slice(0, 6).map((vehicle, index) => (
-          <div key={vehicle.id} className={index >= 4 ? "hidden lg:block" : undefined}>
+          <div
+            key={vehicle.id}
+            className={index >= 4 ? "hidden lg:block" : undefined}
+          >
             <VehicleCard vehicle={vehicle} />
           </div>
         ))}
       </RevealStagger>
 
       {vehicles.length === 0 && (
-        <p className="py-10 text-center text-[15px] font-semibold text-slate-400">No vehicles available.</p>
+        <p className="py-10 text-center text-[15px] font-semibold text-slate-400">
+          No vehicles available.
+        </p>
       )}
     </section>
   );
@@ -374,6 +487,38 @@ function HeroStatsSection() {
 }
 
 function IndustriesSection() {
+  const [managedCards, setManagedCards] = useState<HomeIndustryCard[] | null>(
+    null,
+  );
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/home/industry-cards", {
+      signal: controller.signal,
+      cache: "no-store",
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load home industries");
+        return (await response.json()) as HomeIndustryCard[];
+      })
+      .then(setManagedCards)
+      .catch(() => setManagedCards(null));
+    return () => controller.abort();
+  }, []);
+
+  const cards =
+    managedCards === null
+      ? industryCards
+      : managedCards.map((card, index) => ({
+          ...card,
+          href: card.linkUrl,
+          image: industryBuiltinImages[card.imageUrl] ?? card.imageUrl,
+          icon: industryIcons[card.iconKey] ?? Car,
+          layout:
+            industryLayouts[index] ??
+            industryLayouts[industryLayouts.length - 1],
+        }));
+
   return (
     <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px]">
       <div className="text-center">
@@ -386,12 +531,25 @@ function IndustriesSection() {
       </div>
 
       <div className="mt-[48px] grid auto-rows-[minmax(250px,auto)] grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-12">
-        {industryCards.map((card, index) => {
+        {cards.map((card, index) => {
           const Icon = card.icon;
           return (
-            <Reveal key={card.title} delay={index * 85} className={card.layout}>
-              <Link href={card.href} className="group relative flex h-full overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--agtp-secondary)_75%,transparent)] hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)]">
-                <Image src={card.image} alt={card.title} fill className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />
+            <Reveal
+              key={`${card.title}-${index}`}
+              delay={index * 85}
+              className={card.layout}
+            >
+              <Link
+                href={card.href}
+                className="group relative flex h-full overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--agtp-secondary)_75%,transparent)] hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)]"
+              >
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                />
                 <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/30 to-transparent" />
                 <div className="absolute inset-x-6 top-6 flex items-center justify-between">
                   <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
@@ -405,8 +563,12 @@ function IndustriesSection() {
                   <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_35%,transparent)] bg-[color-mix(in_srgb,var(--agtp-secondary)_15%,transparent)] text-[var(--agtp-secondary)]">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-[21px] font-black leading-[1.05] text-white md:text-[24px]">{card.title}</h3>
-                  <p className="mt-2.5 text-[12px] font-bold leading-[1.45] text-slate-200">{card.subtitle}</p>
+                  <h3 className="text-[21px] font-black leading-[1.05] text-white md:text-[24px]">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2.5 text-[12px] font-bold leading-[1.45] text-slate-200">
+                    {card.subtitle}
+                  </p>
                 </div>
               </Link>
             </Reveal>
@@ -419,23 +581,32 @@ function IndustriesSection() {
 
 function ProcessSection() {
   return (
-    <section id="how-it-works" className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[96px] text-center">
-        <SectionEyebrow center>OUR PROCESS</SectionEyebrow>
-        <RevealHeading>
-          <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
-            How AGTP Group Works
-          </h2>
-        </RevealHeading>
+    <section
+      id="how-it-works"
+      className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[96px] text-center"
+    >
+      <SectionEyebrow center>OUR PROCESS</SectionEyebrow>
+      <RevealHeading>
+        <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
+          How AGTP Group Works
+        </h2>
+      </RevealHeading>
 
       <div className="relative mt-[48px]">
         <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-[55px] hidden h-px bg-[#F97316]/35 xl:block" />
-        <RevealStagger staggerDelay={120} className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4 xl:gap-0">
+        <RevealStagger
+          staggerDelay={120}
+          className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4 xl:gap-0"
+        >
           {processSteps.map((step) => {
             const Icon = step.icon;
             return (
               <div key={step.title} className="relative h-full px-0 xl:px-3">
                 <div className="group relative flex h-full min-h-[292px] flex-col overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] p-7 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:border-[color-mix(in_srgb,var(--agtp-secondary)_75%,transparent)] hover:shadow-[0_22px_50px_rgba(0,0,0,0.22)]">
-                  <span className="absolute -right-2 -top-10 text-[112px] font-black leading-none text-white/[0.035]" aria-hidden="true">
+                  <span
+                    className="absolute -right-2 -top-10 text-[112px] font-black leading-none text-white/[0.035]"
+                    aria-hidden="true"
+                  >
                     {step.number}
                   </span>
                   <div className="relative z-10 flex items-center justify-between">
@@ -447,9 +618,15 @@ function ProcessSection() {
                     </span>
                   </div>
                   <div className="relative z-10 mt-auto pt-10 text-center flex flex-col items-center">
-                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[var(--agtp-secondary)]">Step {step.number}</p>
-                    <h3 className="mt-2.5 text-[19px] font-black leading-[1.1] text-white">{step.title}</h3>
-                    <p className="mt-3 text-[13px] font-medium leading-[1.5] text-slate-300 min-h-[60px] flex items-start justify-center">{step.body}</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.22em] text-[var(--agtp-secondary)]">
+                      Step {step.number}
+                    </p>
+                    <h3 className="mt-2.5 text-[19px] font-black leading-[1.1] text-white">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 text-[13px] font-medium leading-[1.5] text-slate-300 min-h-[60px] flex items-start justify-center">
+                      {step.body}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -462,21 +639,61 @@ function ProcessSection() {
 }
 
 function GlobalNetworkSection() {
+  const [managedItems, setManagedItems] = useState<
+    HomePageContentItem[] | null
+  >(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/home/sections/global-network", {
+      signal: controller.signal,
+      cache: "no-store",
+    })
+      .then(async (response) => {
+        if (!response.ok)
+          throw new Error("Unable to load global network content");
+        return (await response.json()) as HomePageContentItem[];
+      })
+      .then(setManagedItems)
+      .catch(() => setManagedItems(null));
+    return () => controller.abort();
+  }, []);
+
+  const header = managedItems?.find((item) => item.itemKey === "header");
+  const hub = managedItems?.find((item) => item.itemKey === "hub");
+  const managedMarkets =
+    managedItems?.filter((item) => item.itemKey.startsWith("market-")) ?? [];
+  const markets = managedMarkets.length
+    ? managedMarkets.map((market) => ({
+        name: market.title ?? "",
+        region: market.subtitle ?? "",
+        code: market.itemKey.replace("market-", ""),
+        image: market.imageUrl ?? "",
+      }))
+    : globalMarkets;
+
   return (
-    <section className="mt-[82px] border-y border-[#24445F] py-[82px]" style={{ backgroundColor: "var(--agtp-footer, #071626)" }}>
+    <section
+      className="mt-[82px] border-y border-[#24445F] py-[82px]"
+      style={{ backgroundColor: "var(--agtp-footer, #071626)" }}
+    >
       <div className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
-            <SectionEyebrow>OUR GLOBAL NETWORK</SectionEyebrow>
+            <SectionEyebrow>
+              {header?.label || "OUR GLOBAL NETWORK"}
+            </SectionEyebrow>
             <RevealHeading>
               <h2 className="mt-5 max-w-[780px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
-                Dubai Supply. Global Markets. One Connection.
+                {header?.title ||
+                  "Dubai Supply. Global Markets. One Connection."}
               </h2>
             </RevealHeading>
           </div>
           <RevealText>
             <p className="max-w-[650px] text-[14px] font-medium leading-[1.6] text-slate-300">
-              From Dubai, we deliver reliable products to buyers across key African markets.
+              {header?.subtitle ||
+                "From Dubai, we deliver reliable products to buyers across key African markets."}
             </p>
           </RevealText>
         </div>
@@ -485,8 +702,11 @@ function GlobalNetworkSection() {
           <Reveal className="h-full">
             <div className="group relative flex min-h-[440px] flex-col overflow-hidden rounded-[18px] border border-[#315671] bg-[#102941] p-8 shadow-lg">
               <Image
-                src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80"
-                alt="Dubai, UAE Landmark"
+                src={
+                  hub?.imageUrl ||
+                  "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80"
+                }
+                alt={hub?.title || "Dubai, UAE Landmark"}
                 fill
                 className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -494,25 +714,39 @@ function GlobalNetworkSection() {
               />
               <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/30 to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,color-mix(in_srgb,var(--agtp-secondary,#F97316)_12%,transparent),transparent_35%)]" />
-              <span className="absolute -bottom-14 -right-5 text-[220px] font-black leading-none text-white/[0.04]" aria-hidden="true">
+              <span
+                className="absolute -bottom-14 -right-5 text-[220px] font-black leading-none text-white/[0.04]"
+                aria-hidden="true"
+              >
                 DXB
               </span>
               <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_40%,transparent)] bg-[#0B1F33]/80 text-[var(--agtp-secondary)] backdrop-blur-md">
                 <Globe2 className="h-7 w-7" />
               </div>
               <div className="relative z-10 mt-auto">
-                <p className="text-[12px] font-black uppercase tracking-[0.22em] text-[var(--agtp-secondary)]">Export Hub</p>
-                <h3 className="mt-3 text-[38px] font-black leading-none text-white md:text-[48px]">Dubai, UAE</h3>
+                <p className="text-[12px] font-black uppercase tracking-[0.22em] text-[var(--agtp-secondary)]">
+                  {hub?.label || "Export Hub"}
+                </p>
+                <h3 className="mt-3 text-[38px] font-black leading-none text-white md:text-[48px]">
+                  {hub?.title || "Dubai, UAE"}
+                </h3>
                 <p className="mt-5 max-w-[390px] text-[17px] font-medium leading-[1.7] text-slate-200">
-                  Supplying vehicles and automotive spare parts with export coordination and worldwide delivery. 
+                  {hub?.subtitle ||
+                    "Supplying vehicles and automotive spare parts with export coordination and worldwide delivery."}
                 </p>
               </div>
             </div>
           </Reveal>
 
-          <RevealStagger staggerDelay={70} className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {globalMarkets.map((market) => (
-              <div key={market.name} className="group relative min-h-[205px] overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[var(--agtp-secondary)]">
+          <RevealStagger
+            staggerDelay={70}
+            className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3"
+          >
+            {markets.map((market) => (
+              <div
+                key={market.name}
+                className="group relative min-h-[205px] overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[var(--agtp-secondary)]"
+              >
                 <Image
                   src={market.image}
                   alt={market.name}
@@ -521,16 +755,25 @@ function GlobalNetworkSection() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/30 to-transparent" />
-                <span className="absolute right-5 top-4 text-[52px] font-black leading-none text-white/[0.08]" aria-hidden="true">
+                <span
+                  className="absolute right-5 top-4 text-[52px] font-black leading-none text-white/[0.08]"
+                  aria-hidden="true"
+                >
                   {market.code}
                 </span>
                 <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--agtp-secondary)_45%,transparent)] bg-[#0B1F33]/80 text-[var(--agtp-secondary)] backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
                   <ArrowRight className="h-4 w-4" />
                 </div>
                 <div className="relative z-10 mt-10">
-                  <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--agtp-secondary)]">Active Market</p>
-                  <h3 className="mt-2 text-[21px] font-black leading-none text-white">{market.name}</h3>
-                  <p className="mt-2.5 text-[13px] font-semibold text-slate-200">{market.region}</p>
+                  <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--agtp-secondary)]">
+                    Active Market
+                  </p>
+                  <h3 className="mt-2 text-[21px] font-black leading-none text-white">
+                    {market.name}
+                  </h3>
+                  <p className="mt-2.5 text-[13px] font-semibold text-slate-200">
+                    {market.region}
+                  </p>
                 </div>
               </div>
             ))}
@@ -543,7 +786,10 @@ function GlobalNetworkSection() {
 
 function DubaiMarketsSection() {
   return (
-    <section id="dubai-markets" className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] pb-[82px]">
+    <section
+      id="dubai-markets"
+      className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] pb-[82px]"
+    >
       <div className="text-center">
         <SectionEyebrow center>DUBAI MARKETS</SectionEyebrow>
         <RevealHeading>
@@ -562,24 +808,41 @@ function DubaiMarketsSection() {
         </RevealButton>
       </div>
 
-      <RevealStagger staggerDelay={80} className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <RevealStagger
+        staggerDelay={80}
+        className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"
+      >
         {supplierCards.map((supplier) => (
-          <div key={supplier.title} className="overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] shadow-lg">
+          <div
+            key={supplier.title}
+            className="overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] shadow-lg"
+          >
             <div className="relative h-[220px] bg-[#0B1F33]">
-              <Image src={supplier.image} alt={supplier.title} fill className="object-cover opacity-100" sizes="(max-width: 768px) 100vw, 33vw" />
+              <Image
+                src={supplier.image}
+                alt={supplier.title}
+                fill
+                className="object-cover opacity-100"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
               <div className="absolute right-4 top-4 rounded-full bg-[#0B1F33]/80 px-3.5 py-2 text-[11px] font-black text-white">
                 Automotive Parts, Body Kits, Tyres
               </div>
             </div>
             <div className="p-6">
-              <h3 className="text-[17px] font-black leading-tight text-white">{supplier.title}</h3>
+              <h3 className="text-[17px] font-black leading-tight text-white">
+                {supplier.title}
+              </h3>
               <div className="mt-5 flex flex-wrap gap-4 text-[13px] font-semibold text-slate-300">
                 <span>{supplier.experience}</span>
                 <span>{supplier.countries}</span>
               </div>
               <Link
                 href="/brands"
-                style={{ borderColor: "color-mix(in srgb, var(--agtp-secondary) 50%, transparent)" }}
+                style={{
+                  borderColor:
+                    "color-mix(in srgb, var(--agtp-secondary) 50%, transparent)",
+                }}
                 className="mt-6 flex h-[46px] items-center justify-center rounded-full border text-[13px] font-black text-white transition-colors hover:bg-[var(--agtp-secondary)] hover:border-[var(--agtp-secondary)]"
               >
                 View Supplier Profile
@@ -592,21 +855,46 @@ function DubaiMarketsSection() {
   );
 }
 
-
-
 const automotivePartsPanels = [
   { label: "Category", value: "Spare Parts", href: "/parts-accessories" },
   { label: "Component", value: "Engines", href: "/parts-accessories" },
   { label: "Upgrade", value: "Body Kits", href: "/parts-accessories" },
-  { label: "Performance", value: "Tyres", href: "/parts-accessories" }
+  { label: "Performance", value: "Tyres", href: "/parts-accessories" },
 ];
 
 function AutomotivePartsSpotlight() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [progress, setProgress] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [spotlightItem, setSpotlightItem] =
+    useState<HomePageContentItem | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
   const scrollMotionEnabled = isDesktop && !prefersReducedMotion;
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/home/sections/automotive-parts", {
+      signal: controller.signal,
+      cache: "no-store",
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load spotlight image");
+        return (await response.json()) as HomePageContentItem[];
+      })
+      .then((items) =>
+        setSpotlightItem(
+          items.find((item) => item.itemKey === "spotlight") ?? null,
+        ),
+      )
+      .catch(() => setSpotlightItem(null));
+    return () => controller.abort();
+  }, []);
+
+  const spotlightImage =
+    spotlightItem?.imageUrl &&
+    spotlightItem.imageUrl !== "builtin:spotlight-ferrari"
+      ? spotlightItem.imageUrl
+      : agtpAssets.spotlightFerrari;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
@@ -629,7 +917,10 @@ function AutomotivePartsSpotlight() {
 
       const stickyTop = window.innerWidth >= 1280 ? 144 : 92;
       const bounds = section.getBoundingClientRect();
-      const scrollDistance = Math.max(section.offsetHeight - window.innerHeight + stickyTop, 1);
+      const scrollDistance = Math.max(
+        section.offsetHeight - window.innerHeight + stickyTop,
+        1,
+      );
       const travelled = Math.max(0, stickyTop - bounds.top);
       setProgress(Math.min(Math.max(travelled / scrollDistance, 0), 1));
     };
@@ -646,19 +937,32 @@ function AutomotivePartsSpotlight() {
   const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
   const headingEnter = clamp(progress / 0.18);
   const headingExit = clamp((progress - 0.65) / 0.18);
-  const headingOpacity = scrollMotionEnabled ? headingEnter * (1 - headingExit) : 1;
+  const headingOpacity = scrollMotionEnabled
+    ? headingEnter * (1 - headingExit)
+    : 1;
   const headingShift = scrollMotionEnabled ? 30 - progress * 70 : 0;
 
   return (
-    <section ref={sectionRef} className={`relative ${scrollMotionEnabled ? "md:h-[330vh]" : ""}`}>
-      <div className={`relative min-h-[650px] overflow-hidden border-y border-[#315671] bg-[#081A2B] ${scrollMotionEnabled ? "md:sticky md:top-[92px] md:h-[calc(100svh-92px)] md:min-h-0 xl:top-[144px] xl:h-[calc(100svh-144px)]" : ""}`}>
+    <section
+      ref={sectionRef}
+      className={`relative ${scrollMotionEnabled ? "md:h-[330vh]" : ""}`}
+    >
+      <div
+        className={`relative min-h-[650px] overflow-hidden border-y border-[#315671] bg-[#081A2B] ${scrollMotionEnabled ? "md:sticky md:top-[92px] md:h-[calc(100svh-92px)] md:min-h-0 xl:top-[144px] xl:h-[calc(100svh-144px)]" : ""}`}
+      >
         <Image
-          src={agtpAssets.spotlightFerrari}
+          src={spotlightImage}
           alt="Premium automotive parts and vehicle components"
           fill
           sizes="100vw"
           className="object-cover object-center"
-          style={scrollMotionEnabled ? { transform: `scale(${1 + progress * 0.07}) translateX(${-progress * 2}%)` } : undefined}
+          style={
+            scrollMotionEnabled
+              ? {
+                  transform: `scale(${1 + progress * 0.07}) translateX(${-progress * 2}%)`,
+                }
+              : undefined
+          }
         />
         <div className="absolute inset-0 bg-[#06101C]/10" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.45)_0%,rgba(6,16,28,0.18)_44%,transparent_100%)]" />
@@ -666,22 +970,35 @@ function AutomotivePartsSpotlight() {
         <div className="relative z-10 mx-auto flex min-h-[650px] max-w-[1570px] flex-col justify-end px-6 py-10 md:h-full md:min-h-0 md:px-8 md:py-12 xl:px-12 xl:py-14">
           <div
             className="max-w-[700px] transition-[opacity,transform] duration-100 ease-out"
-            style={{ opacity: headingOpacity, transform: `translateY(${headingShift}px)` }}
+            style={{
+              opacity: headingOpacity,
+              transform: `translateY(${headingShift}px)`,
+            }}
           >
-            <p className="text-[11px] font-black uppercase tracking-[0.26em] text-[#FDBA74]">Automotive Parts</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.26em] text-[#FDBA74]">
+              Automotive Parts
+            </p>
             <h2 className="mt-4 max-w-[480px] text-[32px] font-black leading-[0.96] text-white sm:text-[44px] xl:max-w-[700px] xl:text-[clamp(42px,4.5vw,78px)]">
               Parts That Keep The World Moving
             </h2>
             <p className="mt-5 max-w-[560px] text-[15px] font-semibold leading-[1.7] text-slate-200 md:text-[17px]">
-              Source genuine components, performance upgrades, and essential vehicle parts through one dependable partner.
+              Source genuine components, performance upgrades, and essential
+              vehicle parts through one dependable partner.
             </p>
           </div>
 
-          <div className={`mt-10 grid grid-cols-1 gap-3 ${scrollMotionEnabled ? "md:absolute md:right-6 md:top-1/2 md:mt-0 md:w-[min(43vw,360px)] md:-translate-y-1/2 xl:right-[max(3rem,calc((100vw-1570px)/2+3rem))] xl:w-[min(37vw,610px)]" : "max-w-[610px]"}`}>
+          <div
+            className={`mt-10 grid grid-cols-1 gap-3 ${scrollMotionEnabled ? "md:absolute md:right-6 md:top-1/2 md:mt-0 md:w-[min(43vw,360px)] md:-translate-y-1/2 xl:right-[max(3rem,calc((100vw-1570px)/2+3rem))] xl:w-[min(37vw,610px)]" : "max-w-[610px]"}`}
+          >
             {automotivePartsPanels.map((panel, index) => {
-              const panelProgress = clamp((progress - (0.26 + index * 0.13)) / 0.14);
+              const panelProgress = clamp(
+                (progress - (0.26 + index * 0.13)) / 0.14,
+              );
               const panelStyle = scrollMotionEnabled
-                ? { opacity: panelProgress, transform: `translateX(${(1 - panelProgress) * 68}px)` }
+                ? {
+                    opacity: panelProgress,
+                    transform: `translateX(${(1 - panelProgress) * 68}px)`,
+                  }
                 : undefined;
 
               return (
@@ -691,7 +1008,9 @@ function AutomotivePartsSpotlight() {
                   className="group flex min-h-[82px] items-center justify-between rounded-[14px] border border-[#3D6480] bg-[#0B1F33]/85 px-6 py-4 backdrop-blur-sm transition-[opacity,transform,border-color,background-color] duration-150 ease-out hover:border-[var(--agtp-secondary)] hover:bg-[#102941]/95"
                   style={panelStyle}
                 >
-                  <span className="text-[13px] font-medium text-slate-300">{panel.label}</span>
+                  <span className="text-[13px] font-medium text-slate-300">
+                    {panel.label}
+                  </span>
                   <span className="flex items-center gap-2 text-right text-[18px] font-black text-white lg:text-[20px] xl:gap-3 xl:text-[23px]">
                     {panel.value}
                     <ArrowRight className="h-5 w-5 text-[var(--agtp-secondary)] transition-transform duration-300 group-hover:translate-x-1" />
@@ -714,7 +1033,10 @@ function AutomotivePartsSpotlight() {
 
 function LeadingBrandsSection() {
   return (
-    <section className="overflow-hidden border-y border-[#24445F] py-[82px]" style={{ backgroundColor: "var(--agtp-footer, #071626)" }}>
+    <section
+      className="overflow-hidden border-y border-[#24445F] py-[82px]"
+      style={{ backgroundColor: "var(--agtp-footer, #071626)" }}
+    >
       <div className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 text-center">
         <SectionEyebrow center>LEADING CAR BRANDS</SectionEyebrow>
         <RevealHeading>
@@ -734,7 +1056,12 @@ function LeadingBrandsSection() {
 function WhyAgtpGroupSection() {
   return (
     <section className="mx-auto max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20 pt-[95px] pb-[30px] text-center">
-      <SectionEyebrow center>WHY <span className="notranslate" translate="no">AGTP GROUP</span></SectionEyebrow>
+      <SectionEyebrow center>
+        WHY{" "}
+        <span className="notranslate" translate="no">
+          AGTP GROUP
+        </span>
+      </SectionEyebrow>
       <RevealHeading>
         <h2 className="mx-auto mt-6 max-w-[1100px] text-[36px] font-black leading-[1.1] tracking-normal text-white md:text-[67px]">
           11 Years of Exports.
@@ -746,7 +1073,8 @@ function WhyAgtpGroupSection() {
       </RevealHeading>
       <RevealText>
         <p className="mx-auto mt-6 max-w-[720px] text-[17px] font-medium leading-[1.7] text-slate-300 md:text-[19px]">
-          We simplify international trade with reliable supply, transparent communication &amp; dependable delivery from Dubai to the world.
+          We simplify international trade with reliable supply, transparent
+          communication &amp; dependable delivery from Dubai to the world.
         </p>
       </RevealText>
     </section>
@@ -760,9 +1088,7 @@ function BrandMarquee({ brands }: { brands: string[] }) {
   const BrandCard = ({ brand, index }: { brand: string; index: number }) => {
     const logoSrc = brandLogoSrc[brand];
     return (
-      <div
-        className="group relative flex h-[140px] w-[210px] shrink-0 items-center justify-center rounded-[22px] border border-white/10 bg-[#0B1F33] p-6 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:border-[var(--agtp-secondary)] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]"
-      >
+      <div className="group relative flex h-[140px] w-[210px] shrink-0 items-center justify-center rounded-[22px] border border-white/10 bg-[#0B1F33] p-6 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:border-[var(--agtp-secondary)] hover:bg-[#1A3D5C] hover:shadow-[0_16px_35px_rgba(6,16,28,0.7)]">
         <div className="absolute inset-0 rounded-[22px] bg-gradient-to-b from-white/[0.08] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         <span className="relative z-10 flex h-20 w-36 items-center justify-center transition-transform duration-300 group-hover:scale-110">
           {logoSrc ? (
@@ -783,21 +1109,27 @@ function BrandMarquee({ brands }: { brands: string[] }) {
   return (
     <div className="flex overflow-hidden py-4 px-4 motion-reduce:overflow-x-auto">
       <div className="animate-marquee flex w-max shrink-0 motion-reduce:animate-none">
-        
         {/* Set 1 */}
         <div className="flex shrink-0 gap-6 pr-6">
           {displayBrands.map((brand, index) => (
-            <BrandCard key={`set1-${brand}-${index}`} brand={brand} index={index} />
+            <BrandCard
+              key={`set1-${brand}-${index}`}
+              brand={brand}
+              index={index}
+            />
           ))}
         </div>
 
         {/* Set 2 (Identical duplicate for seamless looping) */}
         <div className="flex shrink-0 gap-6 pr-6" aria-hidden="true">
           {displayBrands.map((brand, index) => (
-            <BrandCard key={`set2-${brand}-${index}`} brand={brand} index={index} />
+            <BrandCard
+              key={`set2-${brand}-${index}`}
+              brand={brand}
+              index={index}
+            />
           ))}
         </div>
-
       </div>
     </div>
   );
@@ -806,24 +1138,60 @@ function BrandMarquee({ brands }: { brands: string[] }) {
 function CustomerStoriesSection() {
   const [activeStory, setActiveStory] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [managedStories, setManagedStories] = useState<
+    CustomerStoryItem[] | null
+  >(null);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const stories = managedStories ?? customerStories;
 
   useEffect(() => {
-    if (isPaused || prefersReducedMotion) return;
+    let active = true;
+    void fetch("/api/reviews/featured", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load reviews");
+        return response.json() as Promise<Review[]>;
+      })
+      .then((reviews) => {
+        if (!active) return;
+        setManagedStories(
+          reviews.slice(0, 10).map((review) => ({
+            id: review.id,
+            name: review.name,
+            label: review.role,
+            story: review.quote,
+            image: reviewImageSource(review.imageUrl),
+            video: review.videoUrl ?? undefined,
+          })),
+        );
+        setActiveStory(0);
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || prefersReducedMotion || stories.length <= 1) return;
 
     const interval = window.setInterval(() => {
-      setActiveStory((current) => (current + 1) % customerStories.length);
+      setActiveStory((current) => (current + 1) % stories.length);
     }, 6000);
 
     return () => window.clearInterval(interval);
-  }, [isPaused, prefersReducedMotion]);
+  }, [isPaused, prefersReducedMotion, stories.length]);
 
   const selectStory = (index: number) => {
-    setActiveStory((index + customerStories.length) % customerStories.length);
+    setActiveStory((index + stories.length) % stories.length);
   };
 
+  if (stories.length === 0) return null;
+
   return (
-    <section id="customer-reviews" className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] text-center">
+    <section
+      id="customer-reviews"
+      className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] text-center"
+    >
       <SectionEyebrow center>CUSTOMER REVIEWS</SectionEyebrow>
       <RevealHeading>
         <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
@@ -857,11 +1225,15 @@ function CustomerStoriesSection() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className={prefersReducedMotion ? "hidden" : "hidden h-full xl:block"}>
-            {customerStories.map((story, index) => {
+          <div
+            className={
+              prefersReducedMotion ? "hidden" : "hidden h-full xl:block"
+            }
+          >
+            {stories.map((story, index) => {
               let offset = index - activeStory;
-              if (offset > customerStories.length / 2) offset -= customerStories.length;
-              if (offset < -customerStories.length / 2) offset += customerStories.length;
+              if (offset > stories.length / 2) offset -= stories.length;
+              if (offset < -stories.length / 2) offset += stories.length;
 
               const isActive = offset === 0;
               const isNearby = Math.abs(offset) === 1;
@@ -869,14 +1241,16 @@ function CustomerStoriesSection() {
 
               return (
                 <article
-                  key={story.name}
+                  key={story.id}
                   className="absolute left-1/2 top-4 flex h-[630px] w-[420px] -translate-x-1/2 flex-col overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] text-left shadow-2xl transition-[opacity,transform,filter] duration-700 ease-out"
                   style={{
                     opacity: isActive ? 1 : isNearby ? 0.45 : 0,
                     transform: `translateX(calc(-50% + ${translation}px)) scale(${isActive ? 1 : isNearby ? 0.88 : 0.78})`,
-                    filter: isActive ? "none" : "saturate(0.4) brightness(0.75)",
+                    filter: isActive
+                      ? "none"
+                      : "saturate(0.4) brightness(0.75)",
                     pointerEvents: isActive ? "auto" : "none",
-                    zIndex: isActive ? 30 : isNearby ? 20 : 10
+                    zIndex: isActive ? 30 : isNearby ? 20 : 10,
                   }}
                 >
                   <TestimonialCard story={story} active={isActive} />
@@ -887,15 +1261,23 @@ function CustomerStoriesSection() {
 
           <div className={prefersReducedMotion ? "" : "xl:hidden"}>
             <article
-              key={customerStories[activeStory].name}
+              key={stories[activeStory].id}
               className="mx-auto flex h-[630px] max-w-[420px] flex-col overflow-hidden rounded-[24px] border border-[#315671] bg-[#14314B] text-left shadow-2xl"
             >
-              <TestimonialCard story={customerStories[activeStory]} active />
+              <TestimonialCard story={stories[activeStory]} active />
             </article>
           </div>
         </div>
       </Reveal>
-
+      <RevealButton delay={120} className="mt-8 flex justify-center">
+        <Link
+          href="/customer-reviews"
+          className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[var(--agtp-secondary)] px-7 text-sm font-black text-white transition-all duration-300 hover:bg-[var(--agtp-secondary)]"
+        >
+          View All Reviews
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </RevealButton>
     </section>
   );
 }
@@ -903,7 +1285,7 @@ function CustomerStoriesSection() {
 function HomepageVideoPlayer({
   src,
   poster,
-  alt
+  alt,
 }: {
   src: string;
   poster?: string;
@@ -965,7 +1347,9 @@ function HomepageVideoPlayer({
       {/* Center Play Video Icon / Button Overlay */}
       <div
         className={`absolute inset-0 z-20 flex flex-col items-center justify-center transition-all duration-300 ${
-          isPlaying ? "opacity-0 pointer-events-none scale-90" : "opacity-100 bg-black/35 backdrop-blur-[2px]"
+          isPlaying
+            ? "opacity-0 pointer-events-none scale-90"
+            : "opacity-100 bg-black/35 backdrop-blur-[2px]"
         }`}
       >
         <button
@@ -1011,7 +1395,7 @@ function HomepageVideoPlayer({
 
 function TestimonialCard({
   story,
-  active
+  active,
 }: {
   story: CustomerStoryItem;
   active: boolean;
@@ -1022,7 +1406,9 @@ function TestimonialCard({
         {story.video ? (
           <HomepageVideoPlayer
             src={story.video}
-            poster={typeof story.image === "string" ? story.image : story.image?.src}
+            poster={
+              typeof story.image === "string" ? story.image : story.image?.src
+            }
             alt={`${story.name} customer video story`}
           />
         ) : (
@@ -1053,8 +1439,12 @@ function TestimonialCard({
           <div className="flex items-start gap-3">
             <span className="mt-1 h-7 w-1.5 shrink-0 rounded-full bg-[#F97316]" />
             <div>
-              <h3 className="text-[17px] font-black leading-tight text-white">{story.name}</h3>
-              <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.15em] text-[#FDBA74]">{story.label}</p>
+              <h3 className="text-[17px] font-black leading-tight text-white">
+                {story.name}
+              </h3>
+              <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.15em] text-[#FDBA74]">
+                {story.label}
+              </p>
             </div>
           </div>
           <p className="mt-3 text-[13px] font-medium leading-[1.5] text-slate-200 line-clamp-3">
@@ -1066,17 +1456,16 @@ function TestimonialCard({
   );
 }
 
-
-
 function PromiseRevealSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeCount, setActiveCount] = useState(0);
   const prefersReducedMotion = usePrefersReducedMotion();
-  
+
   // Breaking the sentence into exactly 7 lines for desktop
-  const sentence = "Our promise is | simple: transparency | in every step, | reliability in | every delivery, | and value in | every partnership.";
+  const sentence =
+    "Our promise is | simple: transparency | in every step, | reliability in | every delivery, | and value in | every partnership.";
   const words = sentence.split(" ");
-  const actualWordsLength = words.filter(w => w !== "|").length;
+  const actualWordsLength = words.filter((w) => w !== "|").length;
   const secondaryStartIndex = Math.floor(actualWordsLength / 2);
 
   useEffect(() => {
@@ -1096,11 +1485,16 @@ function PromiseRevealSection() {
         if (!section) return;
 
         const heading = section.querySelector("h2");
-        const rect = heading ? heading.getBoundingClientRect() : section.getBoundingClientRect();
+        const rect = heading
+          ? heading.getBoundingClientRect()
+          : section.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const start = windowHeight * 0.72;
         const end = windowHeight * 0.25;
-        const progress = Math.min(Math.max((start - rect.top) / (start - end), 0), 1);
+        const progress = Math.min(
+          Math.max((start - rect.top) / (start - end), 0),
+          1,
+        );
 
         setActiveCount(Math.round(progress * words.length));
       });
@@ -1118,21 +1512,30 @@ function PromiseRevealSection() {
   }, [prefersReducedMotion, words.length]);
 
   return (
-    <section ref={sectionRef} className="relative border-y border-white/10 py-[82px]" style={{ backgroundColor: "var(--agtp-bg, #060709)" }}>
+    <section
+      ref={sectionRef}
+      className="relative border-y border-white/10 py-[82px]"
+      style={{ backgroundColor: "var(--agtp-bg, #060709)" }}
+    >
       <div className="mx-auto w-full max-w-[1570px] px-8 sm:px-12 lg:px-16 xl:px-20">
         <SectionEyebrow>OUR PROMISE</SectionEyebrow>
         <h2 className="mt-7 font-[family-name:var(--font-sora)] text-[32px] font-extrabold leading-[1.15] tracking-normal text-white md:text-[45px] lg:text-[57px]">
           {words.map((word, index) => {
-            if (word === "|") return <br key={`br-${index}`} className="hidden md:block" />;
-            
-            const wordIndexWithoutBreaks = words.slice(0, index).filter(w => w !== "|").length;
-            
+            if (word === "|")
+              return <br key={`br-${index}`} className="hidden md:block" />;
+
+            const wordIndexWithoutBreaks = words
+              .slice(0, index)
+              .filter((w) => w !== "|").length;
+
             return (
               <span
                 key={`${word}-${index}`}
                 className={`mr-[0.23em] inline-block transition-all duration-300 ${
-                  index < activeCount 
-                    ? (wordIndexWithoutBreaks >= secondaryStartIndex ? "text-[var(--agtp-secondary)] opacity-100" : "text-white opacity-100") 
+                  index < activeCount
+                    ? wordIndexWithoutBreaks >= secondaryStartIndex
+                      ? "text-[var(--agtp-secondary)] opacity-100"
+                      : "text-white opacity-100"
                     : "text-white opacity-25"
                 }`}
               >
@@ -1146,11 +1549,15 @@ function PromiseRevealSection() {
   );
 }
 
-
-
 type MarqueeItem = string | { label: string; href: string };
 
-function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boolean }) {
+function Marquee({
+  items,
+  muted = false,
+}: {
+  items: MarqueeItem[];
+  muted?: boolean;
+}) {
   // Increased sets to 4 to ensure we have plenty of buffer when shifting an extra -40vw
   const displayItems = [...items, ...items, ...items, ...items];
 
@@ -1160,7 +1567,10 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
     return (
       <span className="flex items-center gap-14">
         {href ? (
-          <Link href={href} className="text-white transition-colors duration-200 hover:text-[var(--agtp-secondary)] no-underline">
+          <Link
+            href={href}
+            className="text-white transition-colors duration-200 hover:text-[var(--agtp-secondary)] no-underline"
+          >
             {label}
           </Link>
         ) : (
@@ -1172,7 +1582,9 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
   };
 
   return (
-    <div className={`${muted ? "mt-[75px] border-y border-white/10 bg-[#102941] py-12" : "border-y border-white/10 bg-[#102941] py-9"} overflow-hidden group`}>
+    <div
+      className={`${muted ? "mt-[75px] border-y border-white/10 bg-[#102941] py-12" : "border-y border-white/10 bg-[#102941] py-9"} overflow-hidden group`}
+    >
       <motion.div
         initial={{ x: "0vw" }}
         whileInView={{ x: "-40vw" }}
@@ -1180,8 +1592,9 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
         transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1] }}
         className="flex w-max"
       >
-        <div className={`${muted ? "text-[36px] text-transparent opacity-50 marquee-outline" : "text-[40px] text-white"} animate-marquee flex w-max shrink-0 group-hover:[animation-play-state:paused] whitespace-nowrap font-black uppercase leading-none tracking-normal`}>
-          
+        <div
+          className={`${muted ? "text-[36px] text-transparent opacity-50 marquee-outline" : "text-[40px] text-white"} animate-marquee flex w-max shrink-0 group-hover:[animation-play-state:paused] whitespace-nowrap font-black uppercase leading-none tracking-normal`}
+        >
           {/* Set 1 */}
           <div className="flex shrink-0 items-center gap-14 pr-14">
             {displayItems.map((item, index) => (
@@ -1190,12 +1603,14 @@ function Marquee({ items, muted = false }: { items: MarqueeItem[]; muted?: boole
           </div>
 
           {/* Set 2 (Identical duplicate for seamless looping) */}
-          <div className="flex shrink-0 items-center gap-14 pr-14" aria-hidden="true">
+          <div
+            className="flex shrink-0 items-center gap-14 pr-14"
+            aria-hidden="true"
+          >
             {displayItems.map((item, index) => (
               <MarqueeItemNode key={`set2-${index}`} item={item} />
             ))}
           </div>
-
         </div>
       </motion.div>
     </div>

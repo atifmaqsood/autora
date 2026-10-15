@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/lib/content/context";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
+import type { PageBanner } from "@/lib/banners/types";
 
 export function HeroCarousel() {
   const { content } = useContent();
@@ -13,6 +14,7 @@ export function HeroCarousel() {
   const [offsetY, setOffsetY] = useState(0);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [homeBanners, setHomeBanners] = useState<PageBanner[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +27,25 @@ export function HeroCarousel() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/banners?pageKey=%2F", {
+      signal: controller.signal,
+      cache: "no-store"
+    })
+      .then((response) => (response.ok ? response.json() : []))
+      .then((data: PageBanner[]) => setHomeBanners(data))
+      .catch(() => setHomeBanners([]));
+    return () => controller.abort();
+  }, []);
+
+  const customBanner = homeBanners[0];
+  const customMediaUrl = customBanner?.mediaUrl ?? customBanner?.imageUrl;
+
+  useEffect(() => {
+    setVideoUnavailable(false);
+  }, [customBanner?.id]);
+
   if (activeSlides.length === 0) return null;
   const activeSlide = activeSlides[0];
 
@@ -36,8 +57,16 @@ export function HeroCarousel() {
           className="absolute inset-0 h-[130%] -top-[15%]"
           style={{ transform: `translate3d(0, ${offsetY}px, 0)` }}
         >
-          {!videoUnavailable ? (
+          {customBanner?.mediaType === "image" && customMediaUrl ? (
+            <div
+              role="img"
+              aria-label={customBanner.altText}
+              className="h-full w-full bg-cover bg-center"
+              style={{ backgroundImage: `url(${JSON.stringify(customMediaUrl).slice(1, -1)})` }}
+            />
+          ) : !videoUnavailable ? (
             <video
+              key={customMediaUrl ?? "default-home-video"}
               autoPlay
               loop
               muted
@@ -48,7 +77,14 @@ export function HeroCarousel() {
               className="h-full w-full object-cover object-center"
               aria-hidden="true"
             >
-              <source src="https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4" type="video/mp4" />
+              <source
+                src={
+                  customBanner?.mediaType === "video" && customMediaUrl
+                    ? customMediaUrl
+                    : "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4"
+                }
+                type={customMediaUrl?.toLowerCase().endsWith(".webm") ? "video/webm" : "video/mp4"}
+              />
             </video>
           ) : (
             <Image

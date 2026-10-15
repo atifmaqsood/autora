@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import {
   ArrowRight,
@@ -11,6 +11,7 @@ import {
 import { PageHero } from "@/components/ui/page-hero";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { agtpAssets } from "@/src/assets";
+import type { MarketingPageSection } from "@/lib/marketing-page-content/types";
 import {
   Reveal,
   RevealButton,
@@ -121,6 +122,35 @@ const steps = [
 
 export default function HowItWorksPage() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [content, setContent] = useState<MarketingPageSection[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/page-content/how-it-works", { cache: "no-store" })
+      .then(async (response) => (response.ok ? response.json() : []))
+      .then((items: MarketingPageSection[]) => {
+        if (active) setContent(items);
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const sections = useMemo(
+    () => new Map(content.map((section) => [section.sectionKey, section])),
+    [content],
+  );
+  const portuguese = sections.get("video-portuguese");
+  const english = sections.get("video-english");
+  const orderCta = sections.get("cta");
+  const image = (
+    section: MarketingPageSection | undefined,
+    fallback: typeof agtpAssets.heroYard,
+  ) =>
+    section?.imageUrl && !section.imageUrl.startsWith("builtin:")
+      ? section.imageUrl
+      : fallback;
 
   return (
     <div className="bg-[#060709] pb-24 text-white">
@@ -286,24 +316,33 @@ export default function HowItWorksPage() {
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
               <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
                 <Image
-                  src={agtpAssets.heroYard}
+                  src={image(portuguese, agtpAssets.heroYard)}
                   alt="Processo de Exportação AGTP Group - Português"
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-95"
+                  className={`${portuguese?.videoUrl ? "hidden" : ""} object-cover transition-transform duration-700 group-hover:scale-105 brightness-95`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-black/40 to-black/30" />
+                {portuguese?.videoUrl && (
+                  <video
+                    src={portuguese.videoUrl}
+                    poster={portuguese.imageUrl && !portuguese.imageUrl.startsWith("builtin:") ? portuguese.imageUrl : agtpAssets.heroYard.src}
+                    controls
+                    preload="metadata"
+                    className="absolute inset-0 z-20 h-full w-full object-cover"
+                  />
+                )}
 
                 <div className="absolute top-5 left-5 flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3.5 py-1.5 text-[12px] font-black text-white">
                   <span>🇵🇹</span>
-                  <span>Português</span>
+                  <span>{portuguese?.eyebrow || "Português"}</span>
                 </div>
 
-                <div className="absolute inset-0 flex items-center justify-center">
+                {!portuguese?.videoUrl && <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white/80 bg-[#F97316] text-white shadow-2xl shadow-orange-500/50 transition-transform duration-300 group-hover:scale-110">
                     <Play className="h-8 w-8 fill-white translate-x-0.5" />
                     <span className="absolute inset-0 rounded-full bg-[#F97316] animate-ping opacity-25" />
                   </div>
-                </div>
+                </div>}
 
                 <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-black/70 backdrop-blur-sm px-3 py-1 text-[11px] font-black text-slate-200 border border-white/10">
                   <Volume2 className="h-3.5 w-3.5 text-[#FDBA74]" />
@@ -317,10 +356,10 @@ export default function HowItWorksPage() {
                   <span>VÍDEO DE ORIENTAÇÃO</span>
                 </div>
                 <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
-                  Guia de Exportação de Veículos e Peças de Reposição de Dubai
+                  {portuguese?.title || "Guia de Exportação de Veículos e Peças de Reposição de Dubai"}
                 </h3>
                 <p className="text-[17px] font-medium leading-relaxed text-slate-300">
-                  Nossa equipe orienta você sobre o processo de encomenda de veículos e peças de reposição de Dubai, incluindo cotações, confirmação de pedido, envio e entrega internacional.
+                  {portuguese?.body || "Nossa equipe orienta você sobre o processo de encomenda de veículos e peças de reposição de Dubai, incluindo cotações, confirmação de pedido, envio e entrega internacional."}
                 </p>
               </div>
             </div>
@@ -329,24 +368,33 @@ export default function HowItWorksPage() {
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
               <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
                 <Image
-                  src={agtpAssets.exportPort}
+                  src={image(english, agtpAssets.exportPort)}
                   alt="AGTP Group Export Process - English"
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-95"
+                  className={`${english?.videoUrl ? "hidden" : ""} object-cover transition-transform duration-700 group-hover:scale-105 brightness-95`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-black/40 to-black/30" />
+                {english?.videoUrl && (
+                  <video
+                    src={english.videoUrl}
+                    poster={english.imageUrl && !english.imageUrl.startsWith("builtin:") ? english.imageUrl : agtpAssets.exportPort.src}
+                    controls
+                    preload="metadata"
+                    className="absolute inset-0 z-20 h-full w-full object-cover"
+                  />
+                )}
 
                 <div className="absolute top-5 left-5 flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3.5 py-1.5 text-[12px] font-black text-white">
                   <span>🇬🇧</span>
-                  <span>English</span>
+                  <span>{english?.eyebrow || "English"}</span>
                 </div>
 
-                <div className="absolute inset-0 flex items-center justify-center">
+                {!english?.videoUrl && <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white/80 bg-[#F97316] text-white shadow-2xl shadow-orange-500/50 transition-transform duration-300 group-hover:scale-110">
                     <Play className="h-8 w-8 fill-white translate-x-0.5" />
                     <span className="absolute inset-0 rounded-full bg-[#F97316] animate-ping opacity-25" />
                   </div>
-                </div>
+                </div>}
 
                 <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-black/70 backdrop-blur-sm px-3 py-1 text-[11px] font-black text-slate-200 border border-white/10">
                   <Volume2 className="h-3.5 w-3.5 text-[#FDBA74]" />
@@ -360,10 +408,10 @@ export default function HowItWorksPage() {
                   <span>WALKTHROUGH VIDEO</span>
                 </div>
                 <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
-                  Dubai Vehicle & Spare Parts Export Guide
+                  {english?.title || "Dubai Vehicle & Spare Parts Export Guide"}
                 </h3>
                 <p className="text-[17px] font-medium leading-relaxed text-slate-300">
-                  Our team walks you through ordering vehicles and spare parts from Dubai, including quotations, order confirmation, shipping, and international delivery.
+                  {english?.body || "Our team walks you through ordering vehicles and spare parts from Dubai, including quotations, order confirmation, shipping, and international delivery."}
                 </p>
               </div>
             </div>
@@ -377,7 +425,7 @@ export default function HowItWorksPage() {
           <div className="relative overflow-hidden rounded-[32px] border border-[#315671] shadow-2xl">
             <div className="absolute inset-0 -z-10">
               <Image
-                src={agtpAssets.inventoryHero}
+                src={image(orderCta, agtpAssets.inventoryHero)}
                 alt="AGTP Group Global Export"
                 fill
                 className="object-cover object-center brightness-105"
@@ -391,20 +439,20 @@ export default function HowItWorksPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  START YOUR ORDER 
+                  {orderCta?.eyebrow || "START YOUR ORDER"}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
 
               <RevealHeading>
                 <h2 className="mx-auto mt-4 max-w-4xl text-[34px] font-black uppercase leading-tight tracking-tight text-white sm:text-[46px] md:text-[56px] lg:text-[64px] drop-shadow-md">
-                  Ready to Place Your Order?
+                  {orderCta?.title || "Ready to Place Your Order?"}
                 </h2>
               </RevealHeading>
 
               <RevealText delay={120}>
                 <p className="mx-auto mt-6 max-w-3xl text-[16px] font-semibold leading-relaxed text-slate-100 sm:text-[18px] drop-shadow">
-                  Send us your requirements and get a clear quotation with product details, pricing, and export support.
+                  {orderCta?.body || "Send us your requirements and get a clear quotation with product details, pricing, and export support."}
                 </p>
               </RevealText>
 
@@ -414,7 +462,7 @@ export default function HowItWorksPage() {
                   onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[52px] w-full max-w-[320px] items-center justify-center gap-3 rounded-full bg-[#F97316] px-6 text-[15px] font-black text-white shadow-xl transition-all duration-300 hover:scale-105 hover:bg-[#EA580C] sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                 >
-                  <span>Get A Quote</span>
+                  <span>{orderCta?.primaryButtonText || "Get A Quote"}</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
               </RevealButton>

@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { X, CheckCircle2, Mail } from "lucide-react";
 import { PhoneCountryInput } from "@/components/ui/phone-country-input";
 import { CountrySelect } from "@/components/ui/country-select";
+import { HoneypotField } from "@/components/ui/honeypot-field";
 import { DEFAULT_COUNTRY, CountryItem } from "@/lib/countries-data";
+import { honeypotValue, submitInquiry } from "@/lib/inquiries";
 
 interface VehicleInquiryModalProps {
   isOpen: boolean;
@@ -31,6 +33,8 @@ export function VehicleInquiryModal({
   const [phoneCountry, setPhoneCountry] = useState<CountryItem>(DEFAULT_COUNTRY);
   const [submitted, setSubmitted] = useState(false);
   const [confirmationId, setConfirmationId] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   // Pre-fill make & model if vehicleTitle is provided
   useEffect(() => {
@@ -49,40 +53,43 @@ export function VehicleInquiryModal({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.fullName || !formData.email || !formData.phone || !formData.make || !formData.model) return;
-
-    const newInquiryId = `INQ-${Math.floor(100000 + Math.random() * 900000)}`;
-    setConfirmationId(newInquiryId);
 
     const fullPhone = formData.phone.trim().startsWith("+")
       ? formData.phone.trim()
       : `${phoneCountry.dialCode} ${formData.phone.trim()}`;
+    const vehicleName =
+      `${formData.make} ${formData.model}`.trim() || vehicleTitle || "General Specification Request";
 
-    // Save to local storage for prototype persistence
+    setSubmitError("");
+    setIsSending(true);
     try {
-      const existing = JSON.parse(localStorage.getItem("agtp_inquiries") || "[]");
-      const newRecord = {
-        id: newInquiryId,
-        vehicleId: vehicleId || "general",
-        vehicleName: `${formData.make} ${formData.model}`.trim() || vehicleTitle || "General Specification Request",
-        fullName: formData.fullName,
+      const reference = await submitInquiry({
+        type: "vehicle",
+        name: formData.fullName,
         email: formData.email,
         phone: fullPhone,
-        make: formData.make,
-        model: formData.model,
-        exportCountry: formData.destinationCountry,
+        country: formData.destinationCountry,
+        subject: vehicleName,
         message: formData.message,
-        createdAt: new Date().toISOString(),
-        status: "Pending"
-      };
-      localStorage.setItem("agtp_inquiries", JSON.stringify([newRecord, ...existing]));
-    } catch (err) {
-      console.error(err);
+        details: {
+          make: formData.make,
+          model: formData.model,
+          ...(vehicleTitle ? { listing: vehicleTitle } : {}),
+          ...(vehicleId ? { vehicleId } : {}),
+          page: window.location.href
+        },
+        website: honeypotValue(e.currentTarget)
+      });
+      setConfirmationId(reference);
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : String(error));
+    } finally {
+      setIsSending(false);
     }
-
-    setSubmitted(true);
   };
 
   const handleResetAndClose = () => {
@@ -197,7 +204,8 @@ export function VehicleInquiryModal({
             </h2>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="mt-6 sm:mt-8 space-y-5">
+            <form onSubmit={handleSubmit} className="relative mt-6 sm:mt-8 space-y-5">
+              <HoneypotField />
               {/* 3-Column Fields Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
                 {/* Full Name */}
@@ -315,13 +323,20 @@ export function VehicleInquiryModal({
                 </div>
               </div>
 
+              {submitError && (
+                <p role="alert" className="rounded-xl border border-red-500/40 bg-red-950/40 px-4 py-3 text-sm font-semibold text-red-200">
+                  {submitError}
+                </p>
+              )}
+
               {/* Submit Button */}
               <div className="pt-2 flex items-center justify-start sm:justify-center md:justify-start">
                 <button
                   type="submit"
-                  className="w-full sm:w-48 h-12 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-sm shadow-lg shadow-[#F97316]/30 active:scale-[0.98] transition-all flex items-center justify-center"
+                  disabled={isSending}
+                  className="w-full sm:w-48 h-12 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-sm shadow-lg shadow-[#F97316]/30 active:scale-[0.98] transition-all flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Submit
+                  {isSending ? "Sending..." : "Submit"}
                 </button>
               </div>
             </form>
