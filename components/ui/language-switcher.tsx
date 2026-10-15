@@ -2,13 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Globe } from "lucide-react";
+import { CountryFlag } from "@/components/ui/country-flag";
 
 const languages = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "pt", label: "Português", flag: "🇵🇹" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-  { code: "ar", label: "العربية", flag: "🇦🇪" },
-  { code: "sw", label: "Kiswahili", flag: "🇰🇪" },
+  // SVG flags: Windows does not render flag emoji (shows "GB", "PT" letters).
+  { code: "en", label: "English", country: "GB" },
+  { code: "pt", label: "Português", country: "PT" },
+  { code: "fr", label: "Français", country: "FR" },
+  { code: "ar", label: "العربية", country: "AE" },
+  { code: "sw", label: "Kiswahili", country: "KE" },
 ];
 
 declare global {
@@ -229,7 +231,10 @@ export function LanguageSwitcher({ variant = "desktop" }: { variant?: "desktop" 
             className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-base font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
           >
             <Globe className="h-5 w-5 text-[#FDBA74]" />
-            <span className="notranslate" translate="no">{active.flag} {active.label}</span>
+            <span className="notranslate inline-flex items-center gap-2" translate="no">
+              <CountryFlag iso2={active.country} className="h-3.5 w-5" />
+              {active.label}
+            </span>
             <ChevronDown className={`ml-auto h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
           </button>
           {open && (
@@ -244,7 +249,10 @@ export function LanguageSwitcher({ variant = "desktop" }: { variant?: "desktop" 
                       : "text-slate-400 hover:bg-white/10 hover:text-white"
                   }`}
                 >
-                  <span className="notranslate" translate="no">{lang.flag} {lang.label}</span>
+                  <span className="notranslate inline-flex items-center gap-2" translate="no">
+                    <CountryFlag iso2={lang.country} className="h-3.5 w-5" />
+                    {lang.label}
+                  </span>
                 </button>
               ))}
             </div>
@@ -264,7 +272,10 @@ export function LanguageSwitcher({ variant = "desktop" }: { variant?: "desktop" 
           className="flex items-center gap-2 text-[14px] font-extrabold text-slate-200 transition-colors hover:text-white"
         >
           <Globe className="h-4 w-4 text-[#FDBA74]" />
-          <span className="notranslate" translate="no">{active.flag} {active.label}</span>
+          <span className="notranslate inline-flex items-center gap-2" translate="no">
+            <CountryFlag iso2={active.country} className="h-3.5 w-5" />
+            {active.label}
+          </span>
           <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
         </button>
         {open && (
@@ -285,7 +296,9 @@ export function LanguageSwitcher({ variant = "desktop" }: { variant?: "desktop" 
                     : "text-slate-300 hover:bg-white/10 hover:text-white"
                 }`}
               >
-                <span className="text-base notranslate" translate="no">{lang.flag}</span>
+                <span className="notranslate" translate="no">
+                  <CountryFlag iso2={lang.country} className="h-3.5 w-5" />
+                </span>
                 <span className="notranslate" translate="no">{lang.label}</span>
               </button>
             ))}

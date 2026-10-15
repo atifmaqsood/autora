@@ -1190,7 +1190,7 @@ function CustomerStoriesSection() {
   return (
     <section
       id="customer-reviews"
-      className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] text-center"
+      className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] pb-[82px] text-center"
     >
       <SectionEyebrow center>CUSTOMER REVIEWS</SectionEyebrow>
       <RevealHeading>

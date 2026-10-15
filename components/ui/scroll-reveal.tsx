@@ -7,12 +7,20 @@ interface UseInViewOptions {
   threshold?: number;
   rootMargin?: string;
   triggerOnce?: boolean;
+  /**
+   * How far (px) beyond the viewport the element must travel before it hides
+   * again. Hidden reveals are offset by their slide distance, and observers
+   * measure the transformed box, so without this margin an element at the
+   * viewport edge flips between hidden and shown as it slides in and out.
+   */
+  exitMargin?: number;
 }
 
 export function useInView({
   threshold = 0.1,
   rootMargin = "0px 0px -40px 0px",
-  triggerOnce = false
+  triggerOnce = false,
+  exitMargin = 0
 }: UseInViewOptions = {}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isInView, setIsInView] = useState(false);
@@ -40,26 +48,35 @@ export function useInView({
       return;
     }
 
-    const observer = new IntersectionObserver(
+    const enterObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting || entry.intersectionRatio > 0) {
           setIsInView(true);
           if (triggerOnce) {
-            observer.unobserve(entry.target);
+            enterObserver.unobserve(entry.target);
           }
-        } else if (!triggerOnce) {
-          setIsInView(false);
         }
       },
       { threshold, rootMargin }
     );
+    enterObserver.observe(el);
 
-    observer.observe(el);
+    // Hide only once the element is fully outside the viewport plus the margin.
+    const exitObserver = triggerOnce
+      ? null
+      : new IntersectionObserver(
+          ([entry]) => {
+            if (!entry.isIntersecting) setIsInView(false);
+          },
+          { threshold: 0, rootMargin: `${exitMargin}px 0px ${exitMargin}px 0px` }
+        );
+    exitObserver?.observe(el);
 
     return () => {
-      if (el) observer.unobserve(el);
+      enterObserver.disconnect();
+      exitObserver?.disconnect();
     };
-  }, [threshold, rootMargin, triggerOnce]);
+  }, [threshold, rootMargin, triggerOnce, exitMargin]);
 
   return { ref, isInView };
 }
@@ -87,7 +104,10 @@ export function Reveal({
   style,
   ...props
 }: RevealProps) {
-  const { ref, isInView } = useInView({ triggerOnce: once });
+  const { ref, isInView } = useInView({
+    triggerOnce: once,
+    exitMargin: direction === "none" ? 40 : distance + 40
+  });
 
   const getTransform = () => {
     if (isInView) return "translate(0px, 0px)";

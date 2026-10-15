@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { PhoneCountryInput } from "@/components/ui/phone-country-input";
 import { CountrySelect } from "@/components/ui/country-select";
 import { HoneypotField } from "@/components/ui/honeypot-field";
+import { RevealButton, RevealEyebrow, RevealHeading, RevealText } from "@/components/ui/scroll-reveal";
 import { DEFAULT_COUNTRY } from "@/lib/countries-data";
 import { honeypotValue, submitInquiry } from "@/lib/inquiries";
 
@@ -61,9 +62,15 @@ export function PartsQuoteForm({ category, slug, vehicle }: { category: string; 
 
   return (
     <section id="request-quote" tabIndex={-1} aria-labelledby="quote-heading" className="scroll-mt-44 rounded-3xl border border-white/10 bg-[#0B1F33] p-6 outline-none sm:p-8 md:p-10">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--agtp-secondary)]">Request a quote</p>
-      <h2 id="quote-heading" className="mt-3 text-2xl font-black tracking-tight sm:text-4xl">Send Your {vehicle ? "Vehicle" : "Parts"} Inquiry</h2>
-      <p className="mt-3 text-sm text-slate-400">{category} — tell us what you need and where it needs to go.</p>
+      <RevealEyebrow>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--agtp-secondary)]">Request a quote</p>
+      </RevealEyebrow>
+      <RevealHeading>
+        <h2 id="quote-heading" className="mt-3 text-2xl font-black tracking-tight sm:text-4xl">Send Your {vehicle ? "Vehicle" : "Parts"} Inquiry</h2>
+      </RevealHeading>
+      <RevealText>
+        <p className="mt-3 text-sm text-slate-400">{category} — tell us what you need and where it needs to go.</p>
+      </RevealText>
       {reference ? (
         <div role="status" className="mt-8 space-y-4 rounded-2xl border border-white/10 bg-black/20 p-6">
           <CheckCircle2 className="h-9 w-9 text-[var(--agtp-secondary)]" />
@@ -74,7 +81,7 @@ export function PartsQuoteForm({ category, slug, vehicle }: { category: string; 
       ) : (
         <form onSubmit={submit} className="relative mt-8 space-y-6">
           <HoneypotField />
-          <div className="grid gap-5 md:grid-cols-3">
+          <RevealText className="grid gap-5 md:grid-cols-3">
             <div>
               <label htmlFor="parts-fullname" className={labelClass}>Full Name *</label>
               <input id="parts-fullname" name="fullName" autoComplete="name" required placeholder="Full Name" className={inputClass} />
@@ -101,9 +108,11 @@ export function PartsQuoteForm({ category, slug, vehicle }: { category: string; 
               <label htmlFor="parts-requirements" className={labelClass}>Specific Questions or Requirements</label>
               <textarea id="parts-requirements" name="message" rows={4} placeholder={vehicle ? "Destination, quantity, preferred specifications, or any other requirements…" : "Part numbers, quantities, vehicle year, or any other requirements…"} className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/20 p-4 text-sm text-white placeholder:text-slate-500 focus:border-[var(--agtp-secondary)] focus:outline-none" />
             </div>
-          </div>
+          </RevealText>
           {error && <p role="alert" className="text-sm text-red-300">{error}</p>}
-          <button type="submit" disabled={isSending} className="inline-flex h-12 w-full items-center justify-center gap-3 rounded-xl bg-[var(--agtp-secondary)] px-8 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">{isSending ? "Sending..." : "Submit"} <ArrowRight className="h-4 w-4" /></button>
+          <RevealButton>
+            <button type="submit" disabled={isSending} className="inline-flex h-12 w-full items-center justify-center gap-3 rounded-xl bg-[var(--agtp-secondary)] px-8 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto">{isSending ? "Sending..." : "Submit"} <ArrowRight className="h-4 w-4" /></button>
+          </RevealButton>
         </form>
       )}
     </section>

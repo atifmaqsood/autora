@@ -14,6 +14,7 @@ import {
   Tv,
   type LucideIcon,
 } from "lucide-react";
+import { RevealButton, RevealText } from "@/components/ui/scroll-reveal";
 import type { Vehicle } from "@/lib/vehicles/types";
 
 const featureTitles: { pattern: RegExp; title: string; icon: LucideIcon }[] = [
@@ -138,28 +139,30 @@ export function VehicleDetailInfo({ vehicle }: { vehicle: Vehicle }) {
       aria-label="Vehicle details"
       className="mt-10 rounded-3xl border border-white/10 bg-[var(--agtp-primary)] p-5 shadow-2xl sm:mt-12 sm:p-8 lg:p-10"
     >
-      <div
-        role="tablist"
-        aria-label="Vehicle information"
-        className="flex flex-wrap gap-3 border-b border-white/15 pb-5"
-      >
-        {(["features", "description", "specifications"] as const).map((tab) => (
-          <button
-            key={tab}
-            type="button"
-            role="tab"
-            id={`vehicle-tab-${tab}`}
-            aria-selected={activeTab === tab}
-            aria-controls={`vehicle-panel-${tab}`}
-            tabIndex={activeTab === tab ? 0 : -1}
-            onClick={() => setActiveTab(tab)}
-            onKeyDown={handleTabKey}
-            className={`rounded-full border border-[var(--agtp-secondary)] px-6 py-3 text-sm font-bold capitalize text-white transition-all ${activeTab === tab ? "bg-[var(--agtp-secondary)] shadow-lg shadow-black/20" : "bg-[color-mix(in_srgb,var(--agtp-secondary)_28%,transparent)] hover:bg-[var(--agtp-secondary)]"}`}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
+      <RevealButton>
+        <div
+          role="tablist"
+          aria-label="Vehicle information"
+          className="flex flex-wrap gap-3 border-b border-white/15 pb-5"
+        >
+          {(["features", "description", "specifications"] as const).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              role="tab"
+              id={`vehicle-tab-${tab}`}
+              aria-selected={activeTab === tab}
+              aria-controls={`vehicle-panel-${tab}`}
+              tabIndex={activeTab === tab ? 0 : -1}
+              onClick={() => setActiveTab(tab)}
+              onKeyDown={handleTabKey}
+              className={`rounded-full border border-[var(--agtp-secondary)] px-6 py-3 text-sm font-bold capitalize text-white transition-all ${activeTab === tab ? "bg-[var(--agtp-secondary)] shadow-lg shadow-black/20" : "bg-[color-mix(in_srgb,var(--agtp-secondary)_28%,transparent)] hover:bg-[var(--agtp-secondary)]"}`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+      </RevealButton>
       <div
         role="tabpanel"
         id="vehicle-panel-features"
@@ -168,26 +171,28 @@ export function VehicleDetailInfo({ vehicle }: { vehicle: Vehicle }) {
         tabIndex={0}
         className="border-b border-white/15 py-7"
       >
-        <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-          {vehicle.features.map((feature) => {
-            const { title, icon: Icon } = featureTitle(feature);
-            return (
-              <div
-                key={feature}
-                className="flex min-w-0 items-start gap-3 text-sm sm:text-base"
-              >
-                <Icon
-                  aria-hidden="true"
-                  className="mt-0.5 h-5 w-5 shrink-0 text-[var(--agtp-secondary)]"
-                />
-                <dt className="max-w-[38%] shrink-0 text-slate-400">{title}</dt>
-                <dd className="ml-auto min-w-0 break-words text-right font-bold text-white">
-                  {feature}
-                </dd>
-              </div>
-            );
-          })}
-        </dl>
+        <RevealText>
+          <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+            {vehicle.features.map((feature) => {
+              const { title, icon: Icon } = featureTitle(feature);
+              return (
+                <div
+                  key={feature}
+                  className="flex min-w-0 items-start gap-3 text-sm sm:text-base"
+                >
+                  <Icon
+                    aria-hidden="true"
+                    className="mt-0.5 h-5 w-5 shrink-0 text-[var(--agtp-secondary)]"
+                  />
+                  <dt className="max-w-[38%] shrink-0 text-slate-400">{title}</dt>
+                  <dd className="ml-auto min-w-0 break-words text-right font-bold text-white">
+                    {feature}
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        </RevealText>
       </div>
       <div
         role="tabpanel"
@@ -197,14 +202,16 @@ export function VehicleDetailInfo({ vehicle }: { vehicle: Vehicle }) {
         tabIndex={0}
         className="space-y-7 border-b border-white/15 py-7 text-sm leading-7 text-slate-300"
       >
-        <p>{vehicle.description}</p>
+        <RevealText>
+          <p>{vehicle.description}</p>
+        </RevealText>
         {vehicle.descriptionSections?.map((section) => (
-          <div key={section.title}>
+          <RevealText key={section.title}>
             <h2 className="mb-2 text-base font-bold text-white">
               {section.title}
             </h2>
             <p>{section.body}</p>
-          </div>
+          </RevealText>
         ))}
       </div>
       <div
@@ -215,55 +222,59 @@ export function VehicleDetailInfo({ vehicle }: { vehicle: Vehicle }) {
         tabIndex={0}
         className="space-y-8 border-b border-white/15 py-7"
       >
-        <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["Engine", vehicle.engine],
-            [
-              "Power",
-              vehicle.horsepower ? `${vehicle.horsepower} HP` : "On Request",
-            ],
-            ["Transmission", vehicle.transmission],
-            ["Fuel Type", vehicle.fuelType],
-            ["Drive System", vehicle.driveType],
-            [
-              "Seating",
-              vehicle.seatingCapacity
-                ? `${vehicle.seatingCapacity} passengers`
-                : "On Request",
-            ],
-            ["Exterior", vehicle.exteriorColor],
-            ["Interior", vehicle.interiorColor],
-          ].map(([label, value]) => (
-            <div
-              key={label}
-              className="rounded-xl border border-white/10 bg-black/15 p-4"
-            >
-              <dt className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                {label}
-              </dt>
-              <dd className="mt-1 text-sm font-bold text-white">
-                {value || "On Request"}
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <RevealText>
+          <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Engine", vehicle.engine],
+              [
+                "Power",
+                vehicle.horsepower ? `${vehicle.horsepower} HP` : "On Request",
+              ],
+              ["Transmission", vehicle.transmission],
+              ["Fuel Type", vehicle.fuelType],
+              ["Drive System", vehicle.driveType],
+              [
+                "Seating",
+                vehicle.seatingCapacity
+                  ? `${vehicle.seatingCapacity} passengers`
+                  : "On Request",
+              ],
+              ["Exterior", vehicle.exteriorColor],
+              ["Interior", vehicle.interiorColor],
+            ].map(([label, value]) => (
+              <div
+                key={label}
+                className="rounded-xl border border-white/10 bg-black/15 p-4"
+              >
+                <dt className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+                  {label}
+                </dt>
+                <dd className="mt-1 text-sm font-bold text-white">
+                  {value || "On Request"}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </RevealText>
         {vehicle.specifications.map((group) => (
-          <section key={group.groupName}>
-            <h3 className="mb-4 text-sm font-black uppercase tracking-wider text-white">
-              {group.groupName}
-            </h3>
-            <dl className="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(group.items).map(([label, value]) => (
-                <div
-                  key={label}
-                  className="flex justify-between gap-4 border-b border-white/10 pb-3 text-sm"
-                >
-                  <dt className="text-slate-400">{label}</dt>
-                  <dd className="text-right font-bold text-white">{value}</dd>
-                </div>
-              ))}
-            </dl>
-          </section>
+          <RevealText key={group.groupName}>
+            <section>
+              <h3 className="mb-4 text-sm font-black uppercase tracking-wider text-white">
+                {group.groupName}
+              </h3>
+              <dl className="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+                {Object.entries(group.items).map(([label, value]) => (
+                  <div
+                    key={label}
+                    className="flex justify-between gap-4 border-b border-white/10 pb-3 text-sm"
+                  >
+                    <dt className="text-slate-400">{label}</dt>
+                    <dd className="text-right font-bold text-white">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          </RevealText>
         ))}
       </div>
     </section>

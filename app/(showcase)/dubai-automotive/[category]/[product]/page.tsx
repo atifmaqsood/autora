@@ -6,7 +6,14 @@ import { ArrowRight, ChevronRight, Loader2, Package } from "lucide-react";
 import { notFound } from "next/navigation";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
-import { Reveal } from "@/components/ui/scroll-reveal";
+import {
+  Reveal,
+  RevealButton,
+  RevealEyebrow,
+  RevealHeading,
+  RevealStagger,
+  RevealText,
+} from "@/components/ui/scroll-reveal";
 import {
   dubaiAutomotiveFeatures,
   getDubaiAutomotiveProduct,
@@ -106,59 +113,67 @@ export default function DubaiAutomotiveProductPage({
           </span>
         </nav>
 
-        <Reveal distance={40} duration={800}>
+        <Reveal>
           <PartsGallery images={[...product.gallery]} title={product.title} />
         </Reveal>
-        <Reveal distance={24} duration={750} className="mt-10 sm:mt-12">
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">
-            Dubai Automotive
-          </p>
-          <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">
-            {product.title}
-          </h1>
-          <div className="mt-7 flex flex-wrap items-center gap-5">
-            <span className="text-xl font-bold">On Request</span>
-            <a
-              href="#request-quote"
-              onClick={() =>
-                document
-                  .getElementById("request-quote")
-                  ?.focus({ preventScroll: true })
-              }
-              className="inline-flex items-center gap-3 rounded-full bg-[var(--agtp-secondary)] px-6 py-3.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
-            >
-              Request a Quote <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-        </Reveal>
+        <div className="mt-10 sm:mt-12">
+          <RevealEyebrow>
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">
+              Dubai Automotive
+            </p>
+          </RevealEyebrow>
+          <RevealHeading>
+            <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">
+              {product.title}
+            </h1>
+          </RevealHeading>
+          <RevealButton>
+            <div className="mt-7 flex flex-wrap items-center gap-5">
+              <span className="text-xl font-bold">On Request</span>
+              <a
+                href="#request-quote"
+                onClick={() =>
+                  document
+                    .getElementById("request-quote")
+                    ?.focus({ preventScroll: true })
+                }
+                className="inline-flex items-center gap-3 rounded-full bg-[var(--agtp-secondary)] px-6 py-3.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
+              >
+                Request a Quote <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </RevealButton>
+        </div>
 
-        <Reveal distance={32} duration={800}>
+        <Reveal>
           <section
             aria-label="Product details"
             className="mt-10 rounded-3xl border border-white/10 bg-[var(--agtp-primary)] p-5 shadow-2xl sm:mt-12 sm:p-8 lg:p-10"
           >
-            <div
-              role="tablist"
-              aria-label="Product information"
-              className="flex flex-wrap gap-3 border-b border-white/15 pb-5"
-            >
-              {(["features", "description"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  type="button"
-                  role="tab"
-                  id={`tab-${tab}`}
-                  aria-selected={activeTab === tab}
-                  aria-controls={`panel-${tab}`}
-                  tabIndex={activeTab === tab ? 0 : -1}
-                  onClick={() => setActiveTab(tab)}
-                  onKeyDown={handleTabKey}
-                  className={`rounded-full border border-[var(--agtp-secondary)] px-6 py-3 text-sm font-bold capitalize text-white transition-all ${activeTab === tab ? "bg-[var(--agtp-secondary)] shadow-lg shadow-black/20" : "bg-[color-mix(in_srgb,var(--agtp-secondary)_28%,transparent)] hover:bg-[var(--agtp-secondary)]"}`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+            <RevealButton>
+              <div
+                role="tablist"
+                aria-label="Product information"
+                className="flex flex-wrap gap-3 border-b border-white/15 pb-5"
+              >
+                {(["features", "description"] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    role="tab"
+                    id={`tab-${tab}`}
+                    aria-selected={activeTab === tab}
+                    aria-controls={`panel-${tab}`}
+                    tabIndex={activeTab === tab ? 0 : -1}
+                    onClick={() => setActiveTab(tab)}
+                    onKeyDown={handleTabKey}
+                    className={`rounded-full border border-[var(--agtp-secondary)] px-6 py-3 text-sm font-bold capitalize text-white transition-all ${activeTab === tab ? "bg-[var(--agtp-secondary)] shadow-lg shadow-black/20" : "bg-[color-mix(in_srgb,var(--agtp-secondary)_28%,transparent)] hover:bg-[var(--agtp-secondary)]"}`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            </RevealButton>
             <div
               role="tabpanel"
               id="panel-features"
@@ -167,9 +182,14 @@ export default function DubaiAutomotiveProductPage({
               tabIndex={0}
               className="border-b border-white/15 py-7"
             >
-              <ul className="grid gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+              <RevealStagger
+                staggerDelay={80}
+                role="list"
+                className="grid gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3"
+              >
                 {features.map((feature) => (
-                  <li
+                  <div
+                    role="listitem"
                     key={feature}
                     className="flex items-start gap-3 text-sm text-slate-300"
                   >
@@ -178,9 +198,9 @@ export default function DubaiAutomotiveProductPage({
                       className="mt-0.5 h-4 w-4 shrink-0 text-[var(--agtp-secondary)]"
                     />
                     <span>{feature}</span>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </RevealStagger>
             </div>
             <div
               role="tabpanel"
@@ -190,12 +210,14 @@ export default function DubaiAutomotiveProductPage({
               tabIndex={0}
               className="border-b border-white/15 py-7 text-sm leading-7 text-slate-300"
             >
-              <p>{description}</p>
+              <RevealText>
+                <p>{description}</p>
+              </RevealText>
             </div>
           </section>
         </Reveal>
 
-        <Reveal distance={24} duration={800} className="pt-8">
+        <Reveal className="pt-8">
           <PartsQuoteForm
             category={product.title}
             slug={`dubai-automotive-${category.slug}-${product.slug}`}

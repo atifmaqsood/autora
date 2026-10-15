@@ -7,7 +7,14 @@ import { ArrowRight, ChevronRight, Loader2, Package } from "lucide-react";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { BrochureViewer } from "@/components/parts/brochure-viewer";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
-import { Reveal } from "@/components/ui/scroll-reveal";
+import {
+  Reveal,
+  RevealButton,
+  RevealEyebrow,
+  RevealHeading,
+  RevealStagger,
+  RevealText,
+} from "@/components/ui/scroll-reveal";
 import { getPartsCategoryBySlug, type PartsCategory } from "@/lib/parts/data";
 import type { CatalogCategory } from "@/lib/product-catalog/types";
 
@@ -99,60 +106,68 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
           </span>
         </nav>
 
-        <Reveal distance={40} duration={800}>
+        <Reveal>
           <PartsGallery images={images} title={category.title} />
         </Reveal>
 
-        <Reveal distance={24} duration={750} className="mt-10 sm:mt-12">
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">
-            Parts & Accessories
-          </p>
-          <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">
-            {category.title}
-          </h1>
-          <div className="mt-7 flex flex-wrap items-center gap-5">
-            <span className="text-xl font-bold">On Request</span>
-            <a
-              href="#request-quote"
-              onClick={() =>
-                document
-                  .getElementById("request-quote")
-                  ?.focus({ preventScroll: true })
-              }
-              className="inline-flex items-center gap-3 rounded-full bg-[var(--agtp-secondary)] px-6 py-3.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
-            >
-              Request a Quote <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-        </Reveal>
+        <div className="mt-10 sm:mt-12">
+          <RevealEyebrow>
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">
+              Parts & Accessories
+            </p>
+          </RevealEyebrow>
+          <RevealHeading>
+            <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">
+              {category.title}
+            </h1>
+          </RevealHeading>
+          <RevealButton>
+            <div className="mt-7 flex flex-wrap items-center gap-5">
+              <span className="text-xl font-bold">On Request</span>
+              <a
+                href="#request-quote"
+                onClick={() =>
+                  document
+                    .getElementById("request-quote")
+                    ?.focus({ preventScroll: true })
+                }
+                className="inline-flex items-center gap-3 rounded-full bg-[var(--agtp-secondary)] px-6 py-3.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
+              >
+                Request a Quote <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </RevealButton>
+        </div>
 
-        <Reveal distance={32} duration={800}>
+        <Reveal>
           <section
             aria-label="Category details"
             className="mt-10 rounded-3xl border border-white/10 bg-[var(--agtp-primary)] p-5 shadow-2xl sm:mt-12 sm:p-8 lg:p-10"
           >
-            <div
-              role="tablist"
-              aria-label="Product information"
-              className="flex flex-wrap gap-3 border-b border-white/15 pb-5"
-            >
-              {(["features", "description"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  type="button"
-                  role="tab"
-                  id={`tab-${tab}`}
-                  aria-selected={activeTab === tab}
-                  aria-controls={`panel-${tab}`}
-                  tabIndex={activeTab === tab ? 0 : -1}
-                  onClick={() => setActiveTab(tab)}
-                  onKeyDown={handleTabKey}
-                  className={`rounded-full border border-[var(--agtp-secondary)] px-6 py-3 text-sm font-bold capitalize text-white transition-all ${activeTab === tab ? "bg-[var(--agtp-secondary)] shadow-lg shadow-black/20" : "bg-[color-mix(in_srgb,var(--agtp-secondary)_28%,transparent)] hover:bg-[var(--agtp-secondary)]"}`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+            <RevealButton>
+              <div
+                role="tablist"
+                aria-label="Product information"
+                className="flex flex-wrap gap-3 border-b border-white/15 pb-5"
+              >
+                {(["features", "description"] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    role="tab"
+                    id={`tab-${tab}`}
+                    aria-selected={activeTab === tab}
+                    aria-controls={`panel-${tab}`}
+                    tabIndex={activeTab === tab ? 0 : -1}
+                    onClick={() => setActiveTab(tab)}
+                    onKeyDown={handleTabKey}
+                    className={`rounded-full border border-[var(--agtp-secondary)] px-6 py-3 text-sm font-bold capitalize text-white transition-all ${activeTab === tab ? "bg-[var(--agtp-secondary)] shadow-lg shadow-black/20" : "bg-[color-mix(in_srgb,var(--agtp-secondary)_28%,transparent)] hover:bg-[var(--agtp-secondary)]"}`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            </RevealButton>
             <div
               role="tabpanel"
               id="panel-features"
@@ -161,9 +176,14 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
               tabIndex={0}
               className="border-b border-white/15 py-7"
             >
-              <ul className="grid gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+              <RevealStagger
+                staggerDelay={80}
+                role="list"
+                className="grid gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3"
+              >
                 {category.products.map((product) => (
-                  <li
+                  <div
+                    role="listitem"
                     key={product}
                     className="flex items-start gap-3 text-sm text-slate-300"
                   >
@@ -172,9 +192,9 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
                       className="mt-0.5 h-4 w-4 shrink-0 text-[var(--agtp-secondary)]"
                     />
                     <span>{product}</span>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </RevealStagger>
             </div>
             <div
               role="tabpanel"
@@ -182,26 +202,28 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
               aria-labelledby="tab-description"
               hidden={activeTab !== "description"}
               tabIndex={0}
-              className="space-y-4 border-b border-white/15 py-7 text-sm leading-7 text-slate-300"
+              className="border-b border-white/15 py-7 text-sm leading-7 text-slate-300"
             >
-              <p>{category.subtitle}.</p>
-              <p>
-                AGTP Group supplies {category.title.toLowerCase()} from the UAE
-                for customers worldwide. Send us your part numbers, vehicle
-                details, and quantities so our team can confirm compatibility,
-                availability, pricing, and shipping options for your
-                destination.
-              </p>
+              <RevealText className="space-y-4">
+                <p>{category.subtitle}.</p>
+                <p>
+                  AGTP Group supplies {category.title.toLowerCase()} from the UAE
+                  for customers worldwide. Send us your part numbers, vehicle
+                  details, and quantities so our team can confirm compatibility,
+                  availability, pricing, and shipping options for your
+                  destination.
+                </p>
+              </RevealText>
             </div>
           </section>
         </Reveal>
-        <Reveal distance={20} duration={700} className="pt-8">
+        <Reveal className="pt-8">
           <BrochureViewer
             url={category.brochureUrl ?? `/api/parts/${category.slug}/brochure`}
             title={category.title}
           />
         </Reveal>
-        <Reveal distance={24} duration={800} className="pt-8">
+        <Reveal className="pt-8">
           <PartsQuoteForm category={category.title} slug={category.slug} />
         </Reveal>
       </div>

@@ -613,7 +613,7 @@ export default function CustomerReviewsPage() {
                   <div>
                     {/* Full Vertical Customer & Vehicle Delivery Photo / Video (matching home page h-[460px]) */}
                     {(rev.video || rev.image) && (
-                      <div className="relative h-[460px] w-full shrink-0 overflow-hidden bg-[#06101C]">
+                      <div className="relative isolate h-[460px] w-full shrink-0 overflow-hidden bg-[#06101C] [transform:translateZ(0)]">
                         {rev.video ? (
                           <ReviewVideoPlayer
                             src={rev.video}
@@ -633,7 +633,7 @@ export default function CustomerReviewsPage() {
                             className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                           />
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent pointer-events-none" />
+                        <div className="pointer-events-none absolute inset-x-0 -bottom-px top-0 bg-gradient-to-t from-[#14314B] via-transparent to-transparent" />
 
                         {/* Country Badge */}
                         <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full border border-white/20 bg-[#0B1F33]/85 backdrop-blur-md px-3.5 py-1 text-[11px] font-black text-[#FDBA74] z-10">
@@ -658,7 +658,7 @@ export default function CustomerReviewsPage() {
                       </div>
                     )}
 
-                    <div className="p-6 sm:p-7 space-y-4 bg-[#14314B]">
+                    <div className="relative -mt-px p-6 sm:p-7 space-y-4 bg-[#14314B]">
                       <div className="flex items-center justify-between border-b border-[#24445F]/60 pb-3">
                         <div className="flex gap-1 text-[#F97316]">
                           {[...Array(rev.rating ?? 5)].map((_, i) => (

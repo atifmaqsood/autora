@@ -7,7 +7,12 @@ import { formatPrice } from "@/lib/utils";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
 import { VehicleDetailInfo } from "@/components/vehicles/vehicle-detail-info";
-import { Reveal } from "@/components/ui/scroll-reveal";
+import {
+  Reveal,
+  RevealButton,
+  RevealEyebrow,
+  RevealHeading,
+} from "@/components/ui/scroll-reveal";
 import type { Vehicle } from "@/lib/vehicles/types";
 
 interface VehiclePageProps {
@@ -72,7 +77,7 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
           </span>
         </nav>
 
-        <Reveal key={`gallery-${vehicle.slug}`} distance={40} duration={800}>
+        <Reveal key={`gallery-${vehicle.slug}`}>
           <PartsGallery
             images={vehicle.images}
             title={title}
@@ -83,33 +88,39 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
           <p className="mt-2 text-xs text-slate-400">{vehicle.imageNote}</p>
         )}
 
-        <Reveal distance={24} duration={750} className="mt-10 sm:mt-12">
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">
-            {vehicle.category}
-          </p>
-          <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">
-            {title}
-          </h1>
-          <div className="mt-7 flex flex-wrap items-center gap-5">
-            <span className="text-xl font-bold">
-              {vehicle.price > 0
-                ? formatPrice(vehicle.price, vehicle.currency)
-                : "On Request"}
-            </span>
-            <a
-              href="#request-quote"
-              className="inline-flex items-center gap-3 rounded-full bg-[var(--agtp-secondary)] px-6 py-3.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
-            >
-              Request a Quote <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-        </Reveal>
+        <div className="mt-10 sm:mt-12">
+          <RevealEyebrow>
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--agtp-secondary)]">
+              {vehicle.category}
+            </p>
+          </RevealEyebrow>
+          <RevealHeading>
+            <h1 className="mt-3 max-w-5xl text-3xl font-black uppercase leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">
+              {title}
+            </h1>
+          </RevealHeading>
+          <RevealButton>
+            <div className="mt-7 flex flex-wrap items-center gap-5">
+              <span className="text-xl font-bold">
+                {vehicle.price > 0
+                  ? formatPrice(vehicle.price, vehicle.currency)
+                  : "On Request"}
+              </span>
+              <a
+                href="#request-quote"
+                className="inline-flex items-center gap-3 rounded-full bg-[var(--agtp-secondary)] px-6 py-3.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
+              >
+                Request a Quote <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </RevealButton>
+        </div>
 
-        <Reveal key={`details-${vehicle.slug}`} distance={32} duration={800}>
+        <Reveal key={`details-${vehicle.slug}`}>
           <VehicleDetailInfo vehicle={vehicle} />
         </Reveal>
 
-        <Reveal distance={24} duration={800} className="pt-8">
+        <Reveal className="pt-8">
           <PartsQuoteForm
             key={`quote-${vehicle.slug}`}
             category={title}
