@@ -804,3 +804,37 @@ html.translated-rtl body {
 .rich-text:focus {
   outline: none;
 }
+
+/* Blog article page: larger reading typography on top of .rich-text */
+.rich-text-article > p:first-child {
+  font-size: 1.15em;
+  line-height: 1.75;
+  color: #f1f5f9;
+}
+.rich-text-article > * + * {
+  margin-top: 1.25em;
+}
+.rich-text-article h2 {
+  margin-top: 2em;
+  font-size: 1.75em;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.rich-text-article h3 {
+  margin-top: 1.6em;
+  font-size: 1.3em;
+  color: #fff;
+}
+.rich-text-article h2,
+.rich-text-article h3 {
+  scroll-margin-top: 190px;
+}
+.rich-text-article blockquote {
+  border-radius: 0 16px 16px 0;
+  background: rgb(255 255 255 / 0.04);
+  padding: 1em 1.25em;
+  font-size: 1.1em;
+}
+.rich-text-article img {
+  border-radius: 16px;
+}
