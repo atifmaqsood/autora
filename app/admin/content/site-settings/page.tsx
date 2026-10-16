@@ -1,19 +1,35 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Save, RotateCcw, CheckCircle2, Globe, Building, Phone, Palette } from "lucide-react";
+import { Save, RotateCcw, CheckCircle2, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useContent } from "@/lib/content/context";
 import { defaultContent } from "@/lib/content/store";
 import type { SiteSettings } from "@/lib/content/types";
+
+type ColorKey =
+  | "backgroundColor"
+  | "primaryColor"
+  | "secondaryColor"
+  | "navbarColor"
+  | "footerColor";
+
+const colorFields: { key: ColorKey; label: string; fallback: string }[] = [
+  { key: "backgroundColor", label: "Base / Canvas Background Color", fallback: "#060709" },
+  { key: "primaryColor", label: "Primary Brand / Navy Color", fallback: "#0B1F33" },
+  { key: "secondaryColor", label: "Secondary / Accent Color", fallback: "#F97316" },
+  { key: "navbarColor", label: "Navbar Background Color", fallback: "#0B1F33" },
+  { key: "footerColor", label: "Footer Background Color", fallback: "#071626" }
+];
 
 export default function AdminSiteSettingsPage() {
   const { content, updateContent } = useContent();
   const [settings, setSettings] = useState<SiteSettings>({ ...content.site });
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setSettings({ ...content.site });
@@ -24,15 +40,45 @@ export default function AdminSiteSettingsPage() {
     setSaved(false);
   };
 
-  const handleSave = () => {
-    updateContent({ site: settings });
-    setSaved(true);
+  // Colors are stored through the API so every visitor gets them.
+  const handleSave = async () => {
+    setSaving(true);
+    setError("");
+    const colors = Object.fromEntries(
+      colorFields.map(({ key, fallback }) => {
+        const value = (settings[key] || fallback).trim();
+        return [key, /^[0-9a-f]{3,8}$/i.test(value) ? `#${value}` : value];
+      })
+    ) as Partial<SiteSettings>;
+    try {
+      const response = await fetch("/api/admin/site-colors", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(colors)
+      });
+      if (!response.ok) {
+        const body = (await response.json().catch(() => ({}))) as { message?: string | string[] };
+        throw new Error(
+          Array.isArray(body.message) ? body.message.join(", ") : body.message || "Could not save the colors."
+        );
+      }
+      updateContent({ site: { ...settings, ...colors } });
+      setSaved(true);
+    } catch (saveError) {
+      setError(saveError instanceof Error ? saveError.message : "Could not save the colors.");
+    } finally {
+      setSaving(false);
+    }
   };
 
+  // Only the colors are editable here, so only the colors are reset.
   const handleReset = () => {
-    if (!confirm("Reset all site settings to defaults?")) return;
-    setSettings({ ...defaultContent.site });
-    setSaved(false);
+    if (!confirm("Reset all theme colors to defaults?")) return;
+    patch(
+      Object.fromEntries(
+        colorFields.map(({ key }) => [key, defaultContent.site[key]])
+      ) as Partial<SiteSettings>
+    );
   };
 
   return (
@@ -41,20 +87,20 @@ export default function AdminSiteSettingsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-            <Globe className="w-6 h-6 text-amber-500" />
-            Site Settings & Branding
+            <Palette className="w-6 h-6 text-amber-500" />
+            Site Colors
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Configure the brand name, contact details, and global SEO metadata.
+            Set the theme colors used across the website.
           </p>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={handleReset} className="gap-1.5 text-xs text-slate-500">
             <RotateCcw className="w-3.5 h-3.5" /> Reset Defaults
           </Button>
-          <Button variant="primary" size="sm" onClick={handleSave} className="gap-2 font-bold shadow-sm">
+          <Button variant="primary" size="sm" onClick={() => void handleSave()} disabled={saving} className="gap-2 font-bold shadow-sm">
             <Save className="w-4 h-4" />
-            {saved ? "Saved!" : "Save Settings"}
+            {saving ? "Saving..." : saved ? "Saved!" : "Save Settings"}
           </Button>
         </div>
       </div>
@@ -62,196 +108,42 @@ export default function AdminSiteSettingsPage() {
       {saved && (
         <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-3 rounded-xl flex items-center gap-2.5 text-sm font-semibold animate-in fade-in">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-          Site settings saved — Logo and footer now reflect the updated brand name.
+          Site colors saved.
         </div>
       )}
 
-      {/* Brand Identity */}
+      {error && (
+        <div role="alert" className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-xl text-sm font-semibold">
+          {error}
+        </div>
+      )}
+
+      {/* Theme Colors */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="bg-slate-50 border-b border-slate-200 px-6 py-3 flex items-center gap-2">
-          <Building className="w-4 h-4 text-amber-500" />
-          <span className="text-sm font-bold text-slate-800">Brand Identity</span>
+          <Palette className="w-4 h-4 text-amber-500" />
+          <span className="text-sm font-bold text-slate-800">Theme Colors</span>
         </div>
         <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <Label className="text-xs">Brand / App Name</Label>
-            <Input
-              value={settings.brandName}
-              onChange={(e) => patch({ brandName: e.target.value })}
-              placeholder="AGTP GROUP"
-              className="mt-1 text-sm font-bold"
-            />
-            <p className="text-[10px] text-slate-400 mt-1">
-              Appears in the logo, page titles, and footer.
-            </p>
-          </div>
-          <div>
-            <Label className="text-xs">Tagline (Below Logo)</Label>
-            <Input
-              value={settings.tagline}
-              onChange={(e) => patch({ tagline: e.target.value })}
-              placeholder="MOTORS · SHOWCASE"
-              className="mt-1 text-sm"
-            />
-          </div>
-          <div>
-            <Label className="text-xs">Base / Canvas Background Color</Label>
-            <div className="flex items-center gap-2 mt-1">
-              <input
-                type="color"
-                value={settings.backgroundColor || "#060709"}
-                onChange={(e) => patch({ backgroundColor: e.target.value })}
-                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
-              />
-              <Input
-                value={settings.backgroundColor || "#060709"}
-                onChange={(e) => patch({ backgroundColor: e.target.value })}
-                placeholder="#060709"
-                className="text-sm font-mono flex-1"
-              />
+          {colorFields.map(({ key, label, fallback }) => (
+            <div key={key}>
+              <Label className="text-xs">{label}</Label>
+              <div className="flex items-center gap-2 mt-1">
+                <input
+                  type="color"
+                  value={settings[key] || fallback}
+                  onChange={(e) => patch({ [key]: e.target.value })}
+                  className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
+                />
+                <Input
+                  value={settings[key] || fallback}
+                  onChange={(e) => patch({ [key]: e.target.value })}
+                  placeholder={fallback}
+                  className="text-sm font-mono flex-1"
+                />
+              </div>
             </div>
-          </div>
-          <div>
-            <Label className="text-xs">Primary Brand / Navy Color</Label>
-            <div className="flex items-center gap-2 mt-1">
-              <input
-                type="color"
-                value={settings.primaryColor}
-                onChange={(e) => patch({ primaryColor: e.target.value })}
-                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
-              />
-              <Input
-                value={settings.primaryColor}
-                onChange={(e) => patch({ primaryColor: e.target.value })}
-                placeholder="#0B1F33"
-                className="text-sm font-mono flex-1"
-              />
-            </div>
-          </div>
-          <div>
-            <Label className="text-xs">Secondary / Accent Color</Label>
-            <div className="flex items-center gap-2 mt-1">
-              <input
-                type="color"
-                value={settings.secondaryColor}
-                onChange={(e) => patch({ secondaryColor: e.target.value })}
-                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
-              />
-              <Input
-                value={settings.secondaryColor}
-                onChange={(e) => patch({ secondaryColor: e.target.value })}
-                placeholder="#F97316"
-                className="text-sm font-mono flex-1"
-              />
-            </div>
-          </div>
-          <div>
-            <Label className="text-xs">Navbar Background Color</Label>
-            <div className="flex items-center gap-2 mt-1">
-              <input
-                type="color"
-                value={settings.navbarColor || "#0B1F33"}
-                onChange={(e) => patch({ navbarColor: e.target.value })}
-                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
-              />
-              <Input
-                value={settings.navbarColor || "#0B1F33"}
-                onChange={(e) => patch({ navbarColor: e.target.value })}
-                placeholder="#0B1F33"
-                className="text-sm font-mono flex-1"
-              />
-            </div>
-          </div>
-          <div>
-            <Label className="text-xs">Footer Background Color</Label>
-            <div className="flex items-center gap-2 mt-1">
-              <input
-                type="color"
-                value={settings.footerColor || "#071626"}
-                onChange={(e) => patch({ footerColor: e.target.value })}
-                className="h-10 w-14 rounded-lg border border-slate-200 cursor-pointer p-1"
-              />
-              <Input
-                value={settings.footerColor || "#071626"}
-                onChange={(e) => patch({ footerColor: e.target.value })}
-                placeholder="#071626"
-                className="text-sm font-mono flex-1"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Contact Information */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="bg-slate-50 border-b border-slate-200 px-6 py-3 flex items-center gap-2">
-          <Phone className="w-4 h-4 text-amber-500" />
-          <span className="text-sm font-bold text-slate-800">Showroom Contact Information</span>
-        </div>
-        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <Label className="text-xs">Primary Phone / WhatsApp</Label>
-            <Input
-              value={settings.supportPhone}
-              onChange={(e) => patch({ supportPhone: e.target.value })}
-              placeholder="+971 4 000 1234"
-              className="mt-1 text-sm"
-            />
-          </div>
-          <div>
-            <Label className="text-xs">Inquiry Email Address</Label>
-            <Input
-              type="email"
-              value={settings.supportEmail}
-              onChange={(e) => patch({ supportEmail: e.target.value })}
-              placeholder="inquiries@agtpgroup.com"
-              className="mt-1 text-sm"
-            />
-          </div>
-          <div className="sm:col-span-2">
-            <Label className="text-xs">Default Showroom Hub Location</Label>
-            <Input
-              value={settings.defaultLocation}
-              onChange={(e) => patch({ defaultLocation: e.target.value })}
-              placeholder="Dubai Central Showroom"
-              className="mt-1 text-sm"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* SEO Metadata */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="bg-slate-50 border-b border-slate-200 px-6 py-3 flex items-center gap-2">
-          <Globe className="w-4 h-4 text-amber-500" />
-          <span className="text-sm font-bold text-slate-800">Global SEO & Metadata</span>
-        </div>
-        <div className="p-6 space-y-4">
-          <div>
-            <Label className="text-xs">Default Page Title</Label>
-            <Input
-              value={settings.metaTitle}
-              onChange={(e) => patch({ metaTitle: e.target.value })}
-              className="mt-1 text-sm"
-              placeholder="AGTP GROUP — Certified Vehicle Specifications..."
-            />
-            <p className="text-[10px] text-slate-400 mt-1">
-              Character count: {settings.metaTitle.length} / 60 recommended
-            </p>
-          </div>
-          <div>
-            <Label className="text-xs">Default Meta Description</Label>
-            <Textarea
-              value={settings.metaDescription}
-              onChange={(e) => patch({ metaDescription: e.target.value })}
-              rows={3}
-              className="mt-1 text-sm"
-              placeholder="Explore exhaustive technical specs..."
-            />
-            <p className="text-[10px] text-slate-400 mt-1">
-              Character count: {settings.metaDescription.length} / 160 recommended
-            </p>
-          </div>
+          ))}
         </div>
       </div>
 

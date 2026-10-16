@@ -24,9 +24,20 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   const [content, setContent] = useState<ShowcaseContent>(defaultContent);
   const [isDirty, setIsDirty] = useState(false);
 
-  // Hydrate from localStorage on mount
+  // Hydrate from localStorage on mount, then apply the site colors saved via
+  // the API so every visitor sees the colors set in the admin panel.
   useEffect(() => {
     setContent(getShowcaseContent());
+
+    const controller = new AbortController();
+    fetch("/api/site-colors", { signal: controller.signal, cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : {}))
+      .then((colors: Partial<ShowcaseContent["site"]>) => {
+        if (Object.keys(colors).length === 0) return;
+        setContent((prev) => ({ ...prev, site: { ...prev.site, ...colors } }));
+      })
+      .catch(() => undefined);
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {
