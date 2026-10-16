@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { bannerPages } from "@/lib/banners/pages";
 import type { PageBanner } from "@/lib/banners/types";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 export default function AdminBannersPage() {
   const [banners, setBanners] = useState<PageBanner[]>([]);
@@ -34,7 +35,7 @@ export default function AdminBannersPage() {
   const loadBanners = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("/api/admin/page-banners", { cache: "no-store" });
+      const response = await adminFetch("/api/admin/page-banners", { cache: "no-store" });
       if (!response.ok) throw new Error("Unable to load banners.");
       setBanners((await response.json()) as PageBanner[]);
     } catch (loadError) {
@@ -89,7 +90,7 @@ export default function AdminBannersPage() {
     formData.set("image", media);
 
     try {
-      const response = await fetch("/api/admin/page-banners", {
+      const response = await adminFetch("/api/admin/page-banners", {
         method: "POST",
         body: formData
       });
@@ -111,7 +112,7 @@ export default function AdminBannersPage() {
 
   async function toggleBanner(banner: PageBanner) {
     setError("");
-    const response = await fetch(`/api/admin/page-banners/${banner.id}`, {
+    const response = await adminFetch(`/api/admin/page-banners/${banner.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ isActive: !banner.isActive })
@@ -126,7 +127,7 @@ export default function AdminBannersPage() {
   async function deleteBanner(banner: PageBanner) {
     if (!window.confirm("Delete this banner permanently?")) return;
     setError("");
-    const response = await fetch(`/api/admin/page-banners/${banner.id}`, {
+    const response = await adminFetch(`/api/admin/page-banners/${banner.id}`, {
       method: "DELETE"
     });
     if (!response.ok) {

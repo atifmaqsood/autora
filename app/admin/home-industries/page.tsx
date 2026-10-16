@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import type { HomeIndustryCard } from "@/lib/home-industries/types";
 import { agtpAssets } from "@/src/assets";
 import { AutomotiveSpotlightEditor, GlobalNetworkEditor } from "@/components/admin/home-page-section-editors";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 type HomeAdminSection = "industries" | "global-network" | "automotive-parts";
 
@@ -45,7 +46,7 @@ export default function HomeIndustriesAdminPage() {
     setIsLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/admin/home/industry-cards", { cache: "no-store" });
+      const response = await adminFetch("/api/admin/home/industry-cards", { cache: "no-store" });
       if (!response.ok) throw new Error("Unable to load home industry cards.");
       const data = (await response.json()) as HomeIndustryCard[];
       setCards(data);
@@ -102,7 +103,7 @@ export default function HomeIndustriesAdminPage() {
     if (images[card.id]) formData.set("image", images[card.id]!);
 
     try {
-      const response = await fetch(`/api/admin/home/industry-cards/${card.id}`, {
+      const response = await adminFetch(`/api/admin/home/industry-cards/${card.id}`, {
         method: "PATCH",
         body: formData
       });

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { VehiclePageCta } from "@/lib/vehicle-page/types";
 import { VehicleProductsManager } from "@/components/admin/vehicle-products-manager";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 export default function VehiclesPageAdmin() {
   const [item, setItem] = useState<VehiclePageCta | null>(null);
   const [draft, setDraft] = useState({
@@ -23,7 +24,7 @@ export default function VehiclesPageAdmin() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/admin/vehicles/cta", {
+      const response = await adminFetch("/api/admin/vehicles/cta", {
         cache: "no-store",
       });
       const body = await response.json();
@@ -58,7 +59,7 @@ export default function VehiclesPageAdmin() {
     data.set("buttonText", draft.buttonText.trim());
     if (image) data.set("image", image);
     try {
-      const response = await fetch(`/api/admin/vehicles/cta/${item.id}`, {
+      const response = await adminFetch(`/api/admin/vehicles/cta/${item.id}`, {
         method: "PATCH",
         body: data,
       });

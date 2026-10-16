@@ -1,3 +1,5 @@
+import { HONEYPOT_FIELD } from "@/components/ui/honeypot-field";
+
 export type InquiryType = "contact" | "vehicle" | "parts";
 
 export interface InquiryPayload {
@@ -47,6 +49,6 @@ export async function submitInquiry(payload: InquiryPayload): Promise<string> {
 
 /** Reads the hidden honeypot field from a submitted form. */
 export function honeypotValue(form: HTMLFormElement): string | undefined {
-  const value = new FormData(form).get("website");
+  const value = new FormData(form).get(HONEYPOT_FIELD);
   return typeof value === "string" && value ? value : undefined;
 }

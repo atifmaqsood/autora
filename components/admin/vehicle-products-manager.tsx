@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { Vehicle } from "@/lib/vehicles/types";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 const blank = {
   slug: "",
@@ -74,7 +75,7 @@ export function VehicleProductsManager() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/admin/vehicle-products", {
+      const response = await adminFetch("/api/admin/vehicle-products", {
         cache: "no-store",
       });
       const body = await response.json();
@@ -166,7 +167,7 @@ export function VehicleProductsManager() {
     );
     images.forEach((file) => data.append("images", file));
     try {
-      const response = await fetch(
+      const response = await adminFetch(
         editingId
           ? `/api/admin/vehicle-products/${editingId}`
           : "/api/admin/vehicle-products",
@@ -189,7 +190,7 @@ export function VehicleProductsManager() {
   async function patch(vehicle: ManagedVehicle) {
     const data = new FormData();
     data.set("isActive", String(!vehicle.isActive));
-    const response = await fetch(`/api/admin/vehicle-products/${vehicle.id}`, {
+    const response = await adminFetch(`/api/admin/vehicle-products/${vehicle.id}`, {
       method: "PATCH",
       body: data,
     });
@@ -203,7 +204,7 @@ export function VehicleProductsManager() {
   }
   async function remove(vehicle: ManagedVehicle) {
     if (!window.confirm(`Delete “${vehicle.displayTitle}”?`)) return;
-    const response = await fetch(`/api/admin/vehicle-products/${vehicle.id}`, {
+    const response = await adminFetch(`/api/admin/vehicle-products/${vehicle.id}`, {
       method: "DELETE",
     });
     if (!response.ok) {

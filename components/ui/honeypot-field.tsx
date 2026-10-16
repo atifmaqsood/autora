@@ -1,11 +1,22 @@
-/** Hidden field bots tend to fill; submissions with a value are dropped server-side. */
+/** Form field name for the spam trap; deliberately meaningless to autofill. */
+export const HONEYPOT_FIELD = "hp_x7q";
+
+/**
+ * Spam trap that bots fill but people never see. It is display:none with a
+ * nonsense name and no label, because browser autofill and form-filler
+ * extensions filled the previous visible-but-offscreen "website" field and
+ * real inquiries were dropped as spam.
+ */
 export function HoneypotField() {
   return (
-    <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-      <label>
-        Website
-        <input type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
-      </label>
-    </div>
+    <input
+      type="text"
+      name={HONEYPOT_FIELD}
+      tabIndex={-1}
+      autoComplete="off"
+      aria-hidden="true"
+      defaultValue=""
+      style={{ display: "none" }}
+    />
   );
 }

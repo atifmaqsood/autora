@@ -28,6 +28,7 @@ import { Label } from "@/components/ui/label";
 import type { Review } from "@/lib/reviews/types";
 import { agtpAssets } from "@/src/assets";
 import { MarketingPageEditor } from "@/components/admin/marketing-page-editor";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 const builtins: Record<string, string> = {
   "builtin:review-r1": agtpAssets.reviewR1.src,
@@ -68,7 +69,7 @@ export default function ReviewsAdminPage() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/admin/reviews", { cache: "no-store" });
+      const response = await adminFetch("/api/admin/reviews", { cache: "no-store" });
       const body = await response.json();
       if (!response.ok)
         throw new Error(body.message ?? "Unable to load reviews.");
@@ -140,7 +141,7 @@ export default function ReviewsAdminPage() {
     if (image) data.set("image", image);
     if (video) data.set("video", video);
     try {
-      const response = await fetch(
+      const response = await adminFetch(
         editingId ? `/api/admin/reviews/${editingId}` : "/api/admin/reviews",
         { method: editingId ? "PATCH" : "POST", body: data },
       );
@@ -167,7 +168,7 @@ export default function ReviewsAdminPage() {
   async function remove(review: Review) {
     if (!window.confirm(`Delete ${review.name}'s review?`)) return;
     setError("");
-    const response = await fetch(`/api/admin/reviews/${review.id}`, {
+    const response = await adminFetch(`/api/admin/reviews/${review.id}`, {
       method: "DELETE",
     });
     if (!response.ok) {
@@ -193,7 +194,7 @@ export default function ReviewsAdminPage() {
       "homeSortOrder",
       String(!review.showOnHome ? featuredCount + 1 : review.homeSortOrder),
     );
-    const response = await fetch(`/api/admin/reviews/${review.id}`, {
+    const response = await adminFetch(`/api/admin/reviews/${review.id}`, {
       method: "PATCH",
       body: data,
     });
@@ -214,7 +215,7 @@ export default function ReviewsAdminPage() {
     setMessage("");
     const data = new FormData();
     data.set("isActive", String(!review.isActive));
-    const response = await fetch(`/api/admin/reviews/${review.id}`, {
+    const response = await adminFetch(`/api/admin/reviews/${review.id}`, {
       method: "PATCH",
       body: data,
     });

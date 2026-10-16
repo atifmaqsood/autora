@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { AboutPageSection } from "@/lib/about-page/types";
 import { agtpAssets } from "@/src/assets";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 type SectionKey = AboutPageSection["sectionKey"];
 type Draft = Pick<
@@ -53,7 +54,7 @@ export default function AboutPageAdmin() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/admin/about/sections", {
+      const response = await adminFetch("/api/admin/about/sections", {
         cache: "no-store",
       });
       const body = await response.json();
@@ -112,7 +113,7 @@ export default function AboutPageAdmin() {
     Object.entries(draft).forEach(([key, value]) => data.set(key, value ?? ""));
     if (images[section.id]) data.set("image", images[section.id]!);
     try {
-      const response = await fetch(`/api/admin/about/sections/${section.id}`, {
+      const response = await adminFetch(`/api/admin/about/sections/${section.id}`, {
         method: "PATCH",
         body: data,
       });

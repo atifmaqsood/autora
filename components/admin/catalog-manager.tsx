@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { CatalogCategory, CatalogItem } from "@/lib/product-catalog/types";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 const categoryBlank = {
   slug: "",
@@ -65,7 +66,7 @@ export function CatalogManager({
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/admin/product-catalog/${type}`, {
+      const response = await adminFetch(`/api/admin/product-catalog/${type}`, {
         cache: "no-store",
       });
       const body = await response.json();
@@ -137,7 +138,7 @@ export function CatalogManager({
     );
     if (categoryImage) data.set("image", categoryImage);
     try {
-      const response = await fetch(
+      const response = await adminFetch(
         editingCategory
           ? `/api/admin/product-catalog/categories/${editingCategory}`
           : "/api/admin/product-catalog/categories",
@@ -175,7 +176,7 @@ export function CatalogManager({
     );
     productImages.forEach((file) => data.append("images", file));
     try {
-      const response = await fetch(
+      const response = await adminFetch(
         editingProduct
           ? `/api/admin/product-catalog/items/${editingProduct}`
           : "/api/admin/product-catalog/items",
@@ -202,7 +203,7 @@ export function CatalogManager({
   ) {
     const data = new FormData();
     data.set("isActive", String(isActive));
-    const response = await fetch(`/api/admin/product-catalog/${kind}/${id}`, {
+    const response = await adminFetch(`/api/admin/product-catalog/${kind}/${id}`, {
       method: "PATCH",
       body: data,
     });
@@ -220,7 +221,7 @@ export function CatalogManager({
     label: string,
   ) {
     if (!window.confirm(`Delete “${label}”?`)) return;
-    const response = await fetch(`/api/admin/product-catalog/${kind}/${id}`, {
+    const response = await adminFetch(`/api/admin/product-catalog/${kind}/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {

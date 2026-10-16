@@ -10,6 +10,7 @@ import type {
   MarketingPageKey,
   MarketingPageSection,
 } from "@/lib/marketing-page-content/types";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 type Draft = Pick<
   MarketingPageSection,
@@ -72,7 +73,7 @@ export function MarketingPageEditor({
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`/api/admin/page-content/${pageKey}`, {
+      const response = await adminFetch(`/api/admin/page-content/${pageKey}`, {
         cache: "no-store",
       });
       const body = await response.json();
@@ -131,7 +132,7 @@ export function MarketingPageEditor({
     if (images[section.id]) data.set("image", images[section.id] as File);
     if (videos[section.id]) data.set("video", videos[section.id] as File);
     try {
-      const response = await fetch(
+      const response = await adminFetch(
         `/api/admin/page-content/${pageKey}/${section.id}`,
         { method: "PATCH", body: data },
       );

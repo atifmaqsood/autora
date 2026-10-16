@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { HomePageContentItem } from "@/lib/home-page-content/types";
 import { agtpAssets } from "@/src/assets";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 interface ItemDraft {
   label: string;
@@ -36,7 +37,7 @@ function useSectionItems(sectionKey: string) {
     setIsLoading(true);
     setError("");
     try {
-      const response = await fetch(`/api/admin/home/sections/${sectionKey}`, { cache: "no-store" });
+      const response = await adminFetch(`/api/admin/home/sections/${sectionKey}`, { cache: "no-store" });
       if (!response.ok) throw new Error("Unable to load section content.");
       const data = (await response.json()) as HomePageContentItem[];
       setItems(data);
@@ -92,7 +93,7 @@ function useSectionItems(sectionKey: string) {
     if (image) formData.set("image", image);
 
     try {
-      const response = await fetch(`/api/admin/home/section-items/${item.id}`, {
+      const response = await adminFetch(`/api/admin/home/section-items/${item.id}`, {
         method: "PATCH",
         body: formData
       });

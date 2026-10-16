@@ -16,6 +16,7 @@ import { getAllPartsCategories } from "@/lib/parts/data";
 import type { PartsPageSection } from "@/lib/parts-page/types";
 import { agtpAssets } from "@/src/assets";
 import { CatalogManager } from "@/components/admin/catalog-manager";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 type Draft = Omit<
   PartsPageSection,
@@ -82,7 +83,7 @@ export default function PartsPageAdmin() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/admin/parts/sections", {
+      const response = await adminFetch("/api/admin/parts/sections", {
         cache: "no-store",
       });
       const body = await response.json();
@@ -145,7 +146,7 @@ export default function PartsPageAdmin() {
     Object.entries(draft).forEach(([key, value]) => data.set(key, value ?? ""));
     if (images[section.id]) data.set("image", images[section.id] as File);
     try {
-      const response = await fetch(`/api/admin/parts/sections/${section.id}`, {
+      const response = await adminFetch(`/api/admin/parts/sections/${section.id}`, {
         method: "PATCH",
         body: data,
       });

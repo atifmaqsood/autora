@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { BlogPost } from "@/lib/editorial/types";
 import { agtpAssets } from "@/src/assets";
+import { adminFetch } from "@/lib/admin/admin-fetch";
 
 const builtins: Record<string, string> = {
   "builtin:blog-export-port": agtpAssets.exportPort.src,
@@ -49,7 +50,7 @@ export default function BlogsAdminPage() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/admin/blogs", { cache: "no-store" });
+      const response = await adminFetch("/api/admin/blogs", { cache: "no-store" });
       const body = await response.json();
       if (!response.ok)
         throw new Error(body.message ?? "Unable to load blog posts.");
@@ -103,7 +104,7 @@ export default function BlogsAdminPage() {
     if (image) data.set("image", image);
     if (video) data.set("video", video);
     try {
-      const response = await fetch(
+      const response = await adminFetch(
         editingId ? `/api/admin/blogs/${editingId}` : "/api/admin/blogs",
         { method: editingId ? "PATCH" : "POST", body: data },
       );
@@ -128,7 +129,7 @@ export default function BlogsAdminPage() {
   async function patch(post: BlogPost, isActive: boolean) {
     const data = new FormData();
     data.set("isActive", String(isActive));
-    const response = await fetch(`/api/admin/blogs/${post.id}`, {
+    const response = await adminFetch(`/api/admin/blogs/${post.id}`, {
       method: "PATCH",
       body: data,
     });
@@ -142,7 +143,7 @@ export default function BlogsAdminPage() {
   }
   async function remove(post: BlogPost) {
     if (!window.confirm(`Delete “${post.title}”?`)) return;
-    const response = await fetch(`/api/admin/blogs/${post.id}`, {
+    const response = await adminFetch(`/api/admin/blogs/${post.id}`, {
       method: "DELETE",
     });
     if (!response.ok) {
