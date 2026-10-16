@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
+import { WalkthroughVideo } from "@/components/how-it-works/walkthrough-video";
 import { agtpAssets } from "@/src/assets";
 import type { MarketingPageSection } from "@/lib/marketing-page-content/types";
 import {
@@ -314,41 +315,14 @@ export default function HowItWorksPage() {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {/* ── Video 1: Portuguese Speaker ── */}
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
-              <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
-                <Image
-                  src={image(portuguese, agtpAssets.heroYard)}
-                  alt="Processo de Exportação AGTP Group - Português"
-                  fill
-                  className={`${portuguese?.videoUrl ? "hidden" : ""} object-cover transition-transform duration-700 group-hover:scale-105 brightness-95`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-black/40 to-black/30" />
-                {portuguese?.videoUrl && (
-                  <video
-                    src={portuguese.videoUrl}
-                    poster={portuguese.imageUrl && !portuguese.imageUrl.startsWith("builtin:") ? portuguese.imageUrl : agtpAssets.heroYard.src}
-                    controls
-                    preload="metadata"
-                    className="absolute inset-0 z-20 h-full w-full object-cover"
-                  />
-                )}
-
-                <div className="absolute top-5 left-5 flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3.5 py-1.5 text-[12px] font-black text-white">
-                  <span>🇵🇹</span>
-                  <span>{portuguese?.eyebrow || "Português"}</span>
-                </div>
-
-                {!portuguese?.videoUrl && <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white/80 bg-[#F97316] text-white shadow-2xl shadow-orange-500/50 transition-transform duration-300 group-hover:scale-110">
-                    <Play className="h-8 w-8 fill-white translate-x-0.5" />
-                    <span className="absolute inset-0 rounded-full bg-[#F97316] animate-ping opacity-25" />
-                  </div>
-                </div>}
-
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-black/70 backdrop-blur-sm px-3 py-1 text-[11px] font-black text-slate-200 border border-white/10">
-                  <Volume2 className="h-3.5 w-3.5 text-[#FDBA74]" />
-                  <span>Áudio em Português</span>
-                </div>
-              </div>
+              <WalkthroughVideo
+                videoUrl={portuguese?.videoUrl}
+                poster={image(portuguese, agtpAssets.heroYard)}
+                alt="Processo de Exportação AGTP Group - Português"
+                flag="PT"
+                language={portuguese?.eyebrow || "Português"}
+                audioLabel="Áudio em Português"
+              />
 
               <div className="p-8 space-y-4">
                 <div className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74]">
@@ -366,41 +340,14 @@ export default function HowItWorksPage() {
 
             {/* ── Video 2: English Speaker ── */}
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
-              <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
-                <Image
-                  src={image(english, agtpAssets.exportPort)}
-                  alt="AGTP Group Export Process - English"
-                  fill
-                  className={`${english?.videoUrl ? "hidden" : ""} object-cover transition-transform duration-700 group-hover:scale-105 brightness-95`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33] via-black/40 to-black/30" />
-                {english?.videoUrl && (
-                  <video
-                    src={english.videoUrl}
-                    poster={english.imageUrl && !english.imageUrl.startsWith("builtin:") ? english.imageUrl : agtpAssets.exportPort.src}
-                    controls
-                    preload="metadata"
-                    className="absolute inset-0 z-20 h-full w-full object-cover"
-                  />
-                )}
-
-                <div className="absolute top-5 left-5 flex items-center gap-2 rounded-full border border-[#F97316]/50 bg-[#0B1F33]/90 backdrop-blur-md px-3.5 py-1.5 text-[12px] font-black text-white">
-                  <span>🇬🇧</span>
-                  <span>{english?.eyebrow || "English"}</span>
-                </div>
-
-                {!english?.videoUrl && <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white/80 bg-[#F97316] text-white shadow-2xl shadow-orange-500/50 transition-transform duration-300 group-hover:scale-110">
-                    <Play className="h-8 w-8 fill-white translate-x-0.5" />
-                    <span className="absolute inset-0 rounded-full bg-[#F97316] animate-ping opacity-25" />
-                  </div>
-                </div>}
-
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-black/70 backdrop-blur-sm px-3 py-1 text-[11px] font-black text-slate-200 border border-white/10">
-                  <Volume2 className="h-3.5 w-3.5 text-[#FDBA74]" />
-                  <span>English Audio</span>
-                </div>
-              </div>
+              <WalkthroughVideo
+                videoUrl={english?.videoUrl}
+                poster={image(english, agtpAssets.exportPort)}
+                alt="AGTP Group Export Process - English"
+                flag="GB"
+                language={english?.eyebrow || "English"}
+                audioLabel="English Audio"
+              />
 
               <div className="p-8 space-y-4">
                 <div className="flex items-center gap-2 text-[12px] font-black uppercase tracking-wider text-[#FDBA74]">
