@@ -108,13 +108,13 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           </RevealEyebrow>
 
           <RevealHeading>
-            <h1 className="mt-6 max-w-4xl text-[clamp(2rem,5vw,3.6rem)] font-black leading-[1.06] tracking-tight">
+            <h1 className="mt-6 max-w-4xl text-[clamp(2rem,5vw,3.6rem)] font-black leading-[1.06] tracking-tight [overflow-wrap:anywhere]">
               {post.title}
             </h1>
           </RevealHeading>
 
           <RevealText>
-            <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate-300 sm:text-[19px]">
+            <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate-300 [overflow-wrap:anywhere] sm:text-[19px]">
               {post.excerpt}
             </p>
           </RevealText>
@@ -201,7 +201,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           </Link>
         </article>
 
-        <aside className="space-y-6 lg:sticky lg:top-[180px] lg:self-start">
+        <aside className="min-w-0 space-y-6 lg:sticky lg:top-[180px] lg:self-start">
           {headings.length > 0 && (
             <nav aria-label="On this page" className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
               <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">On this page</p>
@@ -210,7 +210,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                   <li key={heading.id}>
                     <a
                       href={`#${heading.id}`}
-                      className={`-ml-px block border-l-2 border-transparent py-1.5 text-sm leading-snug text-slate-300 transition-colors hover:border-[var(--agtp-secondary)] hover:text-white ${heading.level === 3 ? "pl-7" : "pl-4"}`}
+                      className={`-ml-px line-clamp-3 border-l-2 border-transparent py-1.5 text-sm leading-snug text-slate-300 [overflow-wrap:anywhere] transition-colors hover:border-[var(--agtp-secondary)] hover:text-white ${heading.level === 3 ? "pl-7" : "pl-4"}`}
                     >
                       {heading.text}
                     </a>
@@ -271,10 +271,10 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <p className="text-[12px] font-semibold text-slate-400">{formatDate(item.publishedDate)}</p>
-                  <h3 className="mt-2 line-clamp-2 text-lg font-black leading-snug transition-colors group-hover:text-[var(--agtp-secondary)]">
+                  <h3 className="mt-2 line-clamp-2 text-lg font-black leading-snug [overflow-wrap:anywhere] transition-colors group-hover:text-[var(--agtp-secondary)]">
                     {item.title}
                   </h3>
-                  <p className="mt-2 line-clamp-2 text-sm text-slate-400">{item.excerpt}</p>
+                  <p className="mt-2 line-clamp-2 text-sm text-slate-400 [overflow-wrap:anywhere]">{item.excerpt}</p>
                   <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-black text-[var(--agtp-secondary)]">
                     Read article
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -728,6 +728,10 @@ html.translated-rtl body {
 
 /* Rich text from the admin editor (blog articles). Colors inherit, so it
    works on the dark website and in the light admin editor. */
+.rich-text {
+  /* Break unspaced long words/URLs instead of overflowing the column. */
+  overflow-wrap: anywhere;
+}
 .rich-text > * + * {
   margin-top: 1em;
 }
