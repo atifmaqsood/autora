@@ -51,6 +51,13 @@ export default function AdminBannersPage() {
 
   const selectedDefinition = bannerPages.find((page) => page.key === selectedPage)!;
   const selectedBanners = banners.filter((banner) => banner.pageKey === selectedPage);
+  // The homepage hero shows only the first active banner (list order matches
+  // the site's); other pages rotate through every active banner.
+  const isHomepage = selectedPage === "/";
+  const activeBanners = selectedBanners.filter((banner) => banner.isActive);
+  const liveIds = new Set(
+    (isHomepage ? activeBanners.slice(0, 1) : activeBanners).map((banner) => banner.id)
+  );
   const filteredPages = useMemo(() => {
     const query = search.trim().toLowerCase();
     return query
@@ -110,16 +117,29 @@ export default function AdminBannersPage() {
     }
   }
 
-  async function toggleBanner(banner: PageBanner) {
-    setError("");
+  async function setActive(banner: PageBanner, isActive: boolean) {
     const response = await adminFetch(`/api/admin/page-banners/${banner.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ isActive: !banner.isActive })
+      body: JSON.stringify({ isActive })
     });
-    if (!response.ok) {
-      setError("Could not update the banner.");
-      return;
+    if (!response.ok) throw new Error("Could not update the banner.");
+  }
+
+  async function setPublished(banner: PageBanner, publish: boolean) {
+    setError("");
+    setMessage("");
+    try {
+      if (publish && isHomepage) {
+        // Only one homepage banner can be live, so retire the others first.
+        for (const other of activeBanners) {
+          if (other.id !== banner.id) await setActive(other, false);
+        }
+      }
+      await setActive(banner, publish);
+      setMessage(publish ? "Banner is now live on the site." : "Banner removed from the site.");
+    } catch (updateError) {
+      setError(updateError instanceof Error ? updateError.message : "Could not update the banner.");
     }
     await loadBanners();
   }
@@ -321,15 +341,22 @@ export default function AdminBannersPage() {
                           <p className="truncate text-sm font-bold text-slate-900">{banner.title || banner.altText}</p>
                           <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-slate-400">Order {banner.sortOrder + 1}</p>
                         </div>
-                        <span className={`rounded-full px-2 py-1 text-[10px] font-bold ${banner.isActive ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>
-                          {banner.isActive ? "Active" : "Hidden"}
+                        <span className={`shrink-0 rounded-full px-2 py-1 text-[10px] font-bold ${liveIds.has(banner.id) ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>
+                          {liveIds.has(banner.id) ? "Live on site" : "Not on site"}
                         </span>
                       </div>
                       <div className="mt-4 flex gap-2 border-t border-slate-100 pt-3">
-                        <Button type="button" variant="outline" size="sm" onClick={() => void toggleBanner(banner)} className="flex-1 gap-1.5">
-                          {banner.isActive ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-                          {banner.isActive ? "Hide" : "Publish"}
-                        </Button>
+                        {liveIds.has(banner.id) ? (
+                          <Button type="button" variant="outline" size="sm" onClick={() => void setPublished(banner, false)} className="flex-1 gap-1.5">
+                            <EyeOff className="h-3.5 w-3.5" />
+                            Unpublish
+                          </Button>
+                        ) : (
+                          <Button type="button" size="sm" onClick={() => void setPublished(banner, true)} className="flex-1 gap-1.5 bg-emerald-600 text-white hover:bg-emerald-700">
+                            <Eye className="h-3.5 w-3.5" />
+                            Publish
+                          </Button>
+                        )}
                         <Button type="button" variant="outline" size="sm" onClick={() => void deleteBanner(banner)} className="text-red-600 hover:border-red-200 hover:bg-red-50 hover:text-red-700">
                           <Trash2 className="h-3.5 w-3.5" />
                         </Button>
