@@ -292,7 +292,8 @@ const reviewBuiltinImages: Record<string, (typeof agtpAssets)["reviewR1"]> = {
   "builtin:review-r4": agtpAssets.reviewR4,
 };
 
-function reviewImageSource(imageUrl: string) {
+function reviewImageSource(imageUrl: string | null) {
+  if (!imageUrl) return undefined;
   return reviewBuiltinImages[imageUrl] ?? imageUrl;
 }
 

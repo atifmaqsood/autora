@@ -383,7 +383,9 @@ export default function CustomerReviewsPage() {
             flag: review.flag,
             quote: review.quote,
             tag: review.tag,
-            image: reviewBuiltinImages[review.imageUrl] ?? review.imageUrl,
+            image: review.imageUrl
+              ? (reviewBuiltinImages[review.imageUrl] ?? review.imageUrl)
+              : undefined,
             video: review.videoUrl ?? undefined,
             rating: review.rating,
           })),

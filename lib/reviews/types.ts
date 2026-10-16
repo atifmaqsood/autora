@@ -8,7 +8,8 @@ export interface Review {
   quote: string;
   tag: string;
   rating: number;
-  imageUrl: string;
+  /** Null for video-only reviews. */
+  imageUrl: string | null;
   videoUrl: string | null;
   isActive: boolean;
   showOnHome: boolean;

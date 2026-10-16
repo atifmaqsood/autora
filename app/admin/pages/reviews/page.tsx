@@ -113,8 +113,8 @@ export default function ReviewsAdminPage() {
   }
   async function submit(event: FormEvent) {
     event.preventDefault();
-    if (!editingId && !image) {
-      setError("Customer image is required.");
+    if (!editingId && !image && !video && !draft.videoUrl.trim()) {
+      setError("Add a customer image or a video.");
       return;
     }
     setSaving(true);
@@ -361,7 +361,7 @@ export default function ReviewsAdminPage() {
             <Label className="text-xs font-bold text-slate-700">
               {editingId
                 ? "Replace customer image (optional)"
-                : "Customer image"}
+                : "Customer image (optional if you add a video)"}
             </Label>
             <Input
               type="file"
@@ -433,13 +433,23 @@ export default function ReviewsAdminPage() {
               className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
             >
               <div className="relative h-56 bg-slate-900">
-                <Image
-                  src={builtins[review.imageUrl] ?? review.imageUrl}
-                  alt={review.name}
-                  fill
-                  className="object-cover"
-                  sizes="400px"
-                />
+                {review.imageUrl ? (
+                  <Image
+                    src={builtins[review.imageUrl] ?? review.imageUrl}
+                    alt={review.name}
+                    fill
+                    className="object-cover"
+                    sizes="400px"
+                  />
+                ) : review.videoUrl ? (
+                  <video
+                    src={review.videoUrl}
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="h-full w-full object-cover"
+                  />
+                ) : null}
                 <button
                   type="button"
                   onClick={() => void toggleActive(review)}
