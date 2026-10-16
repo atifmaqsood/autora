@@ -32,7 +32,13 @@ export async function submitInquiry(payload: InquiryPayload): Promise<string> {
   const body = (await response.json().catch(() => ({}))) as {
     reference?: string;
     message?: string;
+    debug?: unknown;
   };
+  // Email delivery details appear here when the API runs with MAIL_DEBUG=true.
+  if (body.debug) {
+    const log = response.ok ? console.info : console.error;
+    log(`[AGTP inquiry ${body.reference ?? "not sent"}] email delivery`, body.debug);
+  }
   if (!response.ok || !body.reference) {
     throw new Error(body.message ?? fallbackError);
   }

@@ -20,17 +20,35 @@ export async function POST(request: Request) {
       body: JSON.stringify(input),
       cache: "no-store"
     });
+    const body = (await backendResponse.json().catch(() => ({}))) as {
+      reference?: string;
+      debug?: unknown;
+    };
 
     if (!backendResponse.ok) {
       const isServerError = backendResponse.status >= 500;
       return NextResponse.json(
-        { message: isServerError ? unavailable : "Please check the form and try again." },
+        {
+          message: isServerError ? unavailable : "Please check the form and try again.",
+          // Present only when the backend runs with MAIL_DEBUG=true.
+          ...(body.debug ? { reference: body.reference, debug: body.debug } : {})
+        },
         { status: isServerError ? 503 : 400 }
       );
     }
 
-    return NextResponse.json(await backendResponse.json(), { status: 201 });
-  } catch {
-    return NextResponse.json({ message: unavailable }, { status: 503 });
+    return NextResponse.json(body, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: unavailable,
+        debug: {
+          proxy: `Could not reach ${new URL(apiUrl).origin}: ${
+            error instanceof Error ? error.message : String(error)
+          }`
+        }
+      },
+      { status: 503 }
+    );
   }
 }
