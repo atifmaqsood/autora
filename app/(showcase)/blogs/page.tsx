@@ -7,6 +7,8 @@ import { ArrowRight, Calendar, Filter, Send } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { agtpAssets } from "@/src/assets";
 import type { BlogPost as ManagedBlogPost } from "@/lib/editorial/types";
+import { blogImageSrc } from "@/lib/editorial/builtin-images";
+import { blogPostPath, toRichTextHtml } from "@/lib/rich-text";
 import type { MarketingPageSection } from "@/lib/marketing-page-content/types";
 import {
   RevealHeading,
@@ -265,13 +267,6 @@ const allBlogPosts: BlogPost[] = [
 ];
 
 const POSTS_PER_PAGE = 15;
-const builtinImages: Record<string, string> = {
-  "builtin:blog-export-port": agtpAssets.exportPort.src,
-  "builtin:blog-spare-parts": agtpAssets.sparePartsHero.src,
-  "builtin:blog-about": agtpAssets.aboutHero.src,
-  "builtin:blog-newsletter": agtpAssets.exportPort.src,
-};
-
 export default function BlogsPage() {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [currentPage, setCurrentPage] = useState(1);
@@ -304,7 +299,7 @@ export default function BlogsPage() {
               .toUpperCase(),
             excerpt: post.excerpt,
             content: post.content,
-            image: builtinImages[post.imageUrl] ?? post.imageUrl,
+            image: blogImageSrc(post.imageUrl),
             videoUrl: post.videoUrl,
           })),
         ),
@@ -470,14 +465,25 @@ export default function BlogsPage() {
 
                 <div className="px-7 pb-7 pt-2 border-t border-[#24445F]/60">
                   <Reveal distance={12} duration={650} delay={180}>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPost(post)}
-                      className="inline-flex items-center gap-2 text-[13px] font-black text-[#F97316] group-hover:text-[#FDBA74] transition-colors"
-                    >
-                      <span>Read full article</span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </button>
+                    {typeof post.id === "string" ? (
+                      <Link
+                        href={blogPostPath({ id: post.id, title: post.title })}
+                        className="inline-flex items-center gap-2 text-[13px] font-black text-[#F97316] group-hover:text-[#FDBA74] transition-colors"
+                      >
+                        <span>Read full article</span>
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    ) : (
+                      // Built-in fallback posts (shown if the API is down) have no page.
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPost(post)}
+                        className="inline-flex items-center gap-2 text-[13px] font-black text-[#F97316] group-hover:text-[#FDBA74] transition-colors"
+                      >
+                        <span>Read full article</span>
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </button>
+                    )}
                   </Reveal>
                 </div>
               </div>
@@ -515,8 +521,7 @@ export default function BlogsPage() {
               <Image
                 src={
                   newsletter?.imageUrl
-                    ? (builtinImages[newsletter.imageUrl] ??
-                      newsletter.imageUrl)
+                    ? blogImageSrc(newsletter.imageUrl)
                     : agtpAssets.exportPort
                 }
                 alt="AGTP Group Export Insights"
@@ -614,9 +619,12 @@ export default function BlogsPage() {
                 Close
               </button>
             </div>
-            <div className="mt-6 whitespace-pre-line text-base leading-8 text-slate-200">
-              {selectedPost.content ?? selectedPost.excerpt}
-            </div>
+            <div
+              className="rich-text mt-6 text-base leading-8 text-slate-200"
+              dangerouslySetInnerHTML={{
+                __html: toRichTextHtml(selectedPost.content ?? selectedPost.excerpt),
+              }}
+            />
           </article>
         </div>
       )}

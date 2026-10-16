@@ -21,6 +21,7 @@ import { Label } from "@/components/ui/label";
 import type { BlogPost } from "@/lib/editorial/types";
 import { agtpAssets } from "@/src/assets";
 import { adminFetch } from "@/lib/admin/admin-fetch";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 
 const builtins: Record<string, string> = {
   "builtin:blog-export-port": agtpAssets.exportPort.src,
@@ -92,6 +93,10 @@ export default function BlogsAdminPage() {
     event.preventDefault();
     if (!editingId && !image) {
       setError("A cover image is required for a new blog post.");
+      return;
+    }
+    if (!draft.content.trim()) {
+      setError("Article content is required.");
       return;
     }
     setSaving(true);
@@ -238,17 +243,11 @@ export default function BlogsAdminPage() {
           <Label className="text-xs font-bold text-slate-700">
             Article content
           </Label>
-          <textarea
-            required
-            rows={8}
+          <RichTextEditor
             value={draft.content}
-            onChange={(event) =>
-              setDraft((current) => ({
-                ...current,
-                content: event.target.value,
-              }))
+            onChange={(content) =>
+              setDraft((current) => ({ ...current, content }))
             }
-            className="mt-1.5 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-950"
           />
         </div>
         <div className="grid gap-4 md:grid-cols-2">
