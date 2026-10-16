@@ -317,7 +317,7 @@ export default function HowItWorksPage() {
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
               <WalkthroughVideo
                 videoUrl={portuguese?.videoUrl}
-                poster={image(portuguese, agtpAssets.heroYard)}
+                fallbackImage={agtpAssets.heroYard}
                 alt="Processo de Exportação AGTP Group - Português"
                 flag="PT"
                 language={portuguese?.eyebrow || "Português"}
@@ -342,7 +342,7 @@ export default function HowItWorksPage() {
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
               <WalkthroughVideo
                 videoUrl={english?.videoUrl}
-                poster={image(english, agtpAssets.exportPort)}
+                fallbackImage={agtpAssets.exportPort}
                 alt="AGTP Group Export Process - English"
                 flag="GB"
                 language={english?.eyebrow || "English"}

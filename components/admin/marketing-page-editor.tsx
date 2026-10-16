@@ -28,6 +28,8 @@ export interface MarketingSectionDefinition {
   label: string;
   description: string;
   allowVideo?: boolean;
+  /** Video sections whose video doubles as its own thumbnail (no image). */
+  videoOnly?: boolean;
   primaryTextLabel?: string;
   secondaryTextLabel?: string;
 }
@@ -214,7 +216,7 @@ export function MarketingPageEditor({
         </div>
       ) : section && draft ? (
         <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-          {imageSource && (
+          {imageSource && !definition?.videoOnly && (
             <div className="relative h-80 bg-slate-950">
               <Image
                 src={imageSource}
@@ -228,26 +230,28 @@ export function MarketingPageEditor({
           )}
           <div className="space-y-5 p-5">
             <div className="grid gap-4 md:grid-cols-2">
-              <div>
-                <Label className="text-xs font-bold text-slate-700">
-                  Replace image
-                </Label>
-                <Input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                    setImages((current) => ({
-                      ...current,
-                      [section.id]: event.target.files?.[0] ?? null,
-                    }))
-                  }
-                  className="mt-1.5 h-11 cursor-pointer bg-white text-xs"
-                />
-                <p className="mt-1.5 text-[10px] text-slate-400">
-                  <ImagePlus className="mr-1 inline h-3 w-3" /> JPG, PNG or WebP
-                  · Maximum 100 MB
-                </p>
-              </div>
+              {!definition?.videoOnly && (
+                <div>
+                  <Label className="text-xs font-bold text-slate-700">
+                    Replace image
+                  </Label>
+                  <Input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      setImages((current) => ({
+                        ...current,
+                        [section.id]: event.target.files?.[0] ?? null,
+                      }))
+                    }
+                    className="mt-1.5 h-11 cursor-pointer bg-white text-xs"
+                  />
+                  <p className="mt-1.5 text-[10px] text-slate-400">
+                    <ImagePlus className="mr-1 inline h-3 w-3" /> JPG, PNG or
+                    WebP · Maximum 100 MB
+                  </p>
+                </div>
+              )}
               {definition?.allowVideo && (
                 <div>
                   <Label className="text-xs font-bold text-slate-700">
