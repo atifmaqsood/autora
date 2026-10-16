@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { CheckCircle2, Eye, EyeOff, Globe2, ImageIcon, ImagePlus, LayoutGrid, Loader2, Save } from "lucide-react";
+import { Car, CheckCircle2, Eye, EyeOff, Globe2, ImageIcon, ImagePlus, LayoutGrid, Loader2, Save, Store } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,8 +10,10 @@ import type { HomeIndustryCard } from "@/lib/home-industries/types";
 import { agtpAssets } from "@/src/assets";
 import { AutomotiveSpotlightEditor, GlobalNetworkEditor } from "@/components/admin/home-page-section-editors";
 import { adminFetch } from "@/lib/admin/admin-fetch";
+import { HomeSuppliersManager } from "@/components/admin/home-suppliers-manager";
+import { HomeVehiclesPicker } from "@/components/admin/home-vehicles-picker";
 
-type HomeAdminSection = "industries" | "global-network" | "automotive-parts";
+type HomeAdminSection = "industries" | "global-network" | "automotive-parts" | "vehicles" | "suppliers";
 
 interface CardDraft {
   title: string;
@@ -134,16 +136,18 @@ export default function HomeIndustriesAdminPage() {
           </p>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm">
-          3 sections configured
+          5 sections configured
         </div>
       </header>
 
       <nav className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm" aria-label="Home page sections">
         <p className="px-3 pb-2 text-[10px] font-black uppercase tracking-widest text-slate-400">Sections</p>
-        <div className="grid gap-2 md:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
           {[
+            { key: "vehicles" as const, label: "Automotive Vehicles", detail: "Pick up to 6 for the homepage", icon: Car },
             { key: "industries" as const, label: "Industries We Serve", detail: "Cards, text and images", icon: LayoutGrid },
             { key: "global-network" as const, label: "Global Network", detail: "Header, hub and markets", icon: Globe2 },
+            { key: "suppliers" as const, label: "Automotive Suppliers", detail: "Add suppliers, up to 6 on homepage", icon: Store },
             { key: "automotive-parts" as const, label: "Parts Spotlight", detail: "Full-width background image", icon: ImageIcon }
           ].map((section) => {
             const Icon = section.icon;
@@ -231,6 +235,10 @@ export default function HomeIndustriesAdminPage() {
         </div>
       )}
         </>
+      ) : activeSection === "vehicles" ? (
+        <HomeVehiclesPicker />
+      ) : activeSection === "suppliers" ? (
+        <HomeSuppliersManager />
       ) : activeSection === "global-network" ? (
         <GlobalNetworkEditor />
       ) : (

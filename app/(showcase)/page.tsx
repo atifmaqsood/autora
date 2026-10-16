@@ -26,11 +26,12 @@ import {
 import { HeroCarousel } from "@/components/home/hero-carousel";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { VehicleCard } from "@/components/vehicles/vehicle-card";
-import { getAllVehicles } from "@/lib/vehicles/data";
 import type { Vehicle } from "@/lib/vehicles/types";
 import type { HomeIndustryCard } from "@/lib/home-industries/types";
 import type { HomePageContentItem } from "@/lib/home-page-content/types";
 import type { Review } from "@/lib/reviews/types";
+import { fallbackSuppliers, supplierImageSrc, type HomeSupplier } from "@/lib/home/suppliers";
+import { homepageVehicles, mergeVehicles } from "@/lib/home/vehicles";
 import {
   Reveal,
   RevealButton,
@@ -182,45 +183,6 @@ const globalMarkets = [
   },
 ];
 
-const supplierCards = [
-  {
-    title: "Automotive Body Kits Market Location 6",
-    experience: "18+ year Experience",
-    countries: "Serving 25+ Countries",
-    image: agtpAssets.cadillacEscaladeCard,
-  },
-  {
-    title: "Automotive Body Kits Market Location 5",
-    experience: "10+ year Experience",
-    countries: "Serving 14+ Countries",
-    image: agtpAssets.bmw760Card,
-  },
-  {
-    title: "Automotive Body Kits Market Location 2",
-    experience: "10+ year Experience",
-    countries: "Serving 25+ Countries",
-    image: agtpAssets.mercedesCclassCard,
-  },
-  {
-    title: "Automotive Body Kits Market Location 3",
-    experience: "13+ year Experience",
-    countries: "Serving 20+ Countries",
-    image: agtpAssets.bydDestroyerCard,
-  },
-  {
-    title: "Automotive Body Kits Market Location 4",
-    experience: "12+ year Experience",
-    countries: "Serving 15+ Countries",
-    image: agtpAssets.bmwX2Card,
-  },
-  {
-    title: "Automotive Parts Market Location 10",
-    experience: "10+ year Experience",
-    countries: "Serving 25+ Countries",
-    image: agtpAssets.sparePartsHero,
-  },
-];
-
 interface CustomerStoryItem {
   id: string;
   name: string;
@@ -323,7 +285,6 @@ const brandLogoSrc: Record<string, string> = {
 };
 
 export default function HomePage() {
-  const allVehicles = getAllVehicles();
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
 
   const categoryMarqueeItems = [
@@ -342,7 +303,7 @@ export default function HomePage() {
 
       <Marquee items={categoryMarqueeItems} />
 
-      <VehicleShowcaseSection vehicles={allVehicles} />
+      <VehicleShowcaseSection />
 
       <IndustriesSection />
 
@@ -442,7 +403,27 @@ function SectionEyebrow({
   );
 }
 
-function VehicleShowcaseSection({ vehicles }: { vehicles: Vehicle[] }) {
+function VehicleShowcaseSection() {
+  // Start with the defaults so the grid never flashes empty.
+  const [vehicles, setVehicles] = useState<Vehicle[]>(() => homepageVehicles([], []));
+
+  useEffect(() => {
+    let active = true;
+    void Promise.all([
+      fetch("/api/vehicle-products", { cache: "no-store" })
+        .then((response) => (response.ok ? (response.json() as Promise<Vehicle[]>) : []))
+        .catch(() => [] as Vehicle[]),
+      fetch("/api/home-vehicles", { cache: "no-store" })
+        .then((response) => (response.ok ? (response.json() as Promise<{ slugs: string[] }>) : { slugs: [] }))
+        .catch(() => ({ slugs: [] as string[] })),
+    ]).then(([managed, home]) => {
+      if (active) setVehicles(homepageVehicles(mergeVehicles(managed), home.slugs));
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section className="mx-auto max-w-[1570px] px-4 pt-[72px] sm:px-12 sm:pt-[92px] lg:px-16 xl:px-20">
       <div className="mb-10">
@@ -786,6 +767,21 @@ function GlobalNetworkSection() {
 }
 
 function DubaiMarketsSection() {
+  const [suppliers, setSuppliers] = useState<HomeSupplier[]>(fallbackSuppliers);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/home-suppliers", { cache: "no-store" })
+      .then((response) => (response.ok ? (response.json() as Promise<HomeSupplier[]>) : null))
+      .then((items) => {
+        if (active && Array.isArray(items)) setSuppliers(items);
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section
       id="dubai-markets"
@@ -813,21 +809,21 @@ function DubaiMarketsSection() {
         staggerDelay={80}
         className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"
       >
-        {supplierCards.map((supplier) => (
+        {suppliers.map((supplier) => (
           <div
-            key={supplier.title}
+            key={supplier.id}
             className="overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] shadow-lg"
           >
             <div className="relative h-[220px] bg-[#0B1F33]">
               <Image
-                src={supplier.image}
+                src={supplierImageSrc(supplier.imageUrl)}
                 alt={supplier.title}
                 fill
                 className="object-cover opacity-100"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
               <div className="absolute right-4 top-4 rounded-full bg-[#0B1F33]/80 px-3.5 py-2 text-[11px] font-black text-white">
-                Automotive Parts, Body Kits, Tyres
+                {supplier.tag}
               </div>
             </div>
             <div className="p-6">
@@ -839,7 +835,7 @@ function DubaiMarketsSection() {
                 <span>{supplier.countries}</span>
               </div>
               <Link
-                href="/brands"
+                href={supplier.linkUrl || "/brands"}
                 style={{
                   borderColor:
                     "color-mix(in srgb, var(--agtp-secondary) 50%, transparent)",
