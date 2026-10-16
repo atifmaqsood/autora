@@ -3,6 +3,7 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { BannerSlides, usePageBanners } from "@/components/layout/dynamic-page-banner";
 import { RevealHeading, RevealText, RevealEyebrow } from "@/components/ui/scroll-reveal";
 
 export interface BreadcrumbItem {
@@ -40,6 +41,8 @@ export function PageHero({
   imagePosition = "center",
   imageFit = "cover"
 }: PageHeroProps) {
+  const banners = usePageBanners();
+
   return (
     <section
       className={cn(
@@ -47,16 +50,22 @@ export function PageHero({
         className
       )}
     >
-      {/* Background Hero Image */}
+      {/* Background Hero Image (admin-managed banners replace the default) */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          priority
-          className={cn(imageFit === "cover" && "object-cover", "brightness-90", imagePosition === "top" ? "object-top" : "object-center")}
-          sizes="100vw"
-        />
+        {banners.length > 0 ? (
+          <div className="absolute inset-0 brightness-90">
+            <BannerSlides banners={banners} />
+          </div>
+        ) : (
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            priority
+            className={cn(imageFit === "cover" && "object-cover", "brightness-90", imagePosition === "top" ? "object-top" : "object-center")}
+            sizes="100vw"
+          />
+        )}
         {/* Layered Overlays for Contrast & Atmosphere */}
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/50 to-black/60" />

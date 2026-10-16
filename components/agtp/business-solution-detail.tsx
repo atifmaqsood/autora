@@ -9,24 +9,32 @@ import { Reveal, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from 
 import { businessSolutions } from "@/lib/agtp/content";
 import { agtpAssets } from "@/src/assets";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
+import { BannerSlides, usePageBanners } from "@/components/layout/dynamic-page-banner";
 
 type BusinessSolution = (typeof businessSolutions)[number];
 
 export function BusinessSolutionDetail({ solution }: { solution: BusinessSolution }) {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const banners = usePageBanners();
   const otherSolutions = businessSolutions.filter((s) => s.slug !== solution.slug);
 
   return (
     <div className="bg-[#060709] pb-24 text-white">
       {/* ── 1. Hero Header Banner with Background Image & Parallax ── */}
       <section className="relative min-h-[440px] bg-[#081A2B] border-b border-slate-800/80 overflow-hidden flex flex-col justify-center pt-40 pb-16">
-        <ParallaxImage
-          src={agtpAssets.exportPort}
-          alt={solution.title}
-          overlayOpacity="opacity-55"
-          speed={0.25}
-          className="absolute inset-0 w-full h-full"
-        />
+        {banners.length > 0 ? (
+          <div className="absolute inset-0 opacity-55">
+            <BannerSlides banners={banners} />
+          </div>
+        ) : (
+          <ParallaxImage
+            src={agtpAssets.exportPort}
+            alt={solution.title}
+            overlayOpacity="opacity-55"
+            speed={0.25}
+            className="absolute inset-0 w-full h-full"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">

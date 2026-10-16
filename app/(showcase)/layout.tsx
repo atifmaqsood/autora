@@ -2,7 +2,7 @@ import { StoreHeader } from "@/components/layout/store-header";
 import { StoreFooter } from "@/components/layout/store-footer";
 import { FloatingWhatsApp } from "@/components/layout/floating-whatsapp";
 import { CustomCursor } from "@/components/ui/custom-cursor";
-import { DynamicPageBanner } from "@/components/layout/dynamic-page-banner";
+import { PageBannerProvider } from "@/components/layout/dynamic-page-banner";
 
 export default function ShowcaseLayout({
   children
@@ -13,8 +13,7 @@ export default function ShowcaseLayout({
     <div className="min-h-screen flex flex-col bg-[#060709] font-sans text-white">
       <StoreHeader />
       <main className="flex-1">
-        <DynamicPageBanner />
-        {children}
+        <PageBannerProvider>{children}</PageBannerProvider>
       </main>
       <StoreFooter />
       <FloatingWhatsApp />
