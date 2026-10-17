@@ -41,7 +41,7 @@ export function PageHero({
   imagePosition = "center",
   imageFit = "cover"
 }: PageHeroProps) {
-  const banners = usePageBanners();
+  const { banners, loaded } = usePageBanners();
 
   return (
     <section
@@ -56,7 +56,7 @@ export function PageHero({
           <div className="absolute inset-0 brightness-90">
             <BannerSlides banners={banners} />
           </div>
-        ) : (
+        ) : loaded ? (
           <Image
             src={imageSrc}
             alt={imageAlt}
@@ -65,7 +65,7 @@ export function PageHero({
             className={cn(imageFit === "cover" && "object-cover", "brightness-90", imagePosition === "top" ? "object-top" : "object-center")}
             sizes="100vw"
           />
-        )}
+        ) : null}
         {/* Layered Overlays for Contrast & Atmosphere */}
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/50 to-black/60" />

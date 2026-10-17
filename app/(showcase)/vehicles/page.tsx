@@ -244,19 +244,21 @@ function CatalogContent() {
       <Reveal duration={700}>
         <div className="relative mt-16 flex min-h-[380px] items-center justify-center overflow-hidden rounded-2xl border border-[#1e2b45] p-5 text-center shadow-2xl sm:min-h-[460px] sm:rounded-3xl sm:p-14">
           {/* Dark luxury garage background photo */}
-          <Image
-            src={
-              managedCta?.imageUrl === "builtin:vehicle-spec-banner" ||
-              !managedCta
-                ? "/images/spec-banner-bg.jpg"
-                : managedCta.imageUrl
-            }
-            alt="Luxury vehicles showroom"
-            fill
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            className="object-cover object-center"
-            priority={false}
-          />
+          {/* Only the admin-managed image ("builtin:" maps to the bundled photo). */}
+          {managedCta?.imageUrl && (
+            <Image
+              src={
+                managedCta.imageUrl === "builtin:vehicle-spec-banner"
+                  ? "/images/spec-banner-bg.jpg"
+                  : managedCta.imageUrl
+              }
+              alt="Luxury vehicles showroom"
+              fill
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="object-cover object-center"
+              priority={false}
+            />
+          )}
 
           {/* Atmospheric dark overlay for readability */}
           <div className="absolute inset-0 bg-black/60 bg-gradient-to-t from-black/85 via-black/50 to-black/70" />

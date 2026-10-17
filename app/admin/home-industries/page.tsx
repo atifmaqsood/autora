@@ -89,8 +89,8 @@ export default function HomeIndustriesAdminPage() {
 
   async function saveCard(card: HomeIndustryCard) {
     const draft = drafts[card.id];
-    if (!draft?.title.trim() || !draft.subtitle.trim() || !draft.linkUrl.trim()) {
-      setError("Title, description and link are required.");
+    if (!draft?.title.trim() || !draft.subtitle.trim()) {
+      setError("Title and description are required.");
       return;
     }
 
@@ -213,10 +213,6 @@ export default function HomeIndustriesAdminPage() {
                   <div>
                     <Label htmlFor={`subtitle-${card.id}`} className="text-xs font-bold text-slate-700">Description</Label>
                     <Input id={`subtitle-${card.id}`} value={draft.subtitle} onChange={(event) => updateDraft(card.id, { subtitle: event.target.value })} className="mt-1.5 h-11" maxLength={191} />
-                  </div>
-                  <div>
-                    <Label htmlFor={`link-${card.id}`} className="text-xs font-bold text-slate-700">Destination link</Label>
-                    <Input id={`link-${card.id}`} value={draft.linkUrl} onChange={(event) => updateDraft(card.id, { linkUrl: event.target.value })} className="mt-1.5 h-11" placeholder="/vehicles" maxLength={255} />
                   </div>
                   <div>
                     <Label htmlFor={`image-${card.id}`} className="text-xs font-bold text-slate-700">Replace image</Label>

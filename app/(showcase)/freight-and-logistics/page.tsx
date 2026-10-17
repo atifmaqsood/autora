@@ -47,9 +47,13 @@ export default function AutomotiveShippingPage() {
     section: MarketingPageSection | undefined,
     fallback: typeof agtpAssets.aboutYard,
   ) =>
-    section?.imageUrl && !section.imageUrl.startsWith("builtin:")
-      ? section.imageUrl
-      : fallback;
+    // Only the admin-managed image; its "builtin:" key maps to the bundled
+    // photo. Nothing is shown before the content loads.
+    !section?.imageUrl
+      ? null
+      : section.imageUrl.startsWith("builtin:")
+        ? fallback
+        : section.imageUrl;
 
   return (
     <div className="bg-[#060709] pb-24 text-white">
@@ -91,13 +95,15 @@ export default function AutomotiveShippingPage() {
               {/* Right Column: Image with Signature Curved Bottom-Right Corner */}
               <div className="lg:col-span-5 h-full">
                 <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[420px] rounded-2xl lg:rounded-br-[85px] overflow-hidden border border-slate-700/60 shadow-xl">
-                  <Image
-                    src={image(intro, agtpAssets.aboutYard)}
-                    alt="AGTP Group Shipping With Confidence"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 500px"
-                    className="object-cover object-center"
-                  />
+                  {image(intro, agtpAssets.aboutYard) && (
+                    <Image
+                      src={image(intro, agtpAssets.aboutYard)!}
+                      alt="AGTP Group Shipping With Confidence"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 500px"
+                      className="object-cover object-center"
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -124,12 +130,14 @@ export default function AutomotiveShippingPage() {
           <Reveal delay={100}>
             <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-[#0B1F33] shadow-2xl group flex flex-col justify-between h-full min-h-[500px]">
               <div className="absolute inset-0 z-0">
-                <Image
-                  src={image(ocean, agtpAssets.exportPort)}
-                  alt="Ocean Shipping RoRo"
-                  fill
-                  className="object-cover object-right opacity-40 transition-transform duration-700 group-hover:scale-105"
-                />
+                {image(ocean, agtpAssets.exportPort) && (
+                  <Image
+                    src={image(ocean, agtpAssets.exportPort)!}
+                    alt="Ocean Shipping RoRo"
+                    fill
+                    className="object-cover object-right opacity-40 transition-transform duration-700 group-hover:scale-105"
+                  />
+                )}
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 90%, transparent) 50%, transparent 100%)" }} />
               </div>
               
@@ -183,12 +191,14 @@ export default function AutomotiveShippingPage() {
           <Reveal delay={200}>
             <div className="relative overflow-hidden rounded-[24px] border border-[#315671] bg-[#0B1F33] shadow-2xl group flex flex-col justify-between h-full min-h-[500px]">
               <div className="absolute inset-0 z-0">
-                <Image
-                  src={image(air, agtpAssets.sparePartsHero)}
-                  alt="Air Cargo Shipping"
-                  fill
-                  className="object-cover object-right opacity-40 transition-transform duration-700 group-hover:scale-105"
-                />
+                {image(air, agtpAssets.sparePartsHero) && (
+                  <Image
+                    src={image(air, agtpAssets.sparePartsHero)!}
+                    alt="Air Cargo Shipping"
+                    fill
+                    className="object-cover object-right opacity-40 transition-transform duration-700 group-hover:scale-105"
+                  />
+                )}
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 90%, transparent) 50%, transparent 100%)" }} />
               </div>
               
@@ -245,12 +255,14 @@ export default function AutomotiveShippingPage() {
         <Reveal>
           <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-6 sm:p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
             <div className="absolute inset-0 z-0">
-               <Image
-                 src={image(cta, agtpAssets.inventoryHero)}
-                 alt="Ready to ship"
-                 fill
-                 className="object-cover opacity-20"
-               />
+               {image(cta, agtpAssets.inventoryHero) && (
+                 <Image
+                   src={image(cta, agtpAssets.inventoryHero)!}
+                   alt="Ready to ship"
+                   fill
+                   className="object-cover opacity-20"
+                 />
+               )}
                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--agtp-primary, #0B1F33) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 50%, transparent 100%)" }} />
             </div>
             

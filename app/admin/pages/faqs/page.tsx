@@ -232,26 +232,6 @@ export default function FaqsAdminPage() {
               className="mt-1.5 h-11"
             />
           </div>
-          <div>
-            <Label className="text-xs font-bold">Optional link text</Label>
-            <Input
-              value={draft.linkText}
-              onChange={(e) => setDraft({ ...draft, linkText: e.target.value })}
-              placeholder="Refund Policy"
-              maxLength={100}
-              className="mt-1.5 h-11"
-            />
-          </div>
-          <div>
-            <Label className="text-xs font-bold">Optional internal link</Label>
-            <Input
-              value={draft.linkUrl}
-              onChange={(e) => setDraft({ ...draft, linkUrl: e.target.value })}
-              placeholder="/refund-policy"
-              maxLength={255}
-              className="mt-1.5 h-11"
-            />
-          </div>
           <label className="flex items-center gap-2 text-sm font-semibold">
             <input
               type="checkbox"

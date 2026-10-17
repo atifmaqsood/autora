@@ -14,6 +14,7 @@ import { CountryFlag } from "@/components/ui/country-flag";
  */
 export function WalkthroughVideo({
   videoUrl,
+  loaded = true,
   fallbackImage,
   alt,
   flag,
@@ -21,6 +22,8 @@ export function WalkthroughVideo({
   audioLabel
 }: {
   videoUrl?: string | null;
+  /** False while the page content loads: show neither image nor "coming soon". */
+  loaded?: boolean;
   fallbackImage: string | StaticImageData;
   alt: string;
   flag: string;
@@ -36,6 +39,10 @@ export function WalkthroughVideo({
     setPlaying(true);
     video.muted = false;
     void video.play().catch(() => undefined);
+  }
+
+  if (!loaded) {
+    return <div aria-hidden="true" className="relative aspect-video w-full animate-pulse bg-slate-900" />;
   }
 
   return (

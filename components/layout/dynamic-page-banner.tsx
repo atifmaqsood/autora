@@ -9,24 +9,32 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 
+import { bannerKeyForPath } from "@/lib/banners/pages";
 import type { PageBanner } from "@/lib/banners/types";
 
 interface PageBannerContextValue {
   banners: PageBanner[];
+  /** False until the page's banner lookup has finished. */
+  loaded: boolean;
   /** Called by PageHero so admin banners render inside it, not above it. */
   registerHero: () => () => void;
 }
 
 const PageBannerContext = createContext<PageBannerContextValue>({
   banners: [],
+  loaded: true,
   registerHero: () => () => undefined
 });
 
-/** Admin-managed banners for the current page (empty when none are set). */
-export function usePageBanners(): PageBanner[] {
-  const { banners, registerHero } = useContext(PageBannerContext);
+/**
+ * Admin-managed banners for the current page (empty when none are set).
+ * Heroes wait for `loaded` before showing their default image, so a page
+ * with a banner never flashes the default first.
+ */
+export function usePageBanners(): { banners: PageBanner[]; loaded: boolean } {
+  const { banners, loaded, registerHero } = useContext(PageBannerContext);
   useEffect(() => registerHero(), [registerHero]);
-  return banners;
+  return { banners, loaded };
 }
 
 /**
@@ -36,6 +44,7 @@ export function usePageBanners(): PageBanner[] {
 export function PageBannerProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [banners, setBanners] = useState<PageBanner[]>([]);
+  const [loaded, setLoaded] = useState(false);
   const [heroCount, setHeroCount] = useState(0);
   const [registerHero] = useState(() => () => {
     setHeroCount((count) => count + 1);
@@ -45,19 +54,28 @@ export function PageBannerProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const controller = new AbortController();
     setBanners([]);
-    if (pathname === "/") return () => controller.abort();
-    fetch(`/api/banners?pageKey=${encodeURIComponent(pathname)}`, {
+    setLoaded(false);
+    if (pathname === "/") {
+      setLoaded(true);
+      return () => controller.abort();
+    }
+    fetch(`/api/banners?pageKey=${encodeURIComponent(bannerKeyForPath(pathname))}`, {
       signal: controller.signal,
       cache: "no-store"
     })
       .then((response) => (response.ok ? response.json() : []))
-      .then((data: PageBanner[]) => setBanners(data))
-      .catch(() => undefined);
+      .then((data: PageBanner[]) => {
+        setBanners(data);
+        setLoaded(true);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setLoaded(true);
+      });
     return () => controller.abort();
   }, [pathname]);
 
   return (
-    <PageBannerContext.Provider value={{ banners, registerHero }}>
+    <PageBannerContext.Provider value={{ banners, loaded, registerHero }}>
       {heroCount === 0 && banners.length > 0 && (
         <section
           className="relative h-[220px] overflow-hidden bg-slate-950 sm:h-[300px] lg:h-[380px]"

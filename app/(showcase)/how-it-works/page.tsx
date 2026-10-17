@@ -124,6 +124,7 @@ const steps = [
 export default function HowItWorksPage() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [content, setContent] = useState<MarketingPageSection[]>([]);
+  const [contentLoaded, setContentLoaded] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -132,7 +133,10 @@ export default function HowItWorksPage() {
       .then((items: MarketingPageSection[]) => {
         if (active) setContent(items);
       })
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(() => {
+        if (active) setContentLoaded(true);
+      });
     return () => {
       active = false;
     };
@@ -149,9 +153,13 @@ export default function HowItWorksPage() {
     section: MarketingPageSection | undefined,
     fallback: typeof agtpAssets.heroYard,
   ) =>
-    section?.imageUrl && !section.imageUrl.startsWith("builtin:")
-      ? section.imageUrl
-      : fallback;
+    // Only the admin-managed image; its "builtin:" key maps to the bundled
+    // photo. Nothing is shown before the content loads.
+    !section?.imageUrl
+      ? null
+      : section.imageUrl.startsWith("builtin:")
+        ? fallback
+        : section.imageUrl;
 
   return (
     <div className="bg-[#060709] pb-24 text-white">
@@ -317,6 +325,7 @@ export default function HowItWorksPage() {
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
               <WalkthroughVideo
                 videoUrl={portuguese?.videoUrl}
+                loaded={contentLoaded}
                 fallbackImage={agtpAssets.heroYard}
                 alt="Processo de Exportação AGTP Group - Português"
                 flag="PT"
@@ -342,6 +351,7 @@ export default function HowItWorksPage() {
             <div className="group overflow-hidden rounded-[28px] border border-[#315671] bg-gradient-to-b from-[#14314B] to-[#102941] shadow-2xl transition-all duration-300 hover:border-[#F97316]">
               <WalkthroughVideo
                 videoUrl={english?.videoUrl}
+                loaded={contentLoaded}
                 fallbackImage={agtpAssets.exportPort}
                 alt="AGTP Group Export Process - English"
                 flag="GB"
@@ -371,13 +381,15 @@ export default function HowItWorksPage() {
         <Reveal>
           <div className="relative overflow-hidden rounded-[32px] border border-[#315671] shadow-2xl">
             <div className="absolute inset-0 -z-10">
-              <Image
-                src={image(orderCta, agtpAssets.inventoryHero)}
-                alt="AGTP Group Global Export"
-                fill
-                className="object-cover object-center brightness-105"
-                sizes="(max-width: 1570px) 100vw, 1570px"
-              />
+              {image(orderCta, agtpAssets.inventoryHero) && (
+                <Image
+                  src={image(orderCta, agtpAssets.inventoryHero)!}
+                  alt="AGTP Group Global Export"
+                  fill
+                  className="object-cover object-center brightness-105"
+                  sizes="(max-width: 1570px) 100vw, 1570px"
+                />
+              )}
               <div className="absolute inset-0 bg-black/30" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--agtp-primary, #0B1F33) 80%, transparent) 0%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 50%, transparent) 50%, color-mix(in srgb, var(--agtp-primary, #0B1F33) 70%, transparent) 100%)" }} />
             </div>

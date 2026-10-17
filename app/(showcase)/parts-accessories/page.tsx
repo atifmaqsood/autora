@@ -61,6 +61,10 @@ const processSteps = [
 export default function PartsAccessoriesPage() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [content, setContent] = useState<PartsPageSection[]>([]);
+  // Category cards and section images wait for both requests, so built-in
+  // images are never shown first and then swapped for the managed ones.
+  const [contentLoaded, setContentLoaded] = useState(false);
+  const [catalogLoaded, setCatalogLoaded] = useState(false);
   const [managedCategories, setManagedCategories] = useState<CatalogCategory[]>(
     [],
   );
@@ -72,7 +76,10 @@ export default function PartsAccessoriesPage() {
       .then((items: PartsPageSection[]) => {
         if (active) setContent(items);
       })
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(() => {
+        if (active) setContentLoaded(true);
+      });
     return () => {
       active = false;
     };
@@ -84,7 +91,8 @@ export default function PartsAccessoriesPage() {
         response.ok ? ((await response.json()) as CatalogCategory[]) : [],
       )
       .then(setManagedCategories)
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(() => setCatalogLoaded(true));
   }, []);
 
   const sectionMap = useMemo(
@@ -126,14 +134,14 @@ export default function PartsAccessoriesPage() {
   ];
   const landscape = sectionMap.get("landscape");
   const cta = sectionMap.get("cta");
-  const landscapeImage =
-    landscape?.imageUrl && !landscape.imageUrl.startsWith("builtin:")
-      ? landscape.imageUrl
-      : agtpAssets.exportPort;
-  const ctaImage =
-    cta?.imageUrl && !cta.imageUrl.startsWith("builtin:")
-      ? cta.imageUrl
-      : agtpAssets.sparePartsHero;
+  // Only admin-managed images ("builtin:" keys map to bundled photos).
+  const managedImage = (
+    url: string | undefined,
+    builtin: typeof agtpAssets.exportPort,
+  ) => (!url ? null : url.startsWith("builtin:") ? builtin : url);
+  const landscapeImage = managedImage(landscape?.imageUrl, agtpAssets.exportPort);
+  const ctaImage = managedImage(cta?.imageUrl, agtpAssets.sparePartsHero);
+  const cardsLoaded = contentLoaded && catalogLoaded;
 
   return (
     <div className="bg-[#060709] pb-20 text-white">
@@ -200,7 +208,15 @@ export default function PartsAccessoriesPage() {
         </div>
 
         <div className="mt-[48px] text-left grid auto-rows-[minmax(250px,auto)] grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-12">
-          {categories.map((card, index) => {
+          {!cardsLoaded &&
+            [0, 1, 2].map((item) => (
+              <div
+                key={item}
+                aria-hidden="true"
+                className="min-h-[250px] animate-pulse rounded-[18px] border border-[#315671] bg-[#14314B]/60 xl:col-span-4"
+              />
+            ))}
+          {(cardsLoaded ? categories : []).map((card, index) => {
             const Icon = card.icon;
             return (
               <Reveal
@@ -327,12 +343,14 @@ export default function PartsAccessoriesPage() {
           <div className="lg:col-span-6 relative">
             <Reveal duration={700}>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-800 bg-[#102941] shadow-2xl">
-                <Image
-                  src={landscapeImage}
-                  alt="Dubai Automotive Landscape"
-                  fill
-                  className="object-cover opacity-60"
-                />
+                {landscapeImage && (
+                  <Image
+                    src={landscapeImage}
+                    alt="Dubai Automotive Landscape"
+                    fill
+                    className="object-cover opacity-60"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
                   <span className="text-sm font-black text-white block tracking-wide">
@@ -401,12 +419,14 @@ export default function PartsAccessoriesPage() {
         <Reveal>
           <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-6 sm:p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
             <div className="absolute inset-0 z-0">
-              <Image
-                src={ctaImage}
-                alt="Ready to order"
-                fill
-                className="object-cover opacity-20"
-              />
+              {ctaImage && (
+                <Image
+                  src={ctaImage}
+                  alt="Ready to order"
+                  fill
+                  className="object-cover opacity-20"
+                />
+              )}
               <div
                 className="absolute inset-0"
                 style={{

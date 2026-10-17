@@ -48,6 +48,8 @@ const marketCategories = [
 export default function DubaiAutomotivePage() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [content, setContent] = useState<MarketingPageSection[]>([]);
+  // Market images wait for the content so built-in ones never flash first.
+  const [contentLoaded, setContentLoaded] = useState(false);
   const [managedCategories, setManagedCategories] = useState<CatalogCategory[]>(
     [],
   );
@@ -59,7 +61,10 @@ export default function DubaiAutomotivePage() {
       .then((items: MarketingPageSection[]) => {
         if (active) setContent(items);
       })
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(() => {
+        if (active) setContentLoaded(true);
+      });
     return () => {
       active = false;
     };
@@ -82,6 +87,7 @@ export default function DubaiAutomotivePage() {
   const cta = sections.get("cta");
   const markets = marketCategories.map((market) => {
     const dynamic = sections.get(market.sectionKey);
+    if (!contentLoaded) return { ...market, image: null, buttonText: "Explore" };
     return dynamic
       ? {
           ...market,
@@ -100,9 +106,13 @@ export default function DubaiAutomotivePage() {
     section: MarketingPageSection | undefined,
     fallback: typeof agtpAssets.aboutYard,
   ) =>
-    section?.imageUrl && !section.imageUrl.startsWith("builtin:")
-      ? section.imageUrl
-      : fallback;
+    // Only the admin-managed image; its "builtin:" key maps to the bundled
+    // photo. Nothing is shown before the content loads.
+    !section?.imageUrl
+      ? null
+      : section.imageUrl.startsWith("builtin:")
+        ? fallback
+        : section.imageUrl;
 
   return (
     <div className="bg-[#060709] pb-24 text-white">
@@ -129,12 +139,14 @@ export default function DubaiAutomotivePage() {
           <div className="lg:col-span-6 relative">
             <Reveal duration={700}>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-800 bg-[#102941] shadow-2xl">
-                <Image
-                  src={image(intro, agtpAssets.aboutYard)}
-                  alt="Dubai Automotive Landscape"
-                  fill
-                  className="object-cover opacity-60"
-                />
+                {image(intro, agtpAssets.aboutYard) && (
+                  <Image
+                    src={image(intro, agtpAssets.aboutYard)!}
+                    alt="Dubai Automotive Landscape"
+                    fill
+                    className="object-cover opacity-60"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
                   <span className="text-sm font-black text-white block tracking-wide">
@@ -206,13 +218,15 @@ export default function DubaiAutomotivePage() {
             href={markets[0].href}
             className="group relative flex flex-col justify-end overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)] min-h-[360px] lg:min-h-[540px]"
           >
-            <Image
-              src={markets[0].image}
-              alt={markets[0].title}
-              fill
-              className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 1024px) 100vw, 33vw"
-            />
+            {markets[0].image && (
+              <Image
+                src={markets[0].image}
+                alt={markets[0].title}
+                fill
+                className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
             <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
               <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
@@ -240,13 +254,15 @@ export default function DubaiAutomotivePage() {
             href={markets[1].href}
             className="group relative flex flex-col justify-end overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)] min-h-[360px] lg:min-h-[540px]"
           >
-            <Image
-              src={markets[1].image}
-              alt={markets[1].title}
-              fill
-              className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 1024px) 100vw, 33vw"
-            />
+            {markets[1].image && (
+              <Image
+                src={markets[1].image}
+                alt={markets[1].title}
+                fill
+                className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
             <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
               <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
@@ -274,13 +290,15 @@ export default function DubaiAutomotivePage() {
             href={markets[2].href}
             className="group relative flex flex-col justify-end overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)] min-h-[360px] lg:min-h-[540px]"
           >
-            <Image
-              src={markets[2].image}
-              alt={markets[2].title}
-              fill
-              className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 1024px) 100vw, 33vw"
-            />
+            {markets[2].image && (
+              <Image
+                src={markets[2].image}
+                alt={markets[2].title}
+                fill
+                className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
             <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
               <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
@@ -345,12 +363,14 @@ export default function DubaiAutomotivePage() {
         <Reveal>
           <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[#0B1F33] p-6 sm:p-10 md:p-16 lg:p-20 text-center shadow-2xl space-y-6">
             <div className="absolute inset-0 z-0">
-              <Image
-                src={image(cta, agtpAssets.inventoryHero)}
-                alt="Ready to order"
-                fill
-                className="object-cover opacity-20"
-              />
+              {image(cta, agtpAssets.inventoryHero) && (
+                <Image
+                  src={image(cta, agtpAssets.inventoryHero)!}
+                  alt="Ready to order"
+                  fill
+                  className="object-cover opacity-20"
+                />
+              )}
               <div
                 className="absolute inset-0"
                 style={{

@@ -15,6 +15,8 @@ export function HeroCarousel() {
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [homeBanners, setHomeBanners] = useState<PageBanner[]>([]);
+  // Hold the default video back until we know whether a banner replaces it.
+  const [bannerLoaded, setBannerLoaded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,8 +36,13 @@ export function HeroCarousel() {
       cache: "no-store"
     })
       .then((response) => (response.ok ? response.json() : []))
-      .then((data: PageBanner[]) => setHomeBanners(data))
-      .catch(() => setHomeBanners([]));
+      .then((data: PageBanner[]) => {
+        setHomeBanners(data);
+        setBannerLoaded(true);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setBannerLoaded(true);
+      });
     return () => controller.abort();
   }, []);
 
@@ -57,7 +64,7 @@ export function HeroCarousel() {
           className="absolute inset-0 h-[130%] -top-[15%]"
           style={{ transform: `translate3d(0, ${offsetY}px, 0)` }}
         >
-          {customBanner?.mediaType === "image" && customMediaUrl ? (
+          {!bannerLoaded ? null : customBanner?.mediaType === "image" && customMediaUrl ? (
             <div
               role="img"
               aria-label={customBanner.altText}

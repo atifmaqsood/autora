@@ -175,7 +175,6 @@ export function HomeSuppliersManager() {
           {field("Tag on image", "tag", "Automotive Parts, Body Kits, Tyres", 191)}
           {field("Experience", "experience", "10+ year Experience", 100)}
           {field("Countries served", "countries", "Serving 25+ Countries", 100)}
-          {field("Profile link", "linkUrl", "/brands", 500)}
           <div>
             <Label htmlFor="supplier-image" className="text-xs font-bold text-slate-700">
               {editingId ? "Replace image (optional)" : "Image *"}

@@ -295,16 +295,12 @@ export function MarketingPageEditor({
                   "primaryButtonText",
                   100,
                 )}
-              {draft.primaryButtonHref !== null &&
-                input("Primary button link", "primaryButtonHref", 500)}
               {draft.secondaryButtonText !== null &&
                 input(
                   definition?.secondaryTextLabel ?? "Secondary button",
                   "secondaryButtonText",
                   100,
                 )}
-              {draft.secondaryButtonHref !== null &&
-                input("Secondary button link", "secondaryButtonHref", 500)}
               {draft.body !== null && (
                 <div className="md:col-span-2">
                   <Label className="text-xs font-bold text-slate-700">

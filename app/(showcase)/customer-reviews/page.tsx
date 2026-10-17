@@ -44,188 +44,6 @@ interface CustomerReview {
   rating?: number;
 }
 
-const defaultReviews: CustomerReview[] = [
-  {
-    id: 1,
-    name: "Mr. Ringo",
-    role: "Repeat Vehicle Buyer",
-    country: "Congo",
-    flag: "🇨🇩",
-    quote:
-      "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group.",
-    tag: "4th Vehicle Purchase",
-    image: agtpAssets.reviewR1,
-  },
-  {
-    id: 2,
-    name: "Mr. Jorge Goncalves",
-    role: "Oil & Gas Professional",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola.",
-    tag: "Repeat Oil & Gas Buyer",
-    image: agtpAssets.reviewR2,
-    video:
-      "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4",
-  },
-  {
-    name: "Mr. Patrick Mwamba",
-    id: 16,
-    role: "Corporate Fleet Importer",
-    country: "Congo",
-    flag: "🇨🇩",
-    quote:
-      "Verified video walkaround and live delivery at the port in Congo. Seamless export documentation and premium vehicle quality.",
-    tag: "Live Port Delivery",
-    image: agtpAssets.reviewR1,
-    video:
-      "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4",
-  },
-  {
-    id: 3,
-    name: "Mr. Muhammad Sumani",
-    role: "Engineer",
-    country: "Ghana",
-    flag: "🇬🇭",
-    quote:
-      "Completed his vehicle purchase entirely online, with AGTP Group safely exporting and delivering the unit to Ghana.",
-    tag: "100% Remote Sourcing",
-    image: agtpAssets.reviewR3,
-  },
-  {
-    id: 4,
-    name: "Mr. Eduardo Conde Salamau",
-    role: "Oil & Gas Professional",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Used our secure online payment process while AGTP Group managed the full export and delivery coordination.",
-    tag: "Smooth 100% Online Order",
-    image: agtpAssets.reviewR4,
-  },
-  {
-    id: 5,
-    name: "Mr. Samuel Eplanga",
-    role: "Oil & Gas Professional",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Referred by colleagues, Mr. Samuel Eplanga completed his purchase online, and we successfully delivered his vehicle to Lobito, Angola with full documentation.",
-    tag: "Lobito Delivery",
-    image: agtpAssets.reviewR2,
-  },
-  {
-    id: 6,
-    name: "Mr. Gomes Macaia",
-    role: "TOTAL Oil Company",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Mr. Gomes Macaia works in TOTAL Oil Company and was referred to AGTP Group by his colleagues. He completed his purchase through a secure bank transfer, and his vehicle was safely delivered to Angola.",
-    tag: "TOTAL Colleague Referral",
-    image: agtpAssets.reviewR4,
-  },
-  {
-    id: 7,
-    name: "Mr. David Ganga",
-    role: "Repeat Corporate Buyer",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Mr. David Ganga was referred to AGTP Group by his colleagues and has purchased several vehicles through our secure online payment system. Every shipment has been successfully delivered.",
-    tag: "Multiple Fleet Orders",
-    image: agtpAssets.reviewR1,
-  },
-  {
-    id: 8,
-    name: "Ms. Rosa Quinga",
-    role: "Business Owner",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Ms. Rosa Quinga found AGTP Group online and helped her father purchase a vehicle from Dubai. After completing payment via bank transfer, we arranged full export and delivery to Angola.",
-    tag: "Family Vehicle Sourcing",
-    image: agtpAssets.reviewR2,
-  },
-  {
-    id: 9,
-    name: "Mr. Joao Pedriz",
-    role: "UNITEL",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Mr. Joao Pedriz who works in UNITEL has purchased multiple vehicles through AGTP Group. After several successful deliveries to Angola, he and his brother later visited us in Dubai.",
-    tag: "UNITEL Corporate Client",
-    image: agtpAssets.reviewR3,
-  },
-  {
-    id: 10,
-    name: "Mwela Tshilumba Ringo",
-    role: "Repeat Vehicle Buyer",
-    country: "Congo",
-    flag: "🇨🇩",
-    quote:
-      "Mr. Ringo purchased a fully equipped Toyota Land Cruiser Hardtop through AGTP Group without ever visiting Dubai. This was his 5th vehicle purchase with us.",
-    tag: "Land Cruiser Hardtop",
-    image: agtpAssets.reviewR1,
-  },
-  {
-    id: 11,
-    name: "Mr. Simao Chicaia",
-    role: "Oil & Gas Professional",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Referred by colleagues, Mr. Simao Chicaia purchased his vehicle using our secure online payment system. AGTP Group handled sourcing, export, and shipping to Angola safely.",
-    tag: "Colleague Referral",
-    image: agtpAssets.reviewR2,
-  },
-  {
-    id: 12,
-    name: "Mr. Luis Nzau",
-    role: "Oil & Gas Professional",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Mr. Luis Nzau has purchased several vehicles through our secure online payment system, and many of his colleagues have also become our customers. Every shipment was successfully delivered.",
-    tag: "Trusted Corporate Partner",
-    image: agtpAssets.reviewR4,
-  },
-  {
-    id: 13,
-    name: "Mr. Kennedy",
-    role: "Oil & Gas Professional",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Mr. Kennedy was referred to AGTP Group by his colleagues and completed his vehicle purchase through a secure bank transfer. We managed the entire export process to Angola.",
-    tag: "Wire Transfer Order",
-    image: agtpAssets.reviewR3,
-  },
-  {
-    id: 14,
-    name: "Mr. Del Palma",
-    role: "Oil & Gas Professional",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Mr. Del Palma was referred to AGTP Group by company colleagues and completed his purchase through a secure bank transfer. His vehicle was safely delivered to Angola.",
-    tag: "Company Colleague Referral",
-    image: agtpAssets.reviewR1,
-  },
-  {
-    id: 15,
-    name: "Mr. Alvaro",
-    role: "Oil & Gas Professional",
-    country: "Angola",
-    flag: "🇦🇴",
-    quote:
-      "Mr. Alvaro was referred to AGTP Group by his colleagues and completed his purchase through a secure bank transfer. We managed sourcing and international shipment to Angola.",
-    tag: "International Port Shipment",
-    image: agtpAssets.reviewR4,
-  },
-];
 
 const reviewStats = [
   { value: 11, suffix: "+", label: "Years in Trade" },
@@ -353,7 +171,9 @@ function ReviewVideoPlayer({
 }
 
 export default function CustomerReviewsPage() {
-  const [reviews, setReviews] = useState<CustomerReview[]>(defaultReviews);
+  // Only admin-managed reviews; placeholders show until they load.
+  const [reviews, setReviews] = useState<CustomerReview[]>([]);
+  const [reviewsLoaded, setReviewsLoaded] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("ALL");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [viewMode, setViewMode] = useState<"slider" | "grid">("grid");
@@ -391,7 +211,10 @@ export default function CustomerReviewsPage() {
           })),
         );
       })
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(() => {
+        if (active) setReviewsLoaded(true);
+      });
     return () => {
       active = false;
     };
@@ -579,7 +402,13 @@ export default function CustomerReviewsPage() {
         id="reviews-grid-section"
         className="mx-auto max-w-[1570px] px-6 pt-10"
       >
-        {viewMode === "grid" ? (
+        {!reviewsLoaded ? (
+          <div aria-hidden="true" className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {[0, 1, 2].map((item) => (
+              <div key={item} className="h-[640px] animate-pulse rounded-[24px] border border-[#315671] bg-[#14314B]/60" />
+            ))}
+          </div>
+        ) : viewMode === "grid" ? (
           /* Grid View Mode */
           <div>
             <Reveal
@@ -887,17 +716,20 @@ export default function CustomerReviewsPage() {
           <div className="relative overflow-hidden rounded-[32px] border border-[#315671] shadow-2xl">
             {/* Background Image */}
             <div className="absolute inset-0 -z-10">
-              <Image
-                src={
-                  cta?.imageUrl && !cta.imageUrl.startsWith("builtin:")
-                    ? cta.imageUrl
-                    : agtpAssets.inventoryHero
-                }
-                alt="AGTP Group Global Sourcing"
-                fill
-                className="object-cover object-center brightness-105"
-                sizes="(max-width: 1570px) 100vw, 1570px"
-              />
+              {/* Only the admin-managed image ("builtin:" maps to the bundled photo). */}
+              {cta?.imageUrl && (
+                <Image
+                  src={
+                    cta.imageUrl.startsWith("builtin:")
+                      ? agtpAssets.inventoryHero
+                      : cta.imageUrl
+                  }
+                  alt="AGTP Group Global Sourcing"
+                  fill
+                  className="object-cover object-center brightness-105"
+                  sizes="(max-width: 1570px) 100vw, 1570px"
+                />
+              )}
               {/* Lightened soft overlay so background car image is clearly visible */}
               <div className="absolute inset-0 bg-black/25" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/70 via-transparent to-[#0B1F33]/60" />

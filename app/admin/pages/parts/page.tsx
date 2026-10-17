@@ -297,7 +297,6 @@ export default function PartsPageAdmin() {
                 {input("Image badge title", "badgeTitle", 100)}
                 {input("Image badge subtitle", "badgeSubtitle")}
                 {input("Button text", "primaryButtonText", 100)}
-                {input("Button link", "primaryButtonHref", 500)}
                 <div className="md:col-span-2">
                   <Label className="text-xs font-bold text-slate-700">
                     Content
@@ -321,7 +320,6 @@ export default function PartsPageAdmin() {
                 {input("Heading", "title")}
                 {input("Primary button", "primaryButtonText", 100)}
                 {input("Secondary button", "secondaryButtonText", 100)}
-                {input("Secondary button link", "secondaryButtonHref", 500)}
                 <div className="md:col-span-2">
                   <Label className="text-xs font-bold text-slate-700">
                     Description

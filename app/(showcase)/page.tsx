@@ -30,7 +30,7 @@ import type { Vehicle } from "@/lib/vehicles/types";
 import type { HomeIndustryCard } from "@/lib/home-industries/types";
 import type { HomePageContentItem } from "@/lib/home-page-content/types";
 import type { Review } from "@/lib/reviews/types";
-import { fallbackSuppliers, supplierImageSrc, type HomeSupplier } from "@/lib/home/suppliers";
+import { supplierImageSrc, type HomeSupplier } from "@/lib/home/suppliers";
 import { homepageVehicles, mergeVehicles } from "@/lib/home/vehicles";
 import {
   Reveal,
@@ -138,50 +138,6 @@ const processSteps = [
   },
 ];
 
-const globalMarkets = [
-  {
-    name: "Angola",
-    region: "Southern Africa",
-    code: "01",
-    image:
-      "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Ghana",
-    region: "West Africa",
-    code: "02",
-    image:
-      "https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Congo",
-    region: "Central Africa",
-    code: "03",
-    image:
-      "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Nigeria",
-    region: "West Africa",
-    code: "04",
-    image:
-      "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Togo",
-    region: "West Africa",
-    code: "05",
-    image:
-      "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Cameroon",
-    region: "Central Africa",
-    code: "06",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
-  },
-];
 
 interface CustomerStoryItem {
   id: string;
@@ -192,60 +148,6 @@ interface CustomerStoryItem {
   story: string;
 }
 
-const customerStories: CustomerStoryItem[] = [
-  {
-    id: "fallback-ringo",
-    name: "Mr. Ringo",
-    label: "Repeat Vehicle Buyer",
-    image: agtpAssets.reviewR1,
-    story:
-      "Purchased a fully equipped Toyota Land Cruiser Hardtop without visiting Dubai, marking his 4th vehicle purchase with AGTP Group.",
-  },
-  {
-    id: "fallback-patrick",
-    name: "Mr. Patrick Mwamba",
-    label: "Corporate Fleet Importer",
-    image: agtpAssets.reviewR2,
-    video:
-      "https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4",
-    story:
-      "Verified video walkaround and live delivery at the port in Congo. Seamless export documentation and premium vehicle quality.",
-  },
-  {
-    id: "fallback-jorge",
-    name: "Mr. Jorge Goncalves",
-    label: "Oil & Gas Professional",
-    image: agtpAssets.reviewR2,
-    story:
-      "Purchased multiple vehicles through our secure online process, with shipments successfully delivered to Angola.",
-  },
-  {
-    id: "fallback-david",
-    name: "Mr. David Ganga",
-    label: "Mining & Logistics Buyer",
-    image: agtpAssets.reviewR4,
-    video:
-      "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4",
-    story:
-      "Inspected our vehicles via live video feed before shipping to Luanda. Every vehicle arrived on schedule in showroom condition.",
-  },
-  {
-    id: "fallback-sumani",
-    name: "Mr. Muhammad Sumani",
-    label: "Engineer",
-    image: agtpAssets.reviewR3,
-    story:
-      "Completed his vehicle purchase entirely online, with AGTP Group safely exporting and delivering the unit to Ghana.",
-  },
-  {
-    id: "fallback-eduardo",
-    name: "Mr. Eduardo Conde Salamau",
-    label: "Oil & Gas Professional",
-    image: agtpAssets.reviewR4,
-    story:
-      "Used our secure online payment process while AGTP Group managed the full export and delivery coordination.",
-  },
-];
 
 const reviewBuiltinImages: Record<string, (typeof agtpAssets)["reviewR1"]> = {
   "builtin:review-r1": agtpAssets.reviewR1,
@@ -404,8 +306,8 @@ function SectionEyebrow({
 }
 
 function VehicleShowcaseSection() {
-  // Start with the defaults so the grid never flashes empty.
-  const [vehicles, setVehicles] = useState<Vehicle[]>(() => homepageVehicles([], []));
+  // null while loading: show placeholders, not built-in cards that may be replaced.
+  const [vehicles, setVehicles] = useState<Vehicle[] | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -441,7 +343,7 @@ function VehicleShowcaseSection() {
         staggerDelay={70}
         className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {vehicles.slice(0, 6).map((vehicle, index) => (
+        {(vehicles ?? []).slice(0, 6).map((vehicle, index) => (
           <div
             key={vehicle.id}
             className={index >= 4 ? "hidden lg:block" : undefined}
@@ -451,7 +353,15 @@ function VehicleShowcaseSection() {
         ))}
       </RevealStagger>
 
-      {vehicles.length === 0 && (
+      {vehicles === null && (
+        <div aria-hidden="true" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[0, 1, 2].map((item) => (
+            <div key={item} className="h-[420px] animate-pulse rounded-[16px] border border-[#315671] bg-[#14314B]/60" />
+          ))}
+        </div>
+      )}
+
+      {vehicles?.length === 0 && (
         <p className="py-10 text-center text-[15px] font-semibold text-slate-400">
           No vehicles available.
         </p>
@@ -484,14 +394,14 @@ function IndustriesSection() {
         return (await response.json()) as HomeIndustryCard[];
       })
       .then(setManagedCards)
-      .catch(() => setManagedCards(null));
+      .catch(() => {
+        if (!controller.signal.aborted) setManagedCards([]);
+      });
     return () => controller.abort();
   }, []);
 
-  const cards =
-    managedCards === null
-      ? industryCards
-      : managedCards.map((card, index) => ({
+  // Only the admin-managed cards are shown (no built-in images first).
+  const cards = (managedCards ?? []).map((card, index) => ({
           ...card,
           href: card.linkUrl,
           image: industryBuiltinImages[card.imageUrl] ?? card.imageUrl,
@@ -637,7 +547,9 @@ function GlobalNetworkSection() {
         return (await response.json()) as HomePageContentItem[];
       })
       .then(setManagedItems)
-      .catch(() => setManagedItems(null));
+      .catch(() => {
+        if (!controller.signal.aborted) setManagedItems([]);
+      });
     return () => controller.abort();
   }, []);
 
@@ -645,14 +557,12 @@ function GlobalNetworkSection() {
   const hub = managedItems?.find((item) => item.itemKey === "hub");
   const managedMarkets =
     managedItems?.filter((item) => item.itemKey.startsWith("market-")) ?? [];
-  const markets = managedMarkets.length
-    ? managedMarkets.map((market) => ({
-        name: market.title ?? "",
-        region: market.subtitle ?? "",
-        code: market.itemKey.replace("market-", ""),
-        image: market.imageUrl ?? "",
-      }))
-    : globalMarkets;
+  const markets = managedMarkets.map((market) => ({
+    name: market.title ?? "",
+    region: market.subtitle ?? "",
+    code: market.itemKey.replace("market-", ""),
+    image: market.imageUrl ?? "",
+  }));
 
   return (
     <section
@@ -683,17 +593,16 @@ function GlobalNetworkSection() {
         <div className="mt-[48px] grid grid-cols-1 gap-5 lg:grid-cols-[0.88fr_1.12fr]">
           <Reveal className="h-full">
             <div className="group relative flex min-h-[440px] flex-col overflow-hidden rounded-[18px] border border-[#315671] bg-[#102941] p-8 shadow-lg">
-              <Image
-                src={
-                  hub?.imageUrl ||
-                  "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80"
-                }
-                alt={hub?.title || "Dubai, UAE Landmark"}
-                fill
-                className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                unoptimized
-              />
+              {hub?.imageUrl && (
+                <Image
+                  src={hub.imageUrl}
+                  alt={hub?.title || "Dubai, UAE Landmark"}
+                  fill
+                  className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  unoptimized
+                />
+              )}
               <div className="absolute inset-0 bg-black/30 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/30 to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,color-mix(in_srgb,var(--agtp-secondary,#F97316)_12%,transparent),transparent_35%)]" />
               <span
@@ -767,16 +676,18 @@ function GlobalNetworkSection() {
 }
 
 function DubaiMarketsSection() {
-  const [suppliers, setSuppliers] = useState<HomeSupplier[]>(fallbackSuppliers);
+  const [suppliers, setSuppliers] = useState<HomeSupplier[] | null>(null);
 
   useEffect(() => {
     let active = true;
     fetch("/api/home-suppliers", { cache: "no-store" })
       .then((response) => (response.ok ? (response.json() as Promise<HomeSupplier[]>) : null))
       .then((items) => {
-        if (active && Array.isArray(items)) setSuppliers(items);
+        if (active) setSuppliers(Array.isArray(items) ? items : []);
       })
-      .catch(() => undefined);
+      .catch(() => {
+        if (active) setSuppliers([]);
+      });
     return () => {
       active = false;
     };
@@ -809,7 +720,7 @@ function DubaiMarketsSection() {
         staggerDelay={80}
         className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"
       >
-        {suppliers.map((supplier) => (
+        {(suppliers ?? []).map((supplier) => (
           <div
             key={supplier.id}
             className="overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] shadow-lg"
@@ -887,11 +798,12 @@ function AutomotivePartsSpotlight() {
     return () => controller.abort();
   }, []);
 
-  const spotlightImage =
-    spotlightItem?.imageUrl &&
-    spotlightItem.imageUrl !== "builtin:spotlight-ferrari"
-      ? spotlightItem.imageUrl
-      : agtpAssets.spotlightFerrari;
+  // Only the admin-managed image (its built-in key maps to the bundled photo).
+  const spotlightImage = !spotlightItem?.imageUrl
+    ? null
+    : spotlightItem.imageUrl === "builtin:spotlight-ferrari"
+      ? agtpAssets.spotlightFerrari
+      : spotlightItem.imageUrl;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
@@ -947,20 +859,22 @@ function AutomotivePartsSpotlight() {
       <div
         className={`relative min-h-[650px] overflow-hidden border-y border-[#315671] bg-[#081A2B] ${scrollMotionEnabled ? "md:sticky md:top-[92px] md:h-[calc(100svh-92px)] md:min-h-0 xl:top-[144px] xl:h-[calc(100svh-144px)]" : ""}`}
       >
-        <Image
-          src={spotlightImage}
-          alt="Premium automotive parts and vehicle components"
-          fill
-          sizes="100vw"
-          className="object-cover object-center"
-          style={
-            scrollMotionEnabled
-              ? {
-                  transform: `scale(${1 + progress * 0.07}) translateX(${-progress * 2}%)`,
-                }
-              : undefined
-          }
-        />
+        {spotlightImage && (
+          <Image
+            src={spotlightImage}
+            alt="Premium automotive parts and vehicle components"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+            style={
+              scrollMotionEnabled
+                ? {
+                    transform: `scale(${1 + progress * 0.07}) translateX(${-progress * 2}%)`,
+                  }
+                : undefined
+            }
+          />
+        )}
         <div className="absolute inset-0 bg-[#06101C]/10" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,16,28,0.45)_0%,rgba(6,16,28,0.18)_44%,transparent_100%)]" />
 
@@ -1139,7 +1053,7 @@ function CustomerStoriesSection() {
     CustomerStoryItem[] | null
   >(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const stories = managedStories ?? customerStories;
+  const stories = managedStories ?? [];
 
   useEffect(() => {
     let active = true;
