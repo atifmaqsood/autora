@@ -4,6 +4,7 @@ import { Search, RotateCcw, Filter, SlidersHorizontal, ArrowUpDown } from "lucid
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { VehicleFilterState } from "@/lib/vehicles/types";
+import { useVehicleCategories } from "@/lib/vehicles/categories";
 
 interface VehicleFiltersProps {
   filters: VehicleFilterState;
@@ -20,6 +21,8 @@ export function VehicleFilters({
   makesList,
   totalResults
 }: VehicleFiltersProps) {
+  // The homepage "Industries We Serve" categories, as in the admin form.
+  const categories = useVehicleCategories();
   return (
     <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
       {/* Top Bar: Search & Quick Reset & Count */}
@@ -86,14 +89,11 @@ export function VehicleFilters({
             className="w-full h-9 px-2.5 rounded-lg border border-slate-200 bg-slate-50 text-xs font-medium text-slate-800 focus:bg-white focus:outline-none"
           >
             <option value="all">All Categories</option>
-            <option value="SUV">SUV</option>
-            <option value="Luxury">Luxury</option>
-            <option value="Sports">Sports</option>
-            <option value="Electric">Electric</option>
-            <option value="Pickup">Pickup</option>
-            <option value="Sedan">Sedan</option>
-            <option value="Coupe">Coupe</option>
-            <option value="Off-road">Off-road</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
         </div>
 

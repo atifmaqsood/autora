@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { Vehicle } from "@/lib/vehicles/types";
 import { adminFetch } from "@/lib/admin/admin-fetch";
+import { useVehicleCategories } from "@/lib/vehicles/categories";
 
 const blank = {
   slug: "",
@@ -25,7 +26,7 @@ const blank = {
   variantCode: "",
   displayTitle: "",
   year: new Date().getFullYear(),
-  category: "SUV",
+  category: "",
   bodyType: "SUV",
   condition: "New",
   price: 0,
@@ -73,6 +74,13 @@ export function VehicleProductsManager() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  // The homepage "Industries We Serve" cards; an older vehicle keeps its
+  // current category as an option so editing it doesn't clear it.
+  const categories = useVehicleCategories();
+  const categoryOptions =
+    draft.category && !categories.includes(draft.category)
+      ? [...categories, draft.category]
+      : categories;
   const load = useCallback(async () => {
     setLoading(true);
     try {
@@ -221,7 +229,6 @@ export function VehicleProductsManager() {
   const basicFields: Array<[string, keyof Draft, "text" | "number"]> = [
     ["Display title", "displayTitle", "text"],
     ["URL slug", "slug", "text"],
-    ["Category", "category", "text"],
     ["Variant", "variant", "text"],
     ["Price", "price", "number"],
     ["Currency", "currency", "text"],
@@ -266,7 +273,14 @@ export function VehicleProductsManager() {
         type={type}
         min={type === "number" ? 0 : undefined}
         required={requiredKeys.includes(key)}
-        value={type === "number" ? Number(draft[key]) : String(draft[key])}
+        // A 0 shows as an empty box (placeholder "0") so typing a number
+        // doesn't leave a leading zero.
+        value={
+          type === "number"
+            ? Number(draft[key]) || ""
+            : String(draft[key])
+        }
+        placeholder={type === "number" ? "0" : undefined}
         onChange={(e) => {
           set(
             key,
@@ -317,6 +331,22 @@ export function VehicleProductsManager() {
           )}
         </div>
         <div className="grid gap-4 md:grid-cols-3">
+          <div>
+            <Label>Category *</Label>
+            <select
+              required
+              value={draft.category}
+              onChange={(e) => set("category", e.target.value)}
+              className="mt-1.5 h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-950"
+            >
+              <option value="">Select category</option>
+              {categoryOptions.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
           {basicFields.map(field)}
           <div>
             <Label>
