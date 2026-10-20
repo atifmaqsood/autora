@@ -42,12 +42,12 @@ export const vehicleFeatureFields: VehicleFeatureField[] = [
   { key: "variantCode", label: "Variant Code", icon: Tag },
 ];
 
-/** The vehicle's filled-in feature fields (empty text and 0 are skipped). */
+/** Every feature field with its value; empty text and 0 show as "-". */
 export function vehicleFeatures(vehicle: Vehicle) {
-  return vehicleFeatureFields.flatMap((field) => {
+  return vehicleFeatureFields.map((field) => {
     const raw = vehicle[field.key];
     const value =
       typeof raw === "number" ? (raw > 0 ? String(raw) : "") : String(raw ?? "").trim();
-    return value ? [{ ...field, value }] : [];
+    return { ...field, value: value || "-" };
   });
 }

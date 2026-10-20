@@ -334,7 +334,7 @@ export function VehicleProductsManager() {
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
           <h4 className="font-black text-slate-950">Features</h4>
           <p className="mt-0.5 text-xs text-slate-500">
-            Shown in the vehicle&apos;s Features tab. Empty fields are hidden.
+            Shown in the vehicle&apos;s Features tab. Empty fields show as &quot;-&quot;.
           </p>
           <div className="mt-3 grid gap-4 md:grid-cols-3">
             {featureFields.slice(0, 9).map(field)}
