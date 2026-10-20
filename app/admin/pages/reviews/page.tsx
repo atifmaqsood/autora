@@ -265,7 +265,6 @@ export default function ReviewsAdminPage() {
           )
         }
         placeholder={placeholder}
-        maxLength={key === "flag" ? 16 : undefined}
         min={key === "homeSortOrder" ? 0 : key === "rating" ? 1 : undefined}
         max={key === "homeSortOrder" ? 10 : key === "rating" ? 5 : undefined}
         className="mt-1.5 h-11"
@@ -319,9 +318,7 @@ export default function ReviewsAdminPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {field("Customer name", "name", "Mr. Customer")}
           {field("Role", "role", "Business Owner")}
-          {field("Company (optional)", "company")}
           {field("Country", "country", "Angola")}
-          {field("Flag emoji", "flag", "🇦🇴")}
           {field("Review tag", "tag", "Verified Delivery")}
           {field("Rating (1–5)", "rating", "5")}
           <div className="lg:col-span-3">

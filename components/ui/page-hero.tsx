@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { BannerSlides, usePageBanners } from "@/components/layout/dynamic-page-banner";
@@ -15,7 +15,9 @@ export interface PageHeroProps {
   title: string | React.ReactNode;
   subtitle?: string | React.ReactNode;
   breadcrumbs?: BreadcrumbItem[];
-  imageSrc: string | StaticImageData;
+  /** @deprecated Ignored: heroes show only the admin banner (blank if none). */
+  imageSrc?: string | StaticImageData;
+  /** @deprecated Ignored, see `imageSrc`. */
   imageAlt?: string;
   badge?: {
     text: string;
@@ -24,7 +26,9 @@ export interface PageHeroProps {
   children?: React.ReactNode;
   className?: string;
   align?: "left" | "center";
+  /** @deprecated Ignored, see `imageSrc`. */
   imagePosition?: "center" | "top";
+  /** @deprecated Ignored, see `imageSrc`. */
   imageFit?: "cover" | "default";
 }
 
@@ -32,16 +36,12 @@ export function PageHero({
   title,
   subtitle,
   breadcrumbs = [],
-  imageSrc,
-  imageAlt = "Page Hero",
   badge,
   children,
   className,
-  align = "left",
-  imagePosition = "center",
-  imageFit = "cover"
+  align = "left"
 }: PageHeroProps) {
-  const { banners, loaded } = usePageBanners();
+  const { banners } = usePageBanners();
 
   return (
     <section
@@ -50,22 +50,14 @@ export function PageHero({
         className
       )}
     >
-      {/* Background Hero Image (admin-managed banners replace the default) */}
+      {/* Background: the admin banner only */}
       <div className="absolute inset-0 z-0">
-        {banners.length > 0 ? (
+        {/* Only the admin banner; blank (no built-in image) while loading or when none is set. */}
+        {banners.length > 0 && (
           <div className="absolute inset-0 brightness-90">
             <BannerSlides banners={banners} />
           </div>
-        ) : loaded ? (
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            fill
-            priority
-            className={cn(imageFit === "cover" && "object-cover", "brightness-90", imagePosition === "top" ? "object-top" : "object-center")}
-            sizes="100vw"
-          />
-        ) : null}
+        )}
         {/* Layered Overlays for Contrast & Atmosphere */}
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/50 to-black/60" />

@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, ChevronRight } from "lucide-react";
-import { getAllVehicles, getVehicleBySlug } from "@/lib/vehicles/data";
 import { formatPrice } from "@/lib/utils";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
 import { VehicleDetailInfo } from "@/components/vehicles/vehicle-detail-info";
+import { RelatedVehicles } from "@/components/vehicles/related-vehicles";
 import {
   Reveal,
   RevealButton,
@@ -19,8 +19,21 @@ interface VehiclePageProps {
   params: Promise<{ slug: string }>;
 }
 
+const apiUrl = process.env.API_URL ?? "http://localhost:3101/api";
+
+/** All active admin vehicles, for the related vehicles section. */
+async function managedVehicles(): Promise<Vehicle[]> {
+  try {
+    const response = await fetch(`${apiUrl}/vehicle-products`, {
+      cache: "no-store",
+    });
+    return response.ok ? ((await response.json()) as Vehicle[]) : [];
+  } catch {
+    return [];
+  }
+}
+
 async function managedVehicle(slug: string): Promise<Vehicle | null> {
-  const apiUrl = process.env.API_URL ?? "http://localhost:3101/api";
   try {
     const response = await fetch(
       `${apiUrl}/vehicle-products/${encodeURIComponent(slug)}`,
@@ -36,7 +49,7 @@ export async function generateMetadata({
   params,
 }: VehiclePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const vehicle = (await managedVehicle(slug)) ?? getVehicleBySlug(slug);
+  const vehicle = await managedVehicle(slug);
   if (!vehicle) return { title: "Vehicle Not Found | AGTP GROUP" };
   const title =
     vehicle.displayTitle ??
@@ -44,13 +57,13 @@ export async function generateMetadata({
   return { title: `${title} | AGTP GROUP`, description: vehicle.description };
 }
 
-export function generateStaticParams() {
-  return getAllVehicles().map((vehicle) => ({ slug: vehicle.slug }));
-}
-
 export default async function VehicleDetailPage({ params }: VehiclePageProps) {
   const { slug } = await params;
-  const vehicle = (await managedVehicle(slug)) ?? getVehicleBySlug(slug);
+  // Only admin-managed vehicles have a page.
+  const [vehicle, vehicles] = await Promise.all([
+    managedVehicle(slug),
+    managedVehicles(),
+  ]);
   if (!vehicle) notFound();
 
   const title =
@@ -132,6 +145,8 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
             }}
           />
         </Reveal>
+
+        <RelatedVehicles vehicle={vehicle} vehicles={vehicles} />
       </main>
     </div>
   );

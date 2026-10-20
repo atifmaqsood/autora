@@ -5,7 +5,6 @@ import { FormEvent, useCallback, useEffect, useState } from "react";
 import {
   Eye,
   EyeOff,
-  FileVideo,
   Loader2,
   Newspaper,
   Pencil,
@@ -42,7 +41,6 @@ export default function BlogsAdminPage() {
   const [draft, setDraft] = useState(blank);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
-  const [video, setVideo] = useState<File | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState("");
@@ -72,7 +70,6 @@ export default function BlogsAdminPage() {
     setEditingId(null);
     setDraft(blank);
     setImage(null);
-    setVideo(null);
   }
   function edit(post: BlogPost) {
     setEditingId(post.id);
@@ -85,7 +82,6 @@ export default function BlogsAdminPage() {
       isActive: post.isActive,
     });
     setImage(null);
-    setVideo(null);
     setError("");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -107,7 +103,6 @@ export default function BlogsAdminPage() {
       data.set(key, String(value)),
     );
     if (image) data.set("image", image);
-    if (video) data.set("video", video);
     try {
       const response = await adminFetch(
         editingId ? `/api/admin/blogs/${editingId}` : "/api/admin/blogs",
@@ -187,7 +182,7 @@ export default function BlogsAdminPage() {
         </div>
         <h1 className="mt-2 text-3xl font-black text-slate-950">Blogs Page</h1>
         <p className="mt-2 text-sm text-slate-500">
-          Add articles with a cover image, optional video and full content.
+          Add articles with a cover image and full content.
         </p>
       </header>
       {(error || notice) && (
@@ -261,21 +256,6 @@ export default function BlogsAdminPage() {
               onChange={(event) => setImage(event.target.files?.[0] ?? null)}
               className="mt-1.5 cursor-pointer bg-white text-slate-950"
             />
-          </div>
-          <div>
-            <Label className="text-xs font-bold text-slate-700">
-              Article video (optional)
-            </Label>
-            <Input
-              type="file"
-              accept="video/mp4,video/webm,video/quicktime"
-              onChange={(event) => setVideo(event.target.files?.[0] ?? null)}
-              className="mt-1.5 cursor-pointer bg-white text-slate-950"
-            />
-            <p className="mt-1 text-[11px] text-slate-400">
-              <FileVideo className="mr-1 inline h-3 w-3" />
-              MP4, WebM or MOV · max 100 MB
-            </p>
           </div>
         </div>
         <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">

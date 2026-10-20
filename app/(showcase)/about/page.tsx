@@ -51,11 +51,7 @@ export default function AboutPage() {
   // nothing is shown before the content loads.
   const imageSource = (url: string | undefined) =>
     url ? (builtinImages[url] ?? url) : null;
-  const storyParagraphs = story?.body?.split(/\n\s*\n/).filter(Boolean) ?? [
-    "AGTP Group began with a clear vision: make buying and exporting vehicles and automotive spare parts easier, more transparent, and more reliable. From Dubai, one of the world’s leading automotive and trade hubs, we serve customers across international markets with quality products and professional support.",
-    "What started as a focused automotive trading business continues to grow into a global export operation. Today, AGTP Group supplies vehicles and genuine automotive spare parts to customers, dealers, businesses, and organisations across more than 45 countries worldwide.",
-    "Driven by Trust is more than our slogan — it reflects how we do business. As AGTP Group continues to grow globally, our commitment remains the same: provide quality automotive products, keep our promises, and build lasting relationships with customers around the world."
-  ];
+  const storyParagraphs = story?.body?.split(/\n\s*\n/).filter(Boolean) ?? [];
 
   return (
     <div className="space-y-0 pb-20 bg-[#060709] text-white">
@@ -112,10 +108,12 @@ export default function AboutPage() {
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
-                  <span className="text-sm font-black text-white block tracking-wide">{story?.badgeTitle || "45+ COUNTRIES"}</span>
-                  <span className="text-[11px] text-slate-300 font-medium">{story?.badgeSubtitle || "Trusted across borders"}</span>
-                </div>
+                {(story?.badgeTitle || story?.badgeSubtitle) && (
+                  <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
+                    <span className="text-sm font-black text-white block tracking-wide">{story.badgeTitle}</span>
+                    <span className="text-[11px] text-slate-300 font-medium">{story.badgeSubtitle}</span>
+                  </div>
+                )}
               </div>
             </Reveal>
           </div>
@@ -123,17 +121,17 @@ export default function AboutPage() {
             <RevealEyebrow>
               <div className="flex items-center gap-2 text-xs font-bold text-[#FDBA74] uppercase tracking-widest">
                 <span className="w-6 h-[1.5px] bg-[#F97316]" />
-                {story?.eyebrow || "OUR STORY"}
+                {story?.eyebrow || ""}
               </div>
             </RevealEyebrow>
 
             <RevealHeading>
               <div>
                 <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight font-sans">
-                  {story?.title || "From Dubai to the World"}
+                  {story?.title || ""}
                 </h2>
                 <p className="mt-2 text-xl sm:text-2xl font-black text-[#F97316] tracking-wide">
-                  {story?.accentTitle || "Driven by Trust"}
+                  {story?.accentTitle || ""}
                 </p>
               </div>
             </RevealHeading>
@@ -307,10 +305,10 @@ export default function AboutPage() {
 
             <div className="relative z-10 max-w-3xl mx-auto space-y-6">
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight font-sans">
-                {cta?.title || "READY TO GET STARTED?"}
+                {cta?.title || ""}
               </h2>
               <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
-                {cta?.body || "Whether you're looking for a vehicle or automotive spare parts, AGTP Group is ready to help. Tell us what you need, where it's going, and your preferred specifications. We'll guide you through availability, pricing, payment, documentation, and reliable shipping options."}
+                {cta?.body || ""}
               </p>
               <div className="mx-auto flex w-full max-w-[320px] flex-col gap-3 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
                 <button

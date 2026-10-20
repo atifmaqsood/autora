@@ -19,7 +19,16 @@ export const metadata: Metadata = {
   description:
     "From Dubai to your driveway: quality cars, spare parts, construction materials, and trading solutions delivered worldwide.",
   applicationName: "AGTP GROUP",
-  keywords: ["AGTP GROUP", "Dubai trading", "automotive spare parts", "vehicle export", "global sourcing"]
+  keywords: ["AGTP GROUP", "Dubai trading", "automotive spare parts", "vehicle export", "global sourcing"],
+  // Files in public/fav icons (the space is URL-encoded).
+  icons: {
+    icon: [
+      { url: "/fav%20icons/favicon.ico", sizes: "any" },
+      { url: "/fav%20icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/fav%20icons/favicon-16x16.png", sizes: "16x16", type: "image/png" }
+    ],
+    apple: [{ url: "/fav%20icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }]
+  }
 };
 
 export default function RootLayout({

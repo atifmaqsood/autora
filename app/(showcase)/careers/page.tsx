@@ -40,78 +40,6 @@ export interface JobRole {
   applicationEmail?: string;
 }
 
-const jobRoles: JobRole[] = [
-  {
-    id: "graphic-designer",
-    title: "Graphic Designer",
-    dept: "Creative & Brand Design",
-    location: "Dubai Headquarters • On-site / Hybrid",
-    type: "Full-Time",
-    subject: "Graphic%20Designer",
-    icon: Palette,
-    description:
-      "As our Graphic Designer, you will craft marketing collateral, vehicle catalog visuals, social media creatives, print and digital banners, and brand identity assets for our global automotive export markets across Africa, the Middle East, and worldwide.",
-    responsibilities: [
-      "Design vehicle showcase creatives, digital catalogs, and social media banners.",
-      "Develop branding materials for automotive spare parts and freight logistics campaigns.",
-      "Produce engaging social media graphics, flyers, and sales presentation decks.",
-      "Collaborate with the video and sales teams to maintain a luxury, high-conversion visual standard.",
-    ],
-    requirements: [
-      "2+ years of graphic design experience (Adobe Photoshop, Illustrator, InDesign, Figma).",
-      "Strong portfolio showcasing commercial branding, typography, and product marketing.",
-      "Ability to manage multiple design deliverables with pixel-perfect attention to detail.",
-      "Experience or passion for the automotive trading industry is a strong plus.",
-    ],
-  },
-  {
-    id: "video-editor",
-    title: "Professional Video Editor",
-    dept: "Media & Video Production",
-    location: "Dubai Headquarters • Full-Time",
-    type: "Full-Time",
-    subject: "Professional%20Video%20Editor",
-    icon: Video,
-    description:
-      "Create high-impact video walkthroughs, vehicle showroom reels, customer delivery testimonials, and educational export guides for YouTube, Instagram, and web channels.",
-    responsibilities: [
-      "Edit dynamic vehicle review videos, yard walkthroughs, and customer testimonial stories.",
-      "Perform color grading, sound design, motion graphics, and multi-language subtitle integration.",
-      "Produce short-form reels for Instagram/TikTok and long-form YouTube export walkthroughs.",
-      "Maintain organized project archives and collaborate with showroom camera operators.",
-    ],
-    requirements: [
-      "Proficiency in Adobe Premiere Pro, After Effects, DaVinci Resolve, or Final Cut Pro.",
-      "Strong portfolio of commercial video editing, pacing, sound design, and color grading.",
-      "Ability to deliver fast-turnaround video content for social and web platforms.",
-      "A keen visual eye for luxury automotive framing and storytelling.",
-    ],
-  },
-  {
-    id: "senior-accountant",
-    title: "Senior Accountant",
-    dept: "Finance & Accounting",
-    location: "Dubai Headquarters • Full-Time",
-    type: "Full-Time",
-    subject: "Senior%20Accountant",
-    icon: UserCheck,
-    description:
-      "Oversee trade accounting, multi-currency export invoicing, bank reconciliations, VAT filings, and financial reporting for large-scale international vehicle and spare parts shipments.",
-    responsibilities: [
-      "Manage general ledger, accounts payable/receivable, and international wire reconciliations.",
-      "Coordinate UAE VAT compliance, corporate tax records, and external audits.",
-      "Prepare monthly financial statements and export trade margin analysis.",
-      "Work closely with banking partners and customs logistics coordinators.",
-    ],
-    requirements: [
-      "Bachelor's degree in Accounting/Finance or professional qualification (ACCA/CPA/CA).",
-      "4+ years of accounting experience, preferably within trading, automotive, or export sectors.",
-      "Strong knowledge of UAE VAT, corporate tax, and ERP accounting systems.",
-      "High level of integrity, analytical mindset, and precision.",
-    ],
-  },
-];
-
 /* ── Embedded Job Application Modal ── */
 function JobApplicationModal({
   isOpen,
@@ -461,7 +389,7 @@ export default function CareersPage() {
       .catch(() => undefined);
   }, []);
 
-  const roles = managedRoles ?? jobRoles;
+  const roles = managedRoles ?? [];
 
   const handleOpenRoleModal = (role: JobRole) => {
     setSelectedRole(role);

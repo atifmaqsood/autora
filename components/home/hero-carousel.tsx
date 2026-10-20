@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useContent } from "@/lib/content/context";
@@ -54,54 +53,41 @@ export function HeroCarousel() {
   }, [customBanner?.id]);
 
   if (activeSlides.length === 0) return null;
-  const activeSlide = activeSlides[0];
 
   return (
     <>
       <section className="relative h-screen min-h-[720px] w-full overflow-hidden bg-[#0B1F33]">
-        {/* Parallax Video / Image Background */}
+        {/* Parallax background: the admin banner only */}
         <div
           className="absolute inset-0 h-[130%] -top-[15%]"
           style={{ transform: `translate3d(0, ${offsetY}px, 0)` }}
         >
-          {!bannerLoaded ? null : customBanner?.mediaType === "image" && customMediaUrl ? (
+          {/* Only the admin banner; blank (no built-in video or image) while
+              loading, when none is set, or if the video fails to load. */}
+          {!bannerLoaded || !customBanner || !customMediaUrl ? null : customBanner.mediaType === "image" ? (
             <div
               role="img"
               aria-label={customBanner.altText}
               className="h-full w-full bg-cover bg-center"
               style={{ backgroundImage: `url(${JSON.stringify(customMediaUrl).slice(1, -1)})` }}
             />
-          ) : !videoUnavailable ? (
+          ) : videoUnavailable ? null : (
             <video
-              key={customMediaUrl ?? "default-home-video"}
+              key={customMediaUrl}
               autoPlay
               loop
               muted
               playsInline
-              preload="metadata"
-              poster={activeSlide.image}
+              preload="auto"
               onError={() => setVideoUnavailable(true)}
               className="h-full w-full object-cover object-center"
               aria-hidden="true"
             >
               <source
-                src={
-                  customBanner?.mediaType === "video" && customMediaUrl
-                    ? customMediaUrl
-                    : "https://videos.pexels.com/video-files/5309379/5309379-hd_1920_1080_25fps.mp4"
-                }
-                type={customMediaUrl?.toLowerCase().endsWith(".webm") ? "video/webm" : "video/mp4"}
+                src={customMediaUrl}
+                type={customMediaUrl.toLowerCase().endsWith(".webm") ? "video/webm" : "video/mp4"}
               />
             </video>
-          ) : (
-            <Image
-              src={activeSlide.image}
-              alt="AGTP Group vehicle sourcing and export"
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="100vw"
-            />
           )}
         </div>
 

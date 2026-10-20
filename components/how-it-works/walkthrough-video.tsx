@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image, { type StaticImageData } from "next/image";
 import { Clock, Play, Volume2 } from "lucide-react";
 
 import { CountryFlag } from "@/components/ui/country-flag";
@@ -10,12 +9,11 @@ import { CountryFlag } from "@/components/ui/country-flag";
  * Walkthrough video card media. The uploaded video is its own thumbnail (its
  * opening frame, shown with the badge, play button and audio label); pressing
  * play starts that same video with sound and controls inside the frame. With
- * no video yet, the default image and a "coming soon" note are shown.
+ * no video yet, only a "coming soon" note is shown (no built-in image).
  */
 export function WalkthroughVideo({
   videoUrl,
   loaded = true,
-  fallbackImage,
   alt,
   flag,
   language,
@@ -24,7 +22,6 @@ export function WalkthroughVideo({
   videoUrl?: string | null;
   /** False while the page content loads: show neither image nor "coming soon". */
   loaded?: boolean;
-  fallbackImage: string | StaticImageData;
   alt: string;
   flag: string;
   language: string;
@@ -47,7 +44,7 @@ export function WalkthroughVideo({
 
   return (
     <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
-      {videoUrl ? (
+      {videoUrl && (
         <video
           ref={videoRef}
           // "#t=0.1" makes browsers paint the opening frame as the thumbnail.
@@ -60,14 +57,6 @@ export function WalkthroughVideo({
           className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ${
             playing ? "z-20 bg-black" : "group-hover:scale-105"
           }`}
-        />
-      ) : (
-        <Image
-          src={fallbackImage}
-          alt={alt}
-          fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-95"
         />
       )}
 

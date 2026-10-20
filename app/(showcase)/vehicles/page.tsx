@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { VehicleCard } from "@/components/vehicles/vehicle-card";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
-import { getAllVehicles, filterVehicles } from "@/lib/vehicles/data";
+import { filterVehicles } from "@/lib/vehicles/data";
 import { VehicleFilterState, type Vehicle } from "@/lib/vehicles/types";
 import { RevealStagger, Reveal } from "@/components/ui/scroll-reveal";
 import { PageHero } from "@/components/ui/page-hero";
@@ -23,17 +23,9 @@ const PAGE_SIZE = 15;
 
 function CatalogContent() {
   const searchParams = useSearchParams();
-  const staticVehicles = useMemo(() => getAllVehicles(), []);
-  const [managedVehicles, setManagedVehicles] = useState<Vehicle[]>([]);
-  const allVehicles = useMemo(() => {
-    const managedSlugs = new Set(
-      managedVehicles.map((vehicle) => vehicle.slug),
-    );
-    return [
-      ...managedVehicles,
-      ...staticVehicles.filter((vehicle) => !managedSlugs.has(vehicle.slug)),
-    ];
-  }, [managedVehicles, staticVehicles]);
+  // Only admin-managed vehicles; nothing is listed until they load.
+  const [allVehicles, setAllVehicles] = useState<Vehicle[]>([]);
+  const [vehiclesLoaded, setVehiclesLoaded] = useState(false);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [managedCta, setManagedCta] = useState<VehiclePageCta | null>(null);
 
@@ -56,8 +48,9 @@ function CatalogContent() {
       .then(async (response) =>
         response.ok ? ((await response.json()) as Vehicle[]) : [],
       )
-      .then(setManagedVehicles)
-      .catch(() => undefined);
+      .then(setAllVehicles)
+      .catch(() => undefined)
+      .finally(() => setVehiclesLoaded(true));
   }, []);
 
   const [filters, setFilters] = useState<VehicleFilterState>({
@@ -160,7 +153,7 @@ function CatalogContent() {
         </span>
       </Reveal>
 
-      {paginatedVehicles.length > 0 ? (
+      {!vehiclesLoaded ? null : paginatedVehicles.length > 0 ? (
         <RevealStagger
           key={activePage}
           staggerDelay={80}
@@ -269,18 +262,17 @@ function CatalogContent() {
           {/* Banner Content */}
           <div className="relative z-10 w-full max-w-4xl lg:max-w-5xl mx-auto space-y-4 px-4">
             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-black text-white uppercase tracking-tight font-sans leading-[1.1]">
-              {managedCta?.title || "CAN'T FIND THE RIGHT VEHICLE?"}
+              {managedCta?.title || ""}
             </h2>
             <p className="text-xs sm:text-sm md:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed">
-              {managedCta?.description ||
-                "Tell us what you're looking for — share the make, model, specifications, and destination, and we'll check availability and provide a clear quotation."}
+              {managedCta?.description || ""}
             </p>
             <div className="pt-3">
               <button
                 onClick={() => setInquiryModalOpen(true)}
                 className="inline-flex h-[52px] w-full max-w-[320px] transform items-center justify-center gap-2 rounded-full bg-[#4361EE] px-6 text-xs font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] hover:bg-[#3651D4] active:scale-[0.98] sm:h-auto sm:w-auto sm:px-8 sm:py-3.5 sm:text-sm"
               >
-                <span>{managedCta?.buttonText || "Request a Vehicle"}</span>
+                <span>{managedCta?.buttonText || ""}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

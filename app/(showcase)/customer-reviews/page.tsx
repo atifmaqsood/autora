@@ -739,21 +739,20 @@ export default function CustomerReviewsPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  {cta?.eyebrow || "TRUSTED ACROSS BORDERS"}
+                  {cta?.eyebrow || ""}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
 
               <RevealHeading>
                 <h2 className="mx-auto mt-4 max-w-4xl text-[34px] font-black uppercase leading-tight tracking-tight text-white sm:text-[46px] md:text-[56px] lg:text-[64px] drop-shadow-md">
-                  {cta?.title || "Buy From Dubai With Confidence"}
+                  {cta?.title || ""}
                 </h2>
               </RevealHeading>
 
               <RevealText delay={120}>
                 <p className="mx-auto mt-6 max-w-3xl text-[16px] font-semibold leading-relaxed text-slate-100 sm:text-[18px] drop-shadow">
-                  {cta?.body ||
-                    "Customers around the world choose AGTP Group for vehicles and automotive spare parts, with clear communication, reliable service, and support throughout the purchasing process."}
+                  {cta?.body || ""}
                 </p>
               </RevealText>
 
@@ -767,14 +766,14 @@ export default function CustomerReviewsPage() {
                   className="inline-flex h-[52px] w-full items-center justify-center gap-3 rounded-full px-6 text-[15px] font-black text-white shadow-xl transition-all duration-300 hover:scale-105 sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                   style={{ backgroundColor: "var(--agtp-secondary)" }}
                 >
-                  <span>{cta?.primaryButtonText || "Get A Quote"}</span>
+                  <span>{cta?.primaryButtonText || ""}</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
                 <Link
                   href={cta?.secondaryButtonHref || "/vehicles"}
                   className="inline-flex h-[52px] w-full items-center justify-center rounded-full border border-[#315671] bg-[#102941]/90 px-6 text-[15px] font-black text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-[#F97316] hover:bg-[#F97316] hover:text-white sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                 >
-                  {cta?.secondaryButtonText || "Explore Vehicles"}
+                  {cta?.secondaryButtonText || ""}
                 </Link>
               </RevealButton>
             </div>

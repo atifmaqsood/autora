@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   ClipboardCheck,
   PackageCheck,
-  Package,
   Search,
   Truck,
 } from "lucide-react";
@@ -27,6 +26,7 @@ import { agtpAssets } from "@/src/assets";
 import { getAllPartsCategories } from "@/lib/parts/data";
 import type { PartsPageSection } from "@/lib/parts-page/types";
 import type { CatalogCategory } from "@/lib/product-catalog/types";
+import { managedPartsCategory } from "@/lib/product-catalog/merge";
 
 const partsStats = [
   { value: 10000, suffix: "+", label: "Parts & Accessories Exported" },
@@ -99,39 +99,16 @@ export default function PartsAccessoriesPage() {
     () => new Map(content.map((section) => [section.sectionKey, section])),
     [content],
   );
-  const staticCategories = getAllPartsCategories().map((card) => {
-    const dynamic = sectionMap.get(`category-${card.slug}`);
-    return dynamic
-      ? {
-          ...card,
-          title: dynamic.title || card.title,
-          subtitle: dynamic.body || card.subtitle,
-          image: dynamic.imageUrl.startsWith("builtin:")
-            ? card.image
-            : dynamic.imageUrl,
-        }
-      : card;
-  });
-  const managedSlugs = new Set(
-    managedCategories.map((category) => category.slug),
+  // The categories are fixed; their text, image and products come only from
+  // the admin panel.
+  const categories = getAllPartsCategories().map((card) =>
+    managedPartsCategory(
+      card,
+      sectionMap.get(`category-${card.slug}`),
+      managedCategories.find((category) => category.slug === card.slug),
+      (product) => [product.title],
+    ),
   );
-  const categories = [
-    ...managedCategories.map((category) => ({
-      id: category.id,
-      slug: category.slug,
-      title: category.title,
-      subtitle: category.subtitle,
-      icon: Package,
-      image: category.imageUrl,
-      layout: "min-h-[250px] xl:col-span-4 xl:min-h-[260px]",
-      gallery: [
-        category.imageUrl,
-        ...category.products.flatMap((product) => product.images),
-      ],
-      products: category.products.map((product) => product.title),
-    })),
-    ...staticCategories.filter((category) => !managedSlugs.has(category.slug)),
-  ];
   const landscape = sectionMap.get("landscape");
   const cta = sectionMap.get("cta");
   // Only admin-managed images ("builtin:" keys map to bundled photos).
@@ -220,7 +197,7 @@ export default function PartsAccessoriesPage() {
             const Icon = card.icon;
             return (
               <Reveal
-                key={card.title}
+                key={card.slug}
                 delay={index * 85}
                 className={card.layout}
               >
@@ -228,13 +205,15 @@ export default function PartsAccessoriesPage() {
                   href={`/parts-accessories/${card.slug}`}
                   className="group relative flex h-full overflow-hidden rounded-[18px] border border-[#315671] bg-[#14314B] p-6 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:border-[#F97316]/75 hover:shadow-[0_22px_50px_rgba(0,0,0,0.24)]"
                 >
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                  />
+                  {card.image && (
+                    <Image
+                      src={card.image}
+                      alt={card.title}
+                      fill
+                      className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/35 to-transparent" />
                   <div className="absolute inset-x-6 top-6 flex items-center justify-between">
                     <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
@@ -354,10 +333,10 @@ export default function PartsAccessoriesPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
                   <span className="text-sm font-black text-white block tracking-wide">
-                    {landscape?.badgeTitle || "DUBAI AUTO HUB"}
+                    {landscape?.badgeTitle || ""}
                   </span>
                   <span className="text-[11px] text-slate-300 font-medium">
-                    {landscape?.badgeSubtitle || "Global Trade Gateway"}
+                    {landscape?.badgeSubtitle || ""}
                   </span>
                 </div>
               </div>
@@ -369,17 +348,17 @@ export default function PartsAccessoriesPage() {
             <RevealEyebrow>
               <div className="flex items-center gap-2 text-xs font-bold text-[#FDBA74] uppercase tracking-widest">
                 <span className="w-6 h-[1.5px] bg-[#F97316]" />
-                {landscape?.eyebrow || "DUBAI AUTOMOTIVE LANDSCAPE"}
+                {landscape?.eyebrow || ""}
               </div>
             </RevealEyebrow>
 
             <RevealHeading>
               <div>
                 <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight font-sans">
-                  {landscape?.title || "Where Automotive Trade Comes Together"}
+                  {landscape?.title || ""}
                 </h2>
                 <p className="mt-2 text-xl sm:text-2xl font-black text-[#4361EE] tracking-wide">
-                  {landscape?.accentTitle || "From Dubai to the World"}
+                  {landscape?.accentTitle || ""}
                 </p>
               </div>
             </RevealHeading>
@@ -387,8 +366,7 @@ export default function PartsAccessoriesPage() {
             <RevealText delay={120}>
               <div className="space-y-4 text-sm sm:text-base text-slate-300 leading-relaxed">
                 {(
-                  landscape?.body ||
-                  "Dubai is one of the world’s leading hubs for automotive trade, connecting vehicles, spare parts, tyres, accessories, and international markets. Its established automotive infrastructure creates a dynamic environment for global trade.\n\nExplore the Dubai automotive landscape through our visual showcase — from vehicle facilities and parts warehouses to the wider trade environment that supports automotive commerce from the UAE to destinations worldwide."
+                  landscape?.body || ""
                 )
                   .split(/\n\s*\n/)
                   .map((paragraph) => (
@@ -404,7 +382,7 @@ export default function PartsAccessoriesPage() {
                   className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-8 py-4 text-sm font-black text-white transition-all hover:border-[#F97316] hover:bg-white/10"
                 >
                   <span>
-                    {landscape?.primaryButtonText || "EXPLORE DUBAI AUTOMOTIVE"}
+                    {landscape?.primaryButtonText || ""}
                   </span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -440,19 +418,18 @@ export default function PartsAccessoriesPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.28em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  {cta?.eyebrow || "READY TO ORDER"}
+                  {cta?.eyebrow || ""}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
               <RevealHeading>
                 <h2 className="text-[36px] font-black text-white md:text-[54px] tracking-tight">
-                  {cta?.title || "THE PART YOU NEED, RIGHT HERE."}
+                  {cta?.title || ""}
                 </h2>
               </RevealHeading>
               <RevealText delay={120}>
                 <p className="text-[17px] sm:text-[19px] font-medium text-slate-300 leading-relaxed">
-                  {cta?.body ||
-                    "Tell us the part number, vehicle details, or what you need. We’ll confirm availability, pricing, and shipping options for your destination."}
+                  {cta?.body || ""}
                 </p>
               </RevealText>
 
@@ -464,14 +441,14 @@ export default function PartsAccessoriesPage() {
                   onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#F97316] px-6 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C] hover:scale-105 sm:h-14 sm:w-auto sm:px-8"
                 >
-                  <span>{cta?.primaryButtonText || "GET A PARTS QUOTE"}</span>
+                  <span>{cta?.primaryButtonText || ""}</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
                 <Link
                   href={cta?.secondaryButtonHref || "/contact"}
                   className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-[#ffffff10] px-6 text-[15px] font-bold text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/20 sm:h-14 sm:w-auto sm:px-8"
                 >
-                  <span>{cta?.secondaryButtonText || "CONTACT TEAM"}</span>
+                  <span>{cta?.secondaryButtonText || ""}</span>
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </RevealButton>

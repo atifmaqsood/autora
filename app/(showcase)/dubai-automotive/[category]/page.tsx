@@ -3,7 +3,7 @@
 import { use, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronRight, Loader2, Package } from "lucide-react";
+import { ArrowRight, ChevronRight, Loader2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import {
   Reveal,
@@ -11,7 +11,10 @@ import {
   RevealStagger,
 } from "@/components/ui/scroll-reveal";
 import { getDubaiAutomotiveCategory } from "@/lib/dubai-automotive/data";
-import type { CatalogCategory } from "@/lib/product-catalog/types";
+import {
+  loadDubaiCategory,
+  managedDubaiCategory,
+} from "@/lib/product-catalog/merge";
 
 export default function DubaiAutomotiveCategoryPage({
   params,
@@ -19,32 +22,18 @@ export default function DubaiAutomotiveCategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category: slug } = use(params);
-  const fallback = getDubaiAutomotiveCategory(slug);
-  const [managed, setManaged] = useState<CatalogCategory | null>(null);
-  const [loaded, setLoaded] = useState(false);
+  const fixed = getDubaiAutomotiveCategory(slug);
+  const [data, setData] = useState<Awaited<
+    ReturnType<typeof loadDubaiCategory>
+  > | null>(null);
   useEffect(() => {
-    void fetch("/api/product-catalog/dubai", { cache: "no-store" })
-      .then(async (response) =>
-        response.ok ? ((await response.json()) as CatalogCategory[]) : [],
-      )
-      .then((items) =>
-        setManaged(items.find((item) => item.slug === slug) ?? null),
-      )
-      .finally(() => setLoaded(true));
+    void loadDubaiCategory(slug).then(setData);
   }, [slug]);
-  const category = managed
-    ? {
-        ...managed,
-        image: managed.imageUrl,
-        icon: Package,
-        products: managed.products.map((product) => ({
-          ...product,
-          image: product.images[0] ?? managed.imageUrl,
-          gallery: product.images,
-        })),
-      }
-    : fallback;
-  if (!category && !loaded)
+  // The categories are fixed; their title, image and products come only
+  // from the admin panel.
+  const category =
+    fixed && data && managedDubaiCategory(fixed, data.section, data.managed);
+  if (!data)
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#060709] text-white">
         <Loader2 className="h-7 w-7 animate-spin" />
@@ -77,14 +66,16 @@ export default function DubaiAutomotiveCategoryPage({
             className="relative overflow-hidden rounded-3xl border border-[#315671] p-7 shadow-2xl sm:p-10"
             style={{ backgroundColor: "var(--agtp-primary)" }}
           >
-            <Image
-              src={category.image}
-              alt=""
-              fill
-              priority
-              className="object-cover opacity-20"
-              sizes="(max-width: 1280px) 100vw, 1280px"
-            />
+            {category.image && (
+              <Image
+                src={category.image}
+                alt=""
+                fill
+                priority
+                className="object-cover opacity-20"
+                sizes="(max-width: 1280px) 100vw, 1280px"
+              />
+            )}
             <div
               className="absolute inset-0"
               style={{
@@ -131,13 +122,15 @@ export default function DubaiAutomotiveCategoryPage({
                 style={{ backgroundColor: "var(--agtp-primary)" }}
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                  {product.image && (
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
                   <div
                     className="absolute inset-0"
                     style={{

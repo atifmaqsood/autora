@@ -28,98 +28,9 @@ interface FaqItem {
   category: "Vehicles" | "Spare Parts" | "Orders & Payments" | "Shipping & Export" | "Refunds & Support";
 }
 
-const defaultFaqList: FaqItem[] = [
-  {
-    question: "What does AGTP Group do?",
-    answer: "AGTP Group is a Dubai-based automotive trading company supplying vehicles and automotive spare parts for international customers.",
-    category: "Vehicles"
-  },
-  {
-    question: "What products does AGTP Group supply?",
-    answer: "We supply new and pre-owned vehicles, automotive spare parts, engines, tyres, body parts, and other automotive components.",
-    category: "Vehicles"
-  },
-  {
-    question: "Do you export vehicles internationally?",
-    answer: "Yes. We arrange vehicle exports from the UAE to customers and markets worldwide.",
-    category: "Shipping & Export"
-  },
-  {
-    question: "Do you supply automotive spare parts internationally?",
-    answer: "Yes. We supply automotive spare parts for various vehicle brands and arrange international delivery.",
-    category: "Spare Parts"
-  },
-  {
-    question: "Which vehicle brands do you supply?",
-    answer: "We supply vehicles from a wide range of major international brands, subject to availability.",
-    category: "Vehicles"
-  },
-  {
-    question: "Which vehicle brands do you supply spare parts for?",
-    answer: "We supply spare parts for many Japanese, Korean, European, American, and other vehicle brands.",
-    category: "Spare Parts"
-  },
-  {
-    question: "Can I buy a vehicle directly from AGTP Group?",
-    answer: "Yes. Customers can purchase available vehicles directly from AGTP Group and arrange local or international delivery.",
-    category: "Vehicles"
-  },
-  {
-    question: "Can I order a specific spare part?",
-    answer: "Yes. Send us the part name, part number, vehicle model, or a photo, and we’ll check availability and pricing.",
-    category: "Spare Parts"
-  },
-  {
-    question: "How can I request a quotation?",
-    answer: "Submit an inquiry through our website, WhatsApp, email, or contact form with your product requirements.",
-    category: "Orders & Payments"
-  },
-  {
-    question: "What information do you need for a spare parts inquiry?",
-    answer: "Please provide the vehicle make, model, year, part name or part number, quantity, and destination country when available.",
-    category: "Spare Parts"
-  },
-  {
-    question: "Do you provide international shipping?",
-    answer: "Yes. We arrange international shipping by sea or air, depending on the product, destination, and customer requirements.",
-    category: "Shipping & Export"
-  },
-  {
-    question: "What payment methods do you accept?",
-    answer: "Payment options may include bank transfer, online payment, and other approved payment methods depending on the order.",
-    category: "Orders & Payments"
-  },
-  {
-    question: "How do you ensure product quality?",
-    answer: "We verify product specifications, availability, and condition before completing orders, with inspection available where applicable.",
-    category: "Orders & Payments"
-  },
-  {
-    question: "Can I cancel my order or request a refund?",
-    answer: "Refund and cancellation eligibility depends on the order status and applicable terms outlined in our Refund Policy.",
-    answerNode: (
-      <>
-        Refund and cancellation eligibility depends on the order status and applicable terms outlined in our{" "}
-        <Link
-          href="/refund-policy"
-          className="font-bold text-[#FDBA74] underline decoration-[#F97316] underline-offset-4 hover:text-white transition-colors"
-        >
-          Refund Policy
-        </Link>
-        .
-      </>
-    ),
-    category: "Refunds & Support"
-  },
-  {
-    question: "How do I place an order with AGTP Group?",
-    answer: "Send us your requirements, receive the quotation, confirm your order, complete payment, and we’ll proceed with fulfillment and delivery.",
-    category: "Orders & Payments"
-  }
-];
-
 export default function FaqsPage() {
-  const [faqList, setFaqList] = useState<FaqItem[]>(defaultFaqList);
+  const [faqList, setFaqList] = useState<FaqItem[]>([]);
+  const [faqsLoaded, setFaqsLoaded] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState("All Questions");
   const [searchQuery, setSearchQuery] = useState("");
@@ -133,7 +44,8 @@ export default function FaqsPage() {
         return response.json() as Promise<ManagedFaq[]>;
       })
       .then((items) => active && setFaqList(items.map((item) => ({ ...item, category: item.category as FaqItem["category"] }))))
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(() => active && setFaqsLoaded(true));
     return () => { active = false; };
   }, []);
 
@@ -212,7 +124,7 @@ export default function FaqsPage() {
 
       {/* ── 3. Interactive Accordion FAQ List ── */}
       <section className="mx-auto max-w-5xl px-4 pt-10 sm:px-6 lg:px-8">
-        {filteredFaqs.length === 0 ? (
+        {!faqsLoaded ? null : filteredFaqs.length === 0 ? (
           <div className="rounded-[24px] border border-[#315671] bg-[#102941] p-12 text-center text-slate-300">
             <HelpCircle className="mx-auto h-12 w-12 text-[#FDBA74]" />
             <h3 className="mt-4 text-[20px] font-black text-white">No Matching Questions Found</h3>

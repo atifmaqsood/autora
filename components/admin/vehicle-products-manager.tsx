@@ -22,6 +22,7 @@ const blank = {
   make: "",
   model: "",
   variant: "",
+  variantCode: "",
   displayTitle: "",
   year: new Date().getFullYear(),
   category: "SUV",
@@ -114,6 +115,7 @@ export function VehicleProductsManager() {
       make: vehicle.make,
       model: vehicle.model,
       variant: vehicle.variant,
+      variantCode: vehicle.variantCode ?? "",
       displayTitle: vehicle.displayTitle ?? `${vehicle.make} ${vehicle.model}`,
       year: vehicle.year,
       category: vehicle.category,
@@ -215,37 +217,68 @@ export function VehicleProductsManager() {
     setNotice("Vehicle deleted.");
     await load();
   }
-  const textKeys: Array<[string, keyof Draft]> = [
-    ["Make", "make"],
-    ["Model", "model"],
-    ["Variant", "variant"],
-    ["Display title", "displayTitle"],
-    ["URL slug", "slug"],
-    ["Category", "category"],
-    ["Body type", "bodyType"],
-    ["Condition", "condition"],
-    ["Fuel type", "fuelType"],
-    ["Transmission", "transmission"],
-    ["Drive type", "driveType"],
-    ["Engine", "engine"],
-    ["Engine size", "engineSize"],
-    ["Torque", "torque"],
-    ["Top speed", "topSpeed"],
-    ["Acceleration", "acceleration"],
-    ["Exterior color", "exteriorColor"],
-    ["Interior color", "interiorColor"],
-    ["Location", "location"],
-    ["Status", "status"],
+  // General listing details (not shown in the Features tab).
+  const basicFields: Array<[string, keyof Draft, "text" | "number"]> = [
+    ["Display title", "displayTitle", "text"],
+    ["URL slug", "slug", "text"],
+    ["Category", "category", "text"],
+    ["Variant", "variant", "text"],
+    ["Price", "price", "number"],
+    ["Currency", "currency", "text"],
+    ["Mileage", "mileage", "number"],
+    ["Location", "location", "text"],
+    ["Display order", "sortOrder", "number"],
   ];
-  const numberKeys: Array<[string, keyof Draft]> = [
-    ["Year", "year"],
-    ["Price", "price"],
-    ["Mileage", "mileage"],
-    ["Horsepower", "horsepower"],
-    ["Seats", "seatingCapacity"],
-    ["Doors", "doors"],
-    ["Display order", "sortOrder"],
+  // Exactly the details shown in the website's Features tab.
+  const featureFields: Array<[string, keyof Draft, "text" | "number"]> = [
+    ["Make", "make", "text"],
+    ["Model", "model", "text"],
+    ["Body", "bodyType", "text"],
+    ["Year", "year", "number"],
+    ["Transmission", "transmission", "text"],
+    ["Engine", "engine", "text"],
+    ["Exterior Color", "exteriorColor", "text"],
+    ["Interior Color", "interiorColor", "text"],
+    ["Fuel Type", "fuelType", "text"],
+    ["Drivetrain", "driveType", "text"],
+    ["Seats", "seatingCapacity", "number"],
+    ["Availability", "status", "text"],
+    ["Condition", "condition", "text"],
+    ["Variant Code", "variantCode", "text"],
   ];
+  const requiredKeys: Array<keyof Draft> = [
+    "displayTitle",
+    "slug",
+    "category",
+    "currency",
+    "location",
+    "make",
+    "model",
+    "year",
+  ];
+  const field = ([label, key, type]: [string, keyof Draft, "text" | "number"]) => (
+    <div key={key}>
+      <Label>
+        {label}
+        {requiredKeys.includes(key) && " *"}
+      </Label>
+      <Input
+        type={type}
+        min={type === "number" ? 0 : undefined}
+        required={requiredKeys.includes(key)}
+        value={type === "number" ? Number(draft[key]) : String(draft[key])}
+        onChange={(e) => {
+          set(
+            key,
+            (type === "number" ? Number(e.target.value) : e.target.value) as never,
+          );
+          if (key === "displayTitle" && !editingId)
+            set("slug", slugify(e.target.value));
+        }}
+        className="mt-1.5 bg-white text-slate-950"
+      />
+    </div>
+  );
   return (
     <section className="space-y-6 border-t border-slate-200 pt-8">
       <header>
@@ -284,60 +317,7 @@ export function VehicleProductsManager() {
           )}
         </div>
         <div className="grid gap-4 md:grid-cols-3">
-          {textKeys.map(([label, key]) => (
-            <div key={key}>
-              <Label>{label}</Label>
-              <Input
-                required={
-                  ![
-                    "variant",
-                    "torque",
-                    "topSpeed",
-                    "acceleration",
-                    "interiorColor",
-                  ].includes(key)
-                }
-                value={String(draft[key])}
-                onChange={(e) => {
-                  set(key, e.target.value as never);
-                  if (key === "displayTitle" && !editingId)
-                    set("slug", slugify(e.target.value));
-                }}
-                className="mt-1.5 bg-white text-slate-950"
-              />
-            </div>
-          ))}
-          {numberKeys.map(([label, key]) => (
-            <div key={key}>
-              <Label>{label}</Label>
-              <Input
-                type="number"
-                min={0}
-                value={Number(draft[key])}
-                onChange={(e) => set(key, Number(e.target.value) as never)}
-                className="mt-1.5 bg-white text-slate-950"
-              />
-            </div>
-          ))}
-          <div>
-            <Label>Currency</Label>
-            <Input
-              value={draft.currency}
-              onChange={(e) => set("currency", e.target.value)}
-              className="mt-1.5 bg-white text-slate-950"
-            />
-          </div>
-          <div>
-            <Label>Steering</Label>
-            <select
-              value={draft.steering}
-              onChange={(e) => set("steering", e.target.value)}
-              className="mt-1.5 h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-950"
-            >
-              <option>LHD</option>
-              <option>RHD</option>
-            </select>
-          </div>
+          {basicFields.map(field)}
           <div>
             <Label>
               Gallery images {editingId ? "(replaces gallery)" : "*"}
@@ -351,6 +331,27 @@ export function VehicleProductsManager() {
             />
           </div>
         </div>
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <h4 className="font-black text-slate-950">Features</h4>
+          <p className="mt-0.5 text-xs text-slate-500">
+            Shown in the vehicle&apos;s Features tab. Empty fields are hidden.
+          </p>
+          <div className="mt-3 grid gap-4 md:grid-cols-3">
+            {featureFields.slice(0, 9).map(field)}
+            <div>
+              <Label>LHD/RHD</Label>
+              <select
+                value={draft.steering}
+                onChange={(e) => set("steering", e.target.value)}
+                className="mt-1.5 h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-950"
+              >
+                <option>LHD</option>
+                <option>RHD</option>
+              </select>
+            </div>
+            {featureFields.slice(9).map(field)}
+          </div>
+        </div>
         <div>
           <Label>Description</Label>
           <textarea
@@ -360,28 +361,6 @@ export function VehicleProductsManager() {
             onChange={(e) => set("description", e.target.value)}
             className="mt-1.5 w-full rounded-md border border-slate-200 p-3 text-sm text-slate-950"
           />
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          <div>
-            <Label>Features (one per line)</Label>
-            <textarea
-              required
-              rows={8}
-              value={draft.features}
-              onChange={(e) => set("features", e.target.value)}
-              className="mt-1.5 w-full rounded-md border border-slate-200 p-3 text-sm text-slate-950"
-            />
-          </div>
-          <div>
-            <Label>Technical specifications (Key: Value)</Label>
-            <textarea
-              required
-              rows={8}
-              value={draft.specifications}
-              onChange={(e) => set("specifications", e.target.value)}
-              className="mt-1.5 w-full rounded-md border border-slate-200 p-3 text-sm text-slate-950"
-            />
-          </div>
         </div>
         <div className="flex flex-wrap gap-5">
           {(["isFeatured", "isNew", "isActive"] as const).map((key) => (

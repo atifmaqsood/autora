@@ -31,6 +31,60 @@ const blank = {
 };
 type Draft = typeof blank;
 
+type JobField =
+  | "title"
+  | "department"
+  | "location"
+  | "employmentType"
+  | "applicationEmail"
+  | "sortOrder";
+
+/** Maximum lengths accepted by the API. */
+const JOB_LIMITS: Record<Exclude<JobField, "sortOrder">, number> = {
+  title: 191,
+  department: 120,
+  location: 191,
+  employmentType: 100,
+  applicationEmail: 191,
+};
+
+const JOB_LABELS: Record<Exclude<JobField, "sortOrder">, string> = {
+  title: "Job title",
+  department: "Department",
+  location: "Location",
+  employmentType: "Employment type",
+  applicationEmail: "Application email",
+};
+
+/** Rejects blank or whitespace-only fields, a bad email and a bad order. */
+function validateJob(draft: Draft): Partial<Record<JobField, string>> {
+  const problems: Partial<Record<JobField, string>> = {};
+  for (const key of Object.keys(JOB_LIMITS) as Array<keyof typeof JOB_LIMITS>) {
+    const value = String(draft[key] ?? "").trim();
+    if (!value) problems[key] = `${JOB_LABELS[key]} is required.`;
+    else if (value.length > JOB_LIMITS[key])
+      problems[key] = `${JOB_LABELS[key]} must be ${JOB_LIMITS[key]} characters or fewer.`;
+  }
+  const email = String(draft.applicationEmail ?? "").trim();
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    problems.applicationEmail = "Enter a valid email address.";
+  const order = Number(draft.sortOrder);
+  if (!Number.isInteger(order) || order < 0 || order > 999)
+    problems.sortOrder = "Display order must be a whole number from 0 to 999.";
+  return problems;
+}
+
+function trimmedJob(draft: Draft): Draft {
+  return {
+    ...draft,
+    title: draft.title.trim(),
+    department: draft.department.trim(),
+    location: draft.location.trim(),
+    employmentType: draft.employmentType.trim(),
+    applicationEmail: draft.applicationEmail.trim(),
+  };
+}
+
 export default function CareersAdminPage() {
   const [jobs, setJobs] = useState<CareerJob[]>([]);
   const [draft, setDraft] = useState<Draft>(blank);
@@ -38,6 +92,8 @@ export default function CareersAdminPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  // Per-field messages, shown only after a save attempt.
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<JobField, string>>>({});
   const [notice, setNotice] = useState("");
   const load = useCallback(async () => {
     setLoading(true);
@@ -57,14 +113,18 @@ export default function CareersAdminPage() {
   useEffect(() => {
     void load();
   }, [load]);
-  const set = <K extends keyof Draft>(key: K, value: Draft[K]) =>
+  const set = <K extends keyof Draft>(key: K, value: Draft[K]) => {
     setDraft((current) => ({ ...current, [key]: value }));
+    setFieldErrors((current) => ({ ...current, [key]: undefined }));
+  };
   function reset() {
     setEditingId(null);
     setDraft(blank);
+    setFieldErrors({});
   }
   function edit(job: CareerJob) {
     setEditingId(job.id);
+    setFieldErrors({});
     setDraft({
       title: job.title,
       department: job.department,
@@ -81,6 +141,13 @@ export default function CareersAdminPage() {
   }
   async function submit(event: FormEvent) {
     event.preventDefault();
+    const problems = validateJob(draft);
+    setFieldErrors(problems);
+    if (Object.keys(problems).length > 0) {
+      setNotice("");
+      setError("Please fix the highlighted fields before saving.");
+      return;
+    }
     setSaving(true);
     setError("");
     setNotice("");
@@ -92,7 +159,7 @@ export default function CareersAdminPage() {
         {
           method: editingId ? "PATCH" : "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(draft),
+          body: JSON.stringify(trimmedJob(draft)),
         },
       );
       const body = await response.json();
@@ -141,27 +208,21 @@ export default function CareersAdminPage() {
     setNotice("Job opportunity deleted.");
     await load();
   }
-  const field = (
-    label: string,
-    key: keyof Pick<
-      Draft,
-      | "title"
-      | "department"
-      | "location"
-      | "employmentType"
-      | "applicationEmail"
-      | "sortOrder"
-    >,
-    type = "text",
-  ) => (
+  const field = (label: string, key: JobField, type = "text") => (
     <div>
-      <Label className="text-xs font-bold text-slate-700">{label}</Label>
+      <Label htmlFor={`job-${key}`} className="text-xs font-bold text-slate-700">
+        {label} *
+      </Label>
       <Input
+        id={`job-${key}`}
         required
         type={type}
         value={String(draft[key])}
         min={key === "sortOrder" ? 0 : undefined}
         max={key === "sortOrder" ? 999 : undefined}
+        maxLength={key === "sortOrder" ? undefined : JOB_LIMITS[key]}
+        aria-invalid={Boolean(fieldErrors[key])}
+        aria-describedby={fieldErrors[key] ? `job-${key}-error` : undefined}
         onChange={(event) =>
           set(
             key,
@@ -170,8 +231,13 @@ export default function CareersAdminPage() {
               : event.target.value) as never,
           )
         }
-        className="mt-1.5 bg-white text-slate-950"
+        className={`mt-1.5 bg-white text-slate-950 ${fieldErrors[key] ? "border-red-400 focus-visible:ring-red-200" : ""}`}
       />
+      {fieldErrors[key] && (
+        <p id={`job-${key}-error`} className="mt-1 text-[11px] font-semibold text-red-600">
+          {fieldErrors[key]}
+        </p>
+      )}
     </div>
   );
   return (
@@ -222,44 +288,6 @@ export default function CareersAdminPage() {
           {field("Employment type", "employmentType")}
           {field("Application email", "applicationEmail", "email")}
           {field("Display order", "sortOrder", "number")}
-        </div>
-        <div>
-          <Label className="text-xs font-bold text-slate-700">
-            Role description
-          </Label>
-          <textarea
-            required
-            rows={4}
-            value={draft.description}
-            onChange={(event) => set("description", event.target.value)}
-            className="mt-1.5 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-950"
-          />
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          <div>
-            <Label className="text-xs font-bold text-slate-700">
-              Responsibilities (one per line)
-            </Label>
-            <textarea
-              required
-              rows={7}
-              value={draft.responsibilities}
-              onChange={(event) => set("responsibilities", event.target.value)}
-              className="mt-1.5 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-950"
-            />
-          </div>
-          <div>
-            <Label className="text-xs font-bold text-slate-700">
-              Requirements (one per line)
-            </Label>
-            <textarea
-              required
-              rows={7}
-              value={draft.requirements}
-              onChange={(event) => set("requirements", event.target.value)}
-              className="mt-1.5 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-950"
-            />
-          </div>
         </div>
         <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
           <input

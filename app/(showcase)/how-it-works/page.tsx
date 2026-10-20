@@ -326,10 +326,9 @@ export default function HowItWorksPage() {
               <WalkthroughVideo
                 videoUrl={portuguese?.videoUrl}
                 loaded={contentLoaded}
-                fallbackImage={agtpAssets.heroYard}
                 alt="Processo de Exportação AGTP Group - Português"
                 flag="PT"
-                language={portuguese?.eyebrow || "Português"}
+                language={portuguese?.eyebrow || ""}
                 audioLabel="Áudio em Português"
               />
 
@@ -339,10 +338,10 @@ export default function HowItWorksPage() {
                   <span>VÍDEO DE ORIENTAÇÃO</span>
                 </div>
                 <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
-                  {portuguese?.title || "Guia de Exportação de Veículos e Peças de Reposição de Dubai"}
+                  {portuguese?.title || ""}
                 </h3>
                 <p className="text-[17px] font-medium leading-relaxed text-slate-300">
-                  {portuguese?.body || "Nossa equipe orienta você sobre o processo de encomenda de veículos e peças de reposição de Dubai, incluindo cotações, confirmação de pedido, envio e entrega internacional."}
+                  {portuguese?.body || ""}
                 </p>
               </div>
             </div>
@@ -352,10 +351,9 @@ export default function HowItWorksPage() {
               <WalkthroughVideo
                 videoUrl={english?.videoUrl}
                 loaded={contentLoaded}
-                fallbackImage={agtpAssets.exportPort}
                 alt="AGTP Group Export Process - English"
                 flag="GB"
-                language={english?.eyebrow || "English"}
+                language={english?.eyebrow || ""}
                 audioLabel="English Audio"
               />
 
@@ -365,10 +363,10 @@ export default function HowItWorksPage() {
                   <span>WALKTHROUGH VIDEO</span>
                 </div>
                 <h3 className="text-[22px] font-black text-white group-hover:text-[#FDBA74] transition-colors leading-snug">
-                  {english?.title || "Dubai Vehicle & Spare Parts Export Guide"}
+                  {english?.title || ""}
                 </h3>
                 <p className="text-[17px] font-medium leading-relaxed text-slate-300">
-                  {english?.body || "Our team walks you through ordering vehicles and spare parts from Dubai, including quotations, order confirmation, shipping, and international delivery."}
+                  {english?.body || ""}
                 </p>
               </div>
             </div>
@@ -398,20 +396,20 @@ export default function HowItWorksPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  {orderCta?.eyebrow || "START YOUR ORDER"}
+                  {orderCta?.eyebrow || ""}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
 
               <RevealHeading>
                 <h2 className="mx-auto mt-4 max-w-4xl text-[34px] font-black uppercase leading-tight tracking-tight text-white sm:text-[46px] md:text-[56px] lg:text-[64px] drop-shadow-md">
-                  {orderCta?.title || "Ready to Place Your Order?"}
+                  {orderCta?.title || ""}
                 </h2>
               </RevealHeading>
 
               <RevealText delay={120}>
                 <p className="mx-auto mt-6 max-w-3xl text-[16px] font-semibold leading-relaxed text-slate-100 sm:text-[18px] drop-shadow">
-                  {orderCta?.body || "Send us your requirements and get a clear quotation with product details, pricing, and export support."}
+                  {orderCta?.body || ""}
                 </p>
               </RevealText>
 
@@ -421,7 +419,7 @@ export default function HowItWorksPage() {
                   onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[52px] w-full max-w-[320px] items-center justify-center gap-3 rounded-full bg-[#F97316] px-6 text-[15px] font-black text-white shadow-xl transition-all duration-300 hover:scale-105 hover:bg-[#EA580C] sm:h-[56px] sm:w-auto sm:px-10 sm:text-[16px]"
                 >
-                  <span>{orderCta?.primaryButtonText || "Get A Quote"}</span>
+                  <span>{orderCta?.primaryButtonText || ""}</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
               </RevealButton>

@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronRight, Loader2, Package } from "lucide-react";
+import { ArrowRight, ChevronRight, Loader2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
@@ -14,11 +14,12 @@ import {
   RevealStagger,
   RevealText,
 } from "@/components/ui/scroll-reveal";
+import { getDubaiAutomotiveCategory } from "@/lib/dubai-automotive/data";
+import { dubaiProductDetails } from "@/lib/product-catalog/details";
 import {
-  dubaiAutomotiveFeatures,
-  getDubaiAutomotiveProduct,
-} from "@/lib/dubai-automotive/data";
-import type { CatalogCategory } from "@/lib/product-catalog/types";
+  loadDubaiCategory,
+  managedDubaiCategory,
+} from "@/lib/product-catalog/merge";
 
 export default function DubaiAutomotiveProductPage({
   params,
@@ -29,33 +30,24 @@ export default function DubaiAutomotiveProductPage({
   const [activeTab, setActiveTab] = useState<"features" | "description">(
     "features",
   );
-  const [managed, setManaged] = useState<CatalogCategory | null>(null);
-  const [loaded, setLoaded] = useState(false);
+  const [data, setData] = useState<Awaited<
+    ReturnType<typeof loadDubaiCategory>
+  > | null>(null);
   useEffect(() => {
-    void fetch("/api/product-catalog/dubai", { cache: "no-store" })
-      .then(async (response) =>
-        response.ok ? ((await response.json()) as CatalogCategory[]) : [],
-      )
-      .then((items) =>
-        setManaged(items.find((item) => item.slug === categorySlug) ?? null),
-      )
-      .finally(() => setLoaded(true));
+    void loadDubaiCategory(categorySlug).then(setData);
   }, [categorySlug]);
-  const managedProduct = managed?.products.find(
+  const fixed = getDubaiAutomotiveCategory(categorySlug);
+  // Only admin products exist; the category text and image are admin data too.
+  const managedCategory =
+    fixed && data && managedDubaiCategory(fixed, data.section, data.managed);
+  const managedProduct = managedCategory?.products.find(
     (item) => item.slug === productSlug,
   );
   const result =
-    managed && managedProduct
-      ? {
-          category: { ...managed, image: managed.imageUrl, icon: Package },
-          product: {
-            ...managedProduct,
-            image: managedProduct.images[0] ?? managed.imageUrl,
-            gallery: managedProduct.images,
-          },
-        }
-      : getDubaiAutomotiveProduct(categorySlug, productSlug);
-  if (!result && !loaded)
+    managedCategory && managedProduct
+      ? { category: managedCategory, product: managedProduct }
+      : undefined;
+  if (!data)
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#060709] text-white">
         <Loader2 className="h-7 w-7 animate-spin" />
@@ -64,12 +56,9 @@ export default function DubaiAutomotiveProductPage({
   if (!result) notFound();
   const { category, product } = result;
   const Icon = category.icon;
-  const features =
-    "features" in product ? product.features : dubaiAutomotiveFeatures;
-  const description =
-    "description" in product && product.description
-      ? product.description
-      : category.subtitle;
+  // Catalogue products list only the details the admin filled in.
+  const features = dubaiProductDetails(product.attributes);
+  const description = product.description || category.subtitle;
 
   function handleTabKey(event: KeyboardEvent<HTMLButtonElement>) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
@@ -190,14 +179,19 @@ export default function DubaiAutomotiveProductPage({
                 {features.map((feature) => (
                   <div
                     role="listitem"
-                    key={feature}
+                    key={feature.key}
                     className="flex items-start gap-3 text-sm text-slate-300"
                   >
                     <Icon
                       aria-hidden="true"
                       className="mt-0.5 h-4 w-4 shrink-0 text-[var(--agtp-secondary)]"
                     />
-                    <span>{feature}</span>
+                    <span>
+                      <span className="font-semibold text-white">
+                        {feature.key}:
+                      </span>{" "}
+                      {feature.value}
+                    </span>
                   </div>
                 ))}
               </RevealStagger>

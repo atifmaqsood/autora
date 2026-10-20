@@ -1,9 +1,22 @@
 import { MetadataRoute } from "next";
-import { getAllVehicles, CATEGORIES_LIST } from "@/lib/vehicles/data";
+import { CATEGORIES_LIST } from "@/lib/vehicles/data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+/** Admin-managed vehicles, the only ones with a page. */
+async function managedVehicleSlugs(): Promise<{ slug: string }[]> {
+  const apiUrl = process.env.API_URL ?? "http://localhost:3101/api";
+  try {
+    const response = await fetch(`${apiUrl}/vehicle-products`, {
+      next: { revalidate: 3600 },
+    });
+    return response.ok ? ((await response.json()) as { slug: string }[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://agtpgroup.com";
-  const vehicles = getAllVehicles();
+  const vehicles = await managedVehicleSlugs();
 
   const vehicleUrls = vehicles.map((v) => ({
     url: `${baseUrl}/vehicles/${v.slug}`,

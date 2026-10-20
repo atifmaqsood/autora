@@ -6,7 +6,7 @@ import { ArrowDown, ArrowUp, CheckCircle2, Car, Loader2, Save, Search } from "lu
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MAX_HOME_VEHICLES, homepageVehicles, mergeVehicles } from "@/lib/home/vehicles";
+import { MAX_HOME_VEHICLES, homepageVehicles } from "@/lib/home/vehicles";
 import type { Vehicle } from "@/lib/vehicles/types";
 
 function vehicleTitle(vehicle: Vehicle): string {
@@ -38,7 +38,7 @@ export function HomeVehiclesPicker() {
         .then((response) => (response.ok ? (response.json() as Promise<{ slugs: string[] }>) : { slugs: [] }))
         .catch(() => ({ slugs: [] as string[] }))
     ]).then(([managed, home]) => {
-      const all = mergeVehicles(managed);
+      const all = managed;
       setVehicles(all);
       // Start from what the homepage shows today (defaults included).
       setSelected(homepageVehicles(all, home.slugs).map((vehicle) => vehicle.slug));

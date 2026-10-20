@@ -82,11 +82,11 @@ export default function AutomotiveShippingPage() {
               {/* Left Column: Heading, Description & Feature Highlights */}
               <div className="lg:col-span-7 space-y-6">
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
-                  {intro?.title || "Shipping With Confidence"}
+                  {intro?.title || ""}
                 </h2>
 
                 <div className="space-y-4 text-[17px] sm:text-[18px] font-normal leading-relaxed text-slate-200">
-                  {(intro?.body || "At AGTP Group, we provide reliable shipping solutions for vehicles and automotive spare parts from the UAE to destinations worldwide. Whether you are purchasing a vehicle or ordering spare parts, we coordinate the shipping process according to your destination and requirements.\n\nFrom shipment preparation and export documentation to transportation and delivery coordination, our team keeps every step clear, organized, and professionally managed.").split(/\n\s*\n/).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {(intro?.body || "").split(/\n\s*\n/).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 </div>
 
 
@@ -152,14 +152,14 @@ export default function AutomotiveShippingPage() {
                   >
                     <Ship className="h-5 w-5" />
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-300">{ocean?.eyebrow || "Ocean Shipping"}</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-slate-300">{ocean?.eyebrow || ""}</span>
                 </div>
                 
                 <h3 className="text-2xl sm:text-[28px] font-black text-white leading-tight mb-4">
-                  {ocean?.title || "Reliable Vehicle & Parts Shipping"}
+                  {ocean?.title || ""}
                 </h3>
                 <p className="text-sm sm:text-[17px] font-medium leading-relaxed text-slate-300 mb-8 max-w-sm">
-                  {ocean?.body || "We arrange containerized and RoRo shipping for vehicles, along with sea freight solutions for larger automotive spare-parts orders."}
+                  {ocean?.body || ""}
                 </p>
                 
                 <div className="space-y-3 mb-10 flex-grow">
@@ -179,7 +179,7 @@ export default function AutomotiveShippingPage() {
                 
                 <div className="mt-auto">
                   <button onClick={() => setInquiryModalOpen(true)} className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#F97316] px-6 text-sm font-extrabold text-white transition-all duration-200 hover:bg-[#EA580C] shadow-lg shadow-[#F97316]/30">
-                    <span>{ocean?.primaryButtonText || "Get a Shipping Quote"}</span>
+                    <span>{ocean?.primaryButtonText || ""}</span>
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
@@ -213,14 +213,14 @@ export default function AutomotiveShippingPage() {
                   >
                     <Plane className="h-5 w-5" />
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-300">{air?.eyebrow || "Air Shipping"}</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-slate-300">{air?.eyebrow || ""}</span>
                 </div>
                 
                 <h3 className="text-2xl sm:text-[28px] font-black text-white leading-tight mb-4">
-                  {air?.title || "Fast Delivery for Spare Parts"}
+                  {air?.title || ""}
                 </h3>
                 <p className="text-sm sm:text-[17px] font-medium leading-relaxed text-slate-300 mb-8 max-w-sm">
-                  {air?.body || "Express air cargo solutions for urgent automotive spare parts and time-sensitive shipments to destinations worldwide."}
+                  {air?.body || ""}
                 </p>
                 
                 <div className="space-y-3 mb-10 flex-grow">
@@ -240,7 +240,7 @@ export default function AutomotiveShippingPage() {
                 
                 <div className="mt-auto">
                   <button onClick={() => setInquiryModalOpen(true)} className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#F97316] px-6 text-sm font-extrabold text-white transition-all duration-200 hover:bg-[#EA580C] shadow-lg shadow-[#F97316]/30">
-                    <span>{air?.primaryButtonText || "Get a Shipping Quote"}</span>
+                    <span>{air?.primaryButtonText || ""}</span>
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
@@ -269,12 +269,12 @@ export default function AutomotiveShippingPage() {
             <div className="relative z-10 max-w-2xl mx-auto space-y-6">
               <RevealHeading>
                 <h2 className="text-[36px] font-black text-white md:text-[54px] tracking-tight">
-                  {cta?.title || "READY TO SHIP?"}
+                  {cta?.title || ""}
                 </h2>
               </RevealHeading>
               <RevealText delay={120}>
                 <p className="text-[17px] sm:text-[19px] font-medium text-slate-300 leading-relaxed">
-                  {cta?.body || "Tell us what you’re shipping, your destination, and your preferred shipping requirements. Our team will provide suitable shipping options, pricing, and export support."}
+                  {cta?.body || ""}
                 </p>
               </RevealText>
   
@@ -283,14 +283,14 @@ export default function AutomotiveShippingPage() {
                   onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#F97316] px-6 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:bg-[#EA580C] hover:scale-105 sm:h-14 sm:w-auto sm:px-8"
                 >
-                  <span>{cta?.primaryButtonText || "GET A SHIPPING QUOTE"}</span>
+                  <span>{cta?.primaryButtonText || ""}</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
                 <Link
                   href={cta?.secondaryButtonHref || "/contact"}
                   className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-[#ffffff10] px-6 text-[15px] font-bold text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/20 sm:h-14 sm:w-auto sm:px-8"
                 >
-                  <span>{cta?.secondaryButtonText || "CONTACT AGTP"}</span>
+                  <span>{cta?.secondaryButtonText || ""}</span>
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </RevealButton>

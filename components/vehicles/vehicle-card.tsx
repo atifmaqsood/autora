@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fuel, Gauge } from "lucide-react";
 import { Vehicle } from "@/lib/vehicles/types";
-import { agtpAssets } from "@/src/assets";
 
 interface VehicleCardProps {
   vehicle: Vehicle;
@@ -13,7 +12,7 @@ interface VehicleCardProps {
 export function VehicleCard({ vehicle }: VehicleCardProps) {
   const fullTitle = `(LHD) ${vehicle.make.toUpperCase()} ${vehicle.model.toUpperCase()} ${
     vehicle.variant ? vehicle.variant.toUpperCase() : ""
-  } MY${vehicle.year} - ${(vehicle.exteriorColor || "BLACK").toUpperCase()}`;
+  } MY${vehicle.year}${vehicle.exteriorColor ? ` - ${vehicle.exteriorColor.toUpperCase()}` : ""}`;
 
   const formattedMileage = vehicle.mileage === 0 || !vehicle.mileage ? "0 Miles" : `${vehicle.mileage.toLocaleString()} Miles`;
 
@@ -21,13 +20,15 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
     <article className="group overflow-hidden rounded-[22px] border border-[#24445F] bg-[#14314B] shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3D6480]">
       <Link href={`/vehicles/${vehicle.slug}`} className="block">
         <div className={`relative aspect-[1024/575] overflow-hidden ${vehicle.imageNote ? "bg-[var(--agtp-primary)]" : "bg-white"}`}>
-          <Image
-            src={vehicle.images[0] || agtpAssets.bmw760Card}
-            alt={`${vehicle.make} ${vehicle.model}`}
-            fill
-            className={`${vehicle.imageNote ? "object-contain p-14" : "object-cover"} transition-transform duration-500 group-hover:scale-[1.025]`}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          {vehicle.images[0] && (
+            <Image
+              src={vehicle.images[0]}
+              alt={`${vehicle.make} ${vehicle.model}`}
+              fill
+              className={`${vehicle.imageNote ? "object-contain p-14" : "object-cover"} transition-transform duration-500 group-hover:scale-[1.025]`}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          )}
           <span className="absolute right-4 top-5 rounded-full bg-[#242733]/95 px-5 py-2.5 text-[12px] font-black uppercase tracking-wider text-white shadow-xl">
             {vehicle.category === "Luxury" ? "Sedan" : vehicle.category}
           </span>

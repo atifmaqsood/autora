@@ -49,7 +49,6 @@ export default function DubaiAutomotivePage() {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [content, setContent] = useState<MarketingPageSection[]>([]);
   // Market images wait for the content so built-in ones never flash first.
-  const [contentLoaded, setContentLoaded] = useState(false);
   const [managedCategories, setManagedCategories] = useState<CatalogCategory[]>(
     [],
   );
@@ -61,10 +60,7 @@ export default function DubaiAutomotivePage() {
       .then((items: MarketingPageSection[]) => {
         if (active) setContent(items);
       })
-      .catch(() => undefined)
-      .finally(() => {
-        if (active) setContentLoaded(true);
-      });
+      .catch(() => undefined);
     return () => {
       active = false;
     };
@@ -87,20 +83,20 @@ export default function DubaiAutomotivePage() {
   const cta = sections.get("cta");
   const markets = marketCategories.map((market) => {
     const dynamic = sections.get(market.sectionKey);
-    if (!contentLoaded) return { ...market, image: null, buttonText: "Explore" };
-    return dynamic
-      ? {
-          ...market,
-          title: dynamic.title || market.title,
-          subtitle: dynamic.body || market.subtitle,
-          image:
-            dynamic.imageUrl && !dynamic.imageUrl.startsWith("builtin:")
-              ? dynamic.imageUrl
-              : market.image,
-          href: dynamic.primaryButtonHref || market.href,
-          buttonText: dynamic.primaryButtonText || "Explore",
-        }
-      : { ...market, buttonText: "Explore" };
+    // Only the admin content; blank until it loads. A "builtin:" image key
+    // maps to the bundled photo.
+    return {
+      ...market,
+      title: dynamic?.title ?? "",
+      subtitle: dynamic?.body ?? "",
+      image: !dynamic?.imageUrl
+        ? null
+        : dynamic.imageUrl.startsWith("builtin:")
+          ? market.image
+          : dynamic.imageUrl,
+      href: dynamic?.primaryButtonHref || market.href,
+      buttonText: dynamic?.primaryButtonText ?? "",
+    };
   });
   const image = (
     section: MarketingPageSection | undefined,
@@ -150,10 +146,10 @@ export default function DubaiAutomotivePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#102941] via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 bg-[#0B1F33]/90 border border-slate-700 backdrop-blur-md px-5 py-3 rounded-2xl space-y-0.5">
                   <span className="text-sm font-black text-white block tracking-wide">
-                    {intro?.primaryButtonText || "GLOBAL TRADE"}
+                    {intro?.primaryButtonText || ""}
                   </span>
                   <span className="text-[11px] text-slate-300 font-medium">
-                    {intro?.secondaryButtonText || "Worldwide Markets"}
+                    {intro?.secondaryButtonText || ""}
                   </span>
                 </div>
               </div>
@@ -165,14 +161,14 @@ export default function DubaiAutomotivePage() {
             <RevealEyebrow>
               <div className="flex items-center gap-2 text-xs font-bold text-[#FDBA74] uppercase tracking-widest">
                 <span className="w-6 h-[1.5px] bg-[#F97316]" />
-                {intro?.eyebrow || "DUBAI AUTOMOTIVE LANDSCAPE"}
+                {intro?.eyebrow || ""}
               </div>
             </RevealEyebrow>
 
             <RevealHeading>
               <div>
                 <h2 className="text-3xl sm:text-5xl font-black text-white leading-tight font-sans">
-                  {intro?.title || "Where Automotive Trade Meets"}
+                  {intro?.title || ""}
                 </h2>
               </div>
             </RevealHeading>
@@ -180,8 +176,7 @@ export default function DubaiAutomotivePage() {
             <RevealText delay={120}>
               <div className="space-y-4 text-sm sm:text-base text-slate-300 leading-relaxed">
                 {(
-                  intro?.body ||
-                  "Dubai is a global hub for automotive trade, bringing together vehicles, spare parts, engines, transmissions, tyres, rims, body kits, and accessories. Its strategic location makes it a key centre for automotive commerce between major international markets.\n\nFrom established showrooms and parts facilities to dedicated automotive trade areas, Dubai offers a diverse and highly connected automotive landscape. This ecosystem supports the movement of automotive products from the UAE to customers and markets around the world."
+                  intro?.body || ""
                 )
                   .split(/\n\s*\n/)
                   .map((paragraph) => (
@@ -229,9 +224,13 @@ export default function DubaiAutomotivePage() {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
             <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
-              <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
-                {markets[0].buttonText}
-              </span>
+              {markets[0].buttonText ? (
+                <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
+                  {markets[0].buttonText}
+                </span>
+              ) : (
+                <span />
+              )}
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1">
                 <ArrowRight className="h-4 w-4" />
               </span>
@@ -265,9 +264,13 @@ export default function DubaiAutomotivePage() {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
             <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
-              <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
-                {markets[1].buttonText}
-              </span>
+              {markets[1].buttonText ? (
+                <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
+                  {markets[1].buttonText}
+                </span>
+              ) : (
+                <span />
+              )}
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1">
                 <ArrowRight className="h-4 w-4" />
               </span>
@@ -301,9 +304,13 @@ export default function DubaiAutomotivePage() {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F33]/80 via-[#0B1F33]/20 to-transparent" />
             <div className="absolute inset-x-6 top-6 flex items-center justify-between z-10">
-              <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
-                {markets[2].buttonText}
-              </span>
+              {markets[2].buttonText ? (
+                <span className="rounded-full border border-white/20 bg-[#0B1F33]/70 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
+                  {markets[2].buttonText}
+                </span>
+              ) : (
+                <span />
+              )}
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#F97316]/45 bg-[#0B1F33]/80 text-[#FDBA74] transition-transform duration-300 group-hover:translate-x-1">
                 <ArrowRight className="h-4 w-4" />
               </span>
@@ -384,19 +391,18 @@ export default function DubaiAutomotivePage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.28em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  {cta?.eyebrow || "YOUR NEXT MOVE"}
+                  {cta?.eyebrow || ""}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
               <RevealHeading>
                 <h2 className="text-[36px] font-black text-white md:text-[54px] tracking-tight">
-                  {cta?.title || "READY TO TRADE FROM DUBAI?"}
+                  {cta?.title || ""}
                 </h2>
               </RevealHeading>
               <RevealText delay={120}>
                 <p className="text-[17px] sm:text-[19px] font-medium text-slate-300 leading-relaxed">
-                  {cta?.body ||
-                    "Tell us what automotive products you need and your destination. We’ll guide you through availability, pricing, export, and shipping."}
+                  {cta?.body || ""}
                 </p>
               </RevealText>
 
@@ -408,7 +414,7 @@ export default function DubaiAutomotivePage() {
                   onClick={() => setInquiryModalOpen(true)}
                   className="inline-flex h-[52px] w-full max-w-[320px] items-center justify-center gap-2 rounded-full bg-[#F97316] px-6 text-[15px] font-extrabold text-white shadow-lg shadow-[#F97316]/30 transition-all duration-200 hover:scale-105 hover:bg-[#EA580C] sm:h-14 sm:w-auto sm:px-8"
                 >
-                  <span>{cta?.primaryButtonText || "GET STARTED"}</span>
+                  <span>{cta?.primaryButtonText || ""}</span>
                   <ArrowRight className="h-5 w-5" />
                 </button>
               </RevealButton>

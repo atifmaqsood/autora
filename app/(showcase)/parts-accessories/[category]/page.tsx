@@ -3,7 +3,7 @@
 import { use, useEffect, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ChevronRight, Loader2, Package } from "lucide-react";
+import { ArrowRight, ChevronRight, Loader2 } from "lucide-react";
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { BrochureViewer } from "@/components/parts/brochure-viewer";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/scroll-reveal";
 import { getPartsCategoryBySlug, type PartsCategory } from "@/lib/parts/data";
 import type { CatalogCategory } from "@/lib/product-catalog/types";
+import { managedPartsCategory } from "@/lib/product-catalog/merge";
+import type { PartsPageSection } from "@/lib/parts-page/types";
 
 export default function CategoryProductPage({
   params,
@@ -24,37 +26,42 @@ export default function CategoryProductPage({
   params: Promise<{ category: string }>;
 }) {
   const { category: slug } = use(params);
-  const fallback = getPartsCategoryBySlug(slug);
+  const fixed = getPartsCategoryBySlug(slug);
   const [managed, setManaged] = useState<CatalogCategory | null>(null);
+  const [section, setSection] = useState<PartsPageSection | null>(null);
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
-    void fetch("/api/product-catalog/parts", { cache: "no-store" })
-      .then(async (response) =>
-        response.ok ? ((await response.json()) as CatalogCategory[]) : [],
-      )
-      .then((items) =>
-        setManaged(items.find((item) => item.slug === slug) ?? null),
-      )
-      .finally(() => setLoaded(true));
-  }, [slug]);
-  const category: PartsCategory | undefined = managed
-    ? {
-        id: managed.id,
-        slug: managed.slug,
-        title: managed.title,
-        subtitle: managed.subtitle,
-        image: managed.imageUrl,
-        gallery: [
-          managed.imageUrl,
-          ...managed.products.flatMap((product) => product.images),
-        ],
-        icon: Package,
-        products: managed.products.flatMap((product) =>
-          product.features.length ? product.features : [product.title],
-        ),
-      }
-    : fallback;
-  if (!category && !loaded)
+    const list = async <T,>(url: string): Promise<T[]> => {
+      const response = await fetch(url, { cache: "no-store" });
+      return response.ok ? ((await response.json()) as T[]) : [];
+    };
+    const key = `category-${fixed?.slug ?? slug}`;
+    void Promise.all([
+      list<CatalogCategory>("/api/product-catalog/parts")
+        .then((items) =>
+          setManaged(items.find((item) => item.slug === fixed?.slug) ?? null),
+        )
+        .catch(() => undefined),
+      list<PartsPageSection>("/api/parts/sections")
+        .then((items) =>
+          setSection(items.find((item) => item.sectionKey === key) ?? null),
+        )
+        .catch(() => undefined),
+    ]).finally(() => setLoaded(true));
+  }, [slug, fixed?.slug]);
+  // The categories are fixed; their text, image and products come only from
+  // the admin panel.
+  const category: PartsCategory | undefined =
+    fixed &&
+    managedPartsCategory(
+      fixed,
+      section ?? undefined,
+      managed ?? undefined,
+      (product) =>
+        product.features.length ? product.features : [product.title],
+    );
+  // Wait for the admin data; nothing built-in is shown meanwhile.
+  if (!loaded)
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#060709] text-white">
         <Loader2 className="h-7 w-7 animate-spin" />
@@ -69,7 +76,7 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
     "features",
   );
   const Icon = category.icon;
-  const images = category.gallery?.length ? category.gallery : [category.image];
+  const images = category.gallery ?? [];
 
   function handleTabKey(event: KeyboardEvent<HTMLButtonElement>) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
@@ -205,7 +212,7 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
               className="border-b border-white/15 py-7 text-sm leading-7 text-slate-300"
             >
               <RevealText className="space-y-4">
-                <p>{category.subtitle}.</p>
+                {category.subtitle && <p>{category.subtitle}.</p>}
                 <p>
                   AGTP Group supplies {category.title.toLowerCase()} from the UAE
                   for customers worldwide. Send us your part numbers, vehicle

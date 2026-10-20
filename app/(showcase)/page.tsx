@@ -31,7 +31,7 @@ import type { HomeIndustryCard } from "@/lib/home-industries/types";
 import type { HomePageContentItem } from "@/lib/home-page-content/types";
 import type { Review } from "@/lib/reviews/types";
 import { supplierImageSrc, type HomeSupplier } from "@/lib/home/suppliers";
-import { homepageVehicles, mergeVehicles } from "@/lib/home/vehicles";
+import { homepageVehicles } from "@/lib/home/vehicles";
 import {
   Reveal,
   RevealButton,
@@ -319,7 +319,7 @@ function VehicleShowcaseSection() {
         .then((response) => (response.ok ? (response.json() as Promise<{ slugs: string[] }>) : { slugs: [] }))
         .catch(() => ({ slugs: [] as string[] })),
     ]).then(([managed, home]) => {
-      if (active) setVehicles(homepageVehicles(mergeVehicles(managed), home.slugs));
+      if (active) setVehicles(homepageVehicles(managed, home.slugs));
     });
     return () => {
       active = false;
@@ -573,19 +573,17 @@ function GlobalNetworkSection() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
             <SectionEyebrow>
-              {header?.label || "OUR GLOBAL NETWORK"}
+              {header?.label || ""}
             </SectionEyebrow>
             <RevealHeading>
               <h2 className="mt-5 max-w-[780px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
-                {header?.title ||
-                  "Dubai Supply. Global Markets. One Connection."}
+                {header?.title || ""}
               </h2>
             </RevealHeading>
           </div>
           <RevealText>
             <p className="max-w-[650px] text-[14px] font-medium leading-[1.6] text-slate-300">
-              {header?.subtitle ||
-                "From Dubai, we deliver reliable products to buyers across key African markets."}
+              {header?.subtitle || ""}
             </p>
           </RevealText>
         </div>
@@ -596,7 +594,7 @@ function GlobalNetworkSection() {
               {hub?.imageUrl && (
                 <Image
                   src={hub.imageUrl}
-                  alt={hub?.title || "Dubai, UAE Landmark"}
+                  alt={hub?.title || ""}
                   fill
                   className="object-cover opacity-100 transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 40vw"
@@ -616,14 +614,13 @@ function GlobalNetworkSection() {
               </div>
               <div className="relative z-10 mt-auto">
                 <p className="text-[12px] font-black uppercase tracking-[0.22em] text-[var(--agtp-secondary)]">
-                  {hub?.label || "Export Hub"}
+                  {hub?.label || ""}
                 </p>
                 <h3 className="mt-3 text-[38px] font-black leading-none text-white md:text-[48px]">
-                  {hub?.title || "Dubai, UAE"}
+                  {hub?.title || ""}
                 </h3>
                 <p className="mt-5 max-w-[390px] text-[17px] font-medium leading-[1.7] text-slate-200">
-                  {hub?.subtitle ||
-                    "Supplying vehicles and automotive spare parts with export coordination and worldwide delivery."}
+                  {hub?.subtitle || ""}
                 </p>
               </div>
             </div>

@@ -1,13 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Globe2, ShieldCheck } from "lucide-react";
-import { ParallaxImage } from "@/components/ui/parallax-image";
 import { Reveal, RevealEyebrow, RevealHeading, RevealStagger, RevealText } from "@/components/ui/scroll-reveal";
 import { businessSolutions } from "@/lib/agtp/content";
-import { agtpAssets } from "@/src/assets";
 import { VehicleInquiryModal } from "@/components/vehicles/vehicle-inquiry-modal";
 import { BannerSlides, usePageBanners } from "@/components/layout/dynamic-page-banner";
 
@@ -15,7 +12,7 @@ type BusinessSolution = (typeof businessSolutions)[number];
 
 export function BusinessSolutionDetail({ solution }: { solution: BusinessSolution }) {
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
-  const { banners, loaded } = usePageBanners();
+  const { banners } = usePageBanners();
   const otherSolutions = businessSolutions.filter((s) => s.slug !== solution.slug);
 
   return (
@@ -26,14 +23,6 @@ export function BusinessSolutionDetail({ solution }: { solution: BusinessSolutio
           <div className="absolute inset-0 opacity-55">
             <BannerSlides banners={banners} />
           </div>
-        ) : loaded ? (
-          <ParallaxImage
-            src={agtpAssets.exportPort}
-            alt={solution.title}
-            overlayOpacity="opacity-55"
-            speed={0.25}
-            className="absolute inset-0 w-full h-full"
-          />
         ) : null}
         <div className="absolute inset-0 bg-gradient-to-r from-[#081A2B]/95 via-[#081A2B]/75 to-transparent z-10" />
 

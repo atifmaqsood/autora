@@ -1,132 +1,26 @@
 "use client";
 
 import { useState, type KeyboardEvent } from "react";
-import {
-  Camera,
-  Cog,
-  Gauge,
-  Monitor,
-  Music2,
-  Navigation,
-  ShieldCheck,
-  Smartphone,
-  Tag,
-  Tv,
-  type LucideIcon,
-} from "lucide-react";
 import { RevealButton, RevealText } from "@/components/ui/scroll-reveal";
+import { vehicleFeatures } from "@/lib/vehicles/features";
 import type { Vehicle } from "@/lib/vehicles/types";
 
-const featureTitles: { pattern: RegExp; title: string; icon: LucideIcon }[] = [
-  { pattern: /multi.terrain/i, title: "Terrain Modes", icon: Gauge },
-  { pattern: /crawl.control/i, title: "Off-Road Control", icon: Gauge },
-  {
-    pattern: /360.degree|panoramic.view|surround.view/i,
-    title: "Surround View",
-    icon: Camera,
-  },
-  { pattern: /head.up.display/i, title: "Head-Up Display", icon: Monitor },
-  {
-    pattern: /rear.*entertainment|rear.*\btv\b|rear.*dvd/i,
-    title: "Rear Entertainment",
-    icon: Tv,
-  },
-  {
-    pattern: /carplay|android.auto|bluetooth|usb|wireless.charging/i,
-    title: "Connectivity",
-    icon: Smartphone,
-  },
-  {
-    pattern:
-      /safety.sense|airbag|blind.spot|lane.keep|cruise|parking.assist|parking.sensor|traction.control/i,
-    title: "Safety Systems",
-    icon: ShieldCheck,
-  },
-  { pattern: /navigation/i, title: "Navigation", icon: Navigation },
-  {
-    pattern: /speaker|audio|sound.system|jbl|burmester|bowers|akg|naim/i,
-    title: "Audio System",
-    icon: Music2,
-  },
-  {
-    pattern: /suspension|shocks|ride.control/i,
-    title: "Suspension",
-    icon: Cog,
-  },
-  {
-    pattern: /camera|monitor|clearsight/i,
-    title: "Cameras & Visibility",
-    icon: Camera,
-  },
-  {
-    pattern: /touchscreen|display|screen|digital/i,
-    title: "Display",
-    icon: Monitor,
-  },
-  {
-    pattern: /terrain|track|rally|drift|wading|driving.mode/i,
-    title: "Driving Modes",
-    icon: Gauge,
-  },
-  {
-    pattern: /engine|motor|powertrain|horsepower|turbo|\bhp\b|\bv8\b|\bv12\b/i,
-    title: "Powertrain",
-    icon: Gauge,
-  },
-  { pattern: /brak/i, title: "Braking", icon: Cog },
-  {
-    pattern: /seat|upholstery|bucket|chair|massage/i,
-    title: "Seating",
-    icon: Tag,
-  },
-  { pattern: /wheel|tire|tyre/i, title: "Wheels & Tyres", icon: Cog },
-  { pattern: /light|led|lamp/i, title: "Lighting", icon: Tag },
-  {
-    pattern: /roof|hood|carbon|paint|stripe|spoiler|grille|fascia|bumper/i,
-    title: "Exterior Design",
-    icon: Tag,
-  },
-  {
-    pattern: /air.condition|climate|cool.box|headliner|heating|refrigerat/i,
-    title: "Cabin Comfort",
-    icon: Tag,
-  },
-  {
-    pattern: /keyless|push.button|power.window|door|trunk|mirror/i,
-    title: "Convenience",
-    icon: Tag,
-  },
-  {
-    pattern: /assist|sensor|safety/i,
-    title: "Driver Assistance",
-    icon: ShieldCheck,
-  },
-];
-
-function featureTitle(feature: string) {
-  return (
-    featureTitles.find(({ pattern }) => pattern.test(feature)) ?? {
-      title: feature.split(/\s+/).slice(0, 2).join(" "),
-      icon: Tag,
-    }
-  );
-}
+const tabs = ["features", "description"] as const;
+type Tab = (typeof tabs)[number];
 
 export function VehicleDetailInfo({ vehicle }: { vehicle: Vehicle }) {
-  const [activeTab, setActiveTab] = useState<
-    "features" | "description" | "specifications"
-  >("features");
+  const [activeTab, setActiveTab] = useState<Tab>("features");
+  const features = vehicleFeatures(vehicle);
 
   function handleTabKey(event: KeyboardEvent<HTMLButtonElement>) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
-    const tabs = ["features", "description", "specifications"] as const;
     const current = tabs.indexOf(activeTab);
     const next =
       event.key === "Home"
         ? tabs[0]
         : event.key === "End"
-          ? tabs[2]
+          ? tabs[tabs.length - 1]
           : event.key === "ArrowRight"
             ? tabs[(current + 1) % tabs.length]
             : tabs[(current - 1 + tabs.length) % tabs.length];
@@ -145,7 +39,7 @@ export function VehicleDetailInfo({ vehicle }: { vehicle: Vehicle }) {
           aria-label="Vehicle information"
           className="flex flex-wrap gap-3 border-b border-white/15 pb-5"
         >
-          {(["features", "description", "specifications"] as const).map((tab) => (
+          {tabs.map((tab) => (
             <button
               key={tab}
               type="button"
@@ -173,24 +67,21 @@ export function VehicleDetailInfo({ vehicle }: { vehicle: Vehicle }) {
       >
         <RevealText>
           <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-            {vehicle.features.map((feature) => {
-              const { title, icon: Icon } = featureTitle(feature);
-              return (
-                <div
-                  key={feature}
-                  className="flex min-w-0 items-start gap-3 text-sm sm:text-base"
-                >
-                  <Icon
-                    aria-hidden="true"
-                    className="mt-0.5 h-5 w-5 shrink-0 text-[var(--agtp-secondary)]"
-                  />
-                  <dt className="max-w-[38%] shrink-0 text-slate-400">{title}</dt>
-                  <dd className="ml-auto min-w-0 break-words text-right font-bold text-white">
-                    {feature}
-                  </dd>
-                </div>
-              );
-            })}
+            {features.map(({ key, label, value, icon: Icon }) => (
+              <div
+                key={key}
+                className="flex min-w-0 items-start gap-3 text-sm sm:text-base"
+              >
+                <Icon
+                  aria-hidden="true"
+                  className="mt-0.5 h-5 w-5 shrink-0 text-[var(--agtp-secondary)]"
+                />
+                <dt className="max-w-[45%] shrink-0 text-slate-400">{label}</dt>
+                <dd className="ml-auto min-w-0 break-words text-right font-bold text-white">
+                  {value}
+                </dd>
+              </div>
+            ))}
           </dl>
         </RevealText>
       </div>
@@ -211,69 +102,6 @@ export function VehicleDetailInfo({ vehicle }: { vehicle: Vehicle }) {
               {section.title}
             </h2>
             <p>{section.body}</p>
-          </RevealText>
-        ))}
-      </div>
-      <div
-        role="tabpanel"
-        id="vehicle-panel-specifications"
-        aria-labelledby="vehicle-tab-specifications"
-        hidden={activeTab !== "specifications"}
-        tabIndex={0}
-        className="space-y-8 border-b border-white/15 py-7"
-      >
-        <RevealText>
-          <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["Engine", vehicle.engine],
-              [
-                "Power",
-                vehicle.horsepower ? `${vehicle.horsepower} HP` : "On Request",
-              ],
-              ["Transmission", vehicle.transmission],
-              ["Fuel Type", vehicle.fuelType],
-              ["Drive System", vehicle.driveType],
-              [
-                "Seating",
-                vehicle.seatingCapacity
-                  ? `${vehicle.seatingCapacity} passengers`
-                  : "On Request",
-              ],
-              ["Exterior", vehicle.exteriorColor],
-              ["Interior", vehicle.interiorColor],
-            ].map(([label, value]) => (
-              <div
-                key={label}
-                className="rounded-xl border border-white/10 bg-black/15 p-4"
-              >
-                <dt className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                  {label}
-                </dt>
-                <dd className="mt-1 text-sm font-bold text-white">
-                  {value || "On Request"}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </RevealText>
-        {vehicle.specifications.map((group) => (
-          <RevealText key={group.groupName}>
-            <section>
-              <h3 className="mb-4 text-sm font-black uppercase tracking-wider text-white">
-                {group.groupName}
-              </h3>
-              <dl className="grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-                {Object.entries(group.items).map(([label, value]) => (
-                  <div
-                    key={label}
-                    className="flex justify-between gap-4 border-b border-white/10 pb-3 text-sm"
-                  >
-                    <dt className="text-slate-400">{label}</dt>
-                    <dd className="text-right font-bold text-white">{value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
           </RevealText>
         ))}
       </div>

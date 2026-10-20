@@ -33,14 +33,16 @@ export function PartsGallery({ images, title, contain = false }: { images: (stri
   return (
     <div aria-label={`${title} gallery`}>
       <div className="relative aspect-video overflow-hidden rounded-xl bg-[#0B1F33]">
-        <Image
-          src={images[selected] ?? images[0]}
-          alt={`${title} — image ${selected + 1}`}
-          fill
-          priority
-          sizes="(max-width: 1280px) 100vw, 1216px"
-          className={contain ? "object-contain p-16 sm:p-28" : "object-cover"}
-        />
+        {images.length > 0 && (
+          <Image
+            src={images[selected] ?? images[0]}
+            alt={`${title} — image ${selected + 1}`}
+            fill
+            priority
+            sizes="(max-width: 1280px) 100vw, 1216px"
+            className={contain ? "object-contain p-16 sm:p-28" : "object-cover"}
+          />
+        )}
         {images.length > 1 && (
           <>
             <button type="button" aria-label="Previous image" onClick={() => setSelected((selected + images.length - 1) % images.length)} className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/50 text-white hover:bg-black/80">

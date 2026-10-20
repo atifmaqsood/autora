@@ -311,21 +311,20 @@ export default function BlogsPage() {
               <RevealEyebrow>
                 <div className="inline-flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.35em] text-[#FDBA74]">
                   <span className="h-px w-8 bg-[#F97316]" />
-                  {newsletter?.eyebrow ?? "STAY UPDATED"}
+                  {newsletter?.eyebrow ?? ""}
                   <span className="h-px w-8 bg-[#F97316]" />
                 </div>
               </RevealEyebrow>
 
               <RevealHeading>
                 <h2 className="mx-auto mt-4 max-w-4xl text-[34px] font-black uppercase leading-tight tracking-tight text-white sm:text-[46px] md:text-[56px] lg:text-[62px] drop-shadow-md">
-                  {newsletter?.title ?? "GET THE LATEST AUTOMOTIVE INSIGHTS"}
+                  {newsletter?.title ?? ""}
                 </h2>
               </RevealHeading>
 
               <RevealText delay={120}>
                 <p className="mx-auto mt-6 max-w-2xl text-[16px] font-semibold leading-relaxed text-slate-100 sm:text-[18px] drop-shadow">
-                  {newsletter?.body ??
-                    "Get useful updates on vehicles, spare parts, automotive trends, and export information from AGTP Group."}
+                  {newsletter?.body ?? ""}
                 </p>
               </RevealText>
 
@@ -356,7 +355,7 @@ export default function BlogsPage() {
                       className="h-[56px] w-full sm:w-auto shrink-0 rounded-full bg-[#F97316] px-10 text-[16px] font-black text-white transition-all duration-300 hover:bg-[#EA580C] shadow-xl hover:scale-105 flex items-center justify-center gap-2"
                     >
                       <span>
-                        {newsletter?.primaryButtonText ?? "Subscribe"}
+                        {newsletter?.primaryButtonText ?? ""}
                       </span>
                       <Send className="h-4 w-4" />
                     </button>

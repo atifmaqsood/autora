@@ -25,7 +25,6 @@ export const bannerPages: BannerPageDefinition[] = [
   { key: "/refund-policy", label: "Refund Policy", group: "Footer" },
   { key: "/privacy-policy", label: "Privacy Policy", group: "Footer" },
   { key: "/terms-and-conditions", label: "Terms & Conditions", group: "Footer" },
-  { key: "/business-solutions", label: "Business Solutions", group: "Other pages" },
   { key: "/brands", label: "Brands", group: "Other pages" }
 ];
 
