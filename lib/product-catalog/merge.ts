@@ -4,15 +4,10 @@ import type { PartsCategory } from "@/lib/parts/data";
 import type { PartsPageSection } from "@/lib/parts-page/types";
 import type { CatalogCategory, CatalogItem } from "@/lib/product-catalog/types";
 
-/** True for an image the admin uploaded (not a seeded "builtin:" key). */
-export function isUploadedImage(url: string | undefined): url is string {
-  return Boolean(url) && !url!.startsWith("builtin:");
-}
-
 /**
  * A fixed parts category built only from admin data: its card text and image
- * from the parts page section, an uploaded catalogue cover if there is one,
- * and its catalogue products. Nothing comes from the built-in demo data except
+ * from the parts page section (the image the admin edits; a category's old
+ * catalogue cover is ignored) and its catalogue products. Nothing comes from the built-in demo data except
  * the bundled photo a "builtin:" image key stands for. Empty until loaded.
  */
 export function managedPartsCategory(
@@ -21,13 +16,11 @@ export function managedPartsCategory(
   managed: CatalogCategory | undefined,
   productNames: (product: CatalogItem) => string[],
 ): PartsCategory {
-  const sectionImage = !section?.imageUrl
+  const image = !section?.imageUrl
     ? ""
     : section.imageUrl.startsWith("builtin:")
       ? card.image
       : section.imageUrl;
-  const cover = managed?.imageUrl;
-  const image = isUploadedImage(cover) ? cover : sectionImage;
   const products = managed?.products ?? [];
   return {
     ...card,
@@ -47,22 +40,19 @@ export function managedPartsCategory(
 
 /**
  * A fixed Dubai Automotive category built only from admin data: the title,
- * text and image of its card on the Dubai Automotive page, an uploaded
- * catalogue cover if there is one, and its catalogue products (no demo ones).
+ * text and image of its card on the Dubai Automotive page (a category's old
+ * catalogue cover is ignored) and its catalogue products (no demo ones).
  */
 export function managedDubaiCategory(
   fixed: DubaiAutomotiveCategory,
   section: MarketingPageSection | undefined,
   managed: CatalogCategory | undefined,
 ) {
-  const cover = managed?.imageUrl;
-  const image = isUploadedImage(cover)
-    ? cover
-    : !section?.imageUrl
-      ? ""
-      : section.imageUrl.startsWith("builtin:")
-        ? fixed.image
-        : section.imageUrl;
+  const image = !section?.imageUrl
+    ? ""
+    : section.imageUrl.startsWith("builtin:")
+      ? fixed.image
+      : section.imageUrl;
   return {
     slug: fixed.slug,
     icon: fixed.icon,
