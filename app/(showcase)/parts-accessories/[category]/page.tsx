@@ -224,12 +224,11 @@ function CategoryDetail({ category }: { category: PartsCategory }) {
             </div>
           </section>
         </Reveal>
-        <Reveal className="pt-8">
-          <BrochureViewer
-            url={category.brochureUrl ?? `/api/parts/${category.slug}/brochure`}
-            title={category.title}
-          />
-        </Reveal>
+        {category.brochureUrl && (
+          <Reveal className="pt-8">
+            <BrochureViewer url={category.brochureUrl} title={category.title} />
+          </Reveal>
+        )}
         <Reveal className="pt-8">
           <PartsQuoteForm category={category.title} slug={category.slug} />
         </Reveal>

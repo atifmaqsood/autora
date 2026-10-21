@@ -39,6 +39,9 @@ export function managedPartsCategory(
       ...products.flatMap((product) => product.images),
     ],
     products: products.flatMap(productNames),
+    // Only an uploaded brochure; no generated one.
+    brochureUrl:
+      products.find((product) => product.brochureUrl)?.brochureUrl ?? undefined,
   };
 }
 

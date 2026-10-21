@@ -782,6 +782,16 @@ html.translated-rtl body {
 .rich-text strong {
   font-weight: 800;
 }
+.rich-text img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em auto;
+  border-radius: 12px;
+}
+.rich-text img.ProseMirror-selectednode {
+  outline: 3px solid var(--agtp-secondary, #f97316);
+}
 .rich-text hr {
   border: 0;
   border-top: 1px solid currentColor;

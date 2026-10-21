@@ -49,6 +49,10 @@ export function CatalogManager({
   const [productDraft, setProductDraft] = useState(productBlank);
   const [details, setDetails] = useState<DubaiDetails>(detailsBlank);
   const [productImages, setProductImages] = useState<File[]>([]);
+  // Parts products can carry a PDF brochure.
+  const [brochure, setBrochure] = useState<File | null>(null);
+  const [currentBrochure, setCurrentBrochure] = useState<string | null>(null);
+  const [removeBrochure, setRemoveBrochure] = useState(false);
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -70,8 +74,13 @@ export function CatalogManager({
       setActiveCategory((current) =>
         items.some((item) => item.id === current) ? current : (items[0]?.id ?? ""),
       );
+      // New parts products default to the first category without one.
+      const open =
+        type === "parts"
+          ? (items.find((item) => item.products.length === 0) ?? items[0])
+          : items[0];
       setProductDraft((current) =>
-        current.categoryId ? current : { ...current, categoryId: items[0]?.id ?? "" },
+        current.categoryId ? current : { ...current, categoryId: open?.id ?? "" },
       );
     } catch (cause) {
       setError(
@@ -97,6 +106,9 @@ export function CatalogManager({
     setProductDraft({ ...productBlank, categoryId: activeCategory });
     setDetails(detailsBlank);
     setProductImages([]);
+    setBrochure(null);
+    setCurrentBrochure(null);
+    setRemoveBrochure(false);
   }
   function editProduct(product: CatalogItem) {
     setEditingProduct(product.id);
@@ -112,11 +124,20 @@ export function CatalogManager({
     });
     setDetails(dubaiDetailsFrom(product.attributes));
     setProductImages([]);
+    setBrochure(null);
+    setCurrentBrochure(product.brochureUrl);
+    setRemoveBrochure(false);
   }
   async function saveProduct(event: FormEvent) {
     event.preventDefault();
     if (!categories.some((category) => category.id === productDraft.categoryId)) {
       setError("Select a category first.");
+      return;
+    }
+    if (type === "parts" && !editingProduct && isFull(productDraft.categoryId)) {
+      setError(
+        "This category already has a product. Edit or delete it instead.",
+      );
       return;
     }
     if (!editingProduct && !productImages.length) {
@@ -137,6 +158,10 @@ export function CatalogManager({
       data.set("attributes", "");
     }
     productImages.forEach((file) => data.append("images", file));
+    if (type === "parts") {
+      if (brochure) data.set("brochure", brochure);
+      else if (editingProduct && removeBrochure) data.set("removeBrochure", "true");
+    }
     try {
       const response = await adminFetch(
         editingProduct
@@ -193,6 +218,13 @@ export function CatalogManager({
   const textarea =
     "mt-1.5 w-full rounded-md border border-slate-200 p-3 text-sm text-slate-950";
   const selected = categories.find((category) => category.id === activeCategory);
+  // Parts categories hold one product each.
+  const isFull = (categoryId: string) =>
+    type === "parts" &&
+    (categories.find((category) => category.id === categoryId)?.products
+      .length ?? 0) > 0;
+  const addBlocked =
+    type === "parts" && !editingProduct && isFull(productDraft.categoryId);
   return (
     <section className="space-y-6 border-t border-slate-200 pt-8">
       <header>
@@ -248,8 +280,19 @@ export function CatalogManager({
               className="mt-1.5 h-11 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-950"
             >
               {categories.map((category) => (
-                <option key={category.id} value={category.id}>
+                <option
+                  key={category.id}
+                  value={category.id}
+                  // A full parts category can't take another product (the
+                  // product being edited may stay where it is).
+                  disabled={
+                    isFull(category.id) &&
+                    !(editingProduct && category.id === productDraft.categoryId &&
+                      category.products.some((product) => product.id === editingProduct))
+                  }
+                >
                   {category.title}
+                  {type === "parts" && isFull(category.id) ? " (has a product)" : ""}
                 </option>
               ))}
             </select>
@@ -326,6 +369,39 @@ export function CatalogManager({
               className={control}
             />
           </div>
+          {type === "parts" && (
+            <div>
+              <Label>
+                Brochure (PDF){currentBrochure ? " — replaces current" : ""}
+              </Label>
+              <Input
+                type="file"
+                accept="application/pdf"
+                onChange={(e) => setBrochure(e.target.files?.[0] ?? null)}
+                className={control}
+              />
+              {currentBrochure && !brochure && (
+                <div className="mt-1.5 flex flex-wrap items-center gap-3 text-xs">
+                  <a
+                    href={currentBrochure}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-semibold text-blue-700 underline"
+                  >
+                    View current brochure
+                  </a>
+                  <label className="flex items-center gap-1.5 text-slate-600">
+                    <input
+                      type="checkbox"
+                      checked={removeBrochure}
+                      onChange={(e) => setRemoveBrochure(e.target.checked)}
+                    />
+                    Remove brochure
+                  </label>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div>
           <Label>Description</Label>
@@ -398,7 +474,13 @@ export function CatalogManager({
           />
           Visible on website
         </label>
-        <Button disabled={saving} className="gap-2 bg-slate-950">
+        {addBlocked && (
+          <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-800">
+            This category already has a product. Each parts category can have
+            only one product, so edit or delete the existing one below.
+          </p>
+        )}
+        <Button disabled={saving || addBlocked} className="gap-2 bg-slate-950">
           {saving ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : (

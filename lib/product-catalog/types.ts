@@ -8,6 +8,8 @@ export interface CatalogItem {
   attributes: string[];
   priceLabel: string;
   images: string[];
+  /** Uploaded PDF brochure (parts products), or null. */
+  brochureUrl: string | null;
   isActive: boolean;
   sortOrder: number;
 }

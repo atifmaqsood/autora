@@ -30,7 +30,6 @@ import type { Vehicle } from "@/lib/vehicles/types";
 import type { HomeIndustryCard } from "@/lib/home-industries/types";
 import type { HomePageContentItem } from "@/lib/home-page-content/types";
 import type { Review } from "@/lib/reviews/types";
-import { supplierImageSrc, type HomeSupplier } from "@/lib/home/suppliers";
 import { homepageVehicles } from "@/lib/home/vehicles";
 import {
   Reveal,
@@ -217,7 +216,6 @@ export default function HomePage() {
 
       <HeroStatsSection />
 
-      <DubaiMarketsSection />
 
       <PromiseRevealSection />
 
@@ -668,94 +666,6 @@ function GlobalNetworkSection() {
           </RevealStagger>
         </div>
       </div>
-    </section>
-  );
-}
-
-function DubaiMarketsSection() {
-  const [suppliers, setSuppliers] = useState<HomeSupplier[] | null>(null);
-
-  useEffect(() => {
-    let active = true;
-    fetch("/api/home-suppliers", { cache: "no-store" })
-      .then((response) => (response.ok ? (response.json() as Promise<HomeSupplier[]>) : null))
-      .then((items) => {
-        if (active) setSuppliers(Array.isArray(items) ? items : []);
-      })
-      .catch(() => {
-        if (active) setSuppliers([]);
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  return (
-    <section
-      id="dubai-markets"
-      className="mx-auto max-w-[1570px] scroll-mt-32 px-8 sm:px-12 lg:px-16 xl:px-20 pt-[82px] pb-[82px]"
-    >
-      <div className="text-center">
-        <SectionEyebrow center>DUBAI MARKETS</SectionEyebrow>
-        <RevealHeading>
-          <h2 className="mx-auto mt-5 max-w-[760px] text-[28px] font-black leading-[1.1] tracking-normal md:text-[42px]">
-            Automotive Suppliers
-          </h2>
-        </RevealHeading>
-        <RevealButton>
-          <Link
-            href="/brands"
-            style={{ borderColor: "var(--agtp-secondary)" }}
-            className="mt-7 inline-flex h-[48px] items-center rounded-full border px-7 text-[14px] font-black text-white transition-colors hover:bg-[var(--agtp-secondary)]"
-          >
-            View More
-          </Link>
-        </RevealButton>
-      </div>
-
-      <RevealStagger
-        staggerDelay={80}
-        className="mt-[48px] grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"
-      >
-        {(suppliers ?? []).map((supplier) => (
-          <div
-            key={supplier.id}
-            className="overflow-hidden rounded-[16px] border border-[#315671] bg-[#14314B] shadow-lg"
-          >
-            <div className="relative h-[220px] bg-[#0B1F33]">
-              <Image
-                src={supplierImageSrc(supplier.imageUrl)}
-                alt={supplier.title}
-                fill
-                className="object-cover opacity-100"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-              <div className="absolute right-4 top-4 rounded-full bg-[#0B1F33]/80 px-3.5 py-2 text-[11px] font-black text-white">
-                {supplier.tag}
-              </div>
-            </div>
-            <div className="p-6">
-              <h3 className="text-[17px] font-black leading-tight text-white">
-                {supplier.title}
-              </h3>
-              <div className="mt-5 flex flex-wrap gap-4 text-[13px] font-semibold text-slate-300">
-                <span>{supplier.experience}</span>
-                <span>{supplier.countries}</span>
-              </div>
-              <Link
-                href={supplier.linkUrl || "/brands"}
-                style={{
-                  borderColor:
-                    "color-mix(in srgb, var(--agtp-secondary) 50%, transparent)",
-                }}
-                className="mt-6 flex h-[46px] items-center justify-center rounded-full border text-[13px] font-black text-white transition-colors hover:bg-[var(--agtp-secondary)] hover:border-[var(--agtp-secondary)]"
-              >
-                View Supplier Profile
-              </Link>
-            </div>
-          </div>
-        ))}
-      </RevealStagger>
     </section>
   );
 }

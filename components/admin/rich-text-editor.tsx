@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EditorContent, useEditor, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
 import {
   Bold,
   Heading2,
   Heading3,
+  ImagePlus,
   Italic,
+  Loader2,
   Link2,
   List,
   ListOrdered,
@@ -23,6 +26,33 @@ import {
 } from "lucide-react";
 
 import { toRichTextHtml } from "@/lib/rich-text";
+import { adminFetch } from "@/lib/admin/admin-fetch";
+
+const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
+/** Uploads an image for the article body and returns its public URL. */
+async function uploadImage(file: File): Promise<string> {
+  const data = new FormData();
+  data.set("image", file);
+  const response = await adminFetch("/api/admin/blogs/content-images", {
+    method: "POST",
+    body: data
+  });
+  const body = (await response.json().catch(() => ({}))) as {
+    url?: string;
+    message?: string | string[];
+  };
+  if (!response.ok || !body.url) {
+    const message = Array.isArray(body.message) ? body.message[0] : body.message;
+    throw new Error(message ?? "Unable to upload the image.");
+  }
+  return body.url;
+}
+
+/** Image files in a paste or drop (screenshots, files copied from disk). */
+function imageFiles(list: FileList | null | undefined): File[] {
+  return Array.from(list ?? []).filter((file) => IMAGE_TYPES.includes(file.type));
+}
 
 interface ToolbarButton {
   label: string;
@@ -81,12 +111,20 @@ export function RichTextEditor({
   onChange: (html: string) => void;
   placeholder?: string;
 }) {
+  const fileInput = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(0);
+  const [imageError, setImageError] = useState("");
+  // Set once the editor exists; paste/drop handlers call it.
+  const insertImagesRef = useRef<(files: File[], at?: number) => void>(() => undefined);
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
         heading: { levels: [2, 3] },
         link: { openOnClick: false, autolink: true, defaultProtocol: "https" }
-      })
+      }),
+      // Images pasted as web links are kept; files are uploaded first.
+      Image.configure({ inline: false, allowBase64: false })
     ],
     content: toRichTextHtml(value),
     immediatelyRender: false,
@@ -95,10 +133,45 @@ export function RichTextEditor({
       attributes: {
         class: "rich-text min-h-[260px] px-4 py-3 text-sm text-slate-900 outline-none",
         "aria-label": placeholder
+      },
+      handlePaste: (_view, event) => {
+        const files = imageFiles(event.clipboardData?.files);
+        if (files.length === 0) return false; // normal text/HTML paste
+        event.preventDefault();
+        insertImagesRef.current(files);
+        return true;
+      },
+      handleDrop: (view, event, _slice, moved) => {
+        if (moved) return false;
+        const files = imageFiles(event.dataTransfer?.files);
+        if (files.length === 0) return false;
+        event.preventDefault();
+        const at = view.posAtCoords({ left: event.clientX, top: event.clientY })?.pos;
+        insertImagesRef.current(files, at);
+        return true;
       }
     },
     onUpdate: ({ editor: current }) => onChange(current.isEmpty ? "" : current.getHTML())
   });
+
+  insertImagesRef.current = (files, at) => {
+    if (!editor) return;
+    setImageError("");
+    for (const file of files) {
+      setUploading((count) => count + 1);
+      void uploadImage(file)
+        .then((src) => {
+          const chain = editor.chain().focus();
+          (at === undefined ? chain : chain.setTextSelection(at))
+            .setImage({ src, alt: file.name.replace(/\.[^.]+$/, "") })
+            .run();
+        })
+        .catch((cause: unknown) =>
+          setImageError(cause instanceof Error ? cause.message : "Unable to upload the image.")
+        )
+        .finally(() => setUploading((count) => count - 1));
+    }
+  };
 
   // Load a different post's content (e.g. after clicking Edit or Reset).
   useEffect(() => {
@@ -134,7 +207,35 @@ export function RichTextEditor({
             })}
           </div>
         ))}
+        <div className="flex items-center gap-0.5">
+          <button
+            type="button"
+            title="Insert image"
+            aria-label="Insert image"
+            disabled={!editor}
+            onClick={() => fileInput.current?.click()}
+            className="flex h-8 w-8 items-center justify-center rounded text-slate-600 transition-colors hover:bg-slate-200 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-35"
+          >
+            {uploading > 0 ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImagePlus className="h-4 w-4" />}
+          </button>
+          <input
+            ref={fileInput}
+            type="file"
+            accept={IMAGE_TYPES.join(",")}
+            multiple
+            hidden
+            onChange={(event) => {
+              insertImagesRef.current(imageFiles(event.target.files));
+              event.target.value = "";
+            }}
+          />
+        </div>
       </div>
+      {imageError && (
+        <p role="alert" className="border-b border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700">
+          {imageError}
+        </p>
+      )}
       <EditorContent editor={editor} />
     </div>
   );
