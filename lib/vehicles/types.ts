@@ -59,6 +59,8 @@ export interface Vehicle {
   isFeatured: boolean;
   isNew: boolean;
   status: "Available" | "Reserved" | "Upcoming" | "On Request";
+  /** Uploaded PDF brochure, or null. */
+  brochureUrl?: string | null;
 }
 
 export interface VehicleFilterState {

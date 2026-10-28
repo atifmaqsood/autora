@@ -7,6 +7,7 @@ import { PartsGallery } from "@/components/parts/parts-gallery";
 import { PartsQuoteForm } from "@/components/parts/parts-quote-form";
 import { VehicleDetailInfo } from "@/components/vehicles/vehicle-detail-info";
 import { RelatedVehicles } from "@/components/vehicles/related-vehicles";
+import { BrochureViewer } from "@/components/parts/brochure-viewer";
 import {
   Reveal,
   RevealButton,
@@ -132,6 +133,13 @@ export default async function VehicleDetailPage({ params }: VehiclePageProps) {
         <Reveal key={`details-${vehicle.slug}`}>
           <VehicleDetailInfo vehicle={vehicle} />
         </Reveal>
+
+        {/* Only when the admin uploaded a brochure for this vehicle. */}
+        {vehicle.brochureUrl && (
+          <Reveal className="pt-8">
+            <BrochureViewer url={vehicle.brochureUrl} title={title} />
+          </Reveal>
+        )}
 
         <Reveal className="pt-8">
           <PartsQuoteForm

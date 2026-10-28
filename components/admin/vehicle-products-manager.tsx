@@ -69,6 +69,9 @@ export function VehicleProductsManager() {
   const [vehicles, setVehicles] = useState<ManagedVehicle[]>([]);
   const [draft, setDraft] = useState<Draft>(blank);
   const [images, setImages] = useState<File[]>([]);
+  const [brochure, setBrochure] = useState<File | null>(null);
+  const [currentBrochure, setCurrentBrochure] = useState<string | null>(null);
+  const [removeBrochure, setRemoveBrochure] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -115,6 +118,9 @@ export function VehicleProductsManager() {
     setEditingId(null);
     setDraft(blank);
     setImages([]);
+    setBrochure(null);
+    setCurrentBrochure(null);
+    setRemoveBrochure(false);
   }
   function edit(vehicle: ManagedVehicle) {
     setEditingId(vehicle.id);
@@ -161,6 +167,9 @@ export function VehicleProductsManager() {
       sortOrder: vehicle.sortOrder,
     });
     setImages([]);
+    setBrochure(null);
+    setCurrentBrochure(vehicle.brochureUrl ?? null);
+    setRemoveBrochure(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
   async function submit(event: FormEvent) {
@@ -176,6 +185,8 @@ export function VehicleProductsManager() {
       data.set(key, String(value)),
     );
     images.forEach((file) => data.append("images", file));
+    if (brochure) data.set("brochure", brochure);
+    else if (editingId && removeBrochure) data.set("removeBrochure", "true");
     try {
       const response = await adminFetch(
         editingId
@@ -359,6 +370,37 @@ export function VehicleProductsManager() {
               onChange={(e) => setImages(Array.from(e.target.files ?? []))}
               className="mt-1.5 bg-white text-slate-950"
             />
+          </div>
+          <div>
+            <Label>
+              Brochure (PDF){currentBrochure ? " — replaces current" : ""}
+            </Label>
+            <Input
+              type="file"
+              accept="application/pdf"
+              onChange={(e) => setBrochure(e.target.files?.[0] ?? null)}
+              className="mt-1.5 bg-white text-slate-950"
+            />
+            {currentBrochure && !brochure && (
+              <div className="mt-1.5 flex flex-wrap items-center gap-3 text-xs">
+                <a
+                  href={currentBrochure}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold text-blue-700 underline"
+                >
+                  View current brochure
+                </a>
+                <label className="flex items-center gap-1.5 text-slate-600">
+                  <input
+                    type="checkbox"
+                    checked={removeBrochure}
+                    onChange={(e) => setRemoveBrochure(e.target.checked)}
+                  />
+                  Remove brochure
+                </label>
+              </div>
+            )}
           </div>
         </div>
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
