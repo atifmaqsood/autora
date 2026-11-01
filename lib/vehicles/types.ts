@@ -61,6 +61,10 @@ export interface Vehicle {
   status: "Available" | "Reserved" | "Upcoming" | "On Request";
   /** Uploaded PDF brochure, or null. */
   brochureUrl?: string | null;
+  /** Uploaded video file, or null. */
+  videoUrl?: string | null;
+  /** YouTube video link (used when no video file is uploaded), or null. */
+  youtubeUrl?: string | null;
 }
 
 export interface VehicleFilterState {

@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import type { Vehicle } from "@/lib/vehicles/types";
 import { adminFetch } from "@/lib/admin/admin-fetch";
 import { useVehicleCategories } from "@/lib/vehicles/categories";
+import { YOUTUBE_URL } from "@/lib/youtube";
 
 const blank = {
   slug: "",
@@ -24,6 +25,7 @@ const blank = {
   model: "",
   variant: "",
   variantCode: "",
+  youtubeUrl: "",
   displayTitle: "",
   year: new Date().getFullYear(),
   category: "",
@@ -72,6 +74,14 @@ export function VehicleProductsManager() {
   const [brochure, setBrochure] = useState<File | null>(null);
   const [currentBrochure, setCurrentBrochure] = useState<string | null>(null);
   const [removeBrochure, setRemoveBrochure] = useState(false);
+  // One video per vehicle: an uploaded file or a YouTube link.
+  const [video, setVideo] = useState<File | null>(null);
+  const [currentVideo, setCurrentVideo] = useState<string | null>(null);
+  const [removeVideo, setRemoveVideo] = useState(false);
+  // Which kind of video the admin is adding; only that input is shown.
+  const [videoSource, setVideoSource] = useState<"file" | "youtube">("file");
+  // Bumped to clear the file pickers after a save or when editing.
+  const [fileKey, setFileKey] = useState(0);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -121,6 +131,11 @@ export function VehicleProductsManager() {
     setBrochure(null);
     setCurrentBrochure(null);
     setRemoveBrochure(false);
+    setVideo(null);
+    setCurrentVideo(null);
+    setRemoveVideo(false);
+    setVideoSource("file");
+    setFileKey((key) => key + 1);
   }
   function edit(vehicle: ManagedVehicle) {
     setEditingId(vehicle.id);
@@ -130,6 +145,7 @@ export function VehicleProductsManager() {
       model: vehicle.model,
       variant: vehicle.variant,
       variantCode: vehicle.variantCode ?? "",
+      youtubeUrl: vehicle.youtubeUrl ?? "",
       displayTitle: vehicle.displayTitle ?? `${vehicle.make} ${vehicle.model}`,
       year: vehicle.year,
       category: vehicle.category,
@@ -169,11 +185,24 @@ export function VehicleProductsManager() {
     setImages([]);
     setBrochure(null);
     setCurrentBrochure(vehicle.brochureUrl ?? null);
+    setVideo(null);
+    setCurrentVideo(vehicle.videoUrl ?? null);
+    setRemoveVideo(false);
+    setVideoSource(vehicle.youtubeUrl ? "youtube" : "file");
+    setFileKey((key) => key + 1);
     setRemoveBrochure(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
   async function submit(event: FormEvent) {
     event.preventDefault();
+    if (
+      videoSource === "youtube" &&
+      draft.youtubeUrl.trim() &&
+      !YOUTUBE_URL.test(draft.youtubeUrl.trim())
+    ) {
+      setError("Enter a valid YouTube video link (youtube.com or youtu.be).");
+      return;
+    }
     if (!editingId && !images.length) {
       setError("At least one vehicle image is required.");
       return;
@@ -187,6 +216,14 @@ export function VehicleProductsManager() {
     images.forEach((file) => data.append("images", file));
     if (brochure) data.set("brochure", brochure);
     else if (editingId && removeBrochure) data.set("removeBrochure", "true");
+    if (editingId && removeVideo) {
+      data.set("removeVideo", "true");
+      data.set("youtubeUrl", "");
+    } else if (videoSource === "file") {
+      // Only the file is sent; without a new one the current video stays.
+      data.delete("youtubeUrl");
+      if (video) data.set("video", video);
+    }
     try {
       const response = await adminFetch(
         editingId
@@ -364,6 +401,7 @@ export function VehicleProductsManager() {
               Gallery images {editingId ? "(replaces gallery)" : "*"}
             </Label>
             <Input
+              key={`file-${fileKey}`}
               type="file"
               multiple
               accept="image/jpeg,image/png,image/webp"
@@ -376,6 +414,7 @@ export function VehicleProductsManager() {
               Brochure (PDF){currentBrochure ? " — replaces current" : ""}
             </Label>
             <Input
+              key={`file-${fileKey}`}
               type="file"
               accept="application/pdf"
               onChange={(e) => setBrochure(e.target.files?.[0] ?? null)}
@@ -402,6 +441,91 @@ export function VehicleProductsManager() {
               </div>
             )}
           </div>
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <h4 className="font-black text-slate-950">Video</h4>
+          <p className="mt-0.5 text-xs text-slate-500">
+            Shown next to the brochure on the vehicle page, playing muted on a
+            loop. Choose one: upload a video or add a YouTube link.
+          </p>
+          <div
+            role="radiogroup"
+            aria-label="Video source"
+            className="mt-3 flex flex-wrap gap-2"
+          >
+            {(
+              [
+                ["file", "Upload from computer"],
+                ["youtube", "YouTube link"],
+              ] as const
+            ).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                role="radio"
+                aria-checked={videoSource === value}
+                onClick={() => {
+                  setVideoSource(value);
+                  if (value === "youtube") setVideo(null);
+                }}
+                className={`rounded-full border px-4 py-1.5 text-sm font-bold transition-colors ${videoSource === value ? "border-slate-950 bg-slate-950 text-white" : "border-slate-300 bg-white text-slate-700 hover:border-slate-500"}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <div className="mt-3 max-w-xl">
+            {videoSource === "file" ? (
+              <div>
+                <Label>
+                  Video file (MP4, WebM, MOV — max 200 MB)
+                  {currentVideo || draft.youtubeUrl ? " — replaces current" : ""}
+                </Label>
+                <Input
+                  key={`video-${fileKey}`}
+                  type="file"
+                  accept="video/mp4,video/webm,video/quicktime"
+                  onChange={(e) => setVideo(e.target.files?.[0] ?? null)}
+                  className="mt-1.5 bg-white text-slate-950"
+                />
+              </div>
+            ) : (
+              <div>
+                <Label>
+                  YouTube link{currentVideo ? " — replaces the uploaded video" : ""}
+                </Label>
+                <Input
+                  type="url"
+                  placeholder="https://www.youtube.com/watch?v=…"
+                  value={draft.youtubeUrl}
+                  onChange={(e) => set("youtubeUrl", e.target.value)}
+                  className="mt-1.5 bg-white text-slate-950"
+                />
+              </div>
+            )}
+          </div>
+          {(currentVideo || draft.youtubeUrl) && editingId && !video && (
+            <div className="mt-2 flex flex-wrap items-center gap-3 text-xs">
+              {currentVideo && (
+                <a
+                  href={currentVideo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold text-blue-700 underline"
+                >
+                  View current video
+                </a>
+              )}
+              <label className="flex items-center gap-1.5 text-slate-600">
+                <input
+                  type="checkbox"
+                  checked={removeVideo}
+                  onChange={(e) => setRemoveVideo(e.target.checked)}
+                />
+                Remove video
+              </label>
+            </div>
+          )}
         </div>
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
           <h4 className="font-black text-slate-950">Features</h4>

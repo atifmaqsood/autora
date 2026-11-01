@@ -53,6 +53,8 @@ export function CatalogManager({
   const [brochure, setBrochure] = useState<File | null>(null);
   const [currentBrochure, setCurrentBrochure] = useState<string | null>(null);
   const [removeBrochure, setRemoveBrochure] = useState(false);
+  // Bumped to clear the file pickers after a save or when editing.
+  const [fileKey, setFileKey] = useState(0);
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -109,6 +111,7 @@ export function CatalogManager({
     setBrochure(null);
     setCurrentBrochure(null);
     setRemoveBrochure(false);
+    setFileKey((key) => key + 1);
   }
   function editProduct(product: CatalogItem) {
     setEditingProduct(product.id);
@@ -126,6 +129,7 @@ export function CatalogManager({
     setProductImages([]);
     setBrochure(null);
     setCurrentBrochure(product.brochureUrl);
+    setFileKey((key) => key + 1);
     setRemoveBrochure(false);
   }
   async function saveProduct(event: FormEvent) {
@@ -360,6 +364,7 @@ export function CatalogManager({
               Gallery images {editingProduct ? "(replaces gallery)" : "*"}
             </Label>
             <Input
+              key={`file-${fileKey}`}
               type="file"
               multiple
               accept="image/jpeg,image/png,image/webp"
@@ -375,7 +380,8 @@ export function CatalogManager({
                 Brochure (PDF){currentBrochure ? " — replaces current" : ""}
               </Label>
               <Input
-                type="file"
+                key={`file-${fileKey}`}
+              type="file"
                 accept="application/pdf"
                 onChange={(e) => setBrochure(e.target.files?.[0] ?? null)}
                 className={control}

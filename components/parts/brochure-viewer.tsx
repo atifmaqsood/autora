@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, FileText, X } from "lucide-react";
+import { ArrowUpRight, Download, FileText, X } from "lucide-react";
+
+/** The brochure URL that downloads the PDF (named after the page) instead of opening it. */
+function downloadUrl(url: string, title: string) {
+  const name = `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "agtp"}-brochure.pdf`;
+  return `${url}${url.includes("?") ? "&" : "?"}download=${encodeURIComponent(name)}`;
+}
 
 export function BrochureViewer({ url, title }: { url: string; title: string }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -14,15 +20,26 @@ export function BrochureViewer({ url, title }: { url: string; title: string }) {
     return () => { document.body.style.overflow = previousOverflow; };
   }, [open]);
 
+  const download = downloadUrl(url, title);
+
   return (
     <>
-      <button
-        type="button"
-        onClick={() => { dialog.current?.showModal(); setOpen(true); }}
-        className="inline-flex items-center gap-3 rounded-full border border-[var(--agtp-secondary)] px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-[var(--agtp-secondary)]"
-      >
-        <FileText className="h-4 w-4" /> Open Brochure <ArrowUpRight className="h-4 w-4" />
-      </button>
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={() => { dialog.current?.showModal(); setOpen(true); }}
+          className="inline-flex items-center gap-3 rounded-full border border-[var(--agtp-secondary)] px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-[var(--agtp-secondary)]"
+        >
+          <FileText className="h-4 w-4" /> Open Brochure <ArrowUpRight className="h-4 w-4" />
+        </button>
+        <a
+          href={download}
+          download
+          className="inline-flex items-center gap-3 rounded-full bg-[var(--agtp-secondary)] px-7 py-3.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
+        >
+          <Download className="h-4 w-4" /> Download Brochure
+        </a>
+      </div>
       <dialog
         ref={dialog}
         aria-labelledby="brochure-title"
@@ -37,7 +54,10 @@ export function BrochureViewer({ url, title }: { url: string; title: string }) {
           </div>
           {open && <iframe src={url} title={`${title} PDF brochure`} className="min-h-0 w-full flex-1 border-0 bg-white" />}
           <div className="border-t border-white/15 px-6 py-3 text-sm">
-            <a href={url} target="_blank" rel="noopener noreferrer" className="text-[var(--agtp-secondary)] underline underline-offset-4">Open PDF in a new tab</a>
+            <div className="flex flex-wrap gap-5">
+              <a href={url} target="_blank" rel="noopener noreferrer" className="text-[var(--agtp-secondary)] underline underline-offset-4">Open PDF in a new tab</a>
+              <a href={download} download className="inline-flex items-center gap-1.5 text-[var(--agtp-secondary)] underline underline-offset-4"><Download className="h-4 w-4" /> Download PDF</a>
+            </div>
           </div>
         </div>
       </dialog>
